@@ -1,34 +1,44 @@
 # US Flight Tracker Placefile
 
-A nationwide ADS-B aircraft layer for AquaCeroWx / GRLevelX, using OpenSky Network's free public API.
+AquaCeroWx / GRLevelX placefile using live community ADS-B data from [ADSB.lol](https://www.adsb.lol/).
 
 ## Placefile URL
-`https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/flighttracker.txt`
+https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/flighttracker.txt
 
-Add it in AquaCeroWx: **Edit Layers → Add Layer → Custom Layer → Live link**, paste the URL, then **Continue → Save & Load**. Enable **Show icons** and **Show text**.
+## Data source
+The collector now uses the ADSB.lol public v2 API instead of OpenSky. Aircraft details include callsign, registration, ICAO type, altitude, ground speed, heading and squawk when provided by receivers.
 
-## What was fixed
-- Uses valid GRLevelX placefile structure: `Object:`, `Icon:`, `Text:`, and `End:`.
-- Adds a real transparent PNG icon sprite sheet at `assets/aircraft.png` and declares it with `IconFile:`.
-- Six icon types: commercial airliner, private/general aviation, helicopter, cargo, military, and unknown.
-- Adds hover details including callsign, registration/model when known, altitude, speed, heading, ICAO24 and squawk.
-- Requests OpenSky's extended state-vector response to obtain aircraft category.
+API docs: https://www.adsb.lol/docs/open-data/api  
+API key request: https://www.adsb.lol/request  
+Feeder information: https://www.adsb.lol/docs
 
-## Updates and free API limits
-The committed GitHub placefile is a snapshot refreshed by GitHub Actions every 15 minutes. A nationwide OpenSky bounding-box query costs 4 API credits; anonymous access has 400 credits/day, so a 15-minute cadence uses 384 credits/day. The source data itself has 10-second resolution for anonymous access, but repeatedly querying the entire country every 10 seconds would exceed the free daily allowance.
+## Important coverage and refresh limits
+The free public API supports point-radius queries. This implementation samples four 250-nautical-mile circles (Northeast, Southeast, Central and West) and de-duplicates aircraft. **This is not complete wall-to-wall U.S. coverage; there are substantial gaps.**
 
-For faster refreshes, run `python flighttracker.py` on an always-on computer with OpenSky API credentials configured and a suitable authenticated quota. GitHub Actions is not a one-second streaming server; its schedule cannot publish a new file every second.
+The public no-key allowance is 500 requests/day per IP. Four requests per collection cycle means the GitHub workflow runs every 15 minutes (384 requests/day). ADSB.lol documents a free adhoc key at 1,000/day and a free feeder key at 7,200/day plus feeder-only raw re-api access. The feeder-only worldwide snapshot is available twice per minute. See the provider's current documentation for terms and quota.
 
-## Run locally
+A true nationwide snapshot requires a feeder key and the feeder-only re-api / whole-world endpoint. The feeder endpoint is restricted to the feeder's IP; for a remote GitHub-hosted collector you would need a secure VPN/proxy arrangement or run the collector on the feeder host. Do not expose API keys in this repository.
+
+## Aircraft icons
+- 1: Commercial airliner (red)
+- 2: Private / regional (blue)
+- 3: Helicopter (yellow)
+- 4: Cargo (green)
+- 5: Military (purple)
+- 6: Unknown (gray)
+
+Icon sprite: [assets/aircraft.png](assets/aircraft.png)
+
+## Running locally
 ```bash
-python -m pip install -r requirements.txt
-python generate_assets.py
 python flighttracker.py
 ```
-The script writes `flighttracker.txt` in its working directory. Set `POLL_SECONDS` to a value of at least 900 for anonymous nationwide polling. The script enforces a 15-minute minimum to protect the free API allowance.
+Optional environment variables:
+- `ADSBLOL_API_KEY`: optional API key in the request header
+- `POLL_SECONDS`: minimum is 900 seconds in this four-region free-tier configuration
+- `PLACEFILE_OUTPUT`: output filename
 
-## Data limitations
-This is ADS-B receiver-network coverage, not a complete FAA radar feed. Aircraft that do not transmit compatible data or are outside receiver coverage will not appear. Aircraft type metadata is incomplete; unidentified aircraft use the gray unknown icon.
+The GitHub Actions workflow publishes snapshots every 15 minutes. The placefile's `Refresh: 10` controls AquaCeroWx's file reread interval; it does not make the underlying data update every 10 seconds.
 
-OpenSky API documentation: https://openskynetwork.github.io/opensky-api/rest.html  
-Aircraft metadata: https://github.com/openskynetwork/opensky-aircraft-database
+## License and operational note
+ADSB.lol publishes its API data under ODbL 1.0. Review attribution, share-alike and other license obligations before redistributing or operating a public-facing service. This is community ADS-B data, not certified aviation surveillance and not suitable for dispatch or safety-critical decisions.
