@@ -90,7 +90,9 @@ def render(states, db, stamp):
     return "\n".join(lines)+"\n"
 
 def main():
+    import sys
     db=aircraft_db()
+    once="--once" in sys.argv
     while True:
       started=time.monotonic()
       try:
@@ -101,6 +103,7 @@ def main():
         tmp=OUT.with_suffix(OUT.suffix+".tmp"); tmp.write_text(txt,encoding="utf-8"); tmp.replace(OUT)
         print(stamp.isoformat(),"updated",OUT)
       except Exception as e: print("Update error:",e)
+      if once: break
       time.sleep(max(1,POLL-(time.monotonic()-started)))
 
 if __name__=="__main__": main()
