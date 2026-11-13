@@ -6,17 +6,51 @@ from pathlib import Path
 
 API = "https://opensky-network.org/api/states/all"
 OUT = Path(os.getenv("PLACEFILE_OUTPUT", "flighttracker.txt"))
-# Anonymous OpenSky API: 400 credits/day; this national bounding box costs 4.
-# 15 minutes keeps a public anonymous collector within the daily allowance.
-POLL = max(900, int(os.getenv("POLL_SECONDS", "900")))
+# Local collector targets 10 seconds. OpenSky quotas may require slower polling:
+# anonymous 400/day ~= 14.4 min; standard 4,000/day ~= 86 sec;
+# active feeder 8,000/day ~= 43 sec; licensed tier can support 10 sec.
+POLL = max(10, int(os.getenv("POLL_SECONDS", "10")))
+CLIENT_ID = os.getenv("OPENSKY_CLIENT_ID")
+CLIENT_SECRET = os.getenv("OPENSKY_CLIENT_SECRET")
+TOKEN_URL = "https://auth.opensky-network.org/auth/realms/opensky-network/protocol/openid-connect/token"
+_token = None
+_token_expiry = 0)
 BOUNDS = {"lamin":17, "lamax":72, "lomin":-180, "lomax":-60}
 ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png"
 DB_URL = "https://raw.githubusercontent.com/openskynetwork/opensky-aircraft-database/master/aircraftDatabase.csv"
 DB_FILE = Path("aircraftDatabase.csv")
 
+def access_token():
+    global _token, _token_expiry
+    if not (CLIENT_ID and CLIENT_SECRET):
+        return None
+    if _token and time.time() < _token_expiry:
+        return _token
+    body=urllib.parse.urlencode({
+        "grant_type":"client_credentials",
+        "client_id":CLIENT_ID,
+        "client_secret":CLIENT_SECRET
+    }).encode()
+    req=urllib.request.Request(TOKEN_URL,data=body,headers={
+        "Content-Type":"application/x-www-form-urlencoded",
+        "User-Agent":"USFlightTrackerPlacefile/1.0"
+    })
+    with urllib.request.urlopen(req,timeout=30) as r:
+        payload=json.loads(r.read())
+    _token=payload["access_token"]
+    _token_expiry=time.time()+max(60,int(payload.get("expires_in",1800))-60)
+    return _token
+
 def get(url):
-    req=urllib.request.Request(url,headers={"User-Agent":"USFlightTrackerPlacefile/1.0"})
-    with urllib.request.urlopen(req,timeout=45) as r: return r.read()
+    headers={"User-Agent":"USFlightTrackerPlacefile/1.0"}
+    token=access_token()
+    if token: headers["Authorization"]="Bearer "+token
+    req=urllib.request.Request(url,headers=headers)
+    with urllib.request.urlopen(req,timeout=45) as r:
+        remaining=r.headers.get("X-Rate-Limit-Remaining")
+        if remaining is not None:
+            print("OpenSky state credits remaining:",remaining)
+        return r.read()
 
 def aircraft_db():
     try:
@@ -49,7 +83,7 @@ def render(states, db, stamp):
     lines = [
       "; US Flight Tracker - OpenSky Network ADS-B",
       "Title: US FLIGHT TRACKER",
-      "Refresh: 900",
+      "Refresh: 10",
       "Color: 235 235 235",
       'Font: 1, 10, 1, "Arial"',
       'IconFile: 1, 32, 32, 16, 16, "'+ICON_URL+'"',
@@ -102,7 +136,10 @@ def main():
         txt=render(data.get("states") or [],db,stamp)
         tmp=OUT.with_suffix(OUT.suffix+".tmp"); tmp.write_text(txt,encoding="utf-8"); tmp.replace(OUT)
         print(stamp.isoformat(),"updated",OUT)
-      except Exception as e: print("Update error:",e)
+      except Exception as e:
+        print("Update error:",e)
+        retry=getattr(getattr(e,"headers",None),"get",lambda *_:None)("X-Rate-Limit-Retry-After-Seconds")
+        if retry: time.sleep(max(30,int(retry)))
       if once: break
       time.sleep(max(1,POLL-(time.monotonic()-started)))
 
