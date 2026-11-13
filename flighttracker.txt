@@ -1,0 +1,6 @@
+Title: US FLIGHT TRACKER
+Refresh: 10
+Color: 255 255 255
+Font: 1, 10, 1, 'Arial'
+; Initial placefile header. GitHub Actions will populate this file on its next scheduled run.
+; For near-live local tracking, run flighttracker.py continuously instead.
