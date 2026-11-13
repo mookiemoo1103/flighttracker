@@ -1,6 +1,6 @@
 ; US Flight Tracker - OpenSky Network ADS-B
 Title: US FLIGHT TRACKER
-Refresh: 900
+Refresh: 10
 Color: 235 235 235
 Font: 1, 10, 1, "Arial"
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png"
