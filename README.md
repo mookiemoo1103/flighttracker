@@ -1,44 +1,36 @@
 # US Flight Tracker Placefile
 
-AquaCeroWx / GRLevelX placefile using live community ADS-B data from [ADSB.lol](https://www.adsb.lol/).
+AquaCeroWx / GRLevelX placefile using the public **adsb.fi** community ADS-B API.
 
 ## Placefile URL
 https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/flighttracker.txt
 
-## Data source
-The collector now uses the ADSB.lol public v2 API instead of OpenSky. Aircraft details include callsign, registration, ICAO type, altitude, ground speed, heading and squawk when provided by receivers.
+## Data source and limits
+- Source: [adsb.fi](https://adsb.fi/) public API: https://opendata.adsb.fi/api/
+- No account, API key, or receiver contribution is required for public point queries.
+- Public API limit: **1 request per second**; each geographic query supports up to 250 NM.
+- The collector samples 21 overlapping 250-NM circles across the contiguous United States. A complete sweep takes approximately 22 seconds, subject to network and API response time. Coverage is community-receiver dependent and cannot guarantee every aircraft or continuous nationwide visibility.
+- adsb.fi's terms currently restrict public API use to personal, non-commercial purposes and require attribution. This project includes attribution in the placefile. See the provider documentation before broader redistribution.
 
-API docs: https://www.adsb.lol/docs/open-data/api  
-API key request: https://www.adsb.lol/request  
-Feeder information: https://www.adsb.lol/docs
+## Placefile display
+- Six existing category colors are retained.
+- The uploaded airplane silhouette is used as a transparent PNG icon, with the nose rotated to the reported track.
+- Aircraft ID, speed in knots, and altitude are printed below the icon.
+- Commercial aircraft show an airline/operator name when it can be identified from callsign/operator metadata.
+- Military aircraft show a service branch only when the operator/description metadata identifies it; otherwise the label says branch unknown rather than guessing.
+- Click/hover details include registration, aircraft type and ICAO24.
 
-## Important coverage and refresh limits
-The free public API supports point-radius queries. This implementation samples four 250-nautical-mile circles (Northeast, Southeast, Central and West) and de-duplicates aircraft. **This is not complete wall-to-wall U.S. coverage; there are substantial gaps.**
-
-The public no-key allowance is 500 requests/day per IP. Four requests per collection cycle means the GitHub workflow runs every 15 minutes (384 requests/day). ADSB.lol documents a free adhoc key at 1,000/day and a free feeder key at 7,200/day plus feeder-only raw re-api access. The feeder-only worldwide snapshot is available twice per minute. See the provider's current documentation for terms and quota.
-
-A true nationwide snapshot requires a feeder key and the feeder-only re-api / whole-world endpoint. The feeder endpoint is restricted to the feeder's IP; for a remote GitHub-hosted collector you would need a secure VPN/proxy arrangement or run the collector on the feeder host. Do not expose API keys in this repository.
-
-## Aircraft icons
-- 1: Commercial airliner (red)
-- 2: Private / regional (blue)
-- 3: Helicopter (yellow)
-- 4: Cargo (green)
-- 5: Military (purple)
-- 6: Unknown (gray)
-
-Icon sprite: [assets/aircraft.png](assets/aircraft.png)
-
-## Running locally
+## Refresh behavior
+The placefile header requests a 10-second reread by AquaCeroWx; that does not change source data freshness. The GitHub Actions workflow republishes on its scheduled cadence (once per minute). For a true seconds-level refresh, run the collector continuously on a computer/server that remains online:
 ```bash
+pip install -r requirements.txt
 python flighttracker.py
-```
+``
 Optional environment variables:
-- `ADSBLOL_API_KEY`: optional API key in the request header
-- `POLL_SECONDS`: minimum is 900 seconds in this four-region free-tier configuration
-- `PLACEFILE_OUTPUT`: output filename
+- `POLL_SECONDS`: minimum 20 seconds (default 30); each sweep itself takes about 22 seconds.
+- `PLACEFILE_OUTPUT`: output filename.
 
-The GitHub Actions workflow publishes snapshots every 15 minutes. The placefile's `Refresh: 10` controls AquaCeroWx's file reread interval; it does not make the underlying data update every 10 seconds.
+GitHub-hosted scheduled workflows cannot run every few seconds. The script supports `--once` for scheduled publishing and continuous mode for a continuously running host.
 
-## License and operational note
-ADSB.lol publishes its API data under ODbL 1.0. Review attribution, share-alike and other license obligations before redistributing or operating a public-facing service. This is community ADS-B data, not certified aviation surveillance and not suitable for dispatch or safety-critical decisions.
+## Operational note
+Community ADS-B is not certified aviation surveillance and is not suitable for dispatch or safety-critical decisions. 
