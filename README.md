@@ -1,43 +1,34 @@
 # US Flight Tracker Placefile
 
-A live US air-traffic placefile generated from the free OpenSky Network public ADS-B API.
+A nationwide ADS-B aircraft layer for AquaCeroWx / GRLevelX, using OpenSky Network's free public API.
 
-## Files
-- `flighttracker.py` — polls OpenSky, enriches aircraft via the public aircraft database, and writes `flighttracker.txt`.
-- `flighttracker.txt` — generated placefile; it is intentionally not committed as a live snapshot because it becomes stale immediately.
-- `.github/workflows/update-placefile.yml` — optional scheduled snapshot workflow (GitHub Actions cadence is minutes, not seconds).
+## Placefile URL
+`https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/flighttracker.txt`
 
-## Live operation (recommended)
-Run the collector on a computer that remains online, then point AquaCeroWx/GRLevelX at the generated `flighttracker.txt` file or serve it from a local web server.
+Add it in AquaCeroWx: **Edit Layers → Add Layer → Custom Layer → Live link**, paste the URL, then **Continue → Save & Load**. Enable **Show icons** and **Show text**.
 
+## What was fixed
+- Uses valid GRLevelX placefile structure: `Object:`, `Icon:`, `Text:`, and `End:`.
+- Adds a real transparent PNG icon sprite sheet at `assets/aircraft.png` and declares it with `IconFile:`.
+- Six icon types: commercial airliner, private/general aviation, helicopter, cargo, military, and unknown.
+- Adds hover details including callsign, registration/model when known, altitude, speed, heading, ICAO24 and squawk.
+- Requests OpenSky's extended state-vector response to obtain aircraft category.
+
+## Updates and free API limits
+The committed GitHub placefile is a snapshot refreshed by GitHub Actions every 15 minutes. A nationwide OpenSky bounding-box query costs 4 API credits; anonymous access has 400 credits/day, so a 15-minute cadence uses 384 credits/day. The source data itself has 10-second resolution for anonymous access, but repeatedly querying the entire country every 10 seconds would exceed the free daily allowance.
+
+For faster refreshes, run `python flighttracker.py` on an always-on computer with OpenSky API credentials configured and a suitable authenticated quota. GitHub Actions is not a one-second streaming server; its schedule cannot publish a new file every second.
+
+## Run locally
 ```bash
-python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python generate_assets.py
 python flighttracker.py
 ```
+The script writes `flighttracker.txt` in its working directory. Set `POLL_SECONDS` to a value of at least 900 for anonymous nationwide polling. The script enforces a 15-minute minimum to protect the free API allowance.
 
-The script refreshes at a conservative 10-second target. OpenSky's anonymous public feed itself has approximately 10-second resolution and rate limits; polling every second would not provide newer data and would unnecessarily consume service capacity. The client placefile refresh header is 10 seconds.
+## Data limitations
+This is ADS-B receiver-network coverage, not a complete FAA radar feed. Aircraft that do not transmit compatible data or are outside receiver coverage will not appear. Aircraft type metadata is incomplete; unidentified aircraft use the gray unknown icon.
 
-## Coverage and limitations
-The query uses broad geographic bounds intended to include the United States and nearby airspace. The feed is ADS-B-derived, not a complete radar picture: aircraft without suitable transponders, aircraft not received by participating sensors, and some low-altitude/remote traffic may be missing. Aircraft metadata is incomplete for some hex codes; those targets are marked as unknown rather than guessed.
-
-Aircraft categories are color-coded:
-- **Commercial airliners:** red
-- **Regional airline aircraft:** orange
-- **Private / general aviation:** blue
-- **Helicopters:** yellow
-- **Military:** purple (only when metadata/callsign identifies it)
-- **Cargo:** green
-- **Unclassified:** gray
-
-## Data source and terms
-OpenSky Network API: https://openskynetwork.github.io/opensky-api/rest.html  
-OpenSky aircraft metadata: https://github.com/openskynetwork/opensky-aircraft-database
-
-OpenSky documents the API as intended for research/non-commercial use and applies API-credit/rate limits. Review its current terms and limits before operational or commercial use. This tool is for situational awareness only, not aviation safety or dispatch decisions.
-
-## Configuration
-Environment variables:
-- `POLL_SECONDS` (default 10; enforced minimum 10)
-- `LAT_MIN`, `LAT_MAX`, `LON_MIN`, `LON_MAX` (geographic bounds)
-- `OPENSKY_URL` (API endpoint)
-- `PLACEFILE_OUTPUT` (output filename)
+OpenSky API documentation: https://openskynetwork.github.io/opensky-api/rest.html  
+Aircraft metadata: https://github.com/openskynetwork/opensky-aircraft-database
