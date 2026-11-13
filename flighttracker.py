@@ -9,7 +9,8 @@ OUT = Path(os.getenv("PLACEFILE_OUTPUT", "flighttracker.txt"))
 # Local collector targets 10 seconds. OpenSky quotas may require slower polling:
 # anonymous 400/day ~= 14.4 min; standard 4,000/day ~= 86 sec;
 # active feeder 8,000/day ~= 43 sec; licensed tier can support 10 sec.
-POLL = max(10, int(os.getenv("POLL_SECONDS", "10")))
+DEFAULT_POLL = "86" if (os.getenv("OPENSKY_CLIENT_ID") and os.getenv("OPENSKY_CLIENT_SECRET")) else "900"
+POLL = max(10, int(os.getenv("POLL_SECONDS", DEFAULT_POLL)))
 CLIENT_ID = os.getenv("OPENSKY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("OPENSKY_CLIENT_SECRET")
 TOKEN_URL = "https://auth.opensky-network.org/auth/realms/opensky-network/protocol/openid-connect/token"
