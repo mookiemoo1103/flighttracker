@@ -1,0 +1,80 @@
+name: Generate flight tracker placefile snapshot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate one snapshot
+        run: |
+          python - <<'PY'
+          import json, urllib.parse, urllib.request, datetime
+          from pathlib import Path
+          params = urllib.parse.urlencode({
+              "lamin": 17, "lamax": 72, "lomin": -180, "lomax": -60
+          })
+          req = urllib.request.Request(
+              "https://opensky-network.org/api/states/all?" + params,
+              headers={"User-Agent": "FlightTrackerPlacefile/1.0"}
+          )
+          with urllib.request.urlopen(req, timeout=45) as response:
+              payload = json.load(response)
+          states = payload.get("states") or []
+          # GitHub Actions runs on a five-minute schedule; publish only a snapshot
+          # of the upstream feed's latest available positions.
+          lines = [
+              "Title: US FLIGHT TRACKER",
+              "Refresh: 10",
+              "Color: 255 255 255",
+              "Font: 1, 10, 1, 'Arial'",
+              "; Source: OpenSky Network public ADS-B API",
+              "; Generated: " + datetime.datetime.now(datetime.timezone.utc).isoformat(),
+          ]
+          for s in states:
+              if len(s) < 11 or s[5] is None or s[6] is None or s[8]:
+                  continue
+              try:
+                  lon, lat = float(s[5]), float(s[6])
+                  if not (17 <= lat <= 72 and -180 <= lon <= -60):
+                      continue
+                  cs = (s[1] or "NO CALLSIGN").strip().replace("'", "")
+                  category = s[17] if len(s) > 17 else 0
+                  if category == 8:
+                      kind, color = "HELICOPTER", "255 210 40"
+                  elif category in (2, 3, 4):
+                      kind, color = "AIRLINER", "255 70 70"
+                  elif cs.startswith("N") and len(cs) >= 3:
+                      kind, color = "PRIVATE", "70 170 255"
+                  else:
+                      kind, color = "AIRCRAFT", "170 170 170"
+                  heading = float(s[10] or 0)
+                  lines += [f"Color: {color}",
+                            f"Text: {lat:.5f}, {lon:.5f}, 1, 0, 10, '{kind} {cs}'",
+                            f"Object: {lat:.5f}, {lon:.5f}, {heading:.0f}, 1, 0, 0, '{kind} {cs}'"]
+              except (TypeError, ValueError, IndexError):
+                  pass
+          Path("flighttracker.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          print(f"Published snapshot with {len(states)} source targets")
+          PY
+      - name: Commit updated placefile
+        run: |
+          if git diff --quiet -- flighttracker.txt; then
+            echo "No placefile changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add flighttracker.txt
+          git commit -m "Update flight tracker placefile snapshot"
+          git push
