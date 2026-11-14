@@ -8,7 +8,7 @@ API = "https://api.flyitalyadsb.com/v2/lat"
 KEY = os.getenv("FLYITALYADSB_API_KEY", "").strip()
 OUT = Path(os.getenv("PLACEFILE_OUTPUT", "flighttracker.txt"))
 CACHE = Path(os.getenv("AIRCRAFT_CACHE", "aircraft_cache.json"))
-ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png"
+ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png?v=2"
 REQUEST_GAP = 1.25
 BATCH_SIZE = 28
 BATCH_PAUSE = 61  # stay below the free plan's rolling 30-requests/minute limit
