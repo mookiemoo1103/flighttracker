@@ -1,2494 +1,731 @@
-; ADSB.lol community ADS-B data
-Title: US FLIGHT TRACKER - ADSB.LOL
+; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0
+Title: US FLIGHT TRACKER - FLYITALYADSB
 Refresh: 10
 Color: 235 235 235
 Font: 1, 10, 1, "Arial"
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png"
-; Updated: 2026-11-13 23:54:30 UTC
-; Coverage: four 250-NM regional sample circles; gaps remain
-; Icons: 1 airliner, 2 private/regional, 3 helicopter, 4 cargo, 5 military, 6 unknown
-Object: 40.34349,-80.29651
+; Updated: 2026-11-14 00:11:48 UTC
+; Active aircraft cached across rotating U.S. regions: 113
+; API quota used this month: unknown / unknown
+Object: 29.12485,-112.41982
 Threshold: 999
-Icon: 0,0,64,1,1,"COMMERCIAL AIRLINER\nCallsign: ASA8\nRegistration: N801AK\nAircraft type: B38M\nAltitude: 6675\nGround speed: 258.1 kt\nHeading: 64 deg\nICAO24: aae59e\nSquawk: 3677"
-Text: 20,0,1,"ASA8 | 6675"
+Icon: 0,0,131,1,1,"COMMERCIAL\nID: VIV3111\nSpeed: 519 KT\nAltitude: 34,975 FT\nRegistration: XA-VBN\nAircraft type: A321\nICAO24: 0d0d75"
+Text: 0,22,1,"VIV3111"
+Text: 0,34,1,"519 KT | 34,975 FT"
 End:
-Object: 40.49285,-80.24141
+Object: 29.15041,-111.72196
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL8122\nRegistration: N34562\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a3d326\nSquawk: "
-Text: 20,0,1,"UAL8122 | ground"
+Icon: 0,0,128,1,1,"COMMERCIAL\nID: AMX181\nAeromexico\nSpeed: 527 KT\nAltitude: 31,000 FT\nRegistration: N499AM\nAircraft type: B39M\nICAO24: a63193"
+Text: 0,22,1,"AMX181"
+Text: 0,34,1,"527 KT | 31,000 FT"
+Text: 0,46,1,"Aeromexico"
 End:
-Object: 40.48640,-80.23910
+Object: 27.84382,-111.10590
 Threshold: 999
-Icon: 0,0,272,1,1,"COMMERCIAL AIRLINER\nCallsign: BAW171\nRegistration: G-ZBJM\nAircraft type: B788\nAltitude: ground\nGround speed: 50.5 kt\nHeading: 272 deg\nICAO24: 4074e4\nSquawk: 2404"
-Text: 20,0,1,"BAW171 | ground"
+Icon: 0,0,322,1,1,"COMMERCIAL\nID: VOI7416\nSpeed: 366 KT\nAltitude: 34,000 FT\nRegistration: XA-VRE\nAircraft type: A20N\nICAO24: 0d0b10"
+Text: 0,22,1,"VOI7416"
+Text: 0,34,1,"366 KT | 34,000 FT"
 End:
-Object: 42.28479,-79.35208
+Object: 29.08374,-111.07109
 Threshold: 999
-Icon: 0,0,3,1,1,"COMMERCIAL AIRLINER\nCallsign: WJA2885\nRegistration: C-GWJN\nAircraft type: B38M\nAltitude: 26725\nGround speed: 348.6 kt\nHeading: 3 deg\nICAO24: c07fb8\nSquawk: 7444"
-Text: 20,0,1,"WJA2885 | 26725"
+Icon: 0,0,240,1,1,"COMMERCIAL\nID: AMX713\nAeromexico\nSpeed: 160 KT\nAltitude: 1,450 FT\nRegistration: XA-MAZ\nAircraft type: B39M\nICAO24: 0d0ba1"
+Text: 0,22,1,"AMX713"
+Text: 0,34,1,"160 KT | 1,450 FT"
+Text: 0,46,1,"Aeromexico"
 End:
-Object: 38.02889,-79.06275
+Object: 28.89304,-110.53487
 Threshold: 999
-Icon: 0,0,57,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: SERMP\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: 41000\nGround speed: 549.8 kt\nHeading: 57 deg\nICAO24: 4ac9b0\nSquawk: 7166"
-Text: 20,0,1,"SERMP | 41000"
+Icon: 0,0,113,1,2,"PRIVATE / GENERAL AVIATION\nID: VTM659\nSpeed: 243 KT\nAltitude: 14,800 FT\nRegistration: XA-UUM\nAircraft type: SW4\nICAO24: 0d0afb"
+Text: 0,22,1,"VTM659"
+Text: 0,34,1,"243 KT | 14,800 FT"
 End:
-Object: 42.70861,-78.71053
+Object: 28.46915,-105.91803
 Threshold: 999
-Icon: 0,0,88,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1734\nRegistration: N2165J\nAircraft type: A21N\nAltitude: 35025\nGround speed: 451.4 kt\nHeading: 88 deg\nICAO24: a1d2dc\nSquawk: 2664"
-Text: 20,0,1,"JBU1734 | 35025"
+Icon: 0,0,295,1,1,"COMMERCIAL\nID: VOI5610\nSpeed: 384 KT\nAltitude: 32,000 FT\nRegistration: N525VL\nAircraft type: A320\nICAO24: a69d67"
+Text: 0,22,1,"VOI5610"
+Text: 0,34,1,"384 KT | 32,000 FT"
 End:
-Object: 40.08953,-78.40986
+Object: 25.73721,-103.54406
 Threshold: 999
-Icon: 0,0,355,1,1,"COMMERCIAL AIRLINER\nCallsign: ACA1411\nRegistration: C-FNNU\nAircraft type: B77W\nAltitude: 37000\nGround speed: 498.8 kt\nHeading: 355 deg\nICAO24: c023bb\nSquawk: 7427"
-Text: 20,0,1,"ACA1411 | 37000"
+Icon: 0,0,325,1,1,"COMMERCIAL\nID: AMX117\nAeromexico\nSpeed: 417 KT\nAltitude: 36,000 FT\nRegistration: XA-GQS\nAircraft type: B39M\nICAO24: 0d0ff6"
+Text: 0,22,1,"AMX117"
+Text: 0,34,1,"417 KT | 36,000 FT"
+Text: 0,46,1,"Aeromexico"
 End:
-Object: 41.88379,-78.35009
+Object: 24.45613,-103.10845
 Threshold: 999
-Icon: 0,0,93,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL32\nRegistration: N110AN\nAircraft type: A321\nAltitude: 35025\nGround speed: 463.5 kt\nHeading: 93 deg\nICAO24: a02c40\nSquawk: 2074"
-Text: 20,0,1,"AAL32 | 35025"
+Icon: 0,0,347,1,1,"COMMERCIAL\nID: XAUVP\nSpeed: 305 KT\nAltitude: 27,175 FT\nRegistration: XA-UVP\nAircraft type: B350\nICAO24: 0d08d8"
+Text: 0,22,1,"XAUVP"
+Text: 0,34,1,"305 KT | 27,175 FT"
 End:
-Object: 37.46901,-78.14653
+Object: 24.59898,-102.55132
 Threshold: 999
-Icon: 0,0,355,1,1,"COMMERCIAL AIRLINER\nCallsign: ROU1719\nRegistration: C-GMEX\nAircraft type: B38M\nAltitude: 41000\nGround speed: 482.6 kt\nHeading: 355 deg\nICAO24: c064d8\nSquawk: 3156"
-Text: 20,0,1,"ROU1719 | 41000"
+Icon: 0,0,231,1,2,"PRIVATE / GENERAL AVIATION\nID: N330WS\nSpeed: 318 KT\nAltitude: 40,000 FT\nRegistration: N330WS\nAircraft type: C25B\nICAO24: a397d4"
+Text: 0,22,1,"N330WS"
+Text: 0,34,1,"318 KT | 40,000 FT"
 End:
-Object: 38.13713,-77.95110
+Object: 24.78767,-102.47843
 Threshold: 999
-Icon: 0,0,152,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N42261\nRegistration: N42261\nAircraft type: C182\nAltitude: 4500\nGround speed: 106.5 kt\nHeading: 152 deg\nICAO24: a50651\nSquawk: 1200"
-Text: 20,0,1,"N42261 | 4500"
+Icon: 0,0,150,1,1,"COMMERCIAL\nID: AMX118\nAeromexico\nSpeed: 487 KT\nAltitude: 35,000 FT\nRegistration: XA-DAL\nAircraft type: B38M\nICAO24: 0d0e14"
+Text: 0,22,1,"AMX118"
+Text: 0,34,1,"487 KT | 35,000 FT"
+Text: 0,46,1,"Aeromexico"
 End:
-Object: 38.22041,-77.73908
+Object: 26.48222,-102.33143
 Threshold: 999
-Icon: 0,0,58,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL1181\nRegistration: N424AN\nAircraft type: A21N\nAltitude: 29000\nGround speed: 493.3 kt\nHeading: 58 deg\nICAO24: a50a88\nSquawk: 1676"
-Text: 20,0,1,"AAL1181 | 29000"
+Icon: 0,0,303,1,2,"PRIVATE / GENERAL AVIATION\nID: VTM355\nSpeed: 385 KT\nAltitude: 31,450 FT\nRegistration: XA-UUT\nAircraft type: DC93\nICAO24: 0d089a"
+Text: 0,22,1,"VTM355"
+Text: 0,34,1,"385 KT | 31,450 FT"
 End:
-Object: 44.13701,-77.69374
+Object: 27.23236,-101.05935
 Threshold: 999
-Icon: 0,0,65,1,1,"COMMERCIAL AIRLINER\nCallsign: BAW5CA\nRegistration: G-ZBKN\nAircraft type: B789\nAltitude: 27075\nGround speed: 454.1 kt\nHeading: 65 deg\nICAO24: 406f7a\nSquawk: 2210"
-Text: 20,0,1,"BAW5CA | 27075"
+Icon: 0,0,130,1,2,"PRIVATE / GENERAL AVIATION\nID: N852TS\nSpeed: 198 KT\nAltitude: 15,000 FT\nRegistration: N852TS\nAircraft type: C414\nICAO24: abb080"
+Text: 0,22,1,"N852TS"
+Text: 0,34,1,"198 KT | 15,000 FT"
 End:
-Object: 43.90869,-77.55364
+Object: 26.90100,-100.80051
 Threshold: 999
-Icon: 0,0,252,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: POE2514\nRegistration: C-GLQP\nAircraft type: DH8D\nAltitude: 24000\nGround speed: 361.2 kt\nHeading: 252 deg\nICAO24: c06364\nSquawk: 6532"
-Text: 20,0,1,"POE2514 | 24000"
+Icon: 0,0,124,1,1,"COMMERCIAL\nID: VV8012\nSpeed: 475 KT\nAltitude: 29,975 FT\nRegistration: XA-VAE\nAircraft type: A320\nICAO24: 0d08f3"
+Text: 0,22,1,"VV8012"
+Text: 0,34,1,"475 KT | 29,975 FT"
 End:
-Object: 38.71163,-77.50726
+Object: 25.93090,-100.24137
 Threshold: 999
-Icon: 0,0,331,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N343LH\nRegistration: N343LH\nAircraft type: PC12\nAltitude: 375\nGround speed: 99.4 kt\nHeading: 331 deg\nICAO24: a3c975\nSquawk: 2016"
-Text: 20,0,1,"N343LH | 375"
+Icon: 0,0,245,1,1,"COMMERCIAL\nID: VIV1126\nSpeed: 187 KT\nAltitude: 3,650 FT\nRegistration: XA-VBP\nAircraft type: A321\nICAO24: 0d0d86"
+Text: 0,22,1,"VIV1126"
+Text: 0,34,1,"187 KT | 3,650 FT"
 End:
-Object: 38.94895,-77.50281
+Object: 25.86091,-100.23905
 Threshold: 999
-Icon: 0,0,311,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL989\nRegistration: N2534U\nAircraft type: B77W\nAltitude: 1425\nGround speed: 173.7 kt\nHeading: 311 deg\nICAO24: a2659a\nSquawk: 2157"
-Text: 20,0,1,"UAL989 | 1425"
+Icon: 0,0,124,1,2,"PRIVATE / GENERAL AVIATION\nID: LET5540\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: XA-AGV\nAircraft type: C68A\nICAO24: 0d0afe"
+Text: 0,22,1,"LET5540"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 44.05806,-77.49992
+Object: 25.82831,-100.19689
 Threshold: 999
-Icon: 0,0,68,1,1,"COMMERCIAL AIRLINER\nCallsign: FLE652\nRegistration: C-FLQO\nAircraft type: B38M\nAltitude: 31325\nGround speed: 430.1 kt\nHeading: 68 deg\nICAO24: c01ebb\nSquawk: 0545"
-Text: 20,0,1,"FLE652 | 31325"
+Icon: 0,0,122,1,1,"COMMERCIAL\nID: VOI242\nSpeed: 147 KT\nAltitude: 2,950 FT\nRegistration: XA-VLT\nAircraft type: A321\nICAO24: 0d09be"
+Text: 0,22,1,"VOI242"
+Text: 0,34,1,"147 KT | 2,950 FT"
 End:
-Object: 38.67984,-77.46920
+Object: 25.77538,-100.11075
 Threshold: 999
-Icon: 0,0,34,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL336K\nRegistration: N18112\nAircraft type: B752\nAltitude: 3800\nGround speed: 208.0 kt\nHeading: 34 deg\nICAO24: a146f9\nSquawk: 6075"
-Text: 20,0,1,"UAL336K | 3800"
+Icon: 0,0,121,1,1,"COMMERCIAL\nID: AMX949\nAeromexico\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N285AM\nAircraft type: B738\nICAO24: a2e09a"
+Text: 0,22,1,"AMX949"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"Aeromexico"
 End:
-Object: 38.94198,-77.45728
+Object: 25.95483,-100.10462
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL884\nRegistration: N78002\nAircraft type: B772\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aa92f9\nSquawk: 5624"
-Text: 20,0,1,"UAL884 | ground"
+Icon: 0,0,315,1,1,"COMMERCIAL\nID: VIV3204\nSpeed: 264 KT\nAltitude: 6,925 FT\nRegistration: XA-VME\nAircraft type: A20N\nICAO24: 0d1138"
+Text: 0,22,1,"VIV3204"
+Text: 0,34,1,"264 KT | 6,925 FT"
 End:
-Object: 38.93373,-77.45650
+Object: 25.77393,-100.10258
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: BAW216\nRegistration: G-ZBLB\nAircraft type: B78X\nAltitude: ground\nGround speed: 7.2 kt\nHeading: 0 deg\nICAO24: 4078de\nSquawk: 2402"
-Text: 20,0,1,"BAW216 | ground"
+Icon: 0,0,121,1,1,"COMMERCIAL\nID: VIV7408\nSpeed: 7 KT\nAltitude: GROUND\nRegistration: CC-DBL\nAircraft type: A20N\nICAO24: e80046"
+Text: 0,22,1,"VIV7408"
+Text: 0,34,1,"7 KT | GROUND"
 End:
-Object: 38.93685,-77.45584
+Object: 25.77039,-100.07405
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: KLM296\nRegistration: PH-BKK\nAircraft type: B78X\nAltitude: ground\nGround speed: 0.1 kt\nHeading: 0 deg\nICAO24: 485e30\nSquawk: 2120"
-Text: 20,0,1,"KLM296 | ground"
+Icon: 0,0,20,1,1,"COMMERCIAL\nID: AMX037\nAeromexico\nSpeed: 536 KT\nAltitude: 35,000 FT\nRegistration: XA-ADH\nAircraft type: B789\nICAO24: 0d0a9b"
+Text: 0,22,1,"AMX037"
+Text: 0,34,1,"536 KT | 35,000 FT"
+Text: 0,46,1,"Aeromexico"
 End:
-Object: 38.93629,-77.45502
+Object: 25.66480,-100.01073
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: IBE03GG\nRegistration: EC-OOJ\nAircraft type: A21N\nAltitude: ground\nGround speed: 3.2 kt\nHeading: 0 deg\nICAO24: 348395\nSquawk: 2116"
-Text: 20,0,1,"IBE03GG | ground"
+Icon: 0,0,105,1,2,"PRIVATE / GENERAL AVIATION\nID: XBSKG\nSpeed: 250 KT\nAltitude: 12,900 FT\nRegistration: XB-SKG\nAircraft type: C550\nICAO24: 0d1054"
+Text: 0,22,1,"XBSKG"
+Text: 0,34,1,"250 KT | 12,900 FT"
 End:
-Object: 38.94587,-77.45496
+Object: 25.84110,-99.83461
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL996\nRegistration: N30913\nAircraft type: B788\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a34358\nSquawk: 0503"
-Text: 20,0,1,"UAL996 | ground"
+Icon: 0,0,303,1,1,"COMMERCIAL\nID: VIV1352\nSpeed: 291 KT\nAltitude: 11,325 FT\nRegistration: XA-VIR\nAircraft type: A20N\nICAO24: 0d0ba3"
+Text: 0,22,1,"VIV1352"
+Text: 0,34,1,"291 KT | 11,325 FT"
 End:
-Object: 38.94045,-77.45422
+Object: 25.34294,-99.83246
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AMX456\nRegistration: N759AM\nAircraft type: B38M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aa3b84\nSquawk: 5672"
-Text: 20,0,1,"AMX456 | ground"
+Icon: 0,0,154,1,1,"COMMERCIAL\nID: VIV4398\nSpeed: 325 KT\nAltitude: 17,525 FT\nRegistration: XA-VXS\nAircraft type: A21N\nICAO24: 0d1083"
+Text: 0,22,1,"VIV4398"
+Text: 0,34,1,"325 KT | 17,525 FT"
 End:
-Object: 38.95976,-77.45394
+Object: 25.39103,-99.51986
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: a2bd48\nRegistration: N276FE\nAircraft type: B763\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a2bd48\nSquawk: 1561"
-Text: 20,0,1,"a2bd48 | ground"
+Icon: 0,0,335,1,1,"COMMERCIAL\nID: VIV2200\nSpeed: 381 KT\nAltitude: 18,575 FT\nRegistration: XA-VBQ\nAircraft type: A321\nICAO24: 0d0d66"
+Text: 0,22,1,"VIV2200"
+Text: 0,34,1,"381 KT | 18,575 FT"
 End:
-Object: 38.94827,-77.45151
+Object: 24.98236,-99.34184
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT4410\nRegistration: N657FR\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8a748\nSquawk: 1200"
-Text: 20,0,1,"FFT4410 | ground"
+Icon: 0,0,341,1,1,"COMMERCIAL\nID: AMX944\nAeromexico\nSpeed: 419 KT\nAltitude: 25,800 FT\nRegistration: XA-MAO\nAircraft type: B38M\nICAO24: 0d0af7"
+Text: 0,22,1,"AMX944"
+Text: 0,34,1,"419 KT | 25,800 FT"
+Text: 0,46,1,"Aeromexico"
 End:
-Object: 38.94386,-77.44324
+Object: 25.47911,-99.20389
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL2489\nRegistration: N47446\nAircraft type: B39M\nAltitude: ground\nGround speed: 2.8 kt\nHeading: 0 deg\nICAO24: a5d2f9\nSquawk: 3104"
-Text: 20,0,1,"UAL2489 | ground"
+Icon: 0,0,105,1,1,"COMMERCIAL\nID: XA-VBI\nSpeed: 403 KT\nAltitude: 20,325 FT\nRegistration: XA-VBI\nAircraft type: A321\nICAO24: 0d0d2b"
+Text: 0,22,1,"XA-VBI"
+Text: 0,34,1,"403 KT | 20,325 FT"
 End:
-Object: 38.94496,-77.44280
+Object: 25.17059,-98.14626
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL918\nRegistration: N78005\nAircraft type: B772\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aa92fc\nSquawk: 0535"
-Text: 20,0,1,"UAL918 | ground"
+Icon: 0,0,355,1,1,"COMMERCIAL\nID: VIV7090\nSpeed: 391 KT\nAltitude: 16,575 FT\nRegistration: XA-VAN\nAircraft type: A320\nICAO24: 0d0939"
+Text: 0,22,1,"VIV7090"
+Text: 0,34,1,"391 KT | 16,575 FT"
 End:
-Object: 38.94409,-77.44139
+Object: 24.67731,-98.13802
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL52\nRegistration: N76062\nAircraft type: B764\nAltitude: ground\nGround speed: 0.1 kt\nHeading: 0 deg\nICAO24: aa44cd\nSquawk: 2110"
-Text: 20,0,1,"UAL52 | ground"
+Icon: 0,0,174,1,1,"COMMERCIAL\nID: KLM685\nKLM\nSpeed: 472 KT\nAltitude: 36,000 FT\nRegistration: PH-BQM\nAircraft type: B772\nICAO24: 484416"
+Text: 0,22,1,"KLM685"
+Text: 0,34,1,"472 KT | 36,000 FT"
+Text: 0,46,1,"KLM"
 End:
-Object: 38.93906,-77.43984
+Object: 23.79145,-97.95923
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1466\nRegistration: N37508\nAircraft type: B39M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a448d7\nSquawk: 2076"
-Text: 20,0,1,"UAL1466 | ground"
+Icon: 0,0,177,1,1,"COMMERCIAL\nID: GEC8224\nSpeed: 492 KT\nAltitude: 36,000 FT\nRegistration: D-ALFJ\nAircraft type: B77L\nICAO24: 3c70ca"
+Text: 0,22,1,"GEC8224"
+Text: 0,34,1,"492 KT | 36,000 FT"
 End:
-Object: 38.94009,-77.43982
+Object: 24.36121,-97.35763
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1530\nRegistration: N17254\nAircraft type: B38M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a123bf\nSquawk: 3632"
-Text: 20,0,1,"UAL1530 | ground"
+Icon: 0,0,193,1,1,"COMMERCIAL\nID: AMX409\nAeromexico\nSpeed: 480 KT\nAltitude: 40,000 FT\nRegistration: N183AM\nAircraft type: B789\nICAO24: a14bdd"
+Text: 0,22,1,"AMX409"
+Text: 0,34,1,"480 KT | 40,000 FT"
+Text: 0,46,1,"Aeromexico"
 End:
-Object: 38.94407,-77.43927
+Object: 27.02134,-97.03310
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1173\nRegistration: N68061\nAircraft type: B764\nAltitude: ground\nGround speed: 2.8 kt\nHeading: 0 deg\nICAO24: a9067b\nSquawk: 6063"
-Text: 20,0,1,"UAL1173 | ground"
+Icon: 0,0,20,1,1,"COMMERCIAL\nID: SWA1203\nSouthwest Airlines\nSpeed: 458 KT\nAltitude: 39,000 FT\nRegistration: N901WN\nAircraft type: B737\nICAO24: ac74e4"
+Text: 0,22,1,"SWA1203"
+Text: 0,34,1,"458 KT | 39,000 FT"
+Text: 0,46,1,"Southwest Airlines"
 End:
-Object: 38.94621,-77.43821
+Object: 29.15909,-96.48172
 Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: UAL2796\nRegistration: N47462\nAircraft type: Unknown\nAltitude: ground\nGround speed: 11.2 kt\nHeading: 0 deg\nICAO24: a5d33b\nSquawk: 4157"
-Text: 20,0,1,"UAL2796 | ground"
+Icon: 0,0,29,1,3,"HELICOPTER\nID: N314JN\nSpeed: 160 KT\nAltitude: 9,450 FT\nRegistration: N314JN\nAircraft type: RV10\nICAO24: a35682"
+Text: 0,22,1,"N314JN"
+Text: 0,34,1,"160 KT | 9,450 FT"
 End:
-Object: 38.83909,-77.43768
+Object: 29.62403,-96.05331
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL2667\nRegistration: N17455\nAircraft type: B39M\nAltitude: 2175\nGround speed: 157.0 kt\nHeading: 0 deg\nICAO24: a12b2e\nSquawk: 0557"
-Text: 20,0,1,"UAL2667 | 2175"
+Icon: 0,0,210,1,2,"PRIVATE / GENERAL AVIATION\nID: LIFE6\nSpeed: 54 KT\nAltitude: 450 FT\nRegistration: N466MH\nAircraft type: EC45\nICAO24: a5b100"
+Text: 0,22,1,"LIFE6"
+Text: 0,34,1,"54 KT | 450 FT"
 End:
-Object: 38.95560,-77.43754
+Object: 29.64930,-95.26633
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL727\nRegistration: N37556\nAircraft type: B39M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a44984\nSquawk: "
-Text: 20,0,1,"UAL727 | ground"
+Icon: 0,0,81,1,2,"PRIVATE / GENERAL AVIATION\nID: N13HD\nSpeed: 24 KT\nAltitude: 1,400 FT\nRegistration: N13HD\nAircraft type: B06\nICAO24: a0798b"
+Text: 0,22,1,"N13HD"
+Text: 0,34,1,"24 KT | 1,400 FT"
 End:
-Object: 38.92122,-77.43648
+Object: 29.64461,-95.26622
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1880\nRegistration: N17356\nAircraft type: B38M\nAltitude: 525\nGround speed: 153.0 kt\nHeading: 0 deg\nICAO24: a12778\nSquawk: 2265"
-Text: 20,0,1,"UAL1880 | 525"
+Icon: 0,0,251,1,2,"PRIVATE / GENERAL AVIATION\nID: N10XV\nSpeed: 37 KT\nAltitude: 700 FT\nRegistration: N10XV\nAircraft type: B06\nICAO24: a0047c"
+Text: 0,22,1,"N10XV"
+Text: 0,34,1,"37 KT | 700 FT"
 End:
-Object: 38.77831,-77.43463
+Object: 21.98732,-95.06485
 Threshold: 999
-Icon: 0,0,333,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1039\nRegistration: N17422\nAircraft type: B39M\nAltitude: 3150\nGround speed: 154.3 kt\nHeading: 333 deg\nICAO24: a12ac2\nSquawk: 3356"
-Text: 20,0,1,"UAL1039 | 3150"
+Icon: 0,0,277,1,1,"COMMERCIAL\nID: VOI3518\nSpeed: 413 KT\nAltitude: 38,025 FT\nRegistration: XA-VOZ\nAircraft type: A320\nICAO24: 0d07b3"
+Text: 0,22,1,"VOI3518"
+Text: 0,34,1,"413 KT | 38,025 FT"
 End:
-Object: 37.70461,-77.43206
+Object: 27.12506,-82.98940
 Threshold: 999
-Icon: 0,0,338,1,2,"REGIONAL AIRCRAFT\nCallsign: N517MT\nRegistration: N517MT\nAircraft type: EC35\nAltitude: 350\nGround speed: 18.4 kt\nHeading: 338 deg\nICAO24: a67c95\nSquawk: 0364"
-Text: 20,0,1,"N517MT | 350"
+Icon: 0,0,117,1,1,"COMMERCIAL\nID: JBU108\nJetBlue\nSpeed: 508 KT\nAltitude: 31,000 FT\nRegistration: N991JT\nAircraft type: A321\nICAO24: add734"
+Text: 0,22,1,"JBU108"
+Text: 0,34,1,"508 KT | 31,000 FT"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 39.12134,-77.39752
+Object: 27.44280,-82.73985
 Threshold: 999
-Icon: 0,0,61,1,1,"COMMERCIAL AIRLINER\nCallsign: AUA42\nRegistration: OE-LAY\nAircraft type: B763\nAltitude: 10250\nGround speed: 288.2 kt\nHeading: 61 deg\nICAO24: 44001e\nSquawk: 5623"
-Text: 20,0,1,"AUA42 | 10250"
+Icon: 0,0,190,1,2,"PRIVATE / GENERAL AVIATION\nID: N83GV\nSpeed: 140 KT\nAltitude: 3,825 FT\nRegistration: N83GV\nAircraft type: S22T\nICAO24: ab56ab"
+Text: 0,22,1,"N83GV"
+Text: 0,34,1,"140 KT | 3,825 FT"
 End:
-Object: 39.35843,-77.36238
+Object: 27.92505,-82.68850
 Threshold: 999
-Icon: 0,0,179,1,1,"COMMERCIAL AIRLINER\nCallsign: RAM218W\nRegistration: CN-RGU\nAircraft type: B788\nAltitude: 6400\nGround speed: 288.0 kt\nHeading: 179 deg\nICAO24: 020123\nSquawk: 0776"
-Text: 20,0,1,"RAM218W | 6400"
-End:
-Object: 39.06065,-77.35742
-Threshold: 999
-Icon: 0,0,180,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N194QS\nRegistration: N194QS\nAircraft type: Unknown\nAltitude: 4125\nGround speed: 280.0 kt\nHeading: 180 deg\nICAO24: a17876\nSquawk: 0771"
-Text: 20,0,1,"N194QS | 4125"
-End:
-Object: 42.45806,-77.10754
-Threshold: 999
-Icon: 0,0,27,1,2,"REGIONAL AIRCRAFT\nCallsign: POE796\nRegistration: C-GKXQ\nAircraft type: E295\nAltitude: 39000\nGround speed: 475.8 kt\nHeading: 27 deg\nICAO24: c06177\nSquawk: 6121"
-Text: 20,0,1,"POE796 | 39000"
-End:
-Object: 38.85646,-77.04266
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL457\nRegistration: N805AW\nAircraft type: A319\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aaf485\nSquawk: 3747"
-Text: 20,0,1,"AAL457 | ground"
-End:
-Object: 38.85785,-77.04258
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: JIA5094\nRegistration: N543EA\nAircraft type: CRJ7\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a6e376\nSquawk: 5652"
-Text: 20,0,1,"JIA5094 | ground"
-End:
-Object: 38.85439,-77.04231
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL3203\nRegistration: N754UW\nAircraft type: A319\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aa2abc\nSquawk: 2000"
-Text: 20,0,1,"AAL3203 | ground"
-End:
-Object: 38.84660,-77.04212
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT688\nRegistration: N366FR\nAircraft type: A20N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a42323\nSquawk: 2743"
-Text: 20,0,1,"FFT688 | ground"
-End:
-Object: 38.85576,-77.04175
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL3166\nRegistration: N717UW\nAircraft type: A319\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a997e5\nSquawk: 2000"
-Text: 20,0,1,"AAL3166 | ground"
-End:
-Object: 38.85419,-77.04086
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL1628\nRegistration: N821AW\nAircraft type: A319\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ab34a7\nSquawk: 1356"
-Text: 20,0,1,"AAL1628 | ground"
-End:
-Object: 38.85531,-77.04028
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL3249\nRegistration: N778XF\nAircraft type: A319\nAltitude: ground\nGround speed: 6.8 kt\nHeading: 0 deg\nICAO24: aa88d2\nSquawk: 3711"
-Text: 20,0,1,"AAL3249 | ground"
-End:
-Object: 38.85451,-77.03946
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL3264\nRegistration: N762US\nAircraft type: A319\nAltitude: ground\nGround speed: 5.8 kt\nHeading: 0 deg\nICAO24: aa4ac9\nSquawk: 7206"
-Text: 20,0,1,"AAL3264 | ground"
-End:
-Object: 39.10798,-76.93597
-Threshold: 999
-Icon: 0,0,87,1,1,"COMMERCIAL AIRLINER\nCallsign: DLH419\nRegistration: D-AIXC\nAircraft type: A359\nAltitude: 14750\nGround speed: 381.6 kt\nHeading: 87 deg\nICAO24: 3c6703\nSquawk: 2403"
-Text: 20,0,1,"DLH419 | 14750"
-End:
-Object: 38.77440,-76.87069
-Threshold: 999
-Icon: 0,0,1,1,1,"COMMERCIAL AIRLINER\nCallsign: SAM855\nRegistration: 02-0042\nAircraft type: B737\nAltitude: 800\nGround speed: 150.0 kt\nHeading: 1 deg\nICAO24: ae11f8\nSquawk: 6107"
-Text: 20,0,1,"SAM855 | 800"
-End:
-Object: 39.18456,-76.66650
-Threshold: 999
-Icon: 0,0,100,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N119TV\nRegistration: N119TV\nAircraft type: AS50\nAltitude: 575\nGround speed: 40.6 kt\nHeading: 100 deg\nICAO24: a04f5f\nSquawk: 5111"
-Text: 20,0,1,"N119TV | 575"
-End:
-Object: 43.90832,-76.63852
-Threshold: 999
-Icon: 0,0,143,1,1,"COMMERCIAL AIRLINER\nCallsign: KAL085\nRegistration: HL8007\nAircraft type: B77W\nAltitude: 35000\nGround speed: 476.6 kt\nHeading: 143 deg\nICAO24: 71c007\nSquawk: 6250"
-Text: 20,0,1,"KAL085 | 35000"
-End:
-Object: 42.69971,-76.58435
-Threshold: 999
-Icon: 0,0,211,1,1,"COMMERCIAL AIRLINER\nCallsign: AFR096\nRegistration: F-HTYG\nAircraft type: A359\nAltitude: 40000\nGround speed: 472.0 kt\nHeading: 211 deg\nICAO24: 39cf06\nSquawk: 2436"
-Text: 20,0,1,"AFR096 | 40000"
-End:
-Object: 40.41609,-76.56210
-Threshold: 999
-Icon: 0,0,258,1,3,"HELICOPTER\nCallsign: G21164\nRegistration: 20-21164\nAircraft type: H60\nAltitude: 1350\nGround speed: 99.0 kt\nHeading: 258 deg\nICAO24: ae6a92\nSquawk: 1200"
-Text: 20,0,1,"G21164 | 1350"
-End:
-Object: 38.88457,-76.56116
-Threshold: 999
-Icon: 0,0,357,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL2127\nRegistration: N67134\nAircraft type: B752\nAltitude: 4825\nGround speed: 221.4 kt\nHeading: 357 deg\nICAO24: a8e24d\nSquawk: 7650"
-Text: 20,0,1,"UAL2127 | 4825"
-End:
-Object: 38.31384,-76.54169
-Threshold: 999
-Icon: 0,0,282,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: TRP7\nRegistration: N383MD\nAircraft type: A139\nAltitude: 500\nGround speed: 48.1 kt\nHeading: 282 deg\nICAO24: a46786\nSquawk: 5107"
-Text: 20,0,1,"TRP7 | 500"
-End:
-Object: 40.44561,-76.50973
-Threshold: 999
-Icon: 0,0,228,1,3,"HELICOPTER\nCallsign: G20913\nRegistration: 16-20913\nAircraft type: H60\nAltitude: 1575\nGround speed: 104.1 kt\nHeading: 228 deg\nICAO24: ae5d9b\nSquawk: 1200"
-Text: 20,0,1,"G20913 | 1575"
-End:
-Object: 39.33752,-76.35779
-Threshold: 999
-Icon: 0,0,58,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL260\nRegistration: N69063\nAircraft type: B764\nAltitude: 23000\nGround speed: 513.2 kt\nHeading: 58 deg\nICAO24: a92dfc\nSquawk: 2175"
-Text: 20,0,1,"UAL260 | 23000"
-End:
-Object: 36.59602,-76.26604
-Threshold: 999
-Icon: 0,0,134,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N1502E\nRegistration: N1502E\nAircraft type: C172\nAltitude: 3600\nGround speed: 119.5 kt\nHeading: 134 deg\nICAO24: a0ccd2\nSquawk: 1200"
-Text: 20,0,1,"N1502E | 3600"
-End:
-Object: 40.14856,-76.24892
-Threshold: 999
-Icon: 0,0,229,1,1,"COMMERCIAL AIRLINER\nCallsign: BAW293\nRegistration: G-ZBLA\nAircraft type: B78X\nAltitude: 19200\nGround speed: 370.6 kt\nHeading: 229 deg\nICAO24: 407898\nSquawk: 2413"
-Text: 20,0,1,"BAW293 | 19200"
-End:
-Object: 43.92199,-76.06875
-Threshold: 999
-Icon: 0,0,192,1,1,"COMMERCIAL AIRLINER\nCallsign: THY7\nRegistration: TC-JJL\nAircraft type: B77W\nAltitude: 32000\nGround speed: 464.8 kt\nHeading: 192 deg\nICAO24: 4ba94c\nSquawk: 2433"
-Text: 20,0,1,"THY7 | 32000"
-End:
-Object: 40.27583,-76.04767
-Threshold: 999
-Icon: 0,0,230,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL933\nRegistration: N217UA\nAircraft type: B772\nAltitude: 19900\nGround speed: 391.9 kt\nHeading: 230 deg\nICAO24: a1d546\nSquawk: 2422"
-Text: 20,0,1,"UAL933 | 19900"
-End:
-Object: 36.89996,-75.91331
-Threshold: 999
-Icon: 0,0,20,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL822\nRegistration: N956NN\nAircraft type: B738\nAltitude: 31175\nGround speed: 523.3 kt\nHeading: 20 deg\nICAO24: ad4c2a\nSquawk: 4135"
-Text: 20,0,1,"AAL822 | 31175"
-End:
-Object: 37.55859,-75.72671
-Threshold: 999
-Icon: 0,0,26,1,1,"COMMERCIAL AIRLINER\nCallsign: ROU2247\nRegistration: C-FSIP\nAircraft type: B38M\nAltitude: 39000\nGround speed: 545.2 kt\nHeading: 26 deg\nICAO24: c03068\nSquawk: 4134"
-Text: 20,0,1,"ROU2247 | 39000"
-End:
-Object: 41.82970,-75.65150
-Threshold: 999
-Icon: 0,0,65,1,5,"MILITARY\nCallsign: RCH9206\nRegistration: 01-0193\nAircraft type: C17\nAltitude: 35000\nGround speed: 466.0 kt\nHeading: 65 deg\nICAO24: ae10bc\nSquawk: 1475"
-Text: 20,0,1,"RCH9206 | 35000"
-End:
-Object: 39.33050,-75.61334
-Threshold: 999
-Icon: 0,0,34,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL3131\nRegistration: N334SM\nAircraft type: B38M\nAltitude: 10150\nGround speed: 282.1 kt\nHeading: 34 deg\nICAO24: a3a647\nSquawk: 1045"
-Text: 20,0,1,"AAL3131 | 10150"
-End:
-Object: 40.61403,-75.53741
-Threshold: 999
-Icon: 0,0,230,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL925\nRegistration: N76065\nAircraft type: B764\nAltitude: 28675\nGround speed: 400.3 kt\nHeading: 230 deg\nICAO24: aa44d0\nSquawk: 2403"
-Text: 20,0,1,"UAL925 | 28675"
-End:
-Object: 40.64349,-75.45030
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: a2d5eb\nRegistration: N282FE\nAircraft type: B763\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a2d5eb\nSquawk: 1200"
-Text: 20,0,1,"a2d5eb | ground"
-End:
-Object: 39.44604,-75.37057
-Threshold: 999
-Icon: 0,0,69,1,1,"COMMERCIAL AIRLINER\nCallsign: AMX608\nRegistration: N479AM\nAircraft type: B38M\nAltitude: 9650\nGround speed: 287.5 kt\nHeading: 69 deg\nICAO24: a5e295\nSquawk: 7376"
-Text: 20,0,1,"AMX608 | 9650"
-End:
-Object: 37.06325,-75.12369
-Threshold: 999
-Icon: 0,0,1,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1560\nRegistration: N47345\nAircraft type: B38M\nAltitude: 29000\nGround speed: 459.1 kt\nHeading: 1 deg\nICAO24: a5cf41\nSquawk: 7411"
-Text: 20,0,1,"UAL1560 | 29000"
-End:
-Object: 42.63421,-75.10669
-Threshold: 999
-Icon: 0,0,83,1,1,"COMMERCIAL AIRLINER\nCallsign: GTI8430\nRegistration: N641GT\nAircraft type: B763\nAltitude: 33975\nGround speed: 482.9 kt\nHeading: 83 deg\nICAO24: a8699a\nSquawk: 5775"
-Text: 20,0,1,"GTI8430 | 33975"
-End:
-Object: 40.99924,-74.68896
-Threshold: 999
-Icon: 0,0,89,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: EJA812\nRegistration: N812QS\nAircraft type: C700\nAltitude: 4800\nGround speed: 260.1 kt\nHeading: 89 deg\nICAO24: ab1239\nSquawk: 6013"
-Text: 20,0,1,"EJA812 | 4800"
-End:
-Object: 42.20235,-74.68519
-Threshold: 999
-Icon: 0,0,85,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: EJA860\nRegistration: N860QS\nAircraft type: C700\nAltitude: 25175\nGround speed: 452.4 kt\nHeading: 85 deg\nICAO24: abd046\nSquawk: 7243"
-Text: 20,0,1,"EJA860 | 25175"
-End:
-Object: 39.30716,-74.57197
-Threshold: 999
-Icon: 0,0,40,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU424\nRegistration: N978JB\nAircraft type: A321\nAltitude: 25200\nGround speed: 482.6 kt\nHeading: 40 deg\nICAO24: ada227\nSquawk: 2377"
-Text: 20,0,1,"JBU424 | 25200"
-End:
-Object: 42.25812,-74.52263
-Threshold: 999
-Icon: 0,0,145,1,1,"COMMERCIAL AIRLINER\nCallsign: AIH587\nRegistration: HL7645\nAircraft type: B744\nAltitude: 29050\nGround speed: 424.7 kt\nHeading: 145 deg\nICAO24: 71be45\nSquawk: 7302"
-Text: 20,0,1,"AIH587 | 29050"
-End:
-Object: 41.07816,-74.39655
-Threshold: 999
-Icon: 0,0,196,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL4\nRegistration: N829MH\nAircraft type: B764\nAltitude: 18975\nGround speed: 312.8 kt\nHeading: 196 deg\nICAO24: ab5365\nSquawk: 2431"
-Text: 20,0,1,"DAL4 | 18975"
-End:
-Object: 42.47426,-74.35132
-Threshold: 999
-Icon: 0,0,15,1,1,"COMMERCIAL AIRLINER\nCallsign: ACA1425\nRegistration: C-FIVW\nAircraft type: B77W\nAltitude: 37000\nGround speed: 519.6 kt\nHeading: 15 deg\nICAO24: c01759\nSquawk: 4103"
-Text: 20,0,1,"ACA1425 | 37000"
-End:
-Object: 39.48592,-74.34096
-Threshold: 999
-Icon: 0,0,29,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL867\nRegistration: N93003\nAircraft type: A319\nAltitude: 20900\nGround speed: 429.7 kt\nHeading: 29 deg\nICAO24: ace81d\nSquawk: 3624"
-Text: 20,0,1,"AAL867 | 20900"
-End:
-Object: 40.87403,-74.28743
-Threshold: 999
-Icon: 0,0,106,1,1,"COMMERCIAL AIRLINER\nCallsign: CPA840\nRegistration: B-LRK\nAircraft type: A359\nAltitude: 19000\nGround speed: 334.6 kt\nHeading: 106 deg\nICAO24: 780ab6\nSquawk: 6245"
-Text: 20,0,1,"CPA840 | 19000"
-End:
-Object: 40.68791,-74.18638
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: N427AN\nRegistration: N427AN\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a515ad\nSquawk: 2000"
-Text: 20,0,1,"N427AN | ground"
-End:
-Object: 40.67737,-74.18543
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: a28336\nRegistration: N261FE\nAircraft type: B763\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a28336\nSquawk: 6720"
-Text: 20,0,1,"a28336 | ground"
-End:
-Object: 40.68443,-74.18496
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: a3b268\nRegistration: N33714\nAircraft type: B737\nAltitude: ground\nGround speed: 2.2 kt\nHeading: 0 deg\nICAO24: a3b268\nSquawk: 6603"
-Text: 20,0,1,"a3b268 | ground"
-End:
-Object: 40.66260,-74.18372
-Threshold: 999
-Icon: 0,0,26,1,1,"COMMERCIAL AIRLINER\nCallsign: DLH412\nRegistration: D-AIXR\nAircraft type: A359\nAltitude: 650\nGround speed: 137.8 kt\nHeading: 26 deg\nICAO24: 3c6712\nSquawk: 0773"
-Text: 20,0,1,"DLH412 | 650"
-End:
-Object: 40.67771,-74.18173
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: acf8bd\nRegistration: N935FD\nAircraft type: B752\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: acf8bd\nSquawk: 1200"
-Text: 20,0,1,"acf8bd | ground"
-End:
-Object: 40.70166,-74.17984
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: a9fc34\nRegistration: N742YX\nAircraft type: E75L\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a9fc34\nSquawk: "
-Text: 20,0,1,"a9fc34 | ground"
-End:
-Object: 40.69984,-74.17753
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL134\nRegistration: N686UA\nAircraft type: B763\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a91b44\nSquawk: 2677"
-Text: 20,0,1,"UAL134 | ground"
-End:
-Object: 40.68756,-74.17451
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL120\nRegistration: N67052\nAircraft type: B764\nAltitude: ground\nGround speed: 15.5 kt\nHeading: 0 deg\nICAO24: a8deda\nSquawk: 4035"
-Text: 20,0,1,"UAL120 | ground"
-End:
-Object: 40.69636,-74.17271
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL994\nRegistration: N12003\nAircraft type: B78X\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a05626\nSquawk: 1047"
-Text: 20,0,1,"UAL994 | ground"
-End:
-Object: 40.69349,-74.17226
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL268\nRegistration: N17310\nAircraft type: B38M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a126e6\nSquawk: 1552"
-Text: 20,0,1,"UAL268 | ground"
-End:
-Object: 40.69622,-74.17121
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL962\nRegistration: N67058\nAircraft type: B764\nAltitude: ground\nGround speed: 9.2 kt\nHeading: 0 deg\nICAO24: a8dee0\nSquawk: 3003"
-Text: 20,0,1,"UAL962 | ground"
-End:
-Object: 40.69701,-74.17060
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: RPA3544\nRegistration: N769YX\nAircraft type: E75L\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aa6533\nSquawk: 0541"
-Text: 20,0,1,"RPA3544 | ground"
-End:
-Object: 40.68873,-74.16936
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL2461\nRegistration: N68801\nAircraft type: B739\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a92361\nSquawk: 5754"
-Text: 20,0,1,"UAL2461 | ground"
-End:
-Object: 40.70609,-74.15735
-Threshold: 999
-Icon: 0,0,42,1,1,"COMMERCIAL AIRLINER\nCallsign: AJT461\nRegistration: N349CM\nAircraft type: B763\nAltitude: 1575\nGround speed: 167.8 kt\nHeading: 42 deg\nICAO24: a3defb\nSquawk: 3037"
-Text: 20,0,1,"AJT461 | 1575"
-End:
-Object: 39.71083,-74.12909
-Threshold: 999
-Icon: 0,0,41,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL393\nRegistration: N971NN\nAircraft type: B738\nAltitude: 18525\nGround speed: 356.4 kt\nHeading: 41 deg\nICAO24: ad8895\nSquawk: 3114"
-Text: 20,0,1,"AAL393 | 18525"
-End:
-Object: 40.96056,-74.07489
-Threshold: 999
-Icon: 0,0,253,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N3671M\nRegistration: N3671M\nAircraft type: BE36\nAltitude: 1575\nGround speed: 145.2 kt\nHeading: 253 deg\nICAO24: a428d4\nSquawk: 1200"
-Text: 20,0,1,"N3671M | 1575"
-End:
-Object: 40.85206,-74.06714
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N198HF\nRegistration: N198HF\nAircraft type: G280\nAltitude: ground\nGround speed: 0.1 kt\nHeading: 0 deg\nICAO24: a18698\nSquawk: 2742"
-Text: 20,0,1,"N198HF | ground"
-End:
-Object: 40.84711,-74.06674
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: EJA120\nRegistration: N120QS\nAircraft type: GL5T\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a05521\nSquawk: 1200"
-Text: 20,0,1,"EJA120 | ground"
-End:
-Object: 40.85156,-74.06625
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N665T\nRegistration: N665T\nAircraft type: C68A\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8c875\nSquawk: 5667"
-Text: 20,0,1,"N665T | ground"
-End:
-Object: 40.85209,-74.06595
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: MVJ44\nRegistration: N44GJ\nAircraft type: GLF4\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a548e3\nSquawk: 4012"
-Text: 20,0,1,"MVJ44 | ground"
-End:
-Object: 40.58810,-74.05834
-Threshold: 999
-Icon: 0,0,47,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL108\nRegistration: N27901\nAircraft type: B788\nAltitude: 37000\nGround speed: 560.5 kt\nHeading: 47 deg\nICAO24: a2ca5d\nSquawk: 5664"
-Text: 20,0,1,"UAL108 | 37000"
-End:
-Object: 42.33298,-73.98838
-Threshold: 999
-Icon: 0,0,198,1,1,"COMMERCIAL AIRLINER\nCallsign: BAW189\nRegistration: G-ZBLK\nAircraft type: B78X\nAltitude: 16175\nGround speed: 320.0 kt\nHeading: 198 deg\nICAO24: 4080bf\nSquawk: 2437"
-Text: 20,0,1,"BAW189 | 16175"
-End:
-Object: 40.77459,-73.88215
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1912\nRegistration: N107DN\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a01f0d\nSquawk: 7163"
-Text: 20,0,1,"DAL1912 | ground"
-End:
-Object: 40.77504,-73.87632
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA2556\nRegistration: N8839Q\nAircraft type: B38M\nAltitude: ground\nGround speed: 1.6 kt\nHeading: 0 deg\nICAO24: ac2c9c\nSquawk: 3347"
-Text: 20,0,1,"SWA2556 | ground"
-End:
-Object: 40.77547,-73.87447
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL815\nRegistration: N174US\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a129dc\nSquawk: 5726"
-Text: 20,0,1,"AAL815 | ground"
-End:
-Object: 40.77649,-73.86868
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: EDV4979\nRegistration: N691CA\nAircraft type: CRJ9\nAltitude: ground\nGround speed: 6.8 kt\nHeading: 0 deg\nICAO24: a92ea0\nSquawk: "
-Text: 20,0,1,"EDV4979 | ground"
-End:
-Object: 40.50366,-73.86420
-Threshold: 999
-Icon: 0,0,23,1,1,"COMMERCIAL AIRLINER\nCallsign: KLM643\nRegistration: PH-BQC\nAircraft type: B772\nAltitude: 1700\nGround speed: 171.2 kt\nHeading: 23 deg\nICAO24: 48436a\nSquawk: 0777"
-Text: 20,0,1,"KLM643 | 1700"
-End:
-Object: 40.38551,-73.84673
-Threshold: 999
-Icon: 0,0,251,1,1,"COMMERCIAL AIRLINER\nCallsign: ASA18\nRegistration: N273AK\nAircraft type: B739\nAltitude: 6225\nGround speed: 239.4 kt\nHeading: 251 deg\nICAO24: a2b1ab\nSquawk: 2462"
-Text: 20,0,1,"ASA18 | 6225"
-End:
-Object: 40.57135,-73.81258
-Threshold: 999
-Icon: 0,0,31,1,1,"COMMERCIAL AIRLINER\nCallsign: VIV688\nRegistration: XA-VYB\nAircraft type: A320\nAltitude: 1525\nGround speed: 126.9 kt\nHeading: 31 deg\nICAO24: 0d0e97\nSquawk: 7154"
-Text: 20,0,1,"VIV688 | 1525"
-End:
-Object: 40.64719,-73.79504
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL198\nRegistration: N784AN\nAircraft type: B772\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aa9f6f\nSquawk: 3021"
-Text: 20,0,1,"AAL198 | ground"
-End:
-Object: 40.64835,-73.79411
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: RPA4405\nRegistration: N124HQ\nAircraft type: E75L\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a0634c\nSquawk: 6636"
-Text: 20,0,1,"RPA4405 | ground"
-End:
-Object: 40.64319,-73.79304
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: BEL52B\nRegistration: OO-SFB\nAircraft type: A333\nAltitude: ground\nGround speed: 0.5 kt\nHeading: 0 deg\nICAO24: 44ccc2\nSquawk: 1645"
-Text: 20,0,1,"BEL52B | ground"
-End:
-Object: 40.65050,-73.79297
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: RPA4356\nRegistration: N116HQ\nAircraft type: E75L\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a0433b\nSquawk: 1771"
-Text: 20,0,1,"RPA4356 | ground"
-End:
-Object: 40.63992,-73.79239
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: ITY610\nRegistration: EI-TYB\nAircraft type: A339\nAltitude: ground\nGround speed: 8.2 kt\nHeading: 0 deg\nICAO24: 4caeb8\nSquawk: 0757"
-Text: 20,0,1,"ITY610 | ground"
-End:
-Object: 40.65036,-73.79144
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N306XR\nRegistration: N306XR\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a337b9\nSquawk: "
-Text: 20,0,1,"N306XR | ground"
-End:
-Object: 40.65169,-73.79059
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL42\nRegistration: N813AN\nAircraft type: B788\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ab148e\nSquawk: 1175"
-Text: 20,0,1,"AAL42 | ground"
-End:
-Object: 40.64845,-73.78915
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: BAW180\nRegistration: G-VIIN\nAircraft type: B772\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: 4006c0\nSquawk: 2766"
-Text: 20,0,1,"BAW180 | ground"
-End:
-Object: 40.28970,-73.78774
-Threshold: 999
-Icon: 0,0,36,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: FFT3937\nRegistration: N681FR\nAircraft type: Unknown\nAltitude: 25000\nGround speed: 463.6 kt\nHeading: 36 deg\nICAO24: a9077b\nSquawk: 7055"
-Text: 20,0,1,"FFT3937 | 25000"
-End:
-Object: 40.65485,-73.78661
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: ASA42\nRegistration: N297AK\nAircraft type: B739\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a30f85\nSquawk: 1126"
-Text: 20,0,1,"ASA42 | ground"
-End:
-Object: 40.65557,-73.78539
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: 400774\nRegistration: G-VIIW\nAircraft type: B772\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: 400774\nSquawk: 0737"
-Text: 20,0,1,"400774 | ground"
-End:
-Object: 40.62513,-73.78505
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: ANA109\nRegistration: JA787A\nAircraft type: B77W\nAltitude: ground\nGround speed: 11.8 kt\nHeading: 0 deg\nICAO24: 869210\nSquawk: 2746"
-Text: 20,0,1,"ANA109 | ground"
-End:
-Object: 40.62274,-73.78500
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DLH411\nRegistration: D-AIXL\nAircraft type: A359\nAltitude: ground\nGround speed: 9.8 kt\nHeading: 0 deg\nICAO24: 3c670c\nSquawk: 1165"
-Text: 20,0,1,"DLH411 | ground"
-End:
-Object: 40.65492,-73.78395
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL168\nRegistration: N837AN\nAircraft type: B789\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ab7268\nSquawk: 6010"
-Text: 20,0,1,"AAL168 | ground"
-End:
-Object: 40.64006,-73.78380
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL244\nRegistration: N173DZ\nAircraft type: B763\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a124b5\nSquawk: 1062"
-Text: 20,0,1,"DAL244 | ground"
-End:
-Object: 40.62700,-73.78360
-Threshold: 999
-Icon: 0,0,0,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: VIR4C\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: ground\nGround speed: 11.2 kt\nHeading: 0 deg\nICAO24: 40830d\nSquawk: 2317"
-Text: 20,0,1,"VIR4C | ground"
-End:
-Object: 40.63880,-73.78296
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL48\nRegistration: N424DX\nAircraft type: A339\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a50adc\nSquawk: 2756"
-Text: 20,0,1,"DAL48 | ground"
-End:
-Object: 40.98170,-73.78237
-Threshold: 999
-Icon: 0,0,50,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL30\nRegistration: N786UA\nAircraft type: B772\nAltitude: 11600\nGround speed: 325.1 kt\nHeading: 50 deg\nICAO24: aaa893\nSquawk: 1713"
-Text: 20,0,1,"UAL30 | 11600"
-End:
-Object: 40.62877,-73.78221
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWR3W\nRegistration: HB-JHH\nAircraft type: A333\nAltitude: ground\nGround speed: 11.8 kt\nHeading: 0 deg\nICAO24: 4b1881\nSquawk: 2663"
-Text: 20,0,1,"SWR3W | ground"
-End:
-Object: 40.64119,-73.78186
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL202\nRegistration: N839MH\nAircraft type: B764\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ab7ae4\nSquawk: 2610"
-Text: 20,0,1,"DAL202 | ground"
-End:
-Object: 40.63235,-73.78136
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AMX403\nRegistration: N115AM\nAircraft type: B39M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a03ed2\nSquawk: 1113"
-Text: 20,0,1,"AMX403 | ground"
-End:
-Object: 40.65295,-73.77965
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL2462\nRegistration: N826NN\nAircraft type: B738\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ab485e\nSquawk: "
-Text: 20,0,1,"AAL2462 | ground"
-End:
-Object: 40.63900,-73.77798
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1829\nRegistration: N531DA\nAircraft type: A21N\nAltitude: ground\nGround speed: 4.2 kt\nHeading: 0 deg\nICAO24: a6b470\nSquawk: 3115"
-Text: 20,0,1,"DAL1829 | ground"
-End:
-Object: 40.64791,-73.77786
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU2637\nRegistration: N662JB\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8bc71\nSquawk: 4067"
-Text: 20,0,1,"JBU2637 | ground"
-End:
-Object: 40.64769,-73.77739
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU2201\nRegistration: N2059J\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a1a832\nSquawk: 2656"
-Text: 20,0,1,"JBU2201 | ground"
-End:
-Object: 40.64745,-73.77691
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU53\nRegistration: N997JL\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aded77\nSquawk: 1756"
-Text: 20,0,1,"JBU53 | ground"
-End:
-Object: 40.64292,-73.77633
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: VIR9J\nRegistration: G-VEII\nAircraft type: A339\nAltitude: ground\nGround speed: 10.8 kt\nHeading: 0 deg\nICAO24: 407ed8\nSquawk: 2401"
-Text: 20,0,1,"VIR9J | ground"
-End:
-Object: 40.65128,-73.77593
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL107\nRegistration: N725AN\nAircraft type: B77W\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a9b62c\nSquawk: 0755"
-Text: 20,0,1,"AAL107 | ground"
-End:
-Object: 40.64700,-73.77570
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU618\nRegistration: N3242J\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a37fd3\nSquawk: 1556"
-Text: 20,0,1,"JBU618 | ground"
-End:
-Object: 40.64667,-73.77550
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: adde95\nRegistration: N993JE\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: adde95\nSquawk: 2000"
-Text: 20,0,1,"adde95 | ground"
-End:
-Object: 40.64637,-73.77505
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU2786\nRegistration: N3291J\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a39243\nSquawk: 5651"
-Text: 20,0,1,"JBU2786 | ground"
-End:
-Object: 40.63942,-73.77486
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: CMP813\nRegistration: HP-1831CMP\nAircraft type: B738\nAltitude: ground\nGround speed: 13.2 kt\nHeading: 0 deg\nICAO24: 0c208e\nSquawk: 2311"
-Text: 20,0,1,"CMP813 | ground"
-End:
-Object: 40.65194,-73.77458
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FIN15\nRegistration: OH-LTO\nAircraft type: A333\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: 461f08\nSquawk: "
-Text: 20,0,1,"FIN15 | ground"
-End:
-Object: 40.64247,-73.77443
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU1528\nRegistration: N3284J\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a38ef5\nSquawk: 4045"
-Text: 20,0,1,"JBU1528 | ground"
-End:
-Object: 40.64543,-73.77435
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU920\nRegistration: N3149J\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a35949\nSquawk: 1177"
-Text: 20,0,1,"JBU920 | ground"
-End:
-Object: 40.64617,-73.77403
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1211\nRegistration: N977JE\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ad9e73\nSquawk: 1116"
-Text: 20,0,1,"JBU1211 | ground"
-End:
-Object: 40.64183,-73.77390
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: a4ccba\nRegistration: N4080J\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a4ccba\nSquawk: 2000"
-Text: 20,0,1,"a4ccba | ground"
-End:
-Object: 40.64617,-73.77354
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: MX2193\nRegistration: N2193J\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a1ddbb\nSquawk: 7127"
-Text: 20,0,1,"MX2193 | ground"
-End:
-Object: 40.64605,-73.77241
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1530\nRegistration: N661JB\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8b8ba\nSquawk: 2000"
-Text: 20,0,1,"JBU1530 | ground"
-End:
-Object: 40.64611,-73.77199
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU436\nRegistration: N2029J\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a19d0d\nSquawk: 2000"
-Text: 20,0,1,"JBU436 | ground"
-End:
-Object: 40.64611,-73.76985
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL245\nRegistration: N175DZ\nAircraft type: B763\nAltitude: ground\nGround speed: 14.2 kt\nHeading: 0 deg\nICAO24: a12c23\nSquawk: 2415"
-Text: 20,0,1,"DAL245 | ground"
-End:
-Object: 40.16345,-73.75964
-Threshold: 999
-Icon: 0,0,15,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1448\nRegistration: N2199J\nAircraft type: A21N\nAltitude: 8225\nGround speed: 278.9 kt\nHeading: 15 deg\nICAO24: a1de8d\nSquawk: 4002"
-Text: 20,0,1,"JBU1448 | 8225"
-End:
-Object: 40.51135,-73.72162
-Threshold: 999
-Icon: 0,0,186,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: AAL238\nRegistration: N308NY\nAircraft type: Unknown\nAltitude: 7975\nGround speed: 277.5 kt\nHeading: 186 deg\nICAO24: a33e4d\nSquawk: 2370"
-Text: 20,0,1,"AAL238 | 7975"
-End:
-Object: 40.40350,-73.67902
-Threshold: 999
-Icon: 0,0,36,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1476\nRegistration: N715JB\nAircraft type: A320\nAltitude: 25000\nGround speed: 463.0 kt\nHeading: 36 deg\nICAO24: a98f6a\nSquawk: 6676"
-Text: 20,0,1,"JBU1476 | 25000"
-End:
-Object: 44.09161,-73.53660
-Threshold: 999
-Icon: 0,0,1,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: ACA1333\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: 26925\nGround speed: 421.1 kt\nHeading: 1 deg\nICAO24: c01314\nSquawk: 2241"
-Text: 20,0,1,"ACA1333 | 26925"
-End:
-Object: 40.50893,-73.35053
-Threshold: 999
-Icon: 0,0,225,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: CHG1541\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: 4125\nGround speed: 275.1 kt\nHeading: 225 deg\nICAO24: 4d20f0\nSquawk: 2424"
-Text: 20,0,1,"CHG1541 | 4125"
-End:
-Object: 40.61082,-73.31476
-Threshold: 999
-Icon: 0,0,103,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL182\nRegistration: N813NW\nAircraft type: A333\nAltitude: 10000\nGround speed: 298.2 kt\nHeading: 103 deg\nICAO24: ab15c2\nSquawk: 7126"
-Text: 20,0,1,"DAL182 | 10000"
-End:
-Object: 42.46674,-73.29460
-Threshold: 999
-Icon: 0,0,209,1,1,"COMMERCIAL AIRLINER\nCallsign: DLH3Y\nRegistration: D-AIML\nAircraft type: A388\nAltitude: 40000\nGround speed: 441.5 kt\nHeading: 209 deg\nICAO24: 3c65ac\nSquawk: 2442"
-Text: 20,0,1,"DLH3Y | 40000"
-End:
-Object: 41.29083,-73.26856
-Threshold: 999
-Icon: 0,0,47,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL40\nRegistration: N2747U\nAircraft type: B77W\nAltitude: 20250\nGround speed: 440.8 kt\nHeading: 47 deg\nICAO24: a2b8b8\nSquawk: 2754"
-Text: 20,0,1,"UAL40 | 20250"
-End:
-Object: 40.63142,-73.06030
-Threshold: 999
-Icon: 0,0,234,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU568B\nRegistration: N3322J\nAircraft type: Unknown\nAltitude: 7850\nGround speed: 278.1 kt\nHeading: 234 deg\nICAO24: a39fe4\nSquawk: 4111"
-Text: 20,0,1,"JBU568B | 7850"
-End:
-Object: 41.21307,-72.89110
-Threshold: 999
-Icon: 0,0,3,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: WMN76\nRegistration: N90YC\nAircraft type: F900\nAltitude: 1150\nGround speed: 108.2 kt\nHeading: 3 deg\nICAO24: ac6efc\nSquawk: 3174"
-Text: 20,0,1,"WMN76 | 1150"
-End:
-Object: 40.97374,-72.80084
-Threshold: 999
-Icon: 0,0,327,1,1,"COMMERCIAL AIRLINER\nCallsign: VXP328\nRegistration: N805VL\nAircraft type: B738\nAltitude: 2775\nGround speed: 214.4 kt\nHeading: 327 deg\nICAO24: aaf656\nSquawk: 7413"
-Text: 20,0,1,"VXP328 | 2775"
-End:
-Object: 41.87778,-72.76763
-Threshold: 999
-Icon: 0,0,44,1,1,"COMMERCIAL AIRLINER\nCallsign: UPS2068\nRegistration: N330UP\nAircraft type: B763\nAltitude: 1975\nGround speed: 123.0 kt\nHeading: 44 deg\nICAO24: a3979f\nSquawk: 6612"
-Text: 20,0,1,"UPS2068 | 1975"
-End:
-Object: 41.45293,-72.74891
-Threshold: 999
-Icon: 0,0,48,1,1,"COMMERCIAL AIRLINER\nCallsign: EIN104\nRegistration: EI-EIL\nAircraft type: A333\nAltitude: 24325\nGround speed: 440.4 kt\nHeading: 48 deg\nICAO24: 4cabec\nSquawk: 2771"
-Text: 20,0,1,"EIN104 | 24325"
-End:
-Object: 40.64800,-72.66577
-Threshold: 999
-Icon: 0,0,72,1,1,"COMMERCIAL AIRLINER\nCallsign: AFR003\nRegistration: F-GZNP\nAircraft type: B77W\nAltitude: 22750\nGround speed: 470.2 kt\nHeading: 72 deg\nICAO24: 3965af\nSquawk: 2642"
-Text: 20,0,1,"AFR003 | 22750"
-End:
-Object: 40.62353,-72.24628
-Threshold: 999
-Icon: 0,0,306,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1188\nRegistration: N2043J\nAircraft type: A21N\nAltitude: 13650\nGround speed: 396.4 kt\nHeading: 306 deg\nICAO24: a1a3a9\nSquawk: 6672"
-Text: 20,0,1,"JBU1188 | 13650"
-End:
-Object: 42.98466,-72.22013
-Threshold: 999
-Icon: 0,0,315,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: KAP1111\nRegistration: N929CA\nAircraft type: P212\nAltitude: 8725\nGround speed: 146.4 kt\nHeading: 315 deg\nICAO24: acdfcc\nSquawk: 5374"
-Text: 20,0,1,"KAP1111 | 8725"
-End:
-Object: 41.14600,-72.12048
-Threshold: 999
-Icon: 0,0,248,1,1,"COMMERCIAL AIRLINER\nCallsign: IBE03CP\nRegistration: EC-LZJ\nAircraft type: A333\nAltitude: 21450\nGround speed: 379.6 kt\nHeading: 248 deg\nICAO24: 3444c4\nSquawk: 2430"
-Text: 20,0,1,"IBE03CP | 21450"
-End:
-Object: 41.48735,-72.09912
-Threshold: 999
-Icon: 0,0,65,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU896D\nRegistration: N955JB\nAircraft type: A321\nAltitude: 20300\nGround speed: 386.5 kt\nHeading: 65 deg\nICAO24: ad4804\nSquawk: 3120"
-Text: 20,0,1,"JBU896D | 20300"
-End:
-Object: 41.71797,-71.99278
-Threshold: 999
-Icon: 0,0,74,1,1,"COMMERCIAL AIRLINER\nCallsign: AFR71E\nRegistration: F-GSQI\nAircraft type: B77W\nAltitude: 33975\nGround speed: 550.8 kt\nHeading: 74 deg\nICAO24: 394a08\nSquawk: 3303"
-Text: 20,0,1,"AFR71E | 33975"
-End:
-Object: 40.45981,-71.89606
-Threshold: 999
-Icon: 0,0,345,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1112\nRegistration: N556JB\nAircraft type: A320\nAltitude: 15200\nGround speed: 396.1 kt\nHeading: 345 deg\nICAO24: a7167f\nSquawk: 2772"
-Text: 20,0,1,"JBU1112 | 15200"
-End:
-Object: 42.27443,-71.75508
-Threshold: 999
-Icon: 0,0,178,1,2,"REGIONAL AIRCRAFT\nCallsign: N982LF\nRegistration: N982LF\nAircraft type: EC45\nAltitude: 900\nGround speed: 76.1 kt\nHeading: 178 deg\nICAO24: adb392\nSquawk: 1200"
-Text: 20,0,1,"N982LF | 900"
-End:
-Object: 42.27297,-71.07720
-Threshold: 999
-Icon: 0,0,80,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: KAP413\nRegistration: N747WS\nAircraft type: C402\nAltitude: 2200\nGround speed: 165.4 kt\nHeading: 80 deg\nICAO24: aa0e90\nSquawk: 5160"
-Text: 20,0,1,"KAP413 | 2200"
-End:
-Object: 42.36356,-71.06915
-Threshold: 999
-Icon: 0,0,124,1,2,"REGIONAL AIRCRAFT\nCallsign: N141NE\nRegistration: N141NE\nAircraft type: EC45\nAltitude: 475\nGround speed: 3.7 kt\nHeading: 124 deg\nICAO24: a0a798\nSquawk: 0301"
-Text: 20,0,1,"N141NE | 475"
-End:
-Object: 42.35798,-71.02396
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL359\nRegistration: N152AA\nAircraft type: A321\nAltitude: ground\nGround speed: 0.5 kt\nHeading: 0 deg\nICAO24: a0d19e\nSquawk: 1200"
-Text: 20,0,1,"AAL359 | ground"
-End:
-Object: 42.37243,-71.02351
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL626\nRegistration: N512DE\nAircraft type: A21N\nAltitude: ground\nGround speed: 2.2 kt\nHeading: 0 deg\nICAO24: a6692d\nSquawk: 6137"
-Text: 20,0,1,"DAL626 | ground"
-End:
-Object: 42.37197,-71.02276
-Threshold: 999
-Icon: 0,0,228,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: BOSP118\nRegistration: N171QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 228 deg\nICAO24: a11e58\nSquawk: "
-Text: 20,0,1,"BOSP118 | ground"
-End:
-Object: 42.37145,-71.02265
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: BAW212\nRegistration: G-VIIM\nAircraft type: B772\nAltitude: ground\nGround speed: 1.1 kt\nHeading: 0 deg\nICAO24: 400685\nSquawk: 3425"
-Text: 20,0,1,"BAW212 | ground"
-End:
-Object: 42.37390,-71.02115
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JTL868\nRegistration: N868BS\nAircraft type: GLF4\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: abecb9\nSquawk: 7335"
-Text: 20,0,1,"JTL868 | ground"
-End:
-Object: 42.36008,-71.01826
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL1332\nRegistration: N930AU\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ace5bc\nSquawk: 1200"
-Text: 20,0,1,"AAL1332 | ground"
-End:
-Object: 42.35792,-71.01783
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: BOSSQD1\nRegistration: N173QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a125c6\nSquawk: "
-Text: 20,0,1,"BOSSQD1 | ground"
-End:
-Object: 42.85776,-71.01608
-Threshold: 999
-Icon: 0,0,29,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N13081\nRegistration: N13081\nAircraft type: C172\nAltitude: 3275\nGround speed: 85.5 kt\nHeading: 29 deg\nICAO24: a07ebb\nSquawk: 1200"
-Text: 20,0,1,"N13081 | 3275"
-End:
-Object: 42.36997,-71.01607
-Threshold: 999
-Icon: 0,0,315,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: BOSP35\nRegistration: N117BL\nAircraft type: Unknown\nAltitude: ground\nGround speed: 14.8 kt\nHeading: 315 deg\nICAO24: a04658\nSquawk: "
-Text: 20,0,1,"BOSP35 | ground"
-End:
-Object: 42.36792,-71.01562
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU317\nRegistration: N3196J\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a36b73\nSquawk: 3442"
-Text: 20,0,1,"JBU317 | ground"
-End:
-Object: 42.36721,-71.01528
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU1355\nRegistration: N3298J\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a39338\nSquawk: 1366"
-Text: 20,0,1,"JBU1355 | ground"
-End:
-Object: 42.36836,-71.01473
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU1813\nRegistration: N3115J\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a34d98\nSquawk: 7354"
-Text: 20,0,1,"JBU1813 | ground"
-End:
-Object: 42.36816,-71.00746
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: KLM617\nRegistration: PH-BQG\nAircraft type: B772\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: 48436e\nSquawk: 3433"
-Text: 20,0,1,"KLM617 | ground"
-End:
-Object: 42.12428,-70.98710
-Threshold: 999
-Icon: 0,0,69,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL19\nRegistration: N12012\nAircraft type: B78X\nAltitude: 35600\nGround speed: 562.0 kt\nHeading: 69 deg\nICAO24: a05648\nSquawk: 7105"
-Text: 20,0,1,"UAL19 | 35600"
-End:
-Object: 42.66471,-70.98439
-Threshold: 999
-Icon: 0,0,200,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL141\nRegistration: N782AN\nAircraft type: B772\nAltitude: 38000\nGround speed: 422.2 kt\nHeading: 200 deg\nICAO24: aa9801\nSquawk: 2447"
-Text: 20,0,1,"AAL141 | 38000"
-End:
-Object: 42.22251,-70.97321
-Threshold: 999
-Icon: 0,0,197,1,1,"COMMERCIAL AIRLINER\nCallsign: IBE03DY\nRegistration: EC-MKI\nAircraft type: A332\nAltitude: 6225\nGround speed: 248.3 kt\nHeading: 197 deg\nICAO24: 345109\nSquawk: 0724"
-Text: 20,0,1,"IBE03DY | 6225"
-End:
-Object: 40.34897,-70.86806
-Threshold: 999
-Icon: 0,0,93,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL156\nRegistration: N430DX\nAircraft type: A339\nAltitude: 27025\nGround speed: 500.8 kt\nHeading: 93 deg\nICAO24: a5237f\nSquawk: 1516"
-Text: 20,0,1,"DAL156 | 27025"
-End:
-Object: 42.57326,-70.34215
-Threshold: 999
-Icon: 0,0,252,1,1,"COMMERCIAL AIRLINER\nCallsign: BAW50G\nRegistration: G-STBC\nAircraft type: B77W\nAltitude: 13425\nGround speed: 287.8 kt\nHeading: 252 deg\nICAO24: 40621d\nSquawk: 0751"
-Text: 20,0,1,"BAW50G | 13425"
-End:
-Object: 41.87807,-70.08013
-Threshold: 999
-Icon: 0,0,60,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL748\nRegistration: N647UA\nAircraft type: B763\nAltitude: 33450\nGround speed: 544.5 kt\nHeading: 60 deg\nICAO24: a880ff\nSquawk: 5663"
-Text: 20,0,1,"UAL748 | 33450"
-End:
-Object: 42.24872,-69.96777
-Threshold: 999
-Icon: 0,0,100,1,1,"COMMERCIAL AIRLINER\nCallsign: TAP218\nRegistration: CS-TXA\nAircraft type: A21N\nAltitude: 20275\nGround speed: 398.0 kt\nHeading: 100 deg\nICAO24: 495301\nSquawk: 3436"
-Text: 20,0,1,"TAP218 | 20275"
-End:
-Object: 32.14742,-88.48460
-Threshold: 999
-Icon: 0,0,235,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N7WN\nRegistration: N7WN\nAircraft type: TBM9\nAltitude: 16625\nGround speed: 248.0 kt\nHeading: 235 deg\nICAO24: a951dd\nSquawk: 1200"
-Text: 20,0,1,"N7WN | 16625"
-End:
-Object: 30.46183,-88.19170
-Threshold: 999
-Icon: 0,0,280,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N566RG\nRegistration: N566RG\nAircraft type: Unknown\nAltitude: 1825\nGround speed: 84.2 kt\nHeading: 280 deg\nICAO24: a73eb2\nSquawk: 1200"
-Text: 20,0,1,"N566RG | 1825"
-End:
-Object: 34.18010,-87.92730
-Threshold: 999
-Icon: 0,0,92,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N869DL\nRegistration: N869DL\nAircraft type: GLF5\nAltitude: 17400\nGround speed: 463.3 kt\nHeading: 92 deg\nICAO24: abf09c\nSquawk: 1603"
-Text: 20,0,1,"N869DL | 17400"
-End:
-Object: 31.24942,-87.56836
-Threshold: 999
-Icon: 0,0,293,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N606PC\nRegistration: N606PC\nAircraft type: BE9L\nAltitude: 10775\nGround speed: 195.4 kt\nHeading: 293 deg\nICAO24: a7ded1\nSquawk: 1200"
-Text: 20,0,1,"N606PC | 10775"
-End:
-Object: 32.20981,-87.31335
-Threshold: 999
-Icon: 0,0,297,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1698\nRegistration: N17589\nAircraft type: B39M\nAltitude: 34000\nGround speed: 359.1 kt\nHeading: 297 deg\nICAO24: a12f52\nSquawk: 7407"
-Text: 20,0,1,"UAL1698 | 34000"
-End:
-Object: 30.35252,-86.77689
-Threshold: 999
-Icon: 0,0,275,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N423R\nRegistration: N423R\nAircraft type: P32R\nAltitude: 5650\nGround speed: 142.6 kt\nHeading: 275 deg\nICAO24: a5083b\nSquawk: 3675"
-Text: 20,0,1,"N423R | 5650"
-End:
-Object: 30.44115,-86.68272
-Threshold: 999
-Icon: 0,0,113,1,3,"HELICOPTER\nCallsign: ae0bac\nRegistration: 89-26216\nAircraft type: H60\nAltitude: 100\nGround speed: 64.1 kt\nHeading: 113 deg\nICAO24: ae0bac\nSquawk: 4645"
-Text: 20,0,1,"ae0bac | 100"
-End:
-Object: 32.91101,-86.34479
-Threshold: 999
-Icon: 0,0,78,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N4888G\nRegistration: N4888G\nAircraft type: C172\nAltitude: 7500\nGround speed: 118.7 kt\nHeading: 78 deg\nICAO24: a609c8\nSquawk: 1673"
-Text: 20,0,1,"N4888G | 7500"
-End:
-Object: 31.25294,-86.17709
-Threshold: 999
-Icon: 0,0,287,1,3,"HELICOPTER\nCallsign: TAKEN82\nRegistration: 12-20516\nAircraft type: H60\nAltitude: 2975\nGround speed: 93.0 kt\nHeading: 287 deg\nICAO24: ae5673\nSquawk: 3414"
-Text: 20,0,1,"TAKEN82 | 2975"
-End:
-Object: 31.33054,-86.11359
-Threshold: 999
-Icon: 0,0,123,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N732FP\nRegistration: N732FP\nAircraft type: C210\nAltitude: 9450\nGround speed: 211.6 kt\nHeading: 123 deg\nICAO24: a9d304\nSquawk: 1326"
-Text: 20,0,1,"N732FP | 9450"
-End:
-Object: 32.19548,-85.78998
-Threshold: 999
-Icon: 0,0,299,1,1,"COMMERCIAL AIRLINER\nCallsign: N921SF\nRegistration: N921SF\nAircraft type: B407\nAltitude: 1600\nGround speed: 106.6 kt\nHeading: 299 deg\nICAO24: acc377\nSquawk: 1200"
-Text: 20,0,1,"N921SF | 1600"
-End:
-Object: 32.95949,-85.71610
-Threshold: 999
-Icon: 0,0,103,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N1MQ\nRegistration: N1MQ\nAircraft type: BE58\nAltitude: 5600\nGround speed: 192.6 kt\nHeading: 103 deg\nICAO24: a00124\nSquawk: 1200"
-Text: 20,0,1,"N1MQ | 5600"
-End:
-Object: 27.92775,-85.62822
-Threshold: 999
-Icon: 0,0,103,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU108\nRegistration: N991JT\nAircraft type: A321\nAltitude: 35000\nGround speed: 520.6 kt\nHeading: 103 deg\nICAO24: add734\nSquawk: 2222"
-Text: 20,0,1,"JBU108 | 35000"
-End:
-Object: 31.24316,-85.45671
-Threshold: 999
-Icon: 0,0,332,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N545HF\nRegistration: N545HF\nAircraft type: AS50\nAltitude: 825\nGround speed: 55.5 kt\nHeading: 332 deg\nICAO24: a6eb34\nSquawk: 1200"
-Text: 20,0,1,"N545HF | 825"
-End:
-Object: 32.61034,-85.44055
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: AUB135\nRegistration: N803CA\nAircraft type: C172\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aaed35\nSquawk: 1200"
-Text: 20,0,1,"AUB135 | ground"
-End:
-Object: 32.98778,-85.21529
-Threshold: 999
-Icon: 0,0,7,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N32124\nRegistration: N32124\nAircraft type: P28A\nAltitude: 3000\nGround speed: 76.5 kt\nHeading: 7 deg\nICAO24: a374c2\nSquawk: "
-Text: 20,0,1,"N32124 | 3000"
-End:
-Object: 35.01846,-85.20905
-Threshold: 999
-Icon: 0,0,15,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: N476TS\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: 750\nGround speed: 55.8 kt\nHeading: 15 deg\nICAO24: a5d91e\nSquawk: 0200"
-Text: 20,0,1,"N476TS | 750"
-End:
-Object: 35.02440,-85.20382
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: N347HM\nRegistration: N347HM\nAircraft type: E50P\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a3d80a\nSquawk: 5122"
-Text: 20,0,1,"N347HM | ground"
-End:
-Object: 35.03809,-85.19807
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL2695\nRegistration: N647AW\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a87f51\nSquawk: 4173"
-Text: 20,0,1,"AAL2695 | ground"
-End:
-Object: 33.50555,-85.17145
-Threshold: 999
-Icon: 0,0,53,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N423AE\nRegistration: N423AE\nAircraft type: B06\nAltitude: 1975\nGround speed: 102.8 kt\nHeading: 53 deg\nICAO24: a506c9\nSquawk: 1200"
-Text: 20,0,1,"N423AE | 1975"
-End:
-Object: 33.25492,-85.15974
-Threshold: 999
-Icon: 0,0,13,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N8511\nRegistration: N8511\nAircraft type: SR22\nAltitude: 4500\nGround speed: 156.7 kt\nHeading: 13 deg\nICAO24: abad8a\nSquawk: 1200"
-Text: 20,0,1,"N8511 | 4500"
-End:
-Object: 32.81465,-85.14580
-Threshold: 999
-Icon: 0,0,271,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: AUB153\nRegistration: N861AT\nAircraft type: C172\nAltitude: 3000\nGround speed: 80.0 kt\nHeading: 271 deg\nICAO24: abd2a0\nSquawk: 1200"
-Text: 20,0,1,"AUB153 | 3000"
-End:
-Object: 32.96131,-85.03396
-Threshold: 999
-Icon: 0,0,54,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: AUB119\nRegistration: N242JW\nAircraft type: C172\nAltitude: 2800\nGround speed: 84.4 kt\nHeading: 54 deg\nICAO24: a2384a\nSquawk: 1200"
-Text: 20,0,1,"AUB119 | 2800"
-End:
-Object: 34.25979,-84.90086
-Threshold: 999
-Icon: 0,0,258,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N778EM\nRegistration: N778EM\nAircraft type: C182\nAltitude: 4025\nGround speed: 126.9 kt\nHeading: 258 deg\nICAO24: aa872f\nSquawk: 2516"
-Text: 20,0,1,"N778EM | 4025"
-End:
-Object: 32.83553,-84.87334
-Threshold: 999
-Icon: 0,0,116,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N1701T\nRegistration: N1701T\nAircraft type: P28A\nAltitude: 5600\nGround speed: 118.1 kt\nHeading: 116 deg\nICAO24: a11bba\nSquawk: 1200"
-Text: 20,0,1,"N1701T | 5600"
-End:
-Object: 32.02822,-84.76771
-Threshold: 999
-Icon: 0,0,349,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1756\nRegistration: N552NW\nAircraft type: B752\nAltitude: 34000\nGround speed: 415.0 kt\nHeading: 349 deg\nICAO24: a7081a\nSquawk: 1472"
-Text: 20,0,1,"DAL1756 | 34000"
-End:
-Object: 27.99564,-84.63117
-Threshold: 999
-Icon: 0,0,102,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL867\nRegistration: N615DN\nAircraft type: A21N\nAltitude: 33000\nGround speed: 514.9 kt\nHeading: 102 deg\nICAO24: a801a9\nSquawk: 3732"
-Text: 20,0,1,"DAL867 | 33000"
-End:
-Object: 33.33714,-84.49618
-Threshold: 999
-Icon: 0,0,80,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N2656T\nRegistration: N2656T\nAircraft type: P28A\nAltitude: 2500\nGround speed: 95.5 kt\nHeading: 80 deg\nICAO24: a294cc\nSquawk: 1200"
-Text: 20,0,1,"N2656T | 2500"
-End:
-Object: 33.64411,-84.44207
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT2912\nRegistration: N721FR\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a9a7d0\nSquawk: 3312"
-Text: 20,0,1,"FFT2912 | ground"
-End:
-Object: 33.64334,-84.44203
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL552\nRegistration: N997AA\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: adeca5\nSquawk: "
-Text: 20,0,1,"AAL552 | ground"
-End:
-Object: 33.64262,-84.44200
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL3275\nRegistration: N927AN\nAircraft type: B738\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: acd838\nSquawk: 3130"
-Text: 20,0,1,"AAL3275 | ground"
-End:
-Object: 33.64144,-84.44200
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL1162\nRegistration: N712US\nAircraft type: A319\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a9854e\nSquawk: 5714"
-Text: 20,0,1,"AAL1162 | ground"
-End:
-Object: 33.64513,-84.43916
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1831\nRegistration: N6712B\nAircraft type: B752\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8e20f\nSquawk: 4743"
-Text: 20,0,1,"DAL1831 | ground"
-End:
-Object: 33.64266,-84.43866
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: ac8d3c\nRegistration: N908DN\nAircraft type: B739\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ac8d3c\nSquawk: 1250"
-Text: 20,0,1,"ac8d3c | ground"
-End:
-Object: 33.64223,-84.43843
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL2329\nRegistration: N6703D\nAircraft type: B752\nAltitude: ground\nGround speed: 3.8 kt\nHeading: 0 deg\nICAO24: a8de7d\nSquawk: 2023"
-Text: 20,0,1,"DAL2329 | ground"
-End:
-Object: 33.63778,-84.43786
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: a8df2c\nRegistration: N6708D\nAircraft type: B752\nAltitude: ground\nGround speed: 0.3 kt\nHeading: 0 deg\nICAO24: a8df2c\nSquawk: 1254"
-Text: 20,0,1,"a8df2c | ground"
-End:
-Object: 33.64847,-84.43768
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA2711\nRegistration: N454WN\nAircraft type: B737\nAltitude: ground\nGround speed: 14.2 kt\nHeading: 0 deg\nICAO24: a582f9\nSquawk: 1454"
-Text: 20,0,1,"SWA2711 | ground"
-End:
-Object: 33.63770,-84.43721
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL2063\nRegistration: N6705Y\nAircraft type: B752\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8ded6\nSquawk: 6666"
-Text: 20,0,1,"DAL2063 | ground"
-End:
-Object: 33.63999,-84.43458
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: EDV4663\nRegistration: N293PQ\nAircraft type: CRJ9\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a301f3\nSquawk: 6775"
-Text: 20,0,1,"EDV4663 | ground"
-End:
-Object: 33.64098,-84.43458
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT1846\nRegistration: N651FR\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a890fe\nSquawk: 1775"
-Text: 20,0,1,"FFT1846 | ground"
-End:
-Object: 33.64348,-84.43458
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT2409\nRegistration: N621FR\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a81a81\nSquawk: 3426"
-Text: 20,0,1,"FFT2409 | ground"
-End:
-Object: 33.64262,-84.43458
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL775\nRegistration: N844DN\nAircraft type: B739\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ab8f0d\nSquawk: 7420"
-Text: 20,0,1,"DAL775 | ground"
-End:
-Object: 33.64461,-84.43452
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL26\nRegistration: N531DN\nAircraft type: A359\nAltitude: ground\nGround speed: 4.2 kt\nHeading: 0 deg\nICAO24: a6b47c\nSquawk: 1432"
-Text: 20,0,1,"DAL26 | ground"
-End:
-Object: 33.64378,-84.43392
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1418\nRegistration: N922AT\nAircraft type: B712\nAltitude: ground\nGround speed: 0.1 kt\nHeading: 0 deg\nICAO24: acc5aa\nSquawk: 3554"
-Text: 20,0,1,"DAL1418 | ground"
-End:
-Object: 33.64336,-84.43355
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1465\nRegistration: N358DN\nAircraft type: A321\nAltitude: ground\nGround speed: 1.1 kt\nHeading: 0 deg\nICAO24: a402dd\nSquawk: "
-Text: 20,0,1,"DAL1465 | ground"
-End:
-Object: 33.64019,-84.43211
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA203\nRegistration: N295WN\nAircraft type: B737\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a30a0e\nSquawk: 7237"
-Text: 20,0,1,"SWA203 | ground"
-End:
-Object: 33.62323,-84.43186
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: ARFF5\nRegistration: N181QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a145d7\nSquawk: "
-Text: 20,0,1,"ARFF5 | ground"
-End:
-Object: 33.64606,-84.42830
-Threshold: 999
-Icon: 0,0,335,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS81\nRegistration: N362QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 7.8 kt\nHeading: 335 deg\nICAO24: a4152e\nSquawk: "
-Text: 20,0,1,"OPS81 | ground"
-End:
-Object: 33.62953,-84.42810
-Threshold: 999
-Icon: 0,0,298,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS4\nRegistration: N191QX\nAircraft type: SERV\nAltitude: ground\nGround speed: 2.8 kt\nHeading: 298 deg\nICAO24: a16d56\nSquawk: "
-Text: 20,0,1,"OPS4 | ground"
-End:
-Object: 33.63902,-84.42806
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT3215\nRegistration: N619FR\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a810ba\nSquawk: 2215"
-Text: 20,0,1,"FFT3215 | ground"
-End:
-Object: 33.64459,-84.42799
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL85\nRegistration: N831MH\nAircraft type: B764\nAltitude: ground\nGround speed: 11.8 kt\nHeading: 0 deg\nICAO24: ab5d2c\nSquawk: 3140"
-Text: 20,0,1,"DAL85 | ground"
-End:
-Object: 33.64537,-84.42790
-Threshold: 999
-Icon: 0,0,28,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT2779\nRegistration: N432FR\nAircraft type: A20N\nAltitude: ground\nGround speed: 6.8 kt\nHeading: 28 deg\nICAO24: a52b19\nSquawk: 2533"
-Text: 20,0,1,"FFT2779 | ground"
-End:
-Object: 33.62898,-84.42757
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS7\nRegistration: N194QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a1787b\nSquawk: "
-Text: 20,0,1,"OPS7 | ground"
-End:
-Object: 33.63745,-84.42731
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1804\nRegistration: N933DZ\nAircraft type: B739\nAltitude: ground\nGround speed: 3.2 kt\nHeading: 0 deg\nICAO24: acf131\nSquawk: "
-Text: 20,0,1,"DAL1804 | ground"
-End:
-Object: 33.62942,-84.42689
-Threshold: 999
-Icon: 0,0,264,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS13\nRegistration: N204QX\nAircraft type: SERV\nAltitude: ground\nGround speed: 4.8 kt\nHeading: 264 deg\nICAO24: a1a253\nSquawk: "
-Text: 20,0,1,"OPS13 | ground"
-End:
-Object: 33.63073,-84.42672
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1241\nRegistration: N351NW\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a3e9c5\nSquawk: 3172"
-Text: 20,0,1,"DAL1241 | ground"
-End:
-Object: 33.63361,-84.42571
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: FFT2496\nRegistration: N441FR\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a54ee1\nSquawk: 2255"
-Text: 20,0,1,"FFT2496 | ground"
-End:
-Object: 33.64469,-84.42568
-Threshold: 999
-Icon: 0,0,270,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS1\nRegistration: N188QX\nAircraft type: SERV\nAltitude: ground\nGround speed: 4.8 kt\nHeading: 270 deg\nICAO24: a15fd8\nSquawk: "
-Text: 20,0,1,"OPS1 | ground"
-End:
-Object: 33.62859,-84.42478
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS3\nRegistration: N190QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 2.8 kt\nHeading: 0 deg\nICAO24: a1699f\nSquawk: "
-Text: 20,0,1,"OPS3 | ground"
-End:
-Object: 33.64542,-84.42440
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1820\nRegistration: N921DU\nAircraft type: B739\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: acc23f\nSquawk: 1463"
-Text: 20,0,1,"DAL1820 | ground"
-End:
-Object: 33.64382,-84.42424
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JBU1396\nRegistration: N3247J\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a38082\nSquawk: 2000"
-Text: 20,0,1,"JBU1396 | ground"
-End:
-Object: 33.63796,-84.42417
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: VIR109V\nRegistration: G-VRAY\nAircraft type: A333\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: 4066ab\nSquawk: 2511"
-Text: 20,0,1,"VIR109V | ground"
-End:
-Object: 33.64398,-84.42377
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT2050\nRegistration: N710FR\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a97c9a\nSquawk: 2055"
-Text: 20,0,1,"FFT2050 | ground"
-End:
-Object: 33.63352,-84.42306
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: EDV5528\nRegistration: N310PQ\nAircraft type: CRJ9\nAltitude: ground\nGround speed: 12.8 kt\nHeading: 0 deg\nICAO24: a34825\nSquawk: 2270"
-Text: 20,0,1,"EDV5528 | ground"
-End:
-Object: 33.64429,-84.42146
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: SLI2711\nRegistration: XA-DAC\nAircraft type: E190\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: 0d0648\nSquawk: 2002"
-Text: 20,0,1,"SLI2711 | ground"
-End:
-Object: 33.64954,-84.41723
-Threshold: 999
-Icon: 0,0,270,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1780\nRegistration: N525DA\nAircraft type: A21N\nAltitude: 975\nGround speed: 128.0 kt\nHeading: 270 deg\nICAO24: a69bcd\nSquawk: 1362"
-Text: 20,0,1,"DAL1780 | 975"
-End:
-Object: 31.22172,-84.15813
-Threshold: 999
-Icon: 0,0,262,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N2807T\nRegistration: N2807T\nAircraft type: P28A\nAltitude: 1200\nGround speed: 81.7 kt\nHeading: 262 deg\nICAO24: a2d15a\nSquawk: 1200"
-Text: 20,0,1,"N2807T | 1200"
-End:
-Object: 33.44299,-84.03128
-Threshold: 999
-Icon: 0,0,325,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1919\nRegistration: N364DX\nAircraft type: A321\nAltitude: 6600\nGround speed: 216.7 kt\nHeading: 325 deg\nICAO24: a41b89\nSquawk: 4110"
-Text: 20,0,1,"DAL1919 | 6600"
-End:
-Object: 34.01985,-83.92467
-Threshold: 999
-Icon: 0,0,50,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: CXK399\nRegistration: N542A\nAircraft type: P28A\nAltitude: 4100\nGround speed: 79.5 kt\nHeading: 50 deg\nICAO24: a6df5a\nSquawk: "
-Text: 20,0,1,"CXK399 | 4100"
-End:
-Object: 27.86678,-83.85072
-Threshold: 999
-Icon: 0,0,129,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N910DZ\nRegistration: N910DZ\nAircraft type: TBM7\nAltitude: 24050\nGround speed: 394.0 kt\nHeading: 129 deg\nICAO24: ac970e\nSquawk: 3243"
-Text: 20,0,1,"N910DZ | 24050"
-End:
-Object: 33.91503,-83.79982
-Threshold: 999
-Icon: 0,0,179,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: N5457P\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: 3525\nGround speed: 154.0 kt\nHeading: 179 deg\nICAO24: a6edda\nSquawk: 1200"
-Text: 20,0,1,"N5457P | 3525"
-End:
-Object: 34.13527,-83.78197
-Threshold: 999
-Icon: 0,0,298,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N2132W\nRegistration: N2132W\nAircraft type: C172\nAltitude: 3150\nGround speed: 86.4 kt\nHeading: 298 deg\nICAO24: a1c75a\nSquawk: 1200"
-Text: 20,0,1,"N2132W | 3150"
-End:
-Object: 27.86481,-83.65291
-Threshold: 999
-Icon: 0,0,87,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA8108\nRegistration: N8794Q\nAircraft type: B38M\nAltitude: 31700\nGround speed: 537.6 kt\nHeading: 87 deg\nICAO24: ac1ab8\nSquawk: 0711"
-Text: 20,0,1,"SWA8108 | 31700"
-End:
-Object: 27.28065,-83.61301
-Threshold: 999
-Icon: 0,0,102,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU2010\nRegistration: N4064J\nAircraft type: A21N\nAltitude: 31000\nGround speed: 489.3 kt\nHeading: 102 deg\nICAO24: a4c5d8\nSquawk: 3764"
-Text: 20,0,1,"JBU2010 | 31000"
-End:
-Object: 34.25459,-83.59043
-Threshold: 999
-Icon: 0,0,163,1,3,"HELICOPTER\nCallsign: N114M\nRegistration: N114M\nAircraft type: RV12\nAltitude: 2825\nGround speed: 106.9 kt\nHeading: 163 deg\nICAO24: a03c22\nSquawk: 1200"
-Text: 20,0,1,"N114M | 2825"
-End:
-Object: 34.38050,-83.48877
-Threshold: 999
-Icon: 0,0,338,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: JLG855\nRegistration: N855TX\nAircraft type: SF50\nAltitude: 29000\nGround speed: 236.0 kt\nHeading: 338 deg\nICAO24: abbbaa\nSquawk: 2631"
-Text: 20,0,1,"JLG855 | 29000"
-End:
-Object: 33.62068,-83.26778
-Threshold: 999
-Icon: 0,0,287,1,2,"REGIONAL AIRCRAFT\nCallsign: YEL87\nRegistration: N287TX\nAircraft type: E55P\nAltitude: 10025\nGround speed: 263.2 kt\nHeading: 287 deg\nICAO24: a2e9bb\nSquawk: 2615"
-Text: 20,0,1,"YEL87 | 10025"
-End:
-Object: 34.22896,-83.09941
-Threshold: 999
-Icon: 0,0,211,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N696SG\nRegistration: N696SG\nAircraft type: PA31\nAltitude: 6600\nGround speed: 142.2 kt\nHeading: 211 deg\nICAO24: a94297\nSquawk: 1200"
-Text: 20,0,1,"N696SG | 6600"
-End:
-Object: 34.26064,-82.60396
-Threshold: 999
-Icon: 0,0,82,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: AAL1954\nRegistration: N474AN\nAircraft type: Unknown\nAltitude: 27550\nGround speed: 487.3 kt\nHeading: 82 deg\nICAO24: a5d003\nSquawk: 2534"
-Text: 20,0,1,"AAL1954 | 27550"
-End:
-Object: 27.98218,-82.54147
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1370\nRegistration: N27246\nAircraft type: B738\nAltitude: ground\nGround speed: 19.5 kt\nHeading: 0 deg\nICAO24: a2b0ed\nSquawk: 2173"
-Text: 20,0,1,"UAL1370 | ground"
+Icon: 0,0,38,1,2,"PRIVATE / GENERAL AVIATION\nID: N105AV\nSpeed: 86 KT\nAltitude: 700 FT\nRegistration: N105AV\nAircraft type: P28A\nICAO24: a0175b"
+Text: 0,22,1,"N105AV"
+Text: 0,34,1,"86 KT | 700 FT"
 End:
 Object: 27.97608,-82.53175
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU391\nRegistration: N634JB\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a84d62\nSquawk: 2000"
-Text: 20,0,1,"JBU391 | ground"
+Icon: 0,0,2,1,1,"COMMERCIAL\nID: JBU391\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N634JB\nAircraft type: A320\nICAO24: a84d62"
+Text: 0,22,1,"JBU391"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 29.39273,-82.52312
+Object: 27.83057,-82.52515
 Threshold: 999
-Icon: 0,0,176,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N30584\nRegistration: N30584\nAircraft type: C177\nAltitude: 2800\nGround speed: 123.3 kt\nHeading: 176 deg\nICAO24: a33572\nSquawk: 1200"
-Text: 20,0,1,"N30584 | 2800"
+Icon: 0,0,278,1,5,"MILITARY\nID: C6006\nMILITARY (BRANCH UNKNOWN)\nSpeed: 68 KT\nAltitude: 625 FT\nRegistration: 6006\nAircraft type: H60\nICAO24: ae27f7"
+Text: 0,22,1,"C6006"
+Text: 0,34,1,"68 KT | 625 FT"
+Text: 0,46,1,"MILITARY (BRANCH UNKNOWN)"
 End:
-Object: 28.25968,-82.51847
+Object: 28.80157,-82.48134
 Threshold: 999
-Icon: 0,0,135,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU378\nRegistration: N990JL\nAircraft type: A321\nAltitude: 35025\nGround speed: 493.6 kt\nHeading: 135 deg\nICAO24: add376\nSquawk: 3605"
-Text: 20,0,1,"JBU378 | 35025"
+Icon: 0,0,177,1,2,"PRIVATE / GENERAL AVIATION\nID: N30584\nSpeed: 122 KT\nAltitude: 2,700 FT\nRegistration: N30584\nAircraft type: C177\nICAO24: a33572"
+Text: 0,22,1,"N30584"
+Text: 0,34,1,"122 KT | 2,700 FT"
 End:
-Object: 27.84123,-82.51391
+Object: 26.85068,-82.37160
 Threshold: 999
-Icon: 0,0,216,1,3,"HELICOPTER\nCallsign: C6006\nRegistration: 6006\nAircraft type: H60\nAltitude: 725\nGround speed: 75.8 kt\nHeading: 216 deg\nICAO24: ae27f7\nSquawk: 0171"
-Text: 20,0,1,"C6006 | 725"
+Icon: 0,0,124,1,2,"PRIVATE / GENERAL AVIATION\nID: N910DZ\nSpeed: 330 KT\nAltitude: 11,925 FT\nRegistration: N910DZ\nAircraft type: TBM7\nICAO24: ac970e"
+Text: 0,22,1,"N910DZ"
+Text: 0,34,1,"330 KT | 11,925 FT"
 End:
-Object: 32.18427,-82.37263
+Object: 27.18114,-82.22925
 Threshold: 999
-Icon: 0,0,336,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N553LB\nRegistration: N553LB\nAircraft type: SR22\nAltitude: 4575\nGround speed: 145.5 kt\nHeading: 336 deg\nICAO24: a70b8c\nSquawk: 2674"
-Text: 20,0,1,"N553LB | 4575"
+Icon: 0,0,193,1,1,"COMMERCIAL\nID: VIR93\nVirgin Atlantic\nSpeed: 481 KT\nAltitude: 40,000 FT\nRegistration: G-VEVE\nAircraft type: A35K\nICAO24: 4079cd"
+Text: 0,22,1,"VIR93"
+Text: 0,34,1,"481 KT | 40,000 FT"
+Text: 0,46,1,"Virgin Atlantic"
 End:
-Object: 31.60126,-82.33736
+Object: 28.99283,-82.07125
 Threshold: 999
-Icon: 0,0,333,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1758\nRegistration: N807DN\nAircraft type: B739\nAltitude: 31025\nGround speed: 372.5 kt\nHeading: 333 deg\nICAO24: aafc36\nSquawk: 3652"
-Text: 20,0,1,"DAL1758 | 31025"
+Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nID: CNS163\nSpeed: 246 KT\nAltitude: 17,575 FT\nRegistration: N226AF\nAircraft type: PC12\nICAO24: a1f751"
+Text: 0,22,1,"CNS163"
+Text: 0,34,1,"246 KT | 17,575 FT"
 End:
-Object: 31.76051,-82.32702
+Object: 28.01574,-82.06389
 Threshold: 999
-Icon: 0,0,34,1,3,"HELICOPTER\nCallsign: N46RV\nRegistration: N46RV\nAircraft type: RV6\nAltitude: 6525\nGround speed: 144.8 kt\nHeading: 34 deg\nICAO24: a598cd\nSquawk: 1200"
-Text: 20,0,1,"N46RV | 6525"
+Icon: 0,0,66,1,1,"COMMERCIAL\nID: DAL867\nDelta Air Lines\nSpeed: 375 KT\nAltitude: 14,350 FT\nRegistration: N615DN\nAircraft type: A21N\nICAO24: a801a9"
+Text: 0,22,1,"DAL867"
+Text: 0,34,1,"375 KT | 14,350 FT"
+Text: 0,46,1,"Delta Air Lines"
 End:
-Object: 33.53183,-82.21531
+Object: 26.64848,-81.91769
 Threshold: 999
-Icon: 0,0,253,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N915ML\nRegistration: N915ML\nAircraft type: COL4\nAltitude: 4575\nGround speed: 171.5 kt\nHeading: 253 deg\nICAO24: acaa5c\nSquawk: 0775"
-Text: 20,0,1,"N915ML | 4575"
+Icon: 0,0,211,1,2,"PRIVATE / GENERAL AVIATION\nID: N8009W\nSpeed: 77 KT\nAltitude: 4,600 FT\nRegistration: N8009W\nAircraft type: P28A\nICAO24: aae585"
+Text: 0,22,1,"N8009W"
+Text: 0,34,1,"77 KT | 4,600 FT"
 End:
-Object: 29.42116,-82.19326
+Object: 26.60116,-81.84012
 Threshold: 999
-Icon: 0,0,7,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N8407Y\nRegistration: N8407Y\nAircraft type: PA30\nAltitude: 6575\nGround speed: 146.0 kt\nHeading: 7 deg\nICAO24: ab833d\nSquawk: 1345"
-Text: 20,0,1,"N8407Y | 6575"
+Icon: 0,0,175,1,2,"PRIVATE / GENERAL AVIATION\nID: N422US\nSpeed: 108 KT\nAltitude: 1,025 FT\nRegistration: N422US\nAircraft type: P28A\nICAO24: a504e0"
+Text: 0,22,1,"N422US"
+Text: 0,34,1,"108 KT | 1,025 FT"
 End:
-Object: 29.41338,-82.10837
+Object: 28.57237,-81.68150
 Threshold: 999
-Icon: 0,0,150,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N588ND\nRegistration: N588ND\nAircraft type: PA44\nAltitude: 4625\nGround speed: 163.1 kt\nHeading: 150 deg\nICAO24: a794d0\nSquawk: 1200"
-Text: 20,0,1,"N588ND | 4625"
+Icon: 0,0,10,1,2,"PRIVATE / GENERAL AVIATION\nID: N172ER\nSpeed: 105 KT\nAltitude: 3,000 FT\nRegistration: N172ER\nAircraft type: TAMP\nICAO24: a1210f"
+Text: 0,22,1,"N172ER"
+Text: 0,34,1,"105 KT | 3,000 FT"
 End:
-Object: 27.78401,-82.07384
+Object: 27.90052,-81.62541
 Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: CNS163\nRegistration: N226AF\nAircraft type: PC12\nAltitude: 17575\nGround speed: 259.0 kt\nHeading: 0 deg\nICAO24: a1f751\nSquawk: 2601"
-Text: 20,0,1,"CNS163 | 17575"
+Icon: 0,0,177,1,2,"PRIVATE / GENERAL AVIATION\nID: N36800\nSpeed: 110 KT\nAltitude: 4,650 FT\nRegistration: N36800\nAircraft type: P28A\nICAO24: a42c75"
+Text: 0,22,1,"N36800"
+Text: 0,34,1,"110 KT | 4,650 FT"
 End:
-Object: 30.36067,-81.71164
+Object: 28.73553,-81.60133
 Threshold: 999
-Icon: 0,0,107,1,1,"COMMERCIAL AIRLINER\nCallsign: N103JP\nRegistration: N103JP\nAircraft type: B407\nAltitude: 1025\nGround speed: 63.9 kt\nHeading: 107 deg\nICAO24: a010af\nSquawk: 0432"
-Text: 20,0,1,"N103JP | 1025"
+Icon: 0,0,150,1,2,"PRIVATE / GENERAL AVIATION\nID: N588ND\nSpeed: 113 KT\nAltitude: 875 FT\nRegistration: N588ND\nAircraft type: PA44\nICAO24: a794d0"
+Text: 0,22,1,"N588ND"
+Text: 0,34,1,"113 KT | 875 FT"
 End:
-Object: 28.70718,-81.70791
+Object: 28.17639,-81.40686
 Threshold: 999
-Icon: 0,0,359,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N1BZ\nRegistration: N1BZ\nAircraft type: C25A\nAltitude: 33000\nGround speed: 352.1 kt\nHeading: 359 deg\nICAO24: a00033\nSquawk: 2160"
-Text: 20,0,1,"N1BZ | 33000"
+Icon: 0,0,51,1,1,"COMMERCIAL\nID: SWA8108\nSouthwest Airlines\nSpeed: 239 KT\nAltitude: 5,800 FT\nRegistration: N8794Q\nAircraft type: B38M\nICAO24: ac1ab8"
+Text: 0,22,1,"SWA8108"
+Text: 0,34,1,"239 KT | 5,800 FT"
+Text: 0,46,1,"Southwest Airlines"
 End:
-Object: 28.12733,-81.65443
+Object: 28.42798,-81.32442
 Threshold: 999
-Icon: 0,0,247,1,2,"REGIONAL AIRCRAFT\nCallsign: ad128f\nRegistration: N941TG\nAircraft type: EC35\nAltitude: 750\nGround speed: 80.2 kt\nHeading: 247 deg\nICAO24: ad128f\nSquawk: 0254"
-Text: 20,0,1,"ad128f | 750"
+Icon: 0,0,359,1,1,"COMMERCIAL\nID: VIR91U\nVirgin Atlantic\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: G-VPOP\nAircraft type: A35K\nICAO24: 4075b4"
+Text: 0,22,1,"VIR91U"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"Virgin Atlantic"
 End:
-Object: 28.43793,-81.64057
+Object: 28.42664,-81.32441
 Threshold: 999
-Icon: 0,0,176,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N36800\nRegistration: N36800\nAircraft type: P28A\nAltitude: 4600\nGround speed: 109.3 kt\nHeading: 176 deg\nICAO24: a42c75\nSquawk: 1200"
-Text: 20,0,1,"N36800 | 4600"
+Icon: 0,0,0,1,1,"COMMERCIAL\nID: AZU9301\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: PR-AHC\nAircraft type: A332\nICAO24: e4a7ae"
+Text: 0,22,1,"AZU9301"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 29.42734,-81.63713
+Object: 28.55000,-81.32252
 Threshold: 999
-Icon: 0,0,193,1,1,"COMMERCIAL AIRLINER\nCallsign: VIR93\nRegistration: G-VEVE\nAircraft type: A35K\nAltitude: 40000\nGround speed: 483.7 kt\nHeading: 193 deg\nICAO24: 4079cd\nSquawk: 0706"
-Text: 20,0,1,"VIR93 | 40000"
-End:
-Object: 30.30225,-81.45077
-Threshold: 999
-Icon: 0,0,331,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL2337\nRegistration: N3731T\nAircraft type: B738\nAltitude: 37000\nGround speed: 400.8 kt\nHeading: 331 deg\nICAO24: a4417d\nSquawk: 5707"
-Text: 20,0,1,"DAL2337 | 37000"
-End:
-Object: 30.03979,-81.43956
-Threshold: 999
-Icon: 0,0,334,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1785\nRegistration: N813DN\nAircraft type: B739\nAltitude: 31000\nGround speed: 425.3 kt\nHeading: 334 deg\nICAO24: ab14d9\nSquawk: 6425"
-Text: 20,0,1,"DAL1785 | 31000"
-End:
-Object: 28.54771,-81.34308
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N280FL\nRegistration: N280FL\nAircraft type: G280\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a2ce83\nSquawk: 1200"
-Text: 20,0,1,"N280FL | ground"
-End:
-Object: 28.42798,-81.32443
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: VIR91U\nRegistration: G-VPOP\nAircraft type: A35K\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: 4075b4\nSquawk: 2501"
-Text: 20,0,1,"VIR91U | ground"
-End:
-Object: 28.42663,-81.32441
-Threshold: 999
-Icon: 0,0,0,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: AZU9301\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: e4a7ae\nSquawk: 1051"
-Text: 20,0,1,"AZU9301 | ground"
+Icon: 0,0,247,1,2,"PRIVATE / GENERAL AVIATION\nID: N280FL\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N280FL\nAircraft type: G280\nICAO24: a2ce83"
+Text: 0,22,1,"N280FL"
+Text: 0,34,1,"0 KT | GROUND"
 End:
 Object: 28.44207,-81.31901
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: ASA396\nRegistration: N214AK\nAircraft type: B739\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a1c868\nSquawk: 3722"
-Text: 20,0,1,"ASA396 | ground"
+Icon: 0,0,359,1,1,"COMMERCIAL\nID: ASA396\nAlaska Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N214AK\nAircraft type: B739\nICAO24: a1c868"
+Text: 0,22,1,"ASA396"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"Alaska Airlines"
 End:
-Object: 28.44072,-81.31898
+Object: 28.43383,-81.31613
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1423\nRegistration: N37521\nAircraft type: B39M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a44916\nSquawk: 6161"
-Text: 20,0,1,"UAL1423 | ground"
+Icon: 0,0,359,1,2,"PRIVATE / GENERAL AVIATION\nID: MXY2071\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N243BZ\nAircraft type: BCS3\nICAO24: a23b55"
+Text: 0,22,1,"MXY2071"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 28.41215,-81.31709
+Object: 28.43415,-81.31575
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AVA202\nRegistration: N345AV\nAircraft type: A320\nAltitude: ground\nGround speed: 0.9 kt\nHeading: 0 deg\nICAO24: a3cff5\nSquawk: 3776"
-Text: 20,0,1,"AVA202 | ground"
+Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nID: MXY808\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N240BZ\nAircraft type: BCS3\nICAO24: a23030"
+Text: 0,22,1,"MXY808"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 28.43383,-81.31611
+Object: 28.41227,-81.31559
 Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: MXY2071\nRegistration: N243BZ\nAircraft type: BCS1\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a23b55\nSquawk: 7662"
-Text: 20,0,1,"MXY2071 | ground"
-End:
-Object: 28.43414,-81.31575
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: MXY808\nRegistration: N240BZ\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a23030\nSquawk: 4240"
-Text: 20,0,1,"MXY808 | ground"
-End:
-Object: 28.41227,-81.31560
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU2324\nRegistration: N663JB\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8c028\nSquawk: 2000"
-Text: 20,0,1,"JBU2324 | ground"
+Icon: 0,0,158,1,1,"COMMERCIAL\nID: JBU2324\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N663JB\nAircraft type: A320\nICAO24: a8c028"
+Text: 0,22,1,"JBU2324"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
 Object: 28.42878,-81.31555
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL1165\nRegistration: N833AW\nAircraft type: A319\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ab6394\nSquawk: 6265"
-Text: 20,0,1,"AAL1165 | ground"
+Icon: 0,0,359,1,1,"COMMERCIAL\nID: AAL1165\nAmerican Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N833AW\nAircraft type: A319\nICAO24: ab6394"
+Text: 0,22,1,"AAL1165"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"American Airlines"
 End:
-Object: 28.42839,-81.31466
+Object: 28.42839,-81.31465
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL2440\nRegistration: N843NN\nAircraft type: B738\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ab8c37\nSquawk: 2611"
-Text: 20,0,1,"AAL2440 | ground"
+Icon: 0,0,359,1,1,"COMMERCIAL\nID: AAL2440\nAmerican Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N843NN\nAircraft type: B738\nICAO24: ab8c37"
+Text: 0,22,1,"AAL2440"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"American Airlines"
 End:
 Object: 28.41328,-81.31462
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU698\nRegistration: N623JB\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8222c\nSquawk: 2000"
-Text: 20,0,1,"JBU698 | ground"
+Icon: 0,0,359,1,1,"COMMERCIAL\nID: JBU698\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N623JB\nAircraft type: A320\nICAO24: a8222c"
+Text: 0,22,1,"JBU698"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
+End:
+Object: 28.41442,-81.31450
+Threshold: 999
+Icon: 0,0,359,1,1,"COMMERCIAL\nID: JBU130\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N504JB\nAircraft type: A320\nICAO24: a64996"
+Text: 0,22,1,"JBU130"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
 Object: 28.41406,-81.31450
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU2052\nRegistration: N958JB\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ad5329\nSquawk: 1514"
-Text: 20,0,1,"JBU2052 | ground"
+Icon: 0,0,93,1,1,"COMMERCIAL\nID: JBU2052\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N958JB\nAircraft type: A321\nICAO24: ad5329"
+Text: 0,22,1,"JBU2052"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 28.41515,-81.31440
+Object: 28.41516,-81.31441
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU547\nRegistration: N586JB\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a78cfc\nSquawk: 2000"
-Text: 20,0,1,"JBU547 | ground"
+Icon: 0,0,0,1,1,"COMMERCIAL\nID: JBU547\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N586JB\nAircraft type: A320\nICAO24: a78cfc"
+Text: 0,22,1,"JBU547"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
 Object: 28.41587,-81.31422
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1656\nRegistration: N649JB\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a88774\nSquawk: 0710"
-Text: 20,0,1,"JBU1656 | ground"
+Icon: 0,0,359,1,1,"COMMERCIAL\nID: JBU1656\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N649JB\nAircraft type: A320\nICAO24: a88774"
+Text: 0,22,1,"JBU1656"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 28.41623,-81.31407
+Object: 28.41624,-81.31408
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: addadb\nRegistration: N992JB\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: addadb\nSquawk: 2000"
-Text: 20,0,1,"addadb | ground"
+Icon: 0,0,359,1,1,"COMMERCIAL\nID: JBU2832\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N992JB\nAircraft type: A321\nICAO24: addadb"
+Text: 0,22,1,"JBU2832"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 28.56116,-81.30554
+Object: 26.84995,-81.23965
 Threshold: 999
-Icon: 0,0,171,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N734MG\nRegistration: N734MG\nAircraft type: C172\nAltitude: 900\nGround speed: 72.8 kt\nHeading: 171 deg\nICAO24: a9db01\nSquawk: 1200"
-Text: 20,0,1,"N734MG | 900"
+Icon: 0,0,98,1,1,"COMMERCIAL\nID: JBU2010\nJetBlue\nSpeed: 387 KT\nAltitude: 17,125 FT\nRegistration: N4064J\nAircraft type: A21N\nICAO24: a4c5d8"
+Text: 0,22,1,"JBU2010"
+Text: 0,34,1,"387 KT | 17,125 FT"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 28.42664,-81.30320
+Object: 26.35536,-81.22604
 Threshold: 999
-Icon: 0,0,31,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA1109\nRegistration: N8319F\nAircraft type: B738\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 31 deg\nICAO24: ab5faa\nSquawk: 1022"
-Text: 20,0,1,"SWA1109 | ground"
+Icon: 0,0,160,1,2,"PRIVATE / GENERAL AVIATION\nID: N4381F\nSpeed: 99 KT\nAltitude: 4,600 FT\nRegistration: N4381F\nAircraft type: P28A\nICAO24: a54357"
+Text: 0,22,1,"N4381F"
+Text: 0,34,1,"99 KT | 4,600 FT"
 End:
-Object: 28.42502,-81.30229
+Object: 28.10399,-81.15685
 Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL2729\nRegistration: N337NB\nAircraft type: A319\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a3b0fe\nSquawk: 1566"
-Text: 20,0,1,"DAL2729 | ground"
+Icon: 0,0,14,1,2,"PRIVATE / GENERAL AVIATION\nID: N523US\nSpeed: 124 KT\nAltitude: 2,575 FT\nRegistration: N523US\nAircraft type: TWEN\nICAO24: a695e6"
+Text: 0,22,1,"N523US"
+Text: 0,34,1,"124 KT | 2,575 FT"
 End:
-Object: 32.44771,-81.18644
+Object: 28.14967,-81.04419
 Threshold: 999
-Icon: 0,0,8,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N482LA\nRegistration: N482LA\nAircraft type: Unknown\nAltitude: 5100\nGround speed: 96.9 kt\nHeading: 8 deg\nICAO24: a5f102\nSquawk: 1060"
-Text: 20,0,1,"N482LA | 5100"
+Icon: 0,0,137,1,2,"PRIVATE / GENERAL AVIATION\nID: N253AM\nSpeed: 139 KT\nAltitude: 850 FT\nRegistration: N253AM\nAircraft type: EC35\nICAO24: a262af"
+Text: 0,22,1,"N253AM"
+Text: 0,34,1,"139 KT | 850 FT"
 End:
-Object: 30.81954,-81.05817
+Object: 25.99960,-80.82113
 Threshold: 999
-Icon: 0,0,148,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: MARDI\nRegistration: M-ARDI\nAircraft type: GLF6\nAltitude: 47000\nGround speed: 545.5 kt\nHeading: 148 deg\nICAO24: 424b31\nSquawk: 5617"
-Text: 20,0,1,"MARDI | 47000"
+Icon: 0,0,270,1,2,"PRIVATE / GENERAL AVIATION\nID: N568RC\nSpeed: 81 KT\nAltitude: 2,125 FT\nRegistration: N568RC\nAircraft type: SLG2\nICAO24: a7461c"
+Text: 0,22,1,"N568RC"
+Text: 0,34,1,"81 KT | 2,125 FT"
 End:
-Object: 31.58528,-81.04076
+Object: 26.68407,-80.79927
 Threshold: 999
-Icon: 0,0,206,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N2514L\nRegistration: N2514L\nAircraft type: C172\nAltitude: 11900\nGround speed: 54.6 kt\nHeading: 206 deg\nICAO24: a25e24\nSquawk: 1200"
-Text: 20,0,1,"N2514L | 11900"
+Icon: 0,0,136,1,1,"COMMERCIAL\nID: JBU378\nJetBlue\nSpeed: 354 KT\nAltitude: 10,375 FT\nRegistration: N990JL\nAircraft type: A321\nICAO24: add376"
+Text: 0,22,1,"JBU378"
+Text: 0,34,1,"354 KT | 10,375 FT"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 28.91094,-80.87117
+Object: 26.24643,-80.75107
 Threshold: 999
-Icon: 0,0,24,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: BPX281\nRegistration: N281PE\nAircraft type: C172\nAltitude: 2100\nGround speed: 92.7 kt\nHeading: 24 deg\nICAO24: a2d2fc\nSquawk: 2174"
-Text: 20,0,1,"BPX281 | 2100"
+Icon: 0,0,209,1,2,"PRIVATE / GENERAL AVIATION\nID: N910AJ\nSpeed: 245 KT\nAltitude: 10,600 FT\nRegistration: N910AJ\nAircraft type: BE20\nICAO24: ac96b4"
+Text: 0,22,1,"N910AJ"
+Text: 0,34,1,"245 KT | 10,600 FT"
 End:
-Object: 32.37960,-80.58758
+Object: 27.39024,-80.72925
 Threshold: 999
-Icon: 0,0,49,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N716SM\nRegistration: N716SM\nAircraft type: C441\nAltitude: 17525\nGround speed: 333.7 kt\nHeading: 49 deg\nICAO24: a993f3\nSquawk: 1020"
-Text: 20,0,1,"N716SM | 17525"
+Icon: 0,0,51,1,2,"PRIVATE / GENERAL AVIATION\nID: PFA344\nSpeed: 122 KT\nAltitude: 4,725 FT\nRegistration: N83960\nAircraft type: P28A\nICAO24: ab7d0c"
+Text: 0,22,1,"PFA344"
+Text: 0,34,1,"122 KT | 4,725 FT"
 End:
-Object: 39.35774,-102.03696
+Object: 26.56033,-80.63780
 Threshold: 999
-Icon: 0,0,272,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: LBQ419\nRegistration: N120QD\nAircraft type: PC12\nAltitude: 19975\nGround speed: 252.2 kt\nHeading: 272 deg\nICAO24: a05514\nSquawk: 1136"
-Text: 20,0,1,"LBQ419 | 19975"
+Icon: 0,0,347,1,2,"PRIVATE / GENERAL AVIATION\nID: N911MZ\nSpeed: 83 KT\nAltitude: 2,100 FT\nRegistration: N911MZ\nAircraft type: SLG2\nICAO24: ac9b8d"
+Text: 0,22,1,"N911MZ"
+Text: 0,34,1,"83 KT | 2,100 FT"
 End:
-Object: 36.68842,-100.26620
+Object: 25.86040,-80.63224
 Threshold: 999
-Icon: 0,0,308,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1368\nRegistration: N47293\nAircraft type: B38M\nAltitude: 36000\nGround speed: 435.3 kt\nHeading: 308 deg\nICAO24: a5cc37\nSquawk: 7131"
-Text: 20,0,1,"UAL1368 | 36000"
+Icon: 0,0,86,1,1,"COMMERCIAL\nID: AAL1868\nAmerican Airlines\nSpeed: 340 KT\nAltitude: 11,975 FT\nRegistration: N426AN\nAircraft type: A21N\nICAO24: a511f6"
+Text: 0,22,1,"AAL1868"
+Text: 0,34,1,"340 KT | 11,975 FT"
+Text: 0,46,1,"American Airlines"
 End:
-Object: 38.88090,-100.01416
+Object: 27.00000,-80.54855
 Threshold: 999
-Icon: 0,0,203,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N308LM\nRegistration: N308LM\nAircraft type: PC12\nAltitude: 16375\nGround speed: 273.9 kt\nHeading: 203 deg\nICAO24: a33e10\nSquawk: 1200"
-Text: 20,0,1,"N308LM | 16375"
+Icon: 0,0,296,1,2,"PRIVATE / GENERAL AVIATION\nID: N811ML\nSpeed: 143 KT\nAltitude: 6,600 FT\nRegistration: N811ML\nAircraft type: S22T\nICAO24: ab0e31"
+Text: 0,22,1,"N811ML"
+Text: 0,34,1,"143 KT | 6,600 FT"
 End:
-Object: 42.87447,-98.80822
+Object: 27.23218,-80.52507
 Threshold: 999
-Icon: 0,0,242,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL935\nRegistration: N29968\nAircraft type: B789\nAltitude: 37975\nGround speed: 462.2 kt\nHeading: 242 deg\nICAO24: a31a34\nSquawk: 2541"
-Text: 20,0,1,"UAL935 | 37975"
+Icon: 0,0,352,1,2,"PRIVATE / GENERAL AVIATION\nID: BPX717\nSpeed: 109 KT\nAltitude: 4,625 FT\nRegistration: N717PE\nAircraft type: Unknown\nICAO24: a99758"
+Text: 0,22,1,"BPX717"
+Text: 0,34,1,"109 KT | 4,625 FT"
 End:
-Object: 38.33037,-98.69610
+Object: 27.49668,-80.50971
 Threshold: 999
-Icon: 0,0,79,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N28GN\nRegistration: N28GN\nAircraft type: PC24\nAltitude: 11150\nGround speed: 248.3 kt\nHeading: 79 deg\nICAO24: a2cc45\nSquawk: 1200"
-Text: 20,0,1,"N28GN | 11150"
+Icon: 0,0,353,1,2,"PRIVATE / GENERAL AVIATION\nID: N7239N\nSpeed: 109 KT\nAltitude: 7,600 FT\nRegistration: N7239N\nAircraft type: C182\nICAO24: a9b251"
+Text: 0,22,1,"N7239N"
+Text: 0,34,1,"109 KT | 7,600 FT"
 End:
-Object: 35.51376,-98.36060
+Object: 26.19150,-80.49889
 Threshold: 999
-Icon: 0,0,185,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N44667\nRegistration: N44667\nAircraft type: P28A\nAltitude: 2400\nGround speed: 101.3 kt\nHeading: 185 deg\nICAO24: a56431\nSquawk: 1200"
-Text: 20,0,1,"N44667 | 2400"
+Icon: 0,0,339,1,2,"PRIVATE / GENERAL AVIATION\nID: N50SF\nSpeed: 227 KT\nAltitude: 2,600 FT\nRegistration: N50SF\nAircraft type: SF50\nICAO24: a6392d"
+Text: 0,22,1,"N50SF"
+Text: 0,34,1,"227 KT | 2,600 FT"
 End:
-Object: 40.62396,-98.19708
+Object: 25.65326,-80.42179
 Threshold: 999
-Icon: 0,0,261,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N598AT\nRegistration: N598AT\nAircraft type: BE9L\nAltitude: 16275\nGround speed: 249.9 kt\nHeading: 261 deg\nICAO24: a7bb31\nSquawk: 1200"
-Text: 20,0,1,"N598AT | 16275"
+Icon: 0,0,271,1,2,"PRIVATE / GENERAL AVIATION\nID: OZN902\nSpeed: 74 KT\nAltitude: 200 FT\nRegistration: N902AZ\nAircraft type: C172\nICAO24: ac76b2"
+Text: 0,22,1,"OZN902"
+Text: 0,34,1,"74 KT | 200 FT"
 End:
-Object: 39.57173,-98.10150
+Object: 25.65494,-80.41070
 Threshold: 999
-Icon: 0,0,42,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N8355H\nRegistration: N8355H\nAircraft type: P32R\nAltitude: 5375\nGround speed: 145.9 kt\nHeading: 42 deg\nICAO24: ab6dfc\nSquawk: 1200"
-Text: 20,0,1,"N8355H | 5375"
+Icon: 0,0,238,1,2,"PRIVATE / GENERAL AVIATION\nID: OZN924\nSpeed: 73 KT\nAltitude: 500 FT\nRegistration: N924AZ\nAircraft type: C172\nICAO24: accd1e"
+Text: 0,22,1,"OZN924"
+Text: 0,34,1,"73 KT | 500 FT"
 End:
-Object: 37.73352,-97.45154
+Object: 26.73711,-80.29519
 Threshold: 999
-Icon: 0,0,116,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: FFL1157\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: 9350\nGround speed: 176.7 kt\nHeading: 116 deg\nICAO24: a03c82\nSquawk: 1200"
-Text: 20,0,1,"FFL1157 | 9350"
+Icon: 0,0,211,1,2,"PRIVATE / GENERAL AVIATION\nID: N60714\nSpeed: 78 KT\nAltitude: 2,550 FT\nRegistration: N60714\nAircraft type: C150\nICAO24: a7e3d8"
+Text: 0,22,1,"N60714"
+Text: 0,34,1,"78 KT | 2,550 FT"
 End:
-Object: 36.09750,-97.42109
+Object: 26.49046,-80.28365
 Threshold: 999
-Icon: 0,0,85,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: HALO51\nRegistration: N551HA\nAircraft type: GLF5\nAltitude: 20800\nGround speed: 429.7 kt\nHeading: 85 deg\nICAO24: a703d2\nSquawk: 0766"
-Text: 20,0,1,"HALO51 | 20800"
+Icon: 0,0,159,1,2,"PRIVATE / GENERAL AVIATION\nID: N616LK\nSpeed: 251 KT\nAltitude: 4,775 FT\nRegistration: N616LK\nAircraft type: LJ31\nICAO24: a8060c"
+Text: 0,22,1,"N616LK"
+Text: 0,34,1,"251 KT | 4,775 FT"
 End:
-Object: 35.85032,-97.41884
+Object: 26.83223,-80.28477
 Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N14AN\nRegistration: N14AN\nAircraft type: SR20\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a0a064\nSquawk: 1200"
-Text: 20,0,1,"N14AN | ground"
+Icon: 0,0,251,1,2,"PRIVATE / GENERAL AVIATION\nID: N995JA\nSpeed: 78 KT\nAltitude: 2,300 FT\nRegistration: N995JA\nAircraft type: C172\nICAO24: ade5ff"
+Text: 0,22,1,"N995JA"
+Text: 0,34,1,"78 KT | 2,300 FT"
 End:
-Object: 39.40996,-97.30261
+Object: 26.07495,-80.15971
 Threshold: 999
-Icon: 0,0,137,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: CAP1494\nRegistration: N832CP\nAircraft type: C82T\nAltitude: 6550\nGround speed: 135.8 kt\nHeading: 137 deg\nICAO24: ab6008\nSquawk: 3651"
-Text: 20,0,1,"CAP1494 | 6550"
+Icon: 0,0,90,1,1,"COMMERCIAL\nID: AAL2089\nAmerican Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N327VP\nAircraft type: B38M\nICAO24: a38a3a"
+Text: 0,22,1,"AAL2089"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"American Airlines"
 End:
-Object: 37.87616,-97.19240
+Object: 26.06768,-80.15381
 Threshold: 999
-Icon: 0,0,331,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N844CK\nRegistration: N844CK\nAircraft type: C421\nAltitude: 2325\nGround speed: 188.4 kt\nHeading: 331 deg\nICAO24: ab8ef1\nSquawk: 1200"
-Text: 20,0,1,"N844CK | 2325"
+Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nID: OPS9\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N85017\nAircraft type: Unknown\nICAO24: aba9f3"
+Text: 0,22,1,"OPS9"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 35.76865,-97.12189
+Object: 26.07128,-80.15376
 Threshold: 999
-Icon: 0,0,249,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N8461U\nRegistration: N8461U\nAircraft type: P28A\nAltitude: 4800\nGround speed: 117.7 kt\nHeading: 249 deg\nICAO24: ab98b1\nSquawk: 1200"
-Text: 20,0,1,"N8461U | 4800"
+Icon: 0,0,135,1,1,"COMMERCIAL\nID: DAL2036\nDelta Air Lines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N506DA\nAircraft type: A21N\nICAO24: a65086"
+Text: 0,22,1,"DAL2036"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"Delta Air Lines"
 End:
-Object: 37.97904,-97.05495
+Object: 26.07521,-80.15297
 Threshold: 999
-Icon: 0,0,4,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N705U\nRegistration: N705U\nAircraft type: C172\nAltitude: 4875\nGround speed: 103.2 kt\nHeading: 4 deg\nICAO24: a968e3\nSquawk: 1200"
-Text: 20,0,1,"N705U | 4875"
+Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nID: OPS64\nSpeed: 5 KT\nAltitude: GROUND\nRegistration: N546XQ\nAircraft type: Unknown\nICAO24: a6f052"
+Text: 0,22,1,"OPS64"
+Text: 0,34,1,"5 KT | GROUND"
 End:
-Object: 40.95003,-97.02325
+Object: 26.06870,-80.14994
 Threshold: 999
-Icon: 0,0,262,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N828FS\nRegistration: N828FS\nAircraft type: C172\nAltitude: 3700\nGround speed: 91.8 kt\nHeading: 262 deg\nICAO24: ab4f21\nSquawk: 0275"
-Text: 20,0,1,"N828FS | 3700"
+Icon: 0,0,0,1,1,"COMMERCIAL\nID: MX943\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N943JT\nAircraft type: A321\nICAO24: ad1927"
+Text: 0,22,1,"MX943"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 35.77171,-96.85902
+Object: 26.07084,-80.14743
 Threshold: 999
-Icon: 0,0,208,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N98LW\nRegistration: N98LW\nAircraft type: SR22\nAltitude: 8300\nGround speed: 178.1 kt\nHeading: 208 deg\nICAO24: ada9da\nSquawk: 1200"
-Text: 20,0,1,"N98LW | 8300"
+Icon: 0,0,0,1,1,"COMMERCIAL\nID: JBU1612\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N570JB\nAircraft type: A320\nICAO24: a74f33"
+Text: 0,22,1,"JBU1612"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 40.86124,-96.74974
+Object: 26.07361,-80.14735
 Threshold: 999
-Icon: 0,0,298,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: CTL444\nRegistration: N444CB\nAircraft type: AC50\nAltitude: ground\nGround speed: 7.2 kt\nHeading: 298 deg\nICAO24: a559ad\nSquawk: 0274"
-Text: 20,0,1,"CTL444 | ground"
+Icon: 0,0,0,1,1,"COMMERCIAL\nID: AAL553\nAmerican Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N580UW\nAircraft type: A321\nICAO24: a777bf"
+Text: 0,22,1,"AAL553"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"American Airlines"
 End:
-Object: 37.76779,-96.72644
+Object: 26.07149,-80.14648
 Threshold: 999
-Icon: 0,0,95,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N9298Z\nRegistration: N9298Z\nAircraft type: C177\nAltitude: 3225\nGround speed: 84.4 kt\nHeading: 95 deg\nICAO24: ace321\nSquawk: 1200"
-Text: 20,0,1,"N9298Z | 3225"
+Icon: 0,0,177,1,1,"COMMERCIAL\nID: JBU870\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N3077J\nAircraft type: BCS3\nICAO24: a33ca9"
+Text: 0,22,1,"JBU870"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 39.72450,-96.72339
+Object: 26.07058,-80.14625
 Threshold: 999
-Icon: 0,0,303,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N250DN\nRegistration: N250DN\nAircraft type: CL35\nAltitude: 16300\nGround speed: 372.5 kt\nHeading: 303 deg\nICAO24: a257d6\nSquawk: 1200"
-Text: 20,0,1,"N250DN | 16300"
+Icon: 0,0,0,1,1,"COMMERCIAL\nID: JBU1880\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N595JB\nAircraft type: A320\nICAO24: a7b0c4"
+Text: 0,22,1,"JBU1880"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 38.96660,-96.72211
+Object: 26.07366,-80.13811
 Threshold: 999
-Icon: 0,0,219,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N532DR\nRegistration: N532DR\nAircraft type: P32R\nAltitude: 6400\nGround speed: 144.3 kt\nHeading: 219 deg\nICAO24: a6b836\nSquawk: 1200"
-Text: 20,0,1,"N532DR | 6400"
+Icon: 0,0,248,1,1,"COMMERCIAL\nID: FFT4439\nFrontier Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N667FR\nAircraft type: A21N\nICAO24: a8cec7"
+Text: 0,22,1,"FFT4439"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"Frontier Airlines"
 End:
-Object: 37.18153,-96.69143
+Object: 26.07304,-80.13767
 Threshold: 999
-Icon: 0,0,71,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N735BT\nRegistration: N735BT\nAircraft type: T206\nAltitude: 5400\nGround speed: 112.3 kt\nHeading: 71 deg\nICAO24: a9ddc9\nSquawk: 1200"
-Text: 20,0,1,"N735BT | 5400"
+Icon: 0,0,0,1,1,"COMMERCIAL\nID: FFT1123\nFrontier Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N672FR\nAircraft type: A21N\nICAO24: a8e3b3"
+Text: 0,22,1,"FFT1123"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"Frontier Airlines"
 End:
-Object: 35.25457,-96.66555
+Object: 26.07384,-80.13638
 Threshold: 999
-Icon: 0,0,200,1,2,"REGIONAL AIRCRAFT\nCallsign: N795AE\nRegistration: N795AE\nAircraft type: EC30\nAltitude: 1800\nGround speed: 97.1 kt\nHeading: 200 deg\nICAO24: aaca9d\nSquawk: 0376"
-Text: 20,0,1,"N795AE | 1800"
+Icon: 0,0,104,1,2,"PRIVATE / GENERAL AVIATION\nID: MXY953\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N206BZ\nAircraft type: BCS3\nICAO24: a1a87e"
+Text: 0,22,1,"MXY953"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 38.13428,-96.57456
+Object: 26.37762,-80.11076
 Threshold: 999
-Icon: 0,0,57,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: EMD1\nRegistration: N429EM\nAircraft type: BE20\nAltitude: 14825\nGround speed: 263.8 kt\nHeading: 57 deg\nICAO24: a51d7e\nSquawk: 4773"
-Text: 20,0,1,"EMD1 | 14825"
+Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nID: KOW733\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N733FL\nAircraft type: C750\nICAO24: a9d6b8"
+Text: 0,22,1,"KOW733"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 41.29160,-96.49573
+Object: 25.81425,-80.14111
 Threshold: 999
-Icon: 0,0,354,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N34320\nRegistration: N34320\nAircraft type: C177\nAltitude: 3200\nGround speed: 110.7 kt\nHeading: 354 deg\nICAO24: a3cb2a\nSquawk: 1200"
-Text: 20,0,1,"N34320 | 3200"
+Icon: 0,0,48,1,2,"PRIVATE / GENERAL AVIATION\nID: N911LK\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N911LK\nAircraft type: S76\nICAO24: ac9b66"
+Text: 0,22,1,"N911LK"
+Text: 0,34,1,"0 KT | GROUND"
 End:
-Object: 41.25436,-96.36951
+Object: 26.68640,-80.09347
 Threshold: 999
-Icon: 0,0,154,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N100WP\nRegistration: N100WP\nAircraft type: C560\nAltitude: 17275\nGround speed: 394.9 kt\nHeading: 154 deg\nICAO24: a006b6\nSquawk: 1200"
-Text: 20,0,1,"N100WP | 17275"
+Icon: 0,0,37,1,1,"COMMERCIAL\nID: AAL3197\nAmerican Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N108UW\nAircraft type: A320\nICAO24: a02443"
+Text: 0,22,1,"AAL3197"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"American Airlines"
 End:
-Object: 35.83717,-96.34952
+Object: 26.68654,-80.09289
 Threshold: 999
-Icon: 0,0,198,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: SCU49\nRegistration: N436SC\nAircraft type: PA44\nAltitude: 3775\nGround speed: 116.7 kt\nHeading: 198 deg\nICAO24: a53afb\nSquawk: 1200"
-Text: 20,0,1,"SCU49 | 3775"
+Icon: 0,0,318,1,1,"COMMERCIAL\nID: AAL1449\nAmerican Airlines\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N121AN\nAircraft type: A321\nICAO24: a05776"
+Text: 0,22,1,"AAL1449"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"American Airlines"
 End:
-Object: 35.99517,-96.28254
+Object: 26.68526,-80.08934
 Threshold: 999
-Icon: 0,0,4,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: SCU9\nRegistration: N553SC\nAircraft type: P28A\nAltitude: 4000\nGround speed: 89.2 kt\nHeading: 4 deg\nICAO24: a70c23\nSquawk: 1200"
-Text: 20,0,1,"SCU9 | 4000"
+Icon: 0,0,3,1,1,"COMMERCIAL\nID: JBU1222\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N3289J\nAircraft type: BCS3\nICAO24: a38fa4"
+Text: 0,22,1,"JBU1222"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 39.62755,-96.16614
+Object: 26.68530,-80.08895
 Threshold: 999
-Icon: 0,0,3,1,2,"REGIONAL AIRCRAFT\nCallsign: YEL11\nRegistration: N261TX\nAircraft type: E55P\nAltitude: 29575\nGround speed: 401.7 kt\nHeading: 3 deg\nICAO24: a28473\nSquawk: 0676"
-Text: 20,0,1,"YEL11 | 29575"
+Icon: 0,0,349,1,1,"COMMERCIAL\nID: JBU1161\nJetBlue\nSpeed: 0 KT\nAltitude: GROUND\nRegistration: N531JL\nAircraft type: A320\nICAO24: a6b4f7"
+Text: 0,22,1,"JBU1161"
+Text: 0,34,1,"0 KT | GROUND"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 36.16617,-96.16516
+Object: 26.53436,-80.05732
 Threshold: 999
-Icon: 0,0,183,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N16RG\nRegistration: N16RG\nAircraft type: CH7B\nAltitude: 1800\nGround speed: 113.2 kt\nHeading: 183 deg\nICAO24: a0f0d3\nSquawk: 1200"
-Text: 20,0,1,"N16RG | 1800"
+Icon: 0,0,356,1,2,"PRIVATE / GENERAL AVIATION\nID: HGHWY31\nSpeed: 111 KT\nAltitude: 2,600 FT\nRegistration: N531HP\nAircraft type: T206\nICAO24: a6b4e1"
+Text: 0,22,1,"HGHWY31"
+Text: 0,34,1,"111 KT | 2,600 FT"
 End:
-Object: 42.64110,-96.15409
+Object: 25.90376,-79.66831
 Threshold: 999
-Icon: 0,0,359,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N10FZ\nRegistration: N10FZ\nAircraft type: C425\nAltitude: 6275\nGround speed: 222.0 kt\nHeading: 359 deg\nICAO24: a002f0\nSquawk: 0144"
-Text: 20,0,1,"N10FZ | 6275"
+Icon: 0,0,304,1,1,"COMMERCIAL\nID: JBU1256\nJetBlue\nSpeed: 251 KT\nAltitude: 3,200 FT\nRegistration: N2039J\nAircraft type: A21N\nICAO24: a1a0c4"
+Text: 0,22,1,"JBU1256"
+Text: 0,34,1,"251 KT | 3,200 FT"
+Text: 0,46,1,"JetBlue"
 End:
-Object: 36.16183,-96.15077
+Object: 26.75166,-79.20821
 Threshold: 999
-Icon: 0,0,3,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N8136F\nRegistration: N8136F\nAircraft type: C150\nAltitude: 1000\nGround speed: 56.1 kt\nHeading: 3 deg\nICAO24: ab17b1\nSquawk: 1200"
-Text: 20,0,1,"N8136F | 1000"
+Icon: 0,0,228,1,1,"COMMERCIAL\nID: WFL2501\nSpeed: 430 KT\nAltitude: 40,000 FT\nRegistration: EC-NTB\nAircraft type: A359\nICAO24: 347245"
+Text: 0,22,1,"WFL2501"
+Text: 0,34,1,"430 KT | 40,000 FT"
 End:
-Object: 38.28831,-96.13282
+Object: 26.78620,-79.01029
 Threshold: 999
-Icon: 0,0,235,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N6366R\nRegistration: N6366R\nAircraft type: P28A\nAltitude: 4500\nGround speed: 112.1 kt\nHeading: 235 deg\nICAO24: a85740\nSquawk: 1200"
-Text: 20,0,1,"N6366R | 4500"
+Icon: 0,0,48,1,1,"COMMERCIAL\nID: GTI8418\nAtlas Air\nSpeed: 571 KT\nAltitude: 35,225 FT\nRegistration: N487MC\nAircraft type: B744\nICAO24: a603b0"
+Text: 0,22,1,"GTI8418"
+Text: 0,34,1,"571 KT | 35,225 FT"
+Text: 0,46,1,"Atlas Air"
 End:
-Object: 36.42288,-96.04946
+Object: 24.85210,-78.82804
 Threshold: 999
-Icon: 0,0,189,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N44NS\nRegistration: N44NS\nAircraft type: M20P\nAltitude: 5325\nGround speed: 151.8 kt\nHeading: 189 deg\nICAO24: a54981\nSquawk: 0305"
-Text: 20,0,1,"N44NS | 5325"
+Icon: 0,0,303,1,1,"COMMERCIAL\nID: GXA618\nSpeed: 435 KT\nAltitude: 29,950 FT\nRegistration: N291GX\nAircraft type: A320\nICAO24: a2f9dd"
+Text: 0,22,1,"GXA618"
+Text: 0,34,1,"435 KT | 29,950 FT"
 End:
-Object: 42.69122,-96.02844
+Object: 24.40492,-78.31112
 Threshold: 999
-Icon: 0,0,250,1,5,"MILITARY\nCallsign: RCH243\nRegistration: 58-0109\nAircraft type: K35R\nAltitude: 7775\nGround speed: 272.1 kt\nHeading: 250 deg\nICAO24: ae04e0\nSquawk: 0714"
-Text: 20,0,1,"RCH243 | 7775"
+Icon: 0,0,308,1,2,"PRIVATE / GENERAL AVIATION\nID: C6-EAR\nSpeed: 217 KT\nAltitude: 14,100 FT\nRegistration: C6-EAR\nAircraft type: SF34\nICAO24: 0a80be"
+Text: 0,22,1,"C6-EAR"
+Text: 0,34,1,"217 KT | 14,100 FT"
 End:
-Object: 36.05553,-96.02640
+Object: 27.78624,-78.11633
 Threshold: 999
-Icon: 0,0,272,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: SCU50\nRegistration: N437SC\nAircraft type: PA44\nAltitude: 2425\nGround speed: 123.1 kt\nHeading: 272 deg\nICAO24: a53eb2\nSquawk: 0221"
-Text: 20,0,1,"SCU50 | 2425"
+Icon: 0,0,236,1,1,"COMMERCIAL\nID: RAM204F\nSpeed: 410 KT\nAltitude: 33,975 FT\nRegistration: CN-RHB\nAircraft type: B789\nICAO24: 0201a4"
+Text: 0,22,1,"RAM204F"
+Text: 0,34,1,"410 KT | 33,975 FT"
 End:
-Object: 36.02431,-96.01706
+Object: 25.55690,-78.11015
 Threshold: 999
-Icon: 0,0,178,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: SCU13\nRegistration: N570SC\nAircraft type: P28A\nAltitude: 1375\nGround speed: 95.1 kt\nHeading: 178 deg\nICAO24: a74ffc\nSquawk: 0244"
-Text: 20,0,1,"SCU13 | 1375"
+Icon: 0,0,306,1,3,"HELICOPTER\nID: MVP356\nSpeed: 398 KT\nAltitude: 40,000 FT\nRegistration: N55BA\nAircraft type: H25B\nICAO24: a6fd2c"
+Text: 0,22,1,"MVP356"
+Text: 0,34,1,"398 KT | 40,000 FT"
 End:
-Object: 40.64322,-96.00022
+Object: 25.60757,-77.97694
 Threshold: 999
-Icon: 0,0,108,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N199TP\nRegistration: N199TP\nAircraft type: P28A\nAltitude: 3275\nGround speed: 108.2 kt\nHeading: 108 deg\nICAO24: a18b51\nSquawk: 1200"
-Text: 20,0,1,"N199TP | 3275"
-End:
-Object: 41.26092,-95.96826
-Threshold: 999
-Icon: 0,0,133,1,2,"REGIONAL AIRCRAFT\nCallsign: N814LN\nRegistration: N814LN\nAircraft type: EC35\nAltitude: 1925\nGround speed: 77.1 kt\nHeading: 133 deg\nICAO24: ab193f\nSquawk: 0206"
-Text: 20,0,1,"N814LN | 1925"
-End:
-Object: 35.99515,-95.96426
-Threshold: 999
-Icon: 0,0,174,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N96705\nRegistration: N96705\nAircraft type: C172\nAltitude: 2250\nGround speed: 91.4 kt\nHeading: 174 deg\nICAO24: ad789d\nSquawk: 0263"
-Text: 20,0,1,"N96705 | 2250"
-End:
-Object: 35.87453,-95.94910
-Threshold: 999
-Icon: 0,0,177,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: SCU42\nRegistration: N813SC\nAircraft type: P28A\nAltitude: 2825\nGround speed: 116.2 kt\nHeading: 177 deg\nICAO24: ab1614\nSquawk: 0202"
-Text: 20,0,1,"SCU42 | 2825"
-End:
-Object: 39.09476,-95.92584
-Threshold: 999
-Icon: 0,0,258,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N590ER\nRegistration: N590ER\nAircraft type: DA42\nAltitude: 5300\nGround speed: 215.5 kt\nHeading: 258 deg\nICAO24: a79ddb\nSquawk: 1200"
-Text: 20,0,1,"N590ER | 5300"
-End:
-Object: 38.89579,-95.85773
-Threshold: 999
-Icon: 0,0,253,1,3,"HELICOPTER\nCallsign: BLOOD01\nRegistration: 17-20927\nAircraft type: H60\nAltitude: 2325\nGround speed: 134.1 kt\nHeading: 253 deg\nICAO24: ae600e\nSquawk: 1200"
-Text: 20,0,1,"BLOOD01 | 2325"
-End:
-Object: 38.08630,-95.75234
-Threshold: 999
-Icon: 0,0,253,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: EMD8\nRegistration: N771MG\nAircraft type: BE20\nAltitude: 17850\nGround speed: 273.3 kt\nHeading: 253 deg\nICAO24: aa6dd8\nSquawk: 4673"
-Text: 20,0,1,"EMD8 | 17850"
-End:
-Object: 38.93367,-95.67509
-Threshold: 999
-Icon: 0,0,323,1,3,"HELICOPTER\nCallsign: PRIME89\nRegistration: 09-20195\nAircraft type: H60\nAltitude: 1250\nGround speed: 52.8 kt\nHeading: 323 deg\nICAO24: ae4871\nSquawk: "
-Text: 20,0,1,"PRIME89 | 1250"
-End:
-Object: 35.82706,-95.66734
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N9217G\nRegistration: N9217G\nAircraft type: C182\nAltitude: 500\nGround speed: 63.0 kt\nHeading: 0 deg\nICAO24: acc535\nSquawk: 2133"
-Text: 20,0,1,"N9217G | 500"
-End:
-Object: 35.85560,-95.64995
-Threshold: 999
-Icon: 0,0,185,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: SCU36\nRegistration: N614SC\nAircraft type: P28A\nAltitude: 5225\nGround speed: 107.4 kt\nHeading: 185 deg\nICAO24: a7ff2d\nSquawk: 1200"
-Text: 20,0,1,"SCU36 | 5225"
-End:
-Object: 40.20475,-95.58686
-Threshold: 999
-Icon: 0,0,359,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N29BZ\nRegistration: N29BZ\nAircraft type: PC12\nAltitude: 14325\nGround speed: 223.0 kt\nHeading: 359 deg\nICAO24: a2f352\nSquawk: 1200"
-Text: 20,0,1,"N29BZ | 14325"
-End:
-Object: 35.46616,-95.54621
-Threshold: 999
-Icon: 0,0,296,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N15TC\nRegistration: N15TC\nAircraft type: MU2\nAltitude: 8375\nGround speed: 249.6 kt\nHeading: 296 deg\nICAO24: a0c982\nSquawk: 1515"
-Text: 20,0,1,"N15TC | 8375"
-End:
-Object: 37.31250,-95.23475
-Threshold: 999
-Icon: 0,0,112,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N935DR\nRegistration: N935DR\nAircraft type: S22T\nAltitude: 7350\nGround speed: 183.5 kt\nHeading: 112 deg\nICAO24: acf897\nSquawk: 1200"
-Text: 20,0,1,"N935DR | 7350"
-End:
-Object: 40.20354,-95.22431
-Threshold: 999
-Icon: 0,0,108,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N246BB\nRegistration: N246BB\nAircraft type: M20P\nAltitude: 9300\nGround speed: 146.4 kt\nHeading: 108 deg\nICAO24: a24664\nSquawk: 2445"
-Text: 20,0,1,"N246BB | 9300"
-End:
-Object: 36.73460,-95.06633
-Threshold: 999
-Icon: 0,0,116,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N919ZA\nRegistration: N919ZA\nAircraft type: C172\nAltitude: 5375\nGround speed: 115.4 kt\nHeading: 116 deg\nICAO24: acba5a\nSquawk: 1200"
-Text: 20,0,1,"N919ZA | 5375"
-End:
-Object: 40.30423,-94.89897
-Threshold: 999
-Icon: 0,0,15,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL605\nRegistration: N358NB\nAircraft type: A319\nAltitude: 37000\nGround speed: 387.8 kt\nHeading: 15 deg\nICAO24: a403b3\nSquawk: 1724"
-Text: 20,0,1,"DAL605 | 37000"
-End:
-Object: 38.84206,-94.73835
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N182WK\nRegistration: N182WK\nAircraft type: C182\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a14a18\nSquawk: 1200"
-Text: 20,0,1,"N182WK | ground"
-End:
-Object: 39.14545,-94.60657
-Threshold: 999
-Icon: 0,0,242,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N437MB\nRegistration: N437MB\nAircraft type: P28A\nAltitude: 1675\nGround speed: 102.0 kt\nHeading: 242 deg\nICAO24: a53e34\nSquawk: 1200"
-Text: 20,0,1,"N437MB | 1675"
-End:
-Object: 39.10649,-94.59766
-Threshold: 999
-Icon: 0,0,12,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N2435M\nRegistration: N2435M\nAircraft type: P28A\nAltitude: 850\nGround speed: 73.5 kt\nHeading: 12 deg\nICAO24: a23e37\nSquawk: 0322"
-Text: 20,0,1,"N2435M | 850"
-End:
-Object: 39.35251,-94.30774
-Threshold: 999
-Icon: 0,0,3,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: N816GM\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: 1375\nGround speed: 64.1 kt\nHeading: 3 deg\nICAO24: ab2048\nSquawk: 1200"
-Text: 20,0,1,"N816GM | 1375"
-End:
-Object: 36.35800,-94.21928
-Threshold: 999
-Icon: 0,0,1,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N137AL\nRegistration: N137AL\nAircraft type: C172\nAltitude: 1575\nGround speed: 77.0 kt\nHeading: 1 deg\nICAO24: a0953d\nSquawk: 0427"
-Text: 20,0,1,"N137AL | 1575"
-End:
-Object: 37.44196,-94.14307
-Threshold: 999
-Icon: 0,0,97,1,3,"HELICOPTER\nCallsign: MJS1301\nRegistration: N130YB\nAircraft type: H25B\nAltitude: 37000\nGround speed: 474.9 kt\nHeading: 97 deg\nICAO24: a07d59\nSquawk: 6323"
-Text: 20,0,1,"MJS1301 | 37000"
-End:
-Object: 41.51705,-93.67825
-Threshold: 999
-Icon: 0,0,143,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N2974N\nRegistration: N2974N\nAircraft type: P28A\nAltitude: 1700\nGround speed: 97.8 kt\nHeading: 143 deg\nICAO24: a3126c\nSquawk: 0306"
-Text: 20,0,1,"N2974N | 1700"
-End:
-Object: 37.10213,-93.32975
-Threshold: 999
-Icon: 0,0,30,1,3,"HELICOPTER\nCallsign: N55PV\nRegistration: N55PV\nAircraft type: R44\nAltitude: 1875\nGround speed: 100.8 kt\nHeading: 30 deg\nICAO24: a6fe6b\nSquawk: 1200"
-Text: 20,0,1,"N55PV | 1875"
-End:
-Object: 38.79016,-92.96759
-Threshold: 999
-Icon: 0,0,93,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N3111W\nRegistration: N3111W\nAircraft type: BE35\nAltitude: 5300\nGround speed: 165.3 kt\nHeading: 93 deg\nICAO24: a34d18\nSquawk: 1200"
-Text: 20,0,1,"N3111W | 5300"
-End:
-Object: 40.03445,-92.85437
-Threshold: 999
-Icon: 0,0,243,1,1,"COMMERCIAL AIRLINER\nCallsign: CMB520\nRegistration: N828AX\nAircraft type: B772\nAltitude: 40000\nGround speed: 436.9 kt\nHeading: 243 deg\nICAO24: ab4ea9\nSquawk: 2533"
-Text: 20,0,1,"CMB520 | 40000"
-End:
-Object: 36.81688,-124.32495
-Threshold: 999
-Icon: 0,0,239,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA1289\nRegistration: N1807U\nAircraft type: B38M\nAltitude: 36000\nGround speed: 368.7 kt\nHeading: 239 deg\nICAO24: a1440c\nSquawk: 3705"
-Text: 20,0,1,"SWA1289 | 36000"
-End:
-Object: 40.43230,-123.74164
-Threshold: 999
-Icon: 0,0,333,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N858GF\nRegistration: N858GF\nAircraft type: BE20\nAltitude: 12525\nGround speed: 245.1 kt\nHeading: 333 deg\nICAO24: abc5ac\nSquawk: 3277"
-Text: 20,0,1,"N858GF | 12525"
-End:
-Object: 37.10481,-123.20168
-Threshold: 999
-Icon: 0,0,61,1,1,"COMMERCIAL AIRLINER\nCallsign: QFA73\nRegistration: VH-ZNM\nAircraft type: B789\nAltitude: 13550\nGround speed: 411.0 kt\nHeading: 61 deg\nICAO24: 7c8070\nSquawk: 1472"
-Text: 20,0,1,"QFA73 | 13550"
-End:
-Object: 38.52516,-122.91767
-Threshold: 999
-Icon: 0,0,354,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL809\nRegistration: N2645U\nAircraft type: B77W\nAltitude: 22825\nGround speed: 407.6 kt\nHeading: 354 deg\nICAO24: a290f3\nSquawk: 3342"
-Text: 20,0,1,"UAL809 | 22825"
-End:
-Object: 38.18564,-122.79473
-Threshold: 999
-Icon: 0,0,321,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: H32\nRegistration: N982HP\nAircraft type: AS50\nAltitude: 1575\nGround speed: 125.9 kt\nHeading: 321 deg\nICAO24: adb34f\nSquawk: 1200"
-Text: 20,0,1,"H32 | 1575"
-End:
-Object: 38.70819,-122.74219
-Threshold: 999
-Icon: 0,0,5,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N71VM\nRegistration: N71VM\nAircraft type: C25B\nAltitude: 16675\nGround speed: 291.1 kt\nHeading: 5 deg\nICAO24: a97b9b\nSquawk: 1200"
-Text: 20,0,1,"N71VM | 16675"
-End:
-Object: 38.02741,-122.68904
-Threshold: 999
-Icon: 0,0,174,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL59\nRegistration: N224UA\nAircraft type: B772\nAltitude: 16300\nGround speed: 366.8 kt\nHeading: 174 deg\nICAO24: a1f1a0\nSquawk: 2407"
-Text: 20,0,1,"UAL59 | 16300"
-End:
-Object: 37.76490,-122.65638
-Threshold: 999
-Icon: 0,0,306,1,1,"COMMERCIAL AIRLINER\nCallsign: JAL57\nRegistration: JA867J\nAircraft type: B789\nAltitude: 10000\nGround speed: 267.4 kt\nHeading: 306 deg\nICAO24: 86e4b8\nSquawk: 6321"
-Text: 20,0,1,"JAL57 | 10000"
-End:
-Object: 37.84978,-122.51678
-Threshold: 999
-Icon: 0,0,351,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N19NG\nRegistration: N19NG\nAircraft type: B06\nAltitude: 1650\nGround speed: 102.3 kt\nHeading: 351 deg\nICAO24: a16705\nSquawk: 1200"
-Text: 20,0,1,"N19NG | 1650"
-End:
-Object: 38.52966,-122.45312
-Threshold: 999
-Icon: 0,0,222,1,1,"COMMERCIAL AIRLINER\nCallsign: SWR35G\nRegistration: HB-JNJ\nAircraft type: B77W\nAltitude: 26025\nGround speed: 339.0 kt\nHeading: 222 deg\nICAO24: 4b191f\nSquawk: 2414"
-Text: 20,0,1,"SWR35G | 26025"
-End:
-Object: 37.62820,-122.40134
-Threshold: 999
-Icon: 0,0,124,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: R91\nRegistration: N508QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 10.8 kt\nHeading: 124 deg\nICAO24: a6591c\nSquawk: "
-Text: 20,0,1,"R91 | ground"
-End:
-Object: 37.62562,-122.39490
-Threshold: 999
-Icon: 0,0,127,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: ~a7d831\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: ground\nGround speed: 13.2 kt\nHeading: 127 deg\nICAO24: ~a7d831\nSquawk: "
-Text: 20,0,1,"~a7d831 | ground"
-End:
-Object: 37.62440,-122.39345
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: R24\nRegistration: N529QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a6abd1\nSquawk: "
-Text: 20,0,1,"R24 | ground"
-End:
-Object: 37.63008,-122.39286
-Threshold: 999
-Icon: 0,0,295,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS27\nRegistration: N720QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 23.5 kt\nHeading: 295 deg\nICAO24: a9a500\nSquawk: "
-Text: 20,0,1,"OPS27 | ground"
-End:
-Object: 37.62149,-122.39260
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL373\nRegistration: N57869\nAircraft type: B753\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a76f6d\nSquawk: 2627"
-Text: 20,0,1,"UAL373 | ground"
-End:
-Object: 37.63028,-122.39195
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS12\nRegistration: N322QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a37732\nSquawk: "
-Text: 20,0,1,"OPS12 | ground"
-End:
-Object: 37.62457,-122.39183
-Threshold: 999
-Icon: 0,0,354,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: ~a34cac\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: ground\nGround speed: 25.5 kt\nHeading: 354 deg\nICAO24: ~a34cac\nSquawk: "
-Text: 20,0,1,"~a34cac | ground"
-End:
-Object: 37.62324,-122.39018
-Threshold: 999
-Icon: 0,0,315,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: ~a993cb\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: ground\nGround speed: 8.2 kt\nHeading: 315 deg\nICAO24: ~a993cb\nSquawk: "
-Text: 20,0,1,"~a993cb | ground"
-End:
-Object: 37.61867,-122.38990
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL2313\nRegistration: N37318\nAircraft type: B38M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a4418c\nSquawk: 1065"
-Text: 20,0,1,"UAL2313 | ground"
-End:
-Object: 37.59368,-122.38979
-Threshold: 999
-Icon: 0,0,124,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N62TV\nRegistration: N62TV\nAircraft type: B06\nAltitude: 1700\nGround speed: 3.7 kt\nHeading: 124 deg\nICAO24: a815a1\nSquawk: 5362"
-Text: 20,0,1,"N62TV | 1700"
-End:
-Object: 37.62324,-122.38962
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS48\nRegistration: N312QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 3.2 kt\nHeading: 0 deg\nICAO24: a34fb3\nSquawk: "
-Text: 20,0,1,"OPS48 | ground"
-End:
-Object: 37.62349,-122.38962
-Threshold: 999
-Icon: 0,0,211,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS43\nRegistration: N253QX\nAircraft type: SERV\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 211 deg\nICAO24: a26417\nSquawk: "
-Text: 20,0,1,"OPS43 | ground"
-End:
-Object: 37.61126,-122.38670
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU1034\nRegistration: N980JT\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: adabfe\nSquawk: 3206"
-Text: 20,0,1,"JBU1034 | ground"
-End:
-Object: 37.61088,-122.38670
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL16\nRegistration: N106NN\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a01c37\nSquawk: 1773"
-Text: 20,0,1,"AAL16 | ground"
-End:
-Object: 37.61907,-122.38625
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: ac0504\nRegistration: N87380\nAircraft type: E75L\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ac0504\nSquawk: 4227"
-Text: 20,0,1,"ac0504 | ground"
-End:
-Object: 37.62032,-122.38590
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL216\nRegistration: N452UA\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a57b4d\nSquawk: 2246"
-Text: 20,0,1,"UAL216 | ground"
-End:
-Object: 37.61080,-122.38549
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU216\nRegistration: N2156J\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a1cf48\nSquawk: 2000"
-Text: 20,0,1,"JBU216 | ground"
-End:
-Object: 37.61105,-122.38515
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBMX2151\nRegistration: N2151J\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a1ce99\nSquawk: "
-Text: 20,0,1,"JBMX2151 | ground"
-End:
-Object: 37.62388,-122.38496
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL2764\nRegistration: N27546\nAircraft type: B39M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a2bc12\nSquawk: 6660"
-Text: 20,0,1,"UAL2764 | ground"
-End:
-Object: 37.61141,-122.38496
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT2857\nRegistration: N676FR\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8f28f\nSquawk: 7355"
-Text: 20,0,1,"FFT2857 | ground"
-End:
-Object: 37.60927,-122.38361
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU833\nRegistration: N984JB\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: adbaca\nSquawk: 3561"
-Text: 20,0,1,"JBU833 | ground"
-End:
-Object: 37.61234,-122.38357
-Threshold: 999
-Icon: 0,0,25,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: ~ac4985\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: ground\nGround speed: 10.2 kt\nHeading: 25 deg\nICAO24: ~ac4985\nSquawk: "
-Text: 20,0,1,"~ac4985 | ground"
-End:
-Object: 37.61550,-122.38274
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: DAL3034\nRegistration: N332DU\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a39d9b\nSquawk: 1613"
-Text: 20,0,1,"DAL3034 | ground"
-End:
-Object: 37.61846,-122.38256
-Threshold: 999
-Icon: 0,0,214,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS38\nRegistration: N309QX\nAircraft type: Unknown\nAltitude: ground\nGround speed: 13.8 kt\nHeading: 214 deg\nICAO24: a34235\nSquawk: "
-Text: 20,0,1,"OPS38 | ground"
-End:
-Object: 37.62609,-122.38206
-Threshold: 999
-Icon: 0,0,295,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: FM5\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: ground\nGround speed: 13.2 kt\nHeading: 295 deg\nICAO24: a020c4\nSquawk: "
-Text: 20,0,1,"FM5 | ground"
-End:
-Object: 37.61681,-122.38170
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA4804\nRegistration: N210WN\nAircraft type: B737\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a1bb83\nSquawk: 3216"
-Text: 20,0,1,"SWA4804 | ground"
-End:
-Object: 37.61665,-122.38127
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA3497\nRegistration: N8950L\nAircraft type: B38M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ac5a4a\nSquawk: 1740"
-Text: 20,0,1,"SWA3497 | ground"
-End:
-Object: 37.61825,-122.38087
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: MXY229\nRegistration: N217BZ\nAircraft type: BCS3\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a1d3b4\nSquawk: 1701"
-Text: 20,0,1,"MXY229 | ground"
-End:
-Object: 37.61988,-122.38077
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AIC183\nRegistration: VT-ALS\nAircraft type: B77W\nAltitude: ground\nGround speed: 17.5 kt\nHeading: 0 deg\nICAO24: 800582\nSquawk: 1105"
-Text: 20,0,1,"AIC183 | ground"
-End:
-Object: 37.60720,-122.38049
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL433\nRegistration: N27586\nAircraft type: B39M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a2bc9e\nSquawk: 4101"
-Text: 20,0,1,"UAL433 | ground"
-End:
-Object: 37.60864,-122.37953
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: JBU315\nRegistration: N4074J\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a4c98f\nSquawk: 1645"
-Text: 20,0,1,"JBU315 | ground"
-End:
-Object: 37.61456,-122.37853
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL810\nRegistration: N148AN\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a0c075\nSquawk: 2204"
-Text: 20,0,1,"AAL810 | ground"
-End:
-Object: 37.61653,-122.37722
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL860\nRegistration: N588DT\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a793fd\nSquawk: 3447"
-Text: 20,0,1,"DAL860 | ground"
-End:
-Object: 37.61316,-122.37653
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1074\nRegistration: N17411\nAircraft type: B39M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a12a9e\nSquawk: 3501"
-Text: 20,0,1,"UAL1074 | ground"
-End:
-Object: 37.62390,-122.37478
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: OPS36\nRegistration: N314QX\nAircraft type: SERV\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a35721\nSquawk: "
-Text: 20,0,1,"OPS36 | ground"
-End:
-Object: 37.59892,-122.37396
-Threshold: 999
-Icon: 0,0,313,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N42SL\nRegistration: N42SL\nAircraft type: B06\nAltitude: 1200\nGround speed: 16.3 kt\nHeading: 313 deg\nICAO24: a4fae1\nSquawk: 5341"
-Text: 20,0,1,"N42SL | 1200"
-End:
-Object: 37.62514,-122.37154
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: EIN961\nRegistration: EI-DAA\nAircraft type: A332\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: 4ca15e\nSquawk: 6052"
-Text: 20,0,1,"EIN961 | ground"
-End:
-Object: 37.62184,-122.37080
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: ACA743\nRegistration: C-FGKP\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: c010ec\nSquawk: 3213"
-Text: 20,0,1,"ACA743 | ground"
-End:
-Object: 37.62112,-122.36930
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL2423\nRegistration: N342RX\nAircraft type: B38M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a3c649\nSquawk: 0760"
-Text: 20,0,1,"AAL2423 | ground"
-End:
-Object: 37.61404,-122.36838
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: APZ112\nRegistration: HL8387\nAircraft type: B789\nAltitude: ground\nGround speed: 13.2 kt\nHeading: 0 deg\nICAO24: 71c387\nSquawk: 3222"
-Text: 20,0,1,"APZ112 | ground"
-End:
-Object: 37.61220,-122.36026
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL300\nRegistration: N779UA\nAircraft type: B772\nAltitude: ground\nGround speed: 11.8 kt\nHeading: 0 deg\nICAO24: aa8c39\nSquawk: 3211"
-Text: 20,0,1,"UAL300 | ground"
-End:
-Object: 37.61098,-122.35905
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL857\nRegistration: N2251U\nAircraft type: B77W\nAltitude: ground\nGround speed: 11.8 kt\nHeading: 0 deg\nICAO24: a1f622\nSquawk: 3636"
-Text: 20,0,1,"UAL857 | ground"
-End:
-Object: 41.05181,-122.35567
-Threshold: 999
-Icon: 0,0,344,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N121MF\nRegistration: N121MF\nAircraft type: BE9L\nAltitude: 16350\nGround speed: 256.3 kt\nHeading: 344 deg\nICAO24: a05882\nSquawk: 3723"
-Text: 20,0,1,"N121MF | 16350"
-End:
-Object: 37.58795,-122.29616
-Threshold: 999
-Icon: 0,0,298,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL2569\nRegistration: N579UW\nAircraft type: A321\nAltitude: 1400\nGround speed: 127.1 kt\nHeading: 298 deg\nICAO24: a771af\nSquawk: 3346"
-Text: 20,0,1,"AAL2569 | 1400"
-End:
-Object: 37.51406,-122.25077
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N64VR\nRegistration: N64VR\nAircraft type: S22T\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a864cd\nSquawk: 1200"
-Text: 20,0,1,"N64VR | ground"
-End:
-Object: 37.51148,-122.25069
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N444SH\nRegistration: N444SH\nAircraft type: BE33\nAltitude: ground\nGround speed: 0.1 kt\nHeading: 0 deg\nICAO24: a55b11\nSquawk: 1200"
-Text: 20,0,1,"N444SH | ground"
-End:
-Object: 37.50682,-122.22524
-Threshold: 999
-Icon: 0,0,168,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: BYF17\nRegistration: N236SP\nAircraft type: C172\nAltitude: 900\nGround speed: 83.7 kt\nHeading: 168 deg\nICAO24: a22068\nSquawk: 1200"
-Text: 20,0,1,"BYF17 | 900"
-End:
-Object: 37.71758,-122.22001
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FDX1207\nRegistration: N246FE\nAircraft type: B763\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a246cb\nSquawk: 6661"
-Text: 20,0,1,"FDX1207 | ground"
-End:
-Object: 37.71663,-122.21859
-Threshold: 999
-Icon: 0,0,201,1,1,"COMMERCIAL AIRLINER\nCallsign: FDX1835\nRegistration: N253FE\nAircraft type: B763\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 201 deg\nICAO24: a26325\nSquawk: 7241"
-Text: 20,0,1,"FDX1835 | ground"
-End:
-Object: 37.71041,-122.21698
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: SKW4134\nRegistration: N282SY\nAircraft type: E75L\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a2d710\nSquawk: 3311"
-Text: 20,0,1,"SKW4134 | ground"
-End:
-Object: 39.39753,-122.21686
-Threshold: 999
-Icon: 0,0,350,1,1,"COMMERCIAL AIRLINER\nCallsign: CKK222\nRegistration: B-222V\nAircraft type: B77L\nAltitude: 30000\nGround speed: 463.1 kt\nHeading: 350 deg\nICAO24: 781ebb\nSquawk: 2550"
-Text: 20,0,1,"CKK222 | 30000"
-End:
-Object: 37.71809,-122.21659
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: aaa39a\nRegistration: N785FD\nAircraft type: B752\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: aaa39a\nSquawk: 0752"
-Text: 20,0,1,"aaa39a | ground"
-End:
-Object: 37.71787,-122.21545
-Threshold: 999
-Icon: 0,0,47,1,6,"AIRCRAFT TYPE UNKNOWN\nCallsign: FFL1207\nRegistration: Unknown\nAircraft type: Unknown\nAltitude: ground\nGround speed: 14.8 kt\nHeading: 47 deg\nICAO24: a09252\nSquawk: 2507"
-Text: 20,0,1,"FFL1207 | ground"
-End:
-Object: 37.73036,-122.21522
-Threshold: 999
-Icon: 0,0,119,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: EJA297\nRegistration: N297QS\nAircraft type: Unknown\nAltitude: ground\nGround speed: 11.2 kt\nHeading: 119 deg\nICAO24: a310ea\nSquawk: 1425"
-Text: 20,0,1,"EJA297 | ground"
-End:
-Object: 37.70891,-122.21345
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA2593\nRegistration: N483WN\nAircraft type: B737\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a5f5bf\nSquawk: 3733"
-Text: 20,0,1,"SWA2593 | ground"
-End:
-Object: 37.71164,-122.21332
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA3198\nRegistration: N8922Q\nAircraft type: B38M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ac4f6f\nSquawk: 6354"
-Text: 20,0,1,"SWA3198 | ground"
-End:
-Object: 37.73039,-122.21285
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: PXT415\nRegistration: N415PC\nAircraft type: C25B\nAltitude: 250\nGround speed: 0.7 kt\nHeading: 0 deg\nICAO24: a4e7fb\nSquawk: 2644"
-Text: 20,0,1,"PXT415 | 250"
-End:
-Object: 37.72924,-122.21197
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: EJA636\nRegistration: N636QS\nAircraft type: C68A\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a85575\nSquawk: 6324"
-Text: 20,0,1,"EJA636 | ground"
-End:
-Object: 37.71056,-122.21187
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA3371\nRegistration: N8730Q\nAircraft type: B38M\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ac03e2\nSquawk: 3755"
-Text: 20,0,1,"SWA3371 | ground"
-End:
-Object: 37.69013,-122.19717
-Threshold: 999
-Icon: 0,0,309,1,1,"COMMERCIAL AIRLINER\nCallsign: UPS5944\nRegistration: N332UP\nAircraft type: B763\nAltitude: 675\nGround speed: 138.5 kt\nHeading: 309 deg\nICAO24: a39f0d\nSquawk: 6603"
-Text: 20,0,1,"UPS5944 | 675"
-End:
-Object: 37.65561,-122.11987
-Threshold: 999
-Icon: 0,0,323,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: a39d71\nRegistration: N332CB\nAircraft type: BE36\nAltitude: ground\nGround speed: 2.2 kt\nHeading: 323 deg\nICAO24: a39d71\nSquawk: "
-Text: 20,0,1,"a39d71 | ground"
-End:
-Object: 37.50435,-122.09387
-Threshold: 999
-Icon: 0,0,284,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL469\nRegistration: N899DN\nAircraft type: B739\nAltitude: 4500\nGround speed: 209.6 kt\nHeading: 284 deg\nICAO24: ac671b\nSquawk: 3261"
-Text: 20,0,1,"DAL469 | 4500"
-End:
-Object: 37.36264,-121.93563
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: LXJ305\nRegistration: N305FX\nAircraft type: E55P\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a33278\nSquawk: 3752"
-Text: 20,0,1,"LXJ305 | ground"
-End:
-Object: 37.36319,-121.93348
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: KOW700\nRegistration: N700LH\nAircraft type: C750\nAltitude: ground\nGround speed: 18.5 kt\nHeading: 0 deg\nICAO24: a95590\nSquawk: 2455"
-Text: 20,0,1,"KOW700 | ground"
-End:
-Object: 37.37145,-121.93264
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: FFT4103\nRegistration: N603FR\nAircraft type: A21N\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a7d2f1\nSquawk: 7267"
-Text: 20,0,1,"FFT4103 | ground"
-End:
-Object: 37.37127,-121.93233
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL1849\nRegistration: N546UW\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a6f00d\nSquawk: 4522"
-Text: 20,0,1,"AAL1849 | ground"
-End:
-Object: 37.37006,-121.93106
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL3257\nRegistration: N656AW\nAircraft type: A320\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a8a319\nSquawk: 3743"
-Text: 20,0,1,"AAL3257 | ground"
-End:
-Object: 37.36916,-121.93005
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: DAL2118\nRegistration: N112DU\nAircraft type: BCS1\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a033ff\nSquawk: 1763"
-Text: 20,0,1,"DAL2118 | ground"
-End:
-Object: 37.36626,-121.92669
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA698\nRegistration: N8526W\nAircraft type: B738\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: abb205\nSquawk: 3237"
-Text: 20,0,1,"SWA698 | ground"
-End:
-Object: 37.36592,-121.92639
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA3829\nRegistration: N928WN\nAircraft type: B737\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: acdde3\nSquawk: 6317"
-Text: 20,0,1,"SWA3829 | ground"
-End:
-Object: 37.36562,-121.92604
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA4622\nRegistration: N920WN\nAircraft type: B737\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: acc02b\nSquawk: 6336"
-Text: 20,0,1,"SWA4622 | ground"
-End:
-Object: 37.36496,-121.92532
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA3584\nRegistration: N452WN\nAircraft type: B737\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a57b8b\nSquawk: 6312"
-Text: 20,0,1,"SWA3584 | ground"
-End:
-Object: 37.36337,-121.92363
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA3888\nRegistration: N299WN\nAircraft type: B737\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a318ea\nSquawk: 3616"
-Text: 20,0,1,"SWA3888 | ground"
-End:
-Object: 36.58760,-121.84991
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: SKW4713\nRegistration: N602UX\nAircraft type: E75L\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a7d085\nSquawk: 1712"
-Text: 20,0,1,"SKW4713 | ground"
-End:
-Object: 38.69334,-121.58671
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL1677\nRegistration: N975UY\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ad9811\nSquawk: 3711"
-Text: 20,0,1,"AAL1677 | ground"
-End:
-Object: 38.69255,-121.58665
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: DAL1423\nRegistration: N918DU\nAircraft type: B739\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: acb4c1\nSquawk: 6366"
-Text: 20,0,1,"DAL1423 | ground"
-End:
-Object: 38.69293,-121.58608
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL2078\nRegistration: N563UW\nAircraft type: A321\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a733e6\nSquawk: 7061"
-Text: 20,0,1,"AAL2078 | ground"
-End:
-Object: 38.69539,-121.58529
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: a5320b\nRegistration: N434AS\nAircraft type: B739\nAltitude: ground\nGround speed: 0.3 kt\nHeading: 0 deg\nICAO24: a5320b\nSquawk: "
-Text: 20,0,1,"a5320b | ground"
-End:
-Object: 37.13835,-121.47881
-Threshold: 999
-Icon: 0,0,278,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: LXJ223\nRegistration: N223FX\nAircraft type: CL35\nAltitude: 7250\nGround speed: 248.2 kt\nHeading: 278 deg\nICAO24: a1ecb9\nSquawk: 1412"
-Text: 20,0,1,"LXJ223 | 7250"
-End:
-Object: 37.35249,-121.39015
-Threshold: 999
-Icon: 0,0,349,1,1,"COMMERCIAL AIRLINER\nCallsign: KAL274\nRegistration: HL8226\nAircraft type: B77L\nAltitude: 32000\nGround speed: 418.9 kt\nHeading: 349 deg\nICAO24: 71c226\nSquawk: 7321"
-Text: 20,0,1,"KAL274 | 32000"
-End:
-Object: 35.98735,-121.18995
-Threshold: 999
-Icon: 0,0,110,1,1,"COMMERCIAL AIRLINER\nCallsign: JAL16\nRegistration: JA10WJ\nAircraft type: A35K\nAltitude: 39000\nGround speed: 614.9 kt\nHeading: 110 deg\nICAO24: 845d04\nSquawk: 1116"
-Text: 20,0,1,"JAL16 | 39000"
-End:
-Object: 42.51636,-121.07470
-Threshold: 999
-Icon: 0,0,344,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL39\nRegistration: N13013\nAircraft type: B78X\nAltitude: 33975\nGround speed: 527.7 kt\nHeading: 344 deg\nICAO24: a07dc8\nSquawk: 2132"
-Text: 20,0,1,"UAL39 | 33975"
-End:
-Object: 40.38751,-120.96827
-Threshold: 999
-Icon: 0,0,342,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL198\nRegistration: N29984\nAircraft type: B789\nAltitude: 30000\nGround speed: 485.1 kt\nHeading: 342 deg\nICAO24: a31a76\nSquawk: 7775"
-Text: 20,0,1,"UAL198 | 30000"
-End:
-Object: 37.89054,-120.72798
-Threshold: 999
-Icon: 0,0,289,1,1,"COMMERCIAL AIRLINER\nCallsign: ABX3155\nRegistration: N1499A\nAircraft type: B763\nAltitude: 6300\nGround speed: 268.2 kt\nHeading: 289 deg\nICAO24: a0c7b3\nSquawk: 6677"
-Text: 20,0,1,"ABX3155 | 6300"
-End:
-Object: 35.23779,-120.63834
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL1772\nRegistration: N9025B\nAircraft type: A319\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ac79a3\nSquawk: 7331"
-Text: 20,0,1,"AAL1772 | ground"
-End:
-Object: 37.15851,-120.58763
-Threshold: 999
-Icon: 0,0,262,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N684MT\nRegistration: N684MT\nAircraft type: GLF6\nAltitude: 17975\nGround speed: 303.9 kt\nHeading: 262 deg\nICAO24: a91338\nSquawk: 1450"
-Text: 20,0,1,"N684MT | 17975"
-End:
-Object: 34.89478,-120.45365
-Threshold: 999
-Icon: 0,0,175,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N769MH\nRegistration: N769MH\nAircraft type: S76\nAltitude: 525\nGround speed: 24.1 kt\nHeading: 175 deg\nICAO24: aa6412\nSquawk: 1200"
-Text: 20,0,1,"N769MH | 525"
-End:
-Object: 40.96632,-120.20764
-Threshold: 999
-Icon: 0,0,341,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N639QS\nRegistration: N639QS\nAircraft type: C68A\nAltitude: 43000\nGround speed: 402.3 kt\nHeading: 341 deg\nICAO24: a8609a\nSquawk: 4566"
-Text: 20,0,1,"N639QS | 43000"
-End:
-Object: 39.50664,-119.77241
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL324\nRegistration: N951AA\nAircraft type: B738\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: ad385f\nSquawk: 1715"
-Text: 20,0,1,"AAL324 | ground"
-End:
-Object: 39.50516,-119.77232
-Threshold: 999
-Icon: 0,0,0,1,1,"COMMERCIAL AIRLINER\nCallsign: SWA488\nRegistration: N293WN\nAircraft type: B737\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a302a0\nSquawk: 3701"
-Text: 20,0,1,"SWA488 | ground"
-End:
-Object: 39.49844,-119.76573
-Threshold: 999
-Icon: 0,0,0,1,2,"REGIONAL AIRCRAFT\nCallsign: N13GX\nRegistration: N13GX\nAircraft type: EPIC\nAltitude: ground\nGround speed: 12.2 kt\nHeading: 0 deg\nICAO24: a07984\nSquawk: 5357"
-Text: 20,0,1,"N13GX | ground"
-End:
-Object: 39.50110,-119.76492
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: EJA186\nRegistration: N186QS\nAircraft type: GL7T\nAltitude: ground\nGround speed: 0.1 kt\nHeading: 0 deg\nICAO24: a15865\nSquawk: 6334"
-Text: 20,0,1,"EJA186 | ground"
-End:
-Object: 39.50625,-119.76474
-Threshold: 999
-Icon: 0,0,0,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: XE161\nRegistration: N405SV\nAircraft type: AT45\nAltitude: ground\nGround speed: 0.0 kt\nHeading: 0 deg\nICAO24: a4c0d8\nSquawk: 3651"
-Text: 20,0,1,"XE161 | ground"
-End:
-Object: 40.75625,-119.42686
-Threshold: 999
-Icon: 0,0,13,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: ae048c\nRegistration: 63-8883\nAircraft type: K35R\nAltitude: 34000\nGround speed: 476.0 kt\nHeading: 13 deg\nICAO24: ae048c\nSquawk: 2517"
-Text: 20,0,1,"ae048c | 34000"
-End:
-Object: 40.72406,-119.36099
-Threshold: 999
-Icon: 0,0,11,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: ae0686\nRegistration: 60-0328\nAircraft type: K35R\nAltitude: 38000\nGround speed: 528.0 kt\nHeading: 11 deg\nICAO24: ae0686\nSquawk: 6265"
-Text: 20,0,1,"ae0686 | 38000"
-End:
-Object: 35.67140,-118.98363
-Threshold: 999
-Icon: 0,0,311,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N407CB\nRegistration: N407CB\nAircraft type: BE36\nAltitude: 6750\nGround speed: 146.0 kt\nHeading: 311 deg\nICAO24: a4c6d6\nSquawk: 2413"
-Text: 20,0,1,"N407CB | 6750"
-End:
-Object: 37.95960,-118.83140
-Threshold: 999
-Icon: 0,0,259,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1948\nRegistration: N37548\nAircraft type: B39M\nAltitude: 34000\nGround speed: 379.5 kt\nHeading: 259 deg\nICAO24: a44963\nSquawk: 6140"
-Text: 20,0,1,"UAL1948 | 34000"
-End:
-Object: 38.64013,-118.77087
-Threshold: 999
-Icon: 0,0,277,1,1,"COMMERCIAL AIRLINER\nCallsign: UPS5958\nRegistration: N346UP\nAircraft type: B763\nAltitude: 30050\nGround speed: 442.7 kt\nHeading: 277 deg\nICAO24: a3d568\nSquawk: 6746"
-Text: 20,0,1,"UPS5958 | 30050"
-End:
-Object: 38.12749,-118.70859
-Threshold: 999
-Icon: 0,0,263,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N901SS\nRegistration: N901SS\nAircraft type: G150\nAltitude: 45025\nGround speed: 400.3 kt\nHeading: 263 deg\nICAO24: ac7484\nSquawk: 7303"
-Text: 20,0,1,"N901SS | 45025"
-End:
-Object: 38.16497,-118.18333
-Threshold: 999
-Icon: 0,0,256,1,1,"COMMERCIAL AIRLINER\nCallsign: AAL3035\nRegistration: N454AL\nAircraft type: A21N\nAltitude: 35975\nGround speed: 395.8 kt\nHeading: 256 deg\nICAO24: a58103\nSquawk: 3260"
-Text: 20,0,1,"AAL3035 | 35975"
-End:
-Object: 41.95665,-117.97937
-Threshold: 999
-Icon: 0,0,223,1,1,"COMMERCIAL AIRLINER\nCallsign: THY79K\nRegistration: TC-LHD\nAircraft type: A359\nAltitude: 40000\nGround speed: 452.8 kt\nHeading: 223 deg\nICAO24: 4bb104\nSquawk: 1767"
-Text: 20,0,1,"THY79K | 40000"
-End:
-Object: 37.95478,-117.64936
-Threshold: 999
-Icon: 0,0,249,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N222GV\nRegistration: N222GV\nAircraft type: GLF5\nAltitude: 39975\nGround speed: 428.6 kt\nHeading: 249 deg\nICAO24: a1e919\nSquawk: 3201"
-Text: 20,0,1,"N222GV | 39975"
-End:
-Object: 36.97807,-116.94325
-Threshold: 999
-Icon: 0,0,318,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: LXJ590\nRegistration: N590FX\nAircraft type: CL35\nAltitude: 40000\nGround speed: 415.1 kt\nHeading: 318 deg\nICAO24: a79dfa\nSquawk: 0564"
-Text: 20,0,1,"LXJ590 | 40000"
-End:
-Object: 38.34987,-116.92504
-Threshold: 999
-Icon: 0,0,254,1,1,"COMMERCIAL AIRLINER\nCallsign: ASA33\nRegistration: N813AK\nAircraft type: B38M\nAltitude: 34000\nGround speed: 396.2 kt\nHeading: 254 deg\nICAO24: ab148b\nSquawk: 3356"
-Text: 20,0,1,"ASA33 | 34000"
-End:
-Object: 38.17609,-116.70914
-Threshold: 999
-Icon: 0,0,261,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: AAL149\nRegistration: N315XR\nAircraft type: Unknown\nAltitude: 33975\nGround speed: 397.2 kt\nHeading: 261 deg\nICAO24: a35b81\nSquawk: 1101"
-Text: 20,0,1,"AAL149 | 33975"
-End:
-Object: 36.56978,-116.22957
-Threshold: 999
-Icon: 0,0,119,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: N988F\nRegistration: N988F\nAircraft type: GLF6\nAltitude: 45025\nGround speed: 591.8 kt\nHeading: 119 deg\nICAO24: adc959\nSquawk: 7366"
-Text: 20,0,1,"N988F | 45025"
-End:
-Object: 38.44782,-116.03912
-Threshold: 999
-Icon: 0,0,252,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: UAL949\nRegistration: N71108\nAircraft type: Unknown\nAltitude: 38000\nGround speed: 453.2 kt\nHeading: 252 deg\nICAO24: a9823d\nSquawk: 3675"
-Text: 20,0,1,"UAL949 | 38000"
-End:
-Object: 38.52974,-115.86809
-Threshold: 999
-Icon: 0,0,261,1,2,"PRIVATE / GENERAL AVIATION\nCallsign: GDG49\nRegistration: N499SC\nAircraft type: GLF4\nAltitude: 42975\nGround speed: 417.4 kt\nHeading: 261 deg\nICAO24: a6331a\nSquawk: 5647"
-Text: 20,0,1,"GDG49 | 42975"
-End:
-Object: 38.55716,-115.61415
-Threshold: 999
-Icon: 0,0,252,1,1,"COMMERCIAL AIRLINER\nCallsign: UAL1914\nRegistration: N17126\nAircraft type: B752\nAltitude: 38000\nGround speed: 417.7 kt\nHeading: 252 deg\nICAO24: a11fa1\nSquawk: 1544"
-Text: 20,0,1,"UAL1914 | 38000"
+Icon: 0,0,152,1,2,"PRIVATE / GENERAL AVIATION\nID: BHS326\nSpeed: 297 KT\nAltitude: 11,575 FT\nRegistration: C6-BFW\nAircraft type: AT76\nICAO24: 0a805c"
+Text: 0,22,1,"BHS326"
+Text: 0,34,1,"297 KT | 11,575 FT"
 End:
