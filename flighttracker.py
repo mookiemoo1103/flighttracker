@@ -9,14 +9,20 @@ KEY = os.getenv("FLYITALYADSB_API_KEY", "").strip()
 OUT = Path(os.getenv("PLACEFILE_OUTPUT", "flighttracker.txt"))
 CACHE = Path(os.getenv("AIRCRAFT_CACHE", "aircraft_cache.json"))
 ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png"
-REQUEST_GAP = 1.1
-REQUESTS_PER_RUN = 6
-CACHE_TTL = 420  # full 28-area sweep is about 5 minutes; allow scheduling jitter
+REQUEST_GAP = 1.25
+BATCH_SIZE = 28
+BATCH_PAUSE = 61  # stay below the free plan's rolling 30-requests/minute limit
+CACHE_TTL = 360
 
-# 28 overlapping 500-km circles covering the contiguous U.S. and southern Canada border.
-# Six are queried each minute: 168 requests per 28-minute rotation, well below quota.
-REGIONS = [(lat, lon, 500) for lat in (25.5, 32.5, 39.5, 46.5)
-           for lon in (-123.0, -113.5, -104.0, -94.5, -85.0, -75.5, -66.0)]
+# Full U.S. coverage grid: 48 overlapping circles for the contiguous states,
+# plus Alaska, Hawaii and Puerto Rico. Each request uses a 500-km radius.
+REGIONS = [(lat, lon, 500) for lat in (25, 30, 35, 40, 45, 50)
+           for lon in (-124, -116, -108, -100, -92, -84, -76, -68)]
+REGIONS += [
+    (54, -164, 500), (58, -156, 500), (62, -148, 500), (66, -140, 500),
+    (60, -136, 500), (56, -150, 500), (64, -160, 500), (68, -152, 500),
+    (19.5, -155.5, 500), (21, -158.5, 500), (18.2, -66.5, 500),
+]
 
 AIRLINES = {
  "AAL":"American Airlines","UAL":"United Airlines","DAL":"Delta Air Lines",
@@ -76,7 +82,7 @@ def branch(a):
 
 def classify(a):
     t, desc = clean(a.get("t")).upper(), clean(a.get("desc")).upper()
-    if a.get("mil") or a.get("military") or int(a.get("dbFlags") or 0) & 1:
+    if a.get("mil") or a.get("military") or int(str(a.get("dbFlags") or "0"), 0) & 1:
         return 5, "MILITARY", branch(a)
     if "HELI" in desc or t.startswith(("R","H")): return 3, "HELICOPTER", ""
     if any(x in desc for x in ("CARGO","FREIGHT")): return 4, "CARGO", airline(a)
@@ -95,11 +101,11 @@ def alt_text(a):
 
 def render(aircraft, stamp, usage):
     lines = ["; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
-      "Title: US FLIGHT TRACKER - FLYITALYADSB", "Refresh: 10",
+      "Title: US FLIGHT TRACKER - FLYITALYADSB", "Refresh: 1",
       "Color: 235 235 235", 'Font: 1, 10, 1, "Arial"',
       f'IconFile: 1, 32, 32, 16, 16, "{ICON_URL}"',
       "; Updated: " + stamp.strftime("%Y-%m-%d %H:%M:%S UTC"),
-      f"; Active aircraft cached across rotating U.S. regions: {len(aircraft)}",
+      f"; Active aircraft cached across full U.S. coverage grid: {len(aircraft)}",
       f"; API quota used this month: {usage.get('used','unknown')} / {usage.get('limit','unknown')}"]
     for hx, item in aircraft.items():
       a = item.get("data", {})
@@ -131,12 +137,12 @@ def main():
     cache = load_cache()
     aircraft = cache.get("aircraft", {})
     now = time.time()
-    start = int(cache.get("next_region", 0)) % len(REGIONS)
     usage = {}
     success = 0
-    for offset in range(REQUESTS_PER_RUN):
-        idx = (start + offset) % len(REGIONS)
-        lat, lon, radius = REGIONS[idx]
+    for idx, (lat, lon, radius) in enumerate(REGIONS):
+        if idx and idx % BATCH_SIZE == 0:
+            print(f"Rate-limit pause after {idx} regions")
+            time.sleep(BATCH_PAUSE)
         try:
             data, headers = fetch(lat, lon, radius)
             usage = {"used":headers.get("X-FIA-Used-Month","unknown"),
@@ -157,12 +163,13 @@ def main():
                 if retry: time.sleep(min(60, max(1, int(retry))))
         except Exception as exc:
             print("Region failed:", idx, exc)
-        if offset < REQUESTS_PER_RUN - 1: time.sleep(REQUEST_GAP)
+        if idx < len(REGIONS) - 1 and (idx + 1) % BATCH_SIZE != 0:
+            time.sleep(REQUEST_GAP)
     cutoff = time.time() - CACHE_TTL
     aircraft = {hx:v for hx,v in aircraft.items()
                 if float(v.get("observed",0)) >= cutoff}
     cache["aircraft"] = aircraft
-    cache["next_region"] = (start + REQUESTS_PER_RUN) % len(REGIONS)
+    cache["regions_total"] = len(REGIONS)
     cache["updated"] = datetime.now(timezone.utc).isoformat()
     save_json(CACHE, cache)
     OUT.write_text(render(aircraft, datetime.now(timezone.utc), usage), encoding="utf-8")
