@@ -173,7 +173,7 @@ def main():
     cache["updated"] = datetime.now(timezone.utc).isoformat()
     save_json(CACHE, cache)
     OUT.write_text(render(aircraft, datetime.now(timezone.utc), usage), encoding="utf-8")
-    print(f"FlyItalyADSB: {success}/{REQUESTS_PER_RUN} regions; {len(aircraft)} aircraft retained; next region {cache['next_region']}")
+    print(f"FlyItalyADSB: {success}/{len(REGIONS)} regions; {len(aircraft)} aircraft retained")
     if success == 0: raise SystemExit("No regions updated; placefile retained from current cache.")
 
 if __name__ == "__main__": main()
