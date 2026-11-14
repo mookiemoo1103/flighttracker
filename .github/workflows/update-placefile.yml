@@ -3,7 +3,7 @@ name: Generate U.S. flight tracker placefile
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "3-59/5 * * * *"
 
 permissions:
   contents: write
@@ -15,7 +15,7 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
