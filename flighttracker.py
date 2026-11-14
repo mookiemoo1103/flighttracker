@@ -82,7 +82,11 @@ def branch(a):
 
 def classify(a):
     t, desc = clean(a.get("t")).upper(), clean(a.get("desc")).upper()
-    if a.get("mil") or a.get("military") or int(str(a.get("dbFlags") or "0"), 0) & 1:
+    try:
+        db_flags = int(str(a.get("dbFlags") or "0"), 0)
+    except (TypeError, ValueError):
+        db_flags = 0
+    if a.get("mil") or a.get("military") or db_flags & 1:
         return 5, "MILITARY", branch(a)
     if "HELI" in desc or t.startswith(("R","H")): return 3, "HELICOPTER", ""
     if any(x in desc for x in ("CARGO","FREIGHT")): return 4, "CARGO", airline(a)
