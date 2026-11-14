@@ -3,7 +3,7 @@ Title: US FLIGHT TRACKER - FLYITALYADSB
 Refresh: 1
 Color: 235 235 235
 Font: 1, 10, 1, "Arial"
-IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png"
+IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png?v=2"
 ; Updated: 2026-11-14 02:02:16 UTC
 ; Active aircraft cached across full U.S. coverage grid: 1013
 ; API quota used this month: unknown / unknown
