@@ -1,4 +1,4 @@
-name: Generate US flight tracker placefile
+name: Generate U.S. flight tracker placefile
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: flighttracker-placefile
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   generate:
@@ -18,19 +18,23 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Fetch ADS-B data and render placefile
-        run: python flighttracker.py --once
-      - name: Commit updated placefile
+      - name: Fetch six areas within the free API quota
+        env:
+          FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
+        run: python flighttracker.py
+      - name: Commit refreshed placefile and rolling aircraft cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add flighttracker.txt
+          git add flighttracker.txt aircraft_cache.json
           if git diff --cached --quiet; then
             echo "No placefile changes"
             exit 0
           fi
-          git commit -m "Update live aircraft positions"
+          git commit -m "Refresh quota-aware aircraft coverage"
           git push
