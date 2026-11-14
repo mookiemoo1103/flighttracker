@@ -3,7 +3,7 @@ name: Generate U.S. flight tracker placefile
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/1 * * * *"
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: write
@@ -15,7 +15,7 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Fetch six areas within the free API quota
+      - name: Fetch full U.S. coverage grid within the free API quota
         env:
           FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
         run: python flighttracker.py
@@ -36,5 +36,5 @@ jobs:
             echo "No placefile changes"
             exit 0
           fi
-          git commit -m "Refresh quota-aware aircraft coverage"
+          git commit -m "Refresh full U.S. aircraft coverage"
           git push
