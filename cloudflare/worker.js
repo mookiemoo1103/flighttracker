@@ -1,6 +1,6 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ICON_HELICOPTER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-map-icon-96.png?v=1";
+const ICON_HELICOPTER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png?v=1";
 const ICON_PASSENGER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/passenger-light-red.png?v=1";
 const ICON_COMMERCIAL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/commercial-yellow.png?v=3";
 const ICON_BUSINESS = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/business-jet-purple.png?v=2";
@@ -115,9 +115,18 @@ function branch(a) {
  return "MILITARY (BRANCH UNKNOWN)";
 }
 function classify(a, registry = {}) {
- const typeFields=[a.t,a.type,a.icao_type,a.typeCode,a.typeName,a.model,a.model_name,a.icaoType,a.type_code,a.type_description,a.description,registry.icao_type_code,registry.typeCode,registry.type,registry.typeName,registry.model,registry.model_name].map(clean).filter(Boolean);
+ const typeFields=[
+  a.t,a.type,a.icao_type,a.typeCode,a.typeName,a.model,a.model_name,a.icaoType,
+  a.type_code,a.type_description,a.description,registry.icao_type_code,
+  registry.typeCode,registry.type,registry.typeName,registry.model,registry.model_name
+ ].map(clean).filter(Boolean);
  const t=typeFields.join(" ").toUpperCase();
- const desc=[a.desc,a.typeDesc,a.category_desc,a.category_description,a.aircraft_desc,a.description,a.manufacturer,a.model,registry.type,registry.typeName,registry.model,registry.model_name,registry.manufacturer,registry.aircraft_desc,registry.description].map(clean).filter(Boolean).join(" ").toUpperCase();
+ const desc=[
+  a.desc,a.typeDesc,a.category_desc,a.category_description,a.aircraft_desc,
+  a.description,a.manufacturer,a.model,registry.type,registry.typeName,
+  registry.model,registry.model_name,registry.manufacturer,registry.aircraft_desc,
+  registry.description
+ ].map(clean).filter(Boolean).join(" ").toUpperCase();
  const operator=[a.ownOp,a.operator,registry.registered_owner].map(clean).filter(Boolean).join(" ").toUpperCase();
  const flight=clean(a.flight).toUpperCase();
  const prefix=(flight.match(/[A-Z]/g)||[]).join("").slice(0,3);
@@ -126,39 +135,38 @@ function classify(a, registry = {}) {
  const rotorCodes=/(^|\b)(R22|R44|R66|B06T?|B206|B407|B412|B429|B505|EC(20|30|35|45|55|75|120|130|135|145|155|175|225)|AS(32|35|50|55|65|33|36)|H125|H130|H135|H145|H160|H175|H215|H225|H500|H269|H34[0-9A-Z]*|H46[0-9A-Z]*|H47[0-9A-Z]*|H53[0-9A-Z]*|H60[0-9A-Z]*|H64[0-9A-Z]*|S55|S58|S61|S64|S70[0-9A-Z]*|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+|BK117|BO105|B105|MBB|K32|KA32)(?=$|\b)/;
  const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory||a.emitter_category_type||a.aircraft_category).toUpperCase();
  const rotorIdentity=[t,desc,operator,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
- if(rotorWords.test(rotorIdentity)||rotorCodes.test(rotorIdentity)||["A7","ROTORCRAFT","HELICOPTER","GYROCOPTER"].includes(emitterCategory)) return [2,"Helicopter",""];
+ if(rotorWords.test(rotorIdentity)||rotorCodes.test(rotorIdentity)||["A7","A8","ROTORCRAFT","HELICOPTER","GYROCOPTER"].includes(emitterCategory)) return [2,"Helicopter",""];
 
  const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
  const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
  if(a.mil||a.military||(flags&1)) return [1,"MILITARY OR GOVERNMENT",branch(a)];
  if(government.test(identity)) return [1,"MILITARY OR GOVERNMENT",operator||"GOVERNMENT"];
 
+ // Match ICAO type designators as individual tokens. Previously the code
+ // anchored this expression to the entire concatenated metadata string;
+ // a valid code such as C25A was missed whenever any other type/description
+ // field was also populated. ADS-B emitter category is not used to infer jets.
+ const businessJetCode=/^(?:BE40|BE4T|BD100|BD700|C25[ABC]|C510|C525|C526|C550|C551|C560|C56X|C680|C68A|C700|C750|CL30|CL35|CL60|GLF[234567]|G150|G200|G280|GLEX|FA50|FA7X|FA8X|E35L|E50P|E55P|E545|E550|E75L|LJ2[3458]|LJ3[15]|LJ35|LJ40|LJ45|LJ55|LJ60|LJ70|LJ75|GALX|ASTR|H25B|H25C|HA4T|F2TH|F900|F2000|F7X|F8X|PC24|SF50|WW24)$/;
+ const typeTokens=typeFields.flatMap(value=>value.toUpperCase().split(/[^A-Z0-9]+/).filter(Boolean));
+ const hasBusinessJetCode=typeTokens.some(code=>businessJetCode.test(code));
+ const businessJetWords=/\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GLOBAL [0-9]{4}|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|BEECHJET|PC[- ]?24|VISION JET)\b/;
+ if(hasBusinessJetCode||businessJetWords.test(desc+" "+t)) return [1,"Business Jets",""];
+
  const cargoPrefixes=new Set(["FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX","RPA"]);
  const cargoWords=/\b(CARGO|FREIGHT|AIR CARGO|LOGISTICS|PARCEL|EXPRESS)\b/;
  if(cargoPrefixes.has(prefix)||cargoWords.test(identity)) return [1,"COMMERCIAL",airline(a)||operator||"CARGO"];
 
- // Airline callsigns and known airline operators identify scheduled passenger
- // service. Aircraft size/type alone is deliberately not used to infer this.
  const passengerAirlinePrefixes=new Set([
   "AAL","UAL","DAL","SWA","JBU","ASA","FFT","NKS","SKW","RPA","ENY","PDT","AAY",
   "KAL","BAW","AFR","DLH","ACA","WJA","AMX","JAL","ANA","QTR","UAE","EVA","THY",
   "SIA","IBE","AUA","KLM","VIR","FLE","ROU","POE","AIC","ANZ","QFA","CCA","CSN",
-  "CES","SAS","FIN","LOT","TAP","EZY","RYR","WZZ","ETD","ETI","SAA","ETH","QTR"
+  "CES","SAS","FIN","LOT","TAP","EZY","RYR","WZZ","ETD","ETI","SAA","ETH"
  ]);
  const knownAirline=Object.values(AIRLINES).some(name=>operator.includes(name.toUpperCase()));
  if(passengerAirlinePrefixes.has(prefix)||knownAirline) return [1,"PASSENGER",airline(a)||operator];
 
- // Explicit commercial charter, air-taxi and commuter operators are commercial.
- // Corporate/private aircraft remain General Aviation unless positively identified.
  const commercialWords=/\b(CHARTER|AIR TAXI|AEROMEDICAL|AIR AMBULANCE|COMMUTER AIR|AIR TRANSPORT|AIR SERVICES|FLIGHT SERVICES)\b/;
  if(commercialWords.test(identity)) return [1,"COMMERCIAL",operator||"COMMERCIAL OPERATOR"];
-
- // Business jets are identified from aircraft model/type records, not from
- // ADS-B emitter size categories. Keep this after existing commercial and
- // passenger rules so those previously recognized categories retain priority.
- const businessJetCodes=/^(C25[ABC]|C510|C525|C526|C550|C551|C560|C56X|C68A|C700|C750|CL30|CL35|CL60|GLF[234567]|G150|G280|FA50|FA7X|FA8X|E35L|E50P|E55P|E545|E550|LJ35|LJ45|LJ55|LJ60|GALX|ASTR|H25B|H25C|H25D|HA4T|HA4T|F2TH|F900|F2000|F7X|F8X)$/;
- const businessJetWords=/\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|G280|G200)\b/;
- if(businessJetCodes.test(t)||businessJetWords.test(desc)) return [1,"Business Jets",""];
  return [1,"GENERAL AVIATION",""];
 }
 function altText(a) {
@@ -204,7 +212,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  `IconFile: 7, 64, 64, 64, 64, "${ICON_BUSINESS}"`, `; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
- let helicopterCount=0;
+ let helicopterCount=0, businessJetCount=0, generalAviationCount=0, passengerCount=0, commercialCount=0, militaryCount=0;
  const sourceCounts={"FlyItalyADSB":0,"ADSB.lol":0};
  for(const [hx,item] of aircraft) {
   const a=item.a, lat=Number(a.lat),lon=Number(a.lon);
@@ -213,6 +221,11 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   if(sourceCounts[item.feed]!==undefined) sourceCounts[item.feed]++;
   const reg=registry.get(hx)||{}, [icon,kind,org]=classify(a,reg), ident=clean(a.flight)||clean(a.r)||clean(reg.registration)||hx;
   if(kind==="Helicopter") helicopterCount++;
+  else if(kind==="Business Jets") businessJetCount++;
+  else if(kind==="GENERAL AVIATION") generalAviationCount++;
+  else if(kind==="PASSENGER") passengerCount++;
+  else if(kind==="COMMERCIAL") commercialCount++;
+  else if(kind==="MILITARY OR GOVERNMENT") militaryCount++;
   const displayIcon=kind==="Helicopter"?2:kind==="PASSENGER"?3:kind==="COMMERCIAL"?4:kind==="MILITARY OR GOVERNMENT"?5:kind==="GENERAL AVIATION"?6:kind==="Business Jets"?7:icon;
   const gs=Number(a.gs), speed=a.gs!=null&&Number.isFinite(gs)?Math.round(gs)+" KT":"SPEED N/A";
   const alt=altText(a), heading=Number(a.track??a.true_heading??0);
@@ -225,7 +238,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   if(org) lines.push(`Text: 0,46,1,"${clean(org)}"`);
   lines.push("End:");
  }
- lines.push(`; Unique aircraft: ${aircraft.size}`,`; Helicopters rendered: ${helicopterCount}`,`; Selected records by source: FlyItalyADSB ${sourceCounts["FlyItalyADSB"]||0}, ADSB.lol ${sourceCounts["ADSB.lol"]||0}`,`; Duplicate source/overlap records removed: ${Math.max(0,sourceRecordCount-aircraft.size)}`);
+ lines.push(`; Unique aircraft: ${aircraft.size}`,`; Helicopters rendered: ${helicopterCount}`,`; Business jets rendered: ${businessJetCount}`,`; General aviation rendered: ${generalAviationCount}`,`; Passenger aircraft rendered: ${passengerCount}`,`; Commercial aircraft rendered: ${commercialCount}`,`; Military/government aircraft rendered: ${militaryCount}`,`; Selected records by source: FlyItalyADSB ${sourceCounts["FlyItalyADSB"]||0}, ADSB.lol ${sourceCounts["ADSB.lol"]||0}`,`; Duplicate source/overlap records removed: ${Math.max(0,sourceRecordCount-aircraft.size)}`);
  return lines.join("\n")+"\n";
 }
 async function collectAdsbfi(env) {
