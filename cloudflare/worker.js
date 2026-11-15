@@ -106,17 +106,18 @@ function branch(a) {
  return "MILITARY (BRANCH UNKNOWN)";
 }
 function classify(a, registry = {}) {
- const typeFields=[a.t,a.type,a.icao_type,registry.icao_type_code,registry.type].map(clean).filter(Boolean);
+ const typeFields=[a.t,a.type,a.icao_type,a.typeCode,a.typeName,a.model,a.model_name,registry.icao_type_code,registry.typeCode,registry.type,registry.typeName,registry.model,registry.model_name].map(clean).filter(Boolean);
  const t=typeFields.join(" ").toUpperCase();
- const desc=[a.desc,a.typeDesc,a.category_desc,a.category_description,registry.type,registry.manufacturer].map(clean).filter(Boolean).join(" ").toUpperCase();
+ const desc=[a.desc,a.typeDesc,a.category_desc,a.category_description,a.aircraft_desc,a.description,a.manufacturer,a.model,registry.type,registry.typeName,registry.model,registry.model_name,registry.manufacturer,registry.aircraft_desc,registry.description].map(clean).filter(Boolean).join(" ").toUpperCase();
  const operator=[a.ownOp,a.operator,registry.registered_owner].map(clean).filter(Boolean).join(" ").toUpperCase();
  const flight=clean(a.flight).toUpperCase();
  const prefix=(flight.match(/[A-Z]/g)||[]).join("").slice(0,3);
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
  const rotorWords=/\b(HELI(?:COPTER)?|ROTORCRAFT|ROTOR[- ]?WING|GYROCOPTER|AUTOGYRO|BELL\s*(?:206|407|412|429|505)|ROBINSON\s*R?(?:22|44|66)|EUROCOPTER|AIRBUS\s*HELI|SIKORSKY|AGUSTA(?:WESTLAND)?|LEONARDO\s*HELI|MD\s*HELI|ENSTROM|KAMOV|MIL\s*MI[- ]?\d|HUGHES\s*(?:500|369)|BOEING\s*CH[- ]?47|BLACK\s*HAWK)\b/i;
  const rotorCodes=/(^|\b)(R22|R44|R66|B06T?|B206|B407|B412|B429|B505|EC(20|30|35|45|55|75|120|130|135|145|155|175|225)|AS(32|35|50|55|65|33|36)|H125|H130|H135|H145|H160|H175|H215|H225|H500|H269|H34[0-9A-Z]*|H46[0-9A-Z]*|H47[0-9A-Z]*|H53[0-9A-Z]*|H60[0-9A-Z]*|H64[0-9A-Z]*|S55|S58|S61|S64|S70[0-9A-Z]*|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+|BK117|BO105|B105|MBB|K32|KA32)(?=$|\b)/;
- const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory||a.emitter_category_type).toUpperCase();
- if(rotorWords.test(desc)||rotorWords.test(operator)||rotorCodes.test(t)||emitterCategory==="A7"||emitterCategory==="A8") return [2,"Helicopter",""];
+ const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory||a.emitter_category_type||a.aircraft_category).toUpperCase();
+ const rotorIdentity=[t,desc,operator,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
+ if(rotorWords.test(rotorIdentity)||rotorCodes.test(rotorIdentity)||["A7","ROTORCRAFT","HELICOPTER","GYROCOPTER"].includes(emitterCategory)) return [2,"Helicopter",""];
 
  const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
  const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
@@ -182,10 +183,11 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  const stamp=new Date(now).toISOString().replace("T"," ").replace(/\.\d{3}Z$/," UTC");
  const adsbfi = source === "adsb.fi";
  const multi = source === "multi";
+ let helicopterCount=0;
  const lines=[...(multi ? ["; Flight data: adsb.fi; https://adsb.fi/","; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"] : [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"]),
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,
-  `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-dark-gray.png?v=3"`,
+  `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=6"`,
  `IconFile: 3, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/passenger-light-red.png?v=1"`,
  `IconFile: 4, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/commercial-yellow.png?v=3"`,
  `IconFile: 5, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/military-green.png?v=3"`,
@@ -198,7 +200,8 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   if(!Number.isFinite(lat)||!Number.isFinite(lon)) continue;
   if(region && !region.test(lat,lon)) continue;
   const reg=registry.get(hx)||{}, [icon,kind,org]=classify(a,reg), ident=clean(a.flight)||clean(a.r)||clean(reg.registration)||hx;
-  const displayIcon=kind==="PASSENGER"?3:kind==="COMMERCIAL"?4:kind==="MILITARY OR GOVERNMENT"?5:kind==="GENERAL AVIATION"?6:kind==="Business Jets"?7:icon;
+  if(kind==="Helicopter") helicopterCount++;
+  const displayIcon=kind==="Helicopter"?2:kind==="PASSENGER"?3:kind==="COMMERCIAL"?4:kind==="MILITARY OR GOVERNMENT"?5:kind==="GENERAL AVIATION"?6:kind==="Business Jets"?7:icon;
   const gs=Number(a.gs), speed=a.gs!=null&&Number.isFinite(gs)?Math.round(gs)+" KT":"SPEED N/A";
   const alt=altText(a), heading=Number(a.track??a.true_heading??0);
   const hdg=Number.isFinite(heading)?((heading%360)+360)%360:0;
@@ -210,6 +213,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   if(org) lines.push(`Text: 0,46,1,"${clean(org)}"`);
   lines.push("End:");
  }
+ lines.push(`; Helicopters rendered: ${helicopterCount}`);
  return lines.join("\n")+"\n";
 }
 async function collectAdsbfi(env) {
