@@ -9,7 +9,6 @@ KEY = os.getenv("FLYITALYADSB_API_KEY", "").strip()
 OUT = Path(os.getenv("PLACEFILE_OUTPUT", "flighttracker.txt"))
 CACHE = Path(os.getenv("AIRCRAFT_CACHE", "aircraft_cache.json"))
 ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png?v=2"
-HELICOPTER_ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-map-icon-96.png?v=1"
 REQUEST_GAP = 1.25
 BATCH_SIZE = 28
 BATCH_PAUSE = 61  # stay below the free plan's rolling 30-requests/minute limit
@@ -82,63 +81,19 @@ def branch(a):
     return "MILITARY (BRANCH UNKNOWN)"
 
 def classify(a):
-    # ADS-B emitter category A7 is rotorcraft. Type-code matching covers
-    # helicopters even when the provider omits descriptive fields.
-    fields = [
-        a.get("t"), a.get("type"), a.get("icao_type"), a.get("typeCode"),
-        a.get("typeName"), a.get("model"), a.get("model_name"),
-        a.get("desc"), a.get("typeDesc"), a.get("category_desc"),
-        a.get("category_description"), a.get("aircraft_desc"),
-        a.get("description"), a.get("manufacturer"), a.get("ownOp"),
-        a.get("operator"), a.get("flight"), a.get("r"),
-    ]
-    identity = " ".join(clean(v) for v in fields if v is not None).upper()
-    emitter = clean(a.get("category") or a.get("emitter_category") or
-                    a.get("emitterCategory") or a.get("emitter_category_type") or
-                    a.get("aircraft_category")).upper()
-    rotor_words = (
-        "HELI", "ROTORCRAFT", "ROTOR-WING", "ROTOR WING", "GYROCOPTER",
-        "AUTOGYRO", "BELL", "ROBINSON", "EUROCOPTER", "AIRBUS HELI",
-        "SIKORSKY", "AGUSTA", "LEONARDO HELI", "MD HELI", "ENSTROM",
-        "KAMOV", "HUGHES", "BLACK HAWK", "CHINOOK",
-    )
-    rotor_codes = (
-        "R22","R44","R66","B06","B06T","B206","B407","B412","B429","B505",
-        "EC20","EC30","EC35","EC45","EC55","EC75","EC120","EC130","EC135",
-        "EC145","EC155","EC175","EC225","AS32","AS33","AS35","AS50","AS55",
-        "AS65","AS36","H125","H130","H135","H145","H160","H175","H215",
-        "H225","H269","H500","H369","S55","S58","S61","S64","S70","S76",
-        "S92","A109","A119","A139","A169","A189","MD500","MD520","MD530",
-        "OH58","UH1","UH60","HH60","CH47","CH53","MH60","AH64","TH67",
-        "BK117","BO105","B105","MBB","K32","KA32",
-    )
-    type_code = clean(a.get("t") or a.get("icao_type") or a.get("typeCode")).upper()
-    compact_code = type_code.replace("-", "").replace(" ", "")
-    rotor_match = any(word in identity for word in rotor_words)
-    rotor_match = rotor_match or emitter in ("A7", "ROTORCRAFT", "HELICOPTER", "GYROCOPTER")
-    rotor_match = rotor_match or any(
-        compact_code == code or compact_code.startswith(code)
-        for code in rotor_codes
-    )
-    if rotor_match:
-        try:
-            flags = int(str(a.get("dbFlags") or "0"), 0)
-        except (TypeError, ValueError):
-            flags = 0
-        org = branch(a) if (a.get("mil") or a.get("military") or flags & 1) else ""
-        return 1, "HELICOPTER", org
-
+    t, desc = clean(a.get("t")).upper(), clean(a.get("desc")).upper()
     try:
         db_flags = int(str(a.get("dbFlags") or "0"), 0)
     except (TypeError, ValueError):
         db_flags = 0
     if a.get("mil") or a.get("military") or db_flags & 1:
         return 5, "MILITARY", branch(a)
-    if any(x in identity for x in ("CARGO", "FREIGHT")): return 4, "CARGO", airline(a)
+    if "HELI" in desc or t.startswith(("R","H")): return 3, "HELICOPTER", ""
+    if any(x in desc for x in ("CARGO","FREIGHT")): return 4, "CARGO", airline(a)
     op = airline(a)
-    if op and (type_code.startswith(("A","B","E")) or len(clean(a.get("flight")).strip()) >= 3):
+    if op and (t.startswith(("A","B","E")) or len(clean(a.get("flight")).strip()) >= 3):
         return 1, "COMMERCIAL", op
-    if type_code.startswith(("A3","A2","B7","B3","B4","B5","B6","B8")):
+    if t.startswith(("A3","A2","B7","B3","B4","B5","B6","B8")):
         return 1, "COMMERCIAL", op
     return 2, "PRIVATE / GENERAL AVIATION", ""
 
@@ -149,12 +104,10 @@ def alt_text(a):
     except (TypeError, ValueError): return "ALT N/A"
 
 def render(aircraft, stamp, usage):
-    helicopter_count = 0
     lines = ["; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
       "Title: US FLIGHT TRACKER - FLYITALYADSB", "Refresh: 1",
       "Color: 235 235 235", 'Font: 1, 10, 1, "Arial"',
       f'IconFile: 1, 32, 32, 16, 16, "{ICON_URL}"',
-      f'IconFile: 2, 96, 96, 48, 48, "{HELICOPTER_ICON_URL}"',
       "; Updated: " + stamp.strftime("%Y-%m-%d %H:%M:%S UTC"),
       f"; Active aircraft cached across full U.S. coverage grid: {len(aircraft)}",
       f"; API quota used this month: {usage.get('used','unknown')} / {usage.get('limit','unknown')}"]
@@ -164,7 +117,6 @@ def render(aircraft, stamp, usage):
         lat, lon = float(a["lat"]), float(a["lon"])
         icon, kind, org = classify(a)
         if kind == "HELICOPTER":
-            helicopter_count += 1
         ident = clean(a.get("flight")).strip() or clean(a.get("r")) or hx
         try: speed = f"{float(a.get('gs')):.0f} KT"
         except (TypeError, ValueError): speed = "SPEED N/A"
@@ -176,12 +128,11 @@ def render(aircraft, stamp, usage):
                  f"\\nRegistration: {clean(a.get('r')) or 'Unknown'}"
                  f"\\nAircraft type: {clean(a.get('t')) or 'Unknown'}\\nICAO24: {hx}")
         lines += [f"Object: {lat:.5f},{lon:.5f}", "Threshold: 999",
-          f'Icon: 0,0,{heading:.0f},{2 if kind == "HELICOPTER" else 1},1,"{hover}"',
+          f'Icon: 0,0,{heading:.0f},1,{icon},"{hover}"',
           f'Text: 0,22,1,"{ident}"', f'Text: 0,34,1,"{speed} | {altitude}"']
         if org: lines.append(f'Text: 0,46,1,"{clean(org)}"')
         lines.append("End:")
       except (KeyError, TypeError, ValueError): continue
-    lines.append(f"; Helicopters rendered: {helicopter_count}")
     return "\n".join(lines) + "\n"
 
 def main():
