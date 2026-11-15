@@ -303,8 +303,7 @@ export default {
     env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
     env.DB.prepare("SELECT key,value FROM tracker_state").all()
    ]);
-   // Merge independent live networks; render() deduplicates by ICAO24 hex and
-   // keeps the freshest position, so aircraft reported by both appear once.
+   // Render the active FlyItalyADSB region snapshots; aircraft are deduplicated by ICAO24.
    // Registry enrichment is optional; never let a missing registry table
    // suppress live aircraft positions in a placefile.
    let registryRows = [];
