@@ -6,8 +6,6 @@ on:
     paths:
       - "adsbfi_collector.py"
       - ".github/workflows/adsbfi-refresh.yml"
-  schedule:
-    - cron: "*/5 * * * *"
 
 permissions:
   contents: read
