@@ -58,10 +58,12 @@ jobs:
               state = {row["key"]: row["value"] for row in health.get("state", [])}
               last_success = int(state.get("last_success", 0))
               age = (int(time.time() * 1000) - last_success) // 1000 if last_success else 999999
-              if health.get("ok") is True and last_success and age <= 180:
-                  print(f"FlyItaly collection succeeded {age}s ago; {health.get('regions_per_minute')} areas/minute; full sweep ~{health.get('approximate_full_sweep_minutes')} minutes")
+              batch_count = int(state.get("last_batch_count", 0))
+              batch_failed = int(state.get("last_batch_failed", 0))
+              if health.get("ok") is True and last_success and age <= 180 and batch_count >= 20 and batch_failed <= 7:
+                  print(f"FlyItaly collection succeeded {age}s ago; {batch_count}/27 areas refreshed; {batch_failed} failed; full sweep ~{health.get('approximate_full_sweep_minutes')} minutes")
                   sys.exit(0)
-              print(f"Waiting for live collection: last success {age}s ago; {health.get('regions_per_minute')} areas/minute")
+              print(f"Waiting for healthy collection: last success {age}s ago; batch={batch_count}/27; failed={batch_failed}")
           except Exception as exc:
               print("Health check not ready:", exc)
           sys.exit(1)
@@ -98,3 +100,10 @@ jobs:
           object_count=$(grep -c '^Object:' /tmp/flighttracker.txt || true)
           echo "Nationwide placefile contains $object_count aircraft records"
           test "$object_count" -gt 0
+          for category in 2 3 4 5 6 7; do
+            category_count=$(grep -cE "^Icon: [^,]*,[^,]*,[^,]*,$category,1," /tmp/flighttracker.txt || true)
+            echo "Aircraft icon category $category: $category_count"
+          done
+          helicopter_count=$(grep -cE '^Icon: [^,]*,[^,]*,[^,]*,2,1,' /tmp/flighttracker.txt || true)
+          echo "Helicopters displayed: $helicopter_count"
+          test "$helicopter_count" -gt 0
