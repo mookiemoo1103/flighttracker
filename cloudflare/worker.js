@@ -13,7 +13,7 @@ const REGIONS = [
  [54,-164,500],[58,-156,500],[62,-148,500],[66,-140,500],[60,-136,500],[56,-150,500],[64,-160,500],[68,-152,500],
  [19.5,-155.5,500],[21,-158.5,500],[18.2,-66.5,500]
 ];
-const DEFAULT_BATCH = 27; // 90% of the Free plan's 30 requests/minute
+const ADSBFI_REGION_COUNT = 38; // Legacy grid retained only for diagnostics; collector disabled after HTTP 403.
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
@@ -277,7 +277,7 @@ export default {
     ok:true,generated_at:new Date().toISOString(),
     feeds:{
      flyitaly:{last_attempt:stateMap.flyitaly_last_attempt||"0",last_success:stateMap.flyitaly_last_success||stateMap.last_success||"0",last_error:stateMap.flyitaly_last_error||"",regions_cached:flyRows.length,total_regions:REGIONS.length,latest_region_update:latest(flyRows),full_sweep_minutes:Math.ceil(REGIONS.length/Math.min(REGIONS.length,Math.max(1,Math.floor((Number(stateMap.quota_per_minute)||30)*0.9))))},
-     adsbfi:{last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",regions_cached:adsbRows.length,total_regions:ADSBFI_REGIONS.length,latest_region_update:latest(adsbRows),full_sweep_minutes:Math.ceil(ADSBFI_REGIONS.length/ADSBFI_BATCH)}
+     adsbfi:{last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",regions_cached:adsbRows.length,total_regions:ADSBFI_REGION_COUNT,latest_region_update:latest(adsbRows),full_sweep_minutes:null,disabled:true}
     },
     quota:{plan:stateMap.quota_plan||"unknown",per_minute:stateMap.quota_per_minute||"unknown",used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"}
    });
@@ -333,7 +333,7 @@ export default {
    const latest=rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
    return Response.json({
     ok:true,source:"adsb.fi",generated_at:new Date().toISOString(),
-    regions_total:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,approximate_full_sweep_minutes:1,regions_failed:Number(stateMap.adsbfi_regions_failed||0),last_batch_count:Number(stateMap.adsbfi_last_batch_count||0),last_duration_ms:Number(stateMap.adsbfi_last_duration_ms||0),
+    regions_total:ADSBFI_REGION_COUNT,regions_per_minute:0,approximate_full_sweep_minutes:null,disabled:true,regions_failed:Number(stateMap.adsbfi_regions_failed||0),last_batch_count:Number(stateMap.adsbfi_last_batch_count||0),last_duration_ms:Number(stateMap.adsbfi_last_duration_ms||0),
     last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",last_error_at:stateMap.adsbfi_last_error_at||"0",
     latest_region_update:latest,regions:rows.map(row=>({region_id:row.region_id,updated_at:row.updated_at,age_seconds:Math.max(0,Math.round((Date.now()-Number(row.updated_at))/1000))}))
    });
