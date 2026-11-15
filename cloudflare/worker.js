@@ -135,10 +135,8 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   for(const a of list) {
    const hx=clean(a.hex).toLowerCase();
    if(!hx||a.lat==null||a.lon==null) continue;
-   // Provider snapshots are already current; avoid an unreliable second age filter.
-   const seenRaw = a.seen_pos ?? a.seen ?? 0;
-   const seen = Number(seenRaw);
-   const observed = Number.isFinite(seen) && seen > 0 && seen < 3600 ? now - seen * 1000 : Number(row.updated_at);
+   const seen=Number(a.seen_pos||0), observed=now-(Number.isFinite(seen)?seen*1000:0);
+   if(now-observed>CACHE_TTL) continue;
    const old=aircraft.get(hx);
    if(!old||observed>old.observed) aircraft.set(hx,{a,observed});
   }
@@ -190,15 +188,6 @@ async function collectAdsbfi(env) {
  }
  const next = (start + success) % ADSBFI_REGIONS.length;
  const now = Date.now();
- const touched = new Set();
- for (let i = 0; i < success; i++) {
-  const [lat, lon] = ADSBFI_REGIONS[(start + i) % ADSBFI_REGIONS.length];
-  const name = lon < -116 ? "pacific" : lon < -102 ? (lat < 37 ? "southwest" : "mountain") : lon < -90 ? "central" : (lat < 37 ? "southeast" : "northeast");
-  touched.add(name);
- }
- for (const name of touched) {
-  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(`adsbfi_last_success_${name}`,String(now)));
- }
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_success',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(now)));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
@@ -229,12 +218,7 @@ async function collect(env) {
  await env.DB.batch(stmts);
 }
 export default {
- async scheduled(controller,env,ctx) {
-  ctx.waitUntil(Promise.allSettled([
-   collect(env).catch(error => console.error("FlyItalyADSB collection failed:", error)),
-   collectAdsbfi(env).catch(error => console.error("adsb.fi collection failed:", error))
-  ]));
- },
+ async scheduled(controller,env,ctx) { ctx.waitUntil(collect(env)); },
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
@@ -243,17 +227,7 @@ export default {
   }
   if (url.pathname === "/adsbfi-health") {
    const state = await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all();
-   const snapshots = await env.DB.prepare("SELECT region_id,updated_at,payload FROM adsbfi_region_data").all();
-   const rows = snapshots.results || [];
-   const diagnostics = Object.fromEntries(Object.keys(PLACEFILE_REGIONS).map(name => [name,{last_success:(state.results||[]).find(x=>x.key===`adsbfi_last_success_${name}`)?.value||"0",grid_points:0,aircraft_records:0}]));
-   for (const row of rows) {
-    const point = ADSBFI_REGIONS[Number(row.region_id)];
-    if (!point) continue;
-    const name = point[1] < -116 ? "pacific" : point[1] < -102 ? (point[0] < 37 ? "southwest" : "mountain") : point[1] < -90 ? "central" : (point[0] < 37 ? "southeast" : "northeast");
-    diagnostics[name].grid_points++;
-    try { diagnostics[name].aircraft_records += JSON.parse(row.payload).length; } catch {}
-   }
-   return Response.json({ok:true,source:"adsb.fi",regions:ADSBFI_REGIONS.length,collection_target_seconds:50,placefiles:diagnostics,state:state.results||[]});
+   return Response.json({ok:true,source:"adsb.fi",regions:ADSBFI_REGIONS.length,collection_target_seconds:50,placefiles:Object.keys(PLACEFILE_REGIONS).map(name=>({name,last_success:(state.results||[]).find(x=>x.key===`adsbfi_last_success_${name}`)?.value||"0"})),state:state.results||[]});
   }
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
