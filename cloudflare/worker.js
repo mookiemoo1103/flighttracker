@@ -232,11 +232,23 @@ export default {
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
-   const [{results:rows=[]},{results:states=[]},{results:registryRows=[]}] = await Promise.all([env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),env.DB.prepare("SELECT key,value FROM tracker_state").all(),env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all()]);
+   const [{results:rows=[]},{results:states=[]}] = await Promise.all([
+    env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),
+    env.DB.prepare("SELECT key,value FROM tracker_state").all()
+   ]);
+   // Registry enrichment is optional; never let a missing registry table
+   // suppress live aircraft positions in a placefile.
+   let registryRows = [];
+   try {
+    const registryResult = await env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all();
+    registryRows = registryResult.results || [];
+   } catch (error) {
+    console.log("Aircraft registry unavailable; using live ADS-B type data:", String(error));
+   }
    const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
    const lastSuccess = Number(stateMap[`adsbfi_last_success_${regionalPath}`] || 0);
-   const body = render(rows,{used:"adsb.fi public",limit:"1 request/second"},"adsb.fi",region,registryRows).replace("; Updated:", "; Last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\n; Updated:");
-   return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
+   const body = render(rows,{used:"adsb.fi public",limit:"1 request/second"},"adsb.fi",region,registryRows).replace("; Updated:", "; Last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\\\n; Updated:");
+   return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
   }
   if (url.pathname === "/adsbfi-test.txt") {
    const [{results:rows=[]},{results:states=[]}] = await Promise.all([
