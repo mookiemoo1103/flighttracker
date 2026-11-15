@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect lower-48 adsb.fi aircraft and write snapshots to Cloudflare D1 using bound parameters."""
+"""Repeatedly collect the lower-48 adsb.fi grid during one GitHub Actions run."""
 import json
 import os
 import time
@@ -18,6 +18,8 @@ REGIONS = [
     (41,-116.5),(41,-109.5),(41,-102.5),(41,-95.5),(41,-88.5),(41,-81.5),(41,-74.5),
     (46,-119),(46,-112),(46,-105),(46,-98),(46,-91),(46,-84),(46,-77),(46,-70),
 ]
+SWEEPS_PER_RUN = 4
+SWEEP_START_INTERVAL_SECONDS = 65
 
 def d1(sql, params):
     body = json.dumps({"sql": sql, "params": params}, separators=(",", ":")).encode()
@@ -32,7 +34,7 @@ def d1(sql, params):
         raise RuntimeError("Cloudflare D1 API error: " + json.dumps(result.get("errors", result)))
     return result
 
-def main():
+def collect_sweep(sweep_number):
     snapshots = []
     for index, (lat, lon) in enumerate(REGIONS):
         url = f"{API}/{lat}/lon/{lon}/dist/250"
@@ -47,24 +49,24 @@ def main():
         if not isinstance(data.get("ac"), list):
             raise RuntimeError(f"adsb.fi response missing aircraft array for region {index}")
         snapshots.append((index, json.dumps(data["ac"], separators=(",", ":"), ensure_ascii=False)))
-        print(f"Region {index + 1}/{len(REGIONS)}: {len(data['ac'])} aircraft")
+        print(f"Sweep {sweep_number}/{SWEEPS_PER_RUN} — region {index + 1}/{len(REGIONS)}: {len(data['ac'])} aircraft")
         if index < len(REGIONS) - 1:
             time.sleep(1.1)
 
     now_ms = int(time.time() * 1000)
-    # Bound parameters keep large aircraft JSON out of the SQL statement text.
+    # Bound parameters keep large aircraft JSON out of SQL statement text.
     for region_id, payload in snapshots:
         d1(
             "INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES(?,?,?) "
             "ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at",
             [region_id, payload, now_ms],
         )
-        print(f"Saved region {region_id + 1}/{len(REGIONS)} to D1")
     state = [
         ("adsbfi_next_region", "0"),
         ("adsbfi_last_success", str(now_ms)),
         ("adsbfi_last_batch_count", str(len(snapshots))),
         ("adsbfi_last_source", "github-actions"),
+        ("adsbfi_last_sweep", str(sweep_number)),
     ]
     for key, value in state:
         d1(
@@ -73,7 +75,18 @@ def main():
             [key, value],
         )
     total = sum(len(json.loads(payload)) for _, payload in snapshots)
-    print(f"SUCCESS: {len(snapshots)} regions; {total} aircraft records; {datetime.now(timezone.utc).isoformat()}")
+    print(f"SWEEP {sweep_number} SUCCESS: {len(snapshots)} regions; {total} aircraft records; {datetime.now(timezone.utc).isoformat()}")
+
+def main():
+    run_started = time.monotonic()
+    for sweep in range(1, SWEEPS_PER_RUN + 1):
+        target_start = run_started + (sweep - 1) * SWEEP_START_INTERVAL_SECONDS
+        wait = target_start - time.monotonic()
+        if wait > 0:
+            print(f"Waiting {wait:.1f}s before sweep {sweep}")
+            time.sleep(wait)
+        collect_sweep(sweep)
+    print(f"Completed {SWEEPS_PER_RUN} full lower-48 sweeps in {time.monotonic() - run_started:.1f}s")
 
 if __name__ == "__main__":
     main()
