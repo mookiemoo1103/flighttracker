@@ -211,7 +211,7 @@ async function collect(env) {
  await env.DB.batch(stmts);
 }
 export default {
- async scheduled(controller,env,ctx) { ctx.waitUntil(Promise.all([collect(env), collectAdsbfi(env)])); },
+ async scheduled(controller,env,ctx) { ctx.waitUntil(collect(env)); },
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
