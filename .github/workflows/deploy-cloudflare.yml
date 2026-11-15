@@ -77,13 +77,22 @@ jobs:
           for region in pacific southwest mountain central southeast northeast; do
             curl --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"
             grep -q '^Refresh: 1$' "/tmp/$region.txt"
+            grep -q '^IconFile: 7,' "/tmp/$region.txt"
+            grep -q '^IconFile: 2,' "/tmp/$region.txt"
+            grep -q '^IconFile: 3,' "/tmp/$region.txt"
             grep -q '^IconFile: 4,' "/tmp/$region.txt"
+            grep -q '^IconFile: 5,' "/tmp/$region.txt"
+            grep -q '^IconFile: 6,' "/tmp/$region.txt"
+            object_count=$(grep -c '^Object:' "/tmp/$region.txt" || true)
+            echo "$region.txt aircraft records: $object_count"
+            test "$object_count" -gt 0
             grep -q '^Title:' "/tmp/$region.txt"
             echo "$region.txt OK"
           done
           curl --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
           grep -q '^Refresh: 1$' /tmp/flighttracker.txt
-          grep -q '^IconFile: 4,' /tmp/flighttracker.txt
+          grep -q '^IconFile: 7,' /tmp/flighttracker.txt
+          grep -q '^IconFile: 2,' /tmp/flighttracker.txt
           object_count=$(grep -c '^Object:' /tmp/flighttracker.txt || true)
           echo "Nationwide placefile contains $object_count aircraft records"
           test "$object_count" -gt 0
