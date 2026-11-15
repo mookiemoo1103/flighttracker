@@ -18,8 +18,8 @@ REGIONS = [
     (41,-116.5),(41,-109.5),(41,-102.5),(41,-95.5),(41,-88.5),(41,-81.5),(41,-74.5),
     (46,-119),(46,-112),(46,-105),(46,-98),(46,-91),(46,-84),(46,-77),(46,-70),
 ]
-SWEEPS_PER_RUN = 4
-SWEEP_START_INTERVAL_SECONDS = 65
+SWEEPS_PER_RUN = 5
+SWEEP_START_INTERVAL_SECONDS = 50
 
 def d1(sql, params):
     body = json.dumps({"sql": sql, "params": params}, separators=(",", ":")).encode()
@@ -34,37 +34,74 @@ def d1(sql, params):
         raise RuntimeError("Cloudflare D1 API error: " + json.dumps(result.get("errors", result)))
     return result
 
+def region_name(lat, lon):
+    if lon < -116:
+        return "pacific"
+    if lon < -102:
+        return "southwest" if lat < 37 else "mountain"
+    if lon < -90:
+        return "central"
+    return "southeast" if lat < 37 else "northeast"
+
+def write_region_group(group_name, snapshots, now_ms):
+    if not snapshots:
+        return
+    # Keep SQL short and send aircraft JSON as bound parameters. One D1
+    # request commits this regional placefile's complete snapshot.
+    values = ",".join("(?,?,?)" for _ in snapshots)
+    params = []
+    for region_id, payload in snapshots:
+        params.extend([region_id, payload, now_ms])
+    sql = (
+        "INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES " + values +
+        " ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at"
+    )
+    d1(sql, params)
+    d1(
+        "INSERT INTO tracker_state(key,value) VALUES(?,?) "
+        "ON CONFLICT(key) DO UPDATE SET value=excluded.value",
+        [f"adsbfi_last_success_{group_name}", str(now_ms)],
+    )
+    print(f"PLACEFILE {group_name.upper()} UPDATED: {len(snapshots)} grid points at {now_ms}")
+
 def collect_sweep(sweep_number):
-    snapshots = []
-    for index, (lat, lon) in enumerate(REGIONS):
-        url = f"{API}/{lat}/lon/{lon}/dist/250"
-        req = urllib.request.Request(url, headers={
-            "Accept": "application/json",
-            "User-Agent": "USFlightTrackerPlacefile/adsbfi-github-actions (+https://github.com/mookiemoo1103/flighttracker)",
-        })
-        with urllib.request.urlopen(req, timeout=25) as response:
-            if response.status != 200:
-                raise RuntimeError(f"adsb.fi HTTP {response.status} for region {index}")
-            data = json.loads(response.read().decode("utf-8"))
-        if not isinstance(data.get("ac"), list):
-            raise RuntimeError(f"adsb.fi response missing aircraft array for region {index}")
-        snapshots.append((index, json.dumps(data["ac"], separators=(",", ":"), ensure_ascii=False)))
-        print(f"Sweep {sweep_number}/{SWEEPS_PER_RUN} — region {index + 1}/{len(REGIONS)}: {len(data['ac'])} aircraft")
-        if index < len(REGIONS) - 1:
-            time.sleep(1.1)
+    # Group grid points by the six independently served placefiles.
+    groups = {name: [] for name in ("pacific", "southwest", "mountain", "central", "southeast", "northeast")}
+    for index, point in enumerate(REGIONS):
+        groups[region_name(*point)].append((index, point))
+
+    total_records = 0
+    for group_name, points in groups.items():
+        snapshots = []
+        for position, (index, (lat, lon)) in enumerate(points):
+            url = f"{API}/{lat}/lon/{lon}/dist/250"
+            req = urllib.request.Request(url, headers={
+                "Accept": "application/json",
+                "User-Agent": "USFlightTrackerPlacefile/adsbfi-github-actions (+https://github.com/mookiemoo1103/flighttracker)",
+            })
+            with urllib.request.urlopen(req, timeout=25) as response:
+                if response.status != 200:
+                    raise RuntimeError(f"adsb.fi HTTP {response.status} for region {index}")
+                data = json.loads(response.read().decode("utf-8"))
+            if not isinstance(data.get("ac"), list):
+                raise RuntimeError(f"adsb.fi response missing aircraft array for region {index}")
+            payload = json.dumps(data["ac"], separators=(",", ":"), ensure_ascii=False)
+            snapshots.append((index, payload))
+            total_records += len(data["ac"])
+            print(f"Sweep {sweep_number}/{SWEEPS_PER_RUN} — {group_name}: grid {index + 1}/{len(REGIONS)}, {len(data['ac'])} aircraft")
+            if position < len(points) - 1:
+                time.sleep(1.1)
+
+        # Publish this placefile's data immediately; do not wait for other
+        # regions in the country to finish.
+        now_ms = int(time.time() * 1000)
+        write_region_group(group_name, snapshots, now_ms)
 
     now_ms = int(time.time() * 1000)
-    # Bound parameters keep large aircraft JSON out of SQL statement text.
-    for region_id, payload in snapshots:
-        d1(
-            "INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES(?,?,?) "
-            "ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at",
-            [region_id, payload, now_ms],
-        )
     state = [
         ("adsbfi_next_region", "0"),
         ("adsbfi_last_success", str(now_ms)),
-        ("adsbfi_last_batch_count", str(len(snapshots))),
+        ("adsbfi_last_batch_count", str(len(REGIONS))),
         ("adsbfi_last_source", "github-actions"),
         ("adsbfi_last_sweep", str(sweep_number)),
     ]
@@ -74,8 +111,7 @@ def collect_sweep(sweep_number):
             "ON CONFLICT(key) DO UPDATE SET value=excluded.value",
             [key, value],
         )
-    total = sum(len(json.loads(payload)) for _, payload in snapshots)
-    print(f"SWEEP {sweep_number} SUCCESS: {len(snapshots)} regions; {total} aircraft records; {datetime.now(timezone.utc).isoformat()}")
+    print(f"SWEEP {sweep_number} SUCCESS: {len(REGIONS)} grid points; {total_records} aircraft records; {datetime.now(timezone.utc).isoformat()}")
 
 def main():
     run_started = time.monotonic()
