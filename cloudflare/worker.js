@@ -3,7 +3,7 @@ const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
 const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"; // Shared grayscale aircraft sprite
 // Coverage grid: 38 lower-48 points plus Alaska, Hawaii and Puerto Rico.
 // Radius is selected from the active FlyItalyADSB plan (500 km Free; 1,000 km Starter/Pro).
-const REGIONS = [
+const REGIONS_FREE = [
  [26,-119,500],[26,-112,500],[26,-105,500],[26,-98,500],[26,-91,500],[26,-84,500],[26,-77,500],[26,-70,500],
  [31,-116.5,500],[31,-109.5,500],[31,-102.5,500],[31,-95.5,500],[31,-88.5,500],[31,-81.5,500],[31,-74.5,500],
  [36,-119,500],[36,-112,500],[36,-105,500],[36,-98,500],[36,-91,500],[36,-84,500],[36,-77,500],[36,-70,500],
@@ -13,6 +13,19 @@ const REGIONS = [
  [19.5,-155.5,500],[21,-158.5,500],[18.2,-66.5,500]
 ];
 const ADSBFI_REGION_COUNT = 38; // Legacy grid retained only for diagnostics; collector disabled after HTTP 403.
+const REGIONS_STARTER = [
+ // Continental U.S.: 15 overlapping 1,000-km circles.
+ [27,-123],[27,-111],[27,-99],[27,-87],[27,-75],
+ [37,-123],[37,-111],[37,-99],[37,-87],[37,-75],
+ [47,-123],[47,-111],[47,-99],[47,-87],[47,-75],
+ // Alaska, Hawaii and Puerto Rico.
+ [54,-164],[60,-152],[64,-164],[66,-144],[58,-136],
+ [20.5,-157.5],[18.2,-66.5]
+];
+const regionsForPlan = plan => {
+ const p=String(plan||"free").toLowerCase();
+ return p.includes("starter")||p.includes("pro")||p.includes("fleet") ? REGIONS_STARTER : REGIONS_FREE;
+};
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
@@ -179,15 +192,16 @@ async function collect(env) {
  try {
   const stateRows=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','quota_plan','quota_per_minute')").all();
   const state=Object.fromEntries((stateRows.results||[]).map(x=>[x.key,x.value]));
-  const start=Number(state.next_region||0)%REGIONS.length, stmts=[];
+  const regions=regionsForPlan(plan);
+  const start=Number(state.next_region||0)%regions.length, stmts=[];
   const plan=String(state.quota_plan||"free").toLowerCase();
   const perMinute=Math.max(1,Number(state.quota_per_minute)||30);
-  const batchSize=Math.min(REGIONS.length,Math.max(1,Math.floor(perMinute*0.9)));
+  const batchSize=Math.min(regions.length,Math.max(1,Math.floor(perMinute*0.9)));
   const radius=(plan.includes("starter")||plan.includes("pro")||plan.includes("fleet"))?1000:500;
   let used="unknown",limit="unknown",planHeader=plan,perMinuteHeader=String(perMinute),success=0;
   const failures=[];
   for(let i=0;i<batchSize;i++) {
-   const idx=(start+i)%REGIONS.length,[lat,lon]=REGIONS[idx];
+   const idx=(start+i)%regions.length,[lat,lon]=regions[idx];
    if(i>0) await sleep(1050);
    try {
     const url=`${API}/${lat}/lon/${lon}/dist/${radius}`;
@@ -212,7 +226,7 @@ async function collect(env) {
     if(String(error).includes("HTTP 429")) break;
    }
   }
-  const next=(start+batchSize)%REGIONS.length, now=Date.now();
+  const next=(start+batchSize)%regions.length, now=Date.now();
   const errorSummary=failures.slice(0,6).join(" | ").slice(0,1500);
   stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
   stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_used',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(used));
@@ -222,9 +236,9 @@ async function collect(env) {
   stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_last_error',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(errorSummary));
   stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
   stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_regions_failed',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(failures.length)));
-  stmts.push(env.DB.prepare("DELETE FROM region_data WHERE region_id>=?").bind(REGIONS.length));
+  stmts.push(env.DB.prepare("DELETE FROM region_data WHERE region_id>=?").bind(regions.length));
   if(stmts.length) await env.DB.batch(stmts);
-  console.log(`FlyItalyADSB ${planHeader}: ${success}/${batchSize} regions refreshed; ${failures.length} failed; grid ${REGIONS.length}; estimated sweep ${Math.ceil(REGIONS.length/batchSize)} minute(s)`);
+  console.log(`FlyItalyADSB ${planHeader}: ${success}/${batchSize} regions refreshed; ${failures.length} failed; grid ${regions.length}; estimated sweep ${Math.ceil(regions.length/batchSize)} minute(s)`);
   if(success===0) throw new Error("FlyItalyADSB batch failed: "+errorSummary);
  } finally {
   try {
@@ -251,11 +265,14 @@ export default {
     env.DB.prepare("SELECT region_id,updated_at FROM adsbfi_region_data").all()
    ]);
    const stateMap=Object.fromEntries(state.map(x=>[x.key,x.value]));
+   const activeRegions=regionsForPlan(stateMap.quota_plan||"free");
+   const activeRows=flyRows.filter(row=>Number(row.region_id)<activeRegions.length);
+   const healthBatch=Math.min(activeRegions.length,Math.max(1,Math.floor((Number(stateMap.quota_per_minute)||30)*0.9)));
    const latest=rows=>rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
    return Response.json({
     ok:true,generated_at:new Date().toISOString(),
     feeds:{
-     flyitaly:{last_attempt:stateMap.flyitaly_last_attempt||"0",last_success:stateMap.flyitaly_last_success||stateMap.last_success||"0",last_error:stateMap.flyitaly_last_error||"",regions_cached:flyRows.filter(row=>Number(row.region_id)<REGIONS.length).length,total_regions:REGIONS.length,last_batch_count:Number(stateMap.flyitaly_last_batch_count||0),regions_failed:Number(stateMap.flyitaly_regions_failed||0),last_duration_ms:Number(stateMap.flyitaly_last_duration_ms||0),latest_region_update:latest(flyRows.filter(row=>Number(row.region_id)<REGIONS.length)),full_sweep_minutes:Math.ceil(REGIONS.length/Math.min(REGIONS.length,Math.max(1,Math.floor((Number(stateMap.quota_per_minute)||30)*0.9)))),regions:flyRows.filter(row=>Number(row.region_id)<REGIONS.length).map(row=>({region_id:row.region_id,updated_at:row.updated_at,age_seconds:Math.max(0,Math.round((Date.now()-Number(row.updated_at))/1000))}))},
+     flyitaly:{last_attempt:stateMap.flyitaly_last_attempt||"0",last_success:stateMap.flyitaly_last_success||stateMap.last_success||"0",last_error:stateMap.flyitaly_last_error||"",regions_cached:activeRows.length,total_regions:activeRegions.length,last_batch_count:Number(stateMap.flyitaly_last_batch_count||0),regions_failed:Number(stateMap.flyitaly_regions_failed||0),last_duration_ms:Number(stateMap.flyitaly_last_duration_ms||0),latest_region_update:latest(activeRows),full_sweep_minutes:Math.ceil(activeRegions.length/healthBatch),regions:activeRows.map(row=>({region_id:row.region_id,updated_at:row.updated_at,age_seconds:Math.max(0,Math.round((Date.now()-Number(row.updated_at))/1000))}))},
      adsbfi:{last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",regions_cached:adsbRows.length,total_regions:ADSBFI_REGION_COUNT,latest_region_update:latest(adsbRows),full_sweep_minutes:null,disabled:true}
     },
     quota:{plan:stateMap.quota_plan||"unknown",per_minute:stateMap.quota_per_minute||"unknown",used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"}
