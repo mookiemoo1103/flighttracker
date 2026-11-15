@@ -2,6 +2,10 @@ name: Refresh adsb.fi aircraft cache
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "adsbfi_collector.py"
+      - ".github/workflows/adsbfi-refresh.yml"
   schedule:
     - cron: "*/5 * * * *"
 
