@@ -1,6 +1,6 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=3"; // Shared grayscale aircraft sprite
+const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=4"; // Shared grayscale aircraft sprite
 const REGIONS = [
   [25, -124, 500],
   [25, -116, 500],
