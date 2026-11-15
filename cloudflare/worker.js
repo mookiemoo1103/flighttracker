@@ -89,7 +89,7 @@ const ADSBFI_REGIONS = [
  [41,-116.5],[41,-109.5],[41,-102.5],[41,-95.5],[41,-88.5],[41,-81.5],[41,-74.5],
  [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
 ];
-const ADSBFI_BATCH = ADSBFI_REGIONS.length; // Full lower-48 sweep every scheduled minute (38 calls, spaced 1.1s apart)
+const ADSBFI_BATCH = ADSBFI_REGIONS.length; // Full lower-48 sweep every scheduled minute (38 calls, spaced 1.25s apart)
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
@@ -222,39 +222,44 @@ async function collectAdsbfi(env) {
  let success = 0;
  for (let idx = 0; idx < ADSBFI_REGIONS.length; idx++) {
   const [lat, lon] = ADSBFI_REGIONS[idx];
-  if (idx > 0) await sleep(1050); // stay within the public feed's 1 request/second guidance
+  if (idx > 0) await sleep(1250); // leave headroom above the public feed's 1 request/second limit
   try {
    const res = await fetch(`${ADSBFI_API}/${lat}/lon/${lon}/dist/250`, {
     headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/adsbfi-live" },
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
    });
-   if (!res.ok) throw new Error(`adsb.fi HTTP ${res.status}`);
+   if (!res.ok) {
+    const preview = (await res.text()).slice(0,180);
+    throw new Error(`HTTP ${res.status} ${res.statusText}; body=${preview}`);
+   }
    const data = await res.json();
-   if (!Array.isArray(data.ac)) throw new Error("response missing aircraft array");
+   if (!Array.isArray(data.ac)) throw new Error("HTTP 200 but response has no 'ac' array");
    stmts.push(env.DB.prepare("INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
     .bind(idx, JSON.stringify(data.ac), Date.now()));
    success++;
   } catch (error) {
-   const message = `region ${idx} (${lat},${lon}): ${String(error).slice(0,300)}`;
+   const message = `region ${idx} (${lat},${lon}): ${String(error).slice(0,360)}`;
    failures.push(message);
    console.error("adsb.fi region failed:", message);
   }
  }
  const now = Date.now();
+ const errorSummary = failures.length ? failures.slice(0,8).join(" | ").slice(0,1800) : "";
  const state = [
   ["adsbfi_last_attempt", String(now)],
   ["adsbfi_last_batch_count", String(success)],
   ["adsbfi_regions_failed", String(failures.length)],
-  ["adsbfi_last_error", failures.join(" | ").slice(0,1500)],
-  ["adsbfi_last_source", "cloudflare-worker-full-grid"]
+  ["adsbfi_last_error", errorSummary],
+  ["adsbfi_last_source", "cloudflare-worker-full-grid"],
+  ["adsbfi_last_duration_ms", String(now - Number(now))]
  ];
  if (success > 0) state.push(["adsbfi_last_success", String(now)]);
  for (const [key,value] of state) {
   stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,value));
  }
  if (stmts.length) await env.DB.batch(stmts);
- console.log(`adsb.fi full-grid sweep: ${success}/${ADSBFI_REGIONS.length} regions refreshed; ${failures.length} failed`);
- if (success === 0) throw new Error("adsb.fi full-grid sweep failed for every region: " + failures.join(" | "));
+ console.log(`adsb.fi full-grid sweep: ${success}/${ADSBFI_REGIONS.length} regions refreshed; ${failures.length} failed; sample errors: ${errorSummary}`);
+ if (success === 0) throw new Error("adsb.fi full-grid sweep failed for every region: " + errorSummary);
 }
 async function writeState(env, entries) {
  const statements=entries.map(([key,value])=>env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,String(value)));
@@ -263,10 +268,10 @@ async function writeState(env, entries) {
 async function runCollector(env,name,collector) {
  const started=Date.now();
  try {
-  await writeState(env,[[name+"_last_attempt",started],[name+"_last_error",""]]);
+  await writeState(env,[[name+"_last_attempt",started]]);
   await collector(env);
   const finished=Date.now();
-  await writeState(env,[[name+"_last_success",finished],[name+"_last_duration_ms",finished-started],[name+"_last_error",""]]);
+  await writeState(env,[[name+"_last_success",finished],[name+"_last_duration_ms",finished-started]]);
   console.log(name+" collector succeeded in "+(finished-started)+" ms");
  } catch(error) {
   const failed=Date.now(), message=String(error?.stack||error).slice(0,1500);
@@ -339,7 +344,7 @@ export default {
    const latest=rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
    return Response.json({
     ok:true,source:"adsb.fi",generated_at:new Date().toISOString(),
-    regions_total:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,approximate_full_sweep_minutes:1,regions_failed:Number(stateMap.adsbfi_regions_failed||0),
+    regions_total:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,approximate_full_sweep_minutes:1,regions_failed:Number(stateMap.adsbfi_regions_failed||0),last_batch_count:Number(stateMap.adsbfi_last_batch_count||0),last_duration_ms:Number(stateMap.adsbfi_last_duration_ms||0),
     last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",last_error_at:stateMap.adsbfi_last_error_at||"0",
     latest_region_update:latest,regions:rows.map(row=>({region_id:row.region_id,updated_at:row.updated_at,age_seconds:Math.max(0,Math.round((Date.now()-Number(row.updated_at))/1000))}))
    });
