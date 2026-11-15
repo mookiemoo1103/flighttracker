@@ -89,7 +89,7 @@ const ADSBFI_REGIONS = [
  [41,-116.5],[41,-109.5],[41,-102.5],[41,-95.5],[41,-88.5],[41,-81.5],[41,-74.5],
  [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
 ];
-const ADSBFI_BATCH = 19;
+const ADSBFI_BATCH = ADSBFI_REGIONS.length; // Full lower-48 sweep every minute
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
@@ -225,7 +225,11 @@ async function collect(env) {
  await env.DB.batch(stmts);
 }
 export default {
- async scheduled(controller,env,ctx) { ctx.waitUntil(collect(env)); },
+ async scheduled(controller,env,ctx) {
+  // Refresh both independent data feeds on every minute tick. adsb.fi's
+  // 38-region sweep is paced at ~1.1s/request and completes within the minute.
+  ctx.waitUntil(Promise.allSettled([collect(env), collectAdsbfi(env)]));
+ },
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
