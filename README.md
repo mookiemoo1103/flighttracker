@@ -19,10 +19,10 @@ Every Worker placefile uses `RefreshSeconds: 15` and `Cache-Control: no-store`. 
 ## Live data collection
 
 - Primary source: FlyItalyADSB, authenticated with the `FLYITALYADSB_API_KEY` Worker secret.
-- The collector covers 49 areas: 38 lower-48 coverage points plus Alaska, Hawaii and Puerto Rico.
+- The collector uses a 49-area grid on the Free plan (38 lower-48 points plus Alaska, Hawaii and Puerto Rico) and a compact 23-area grid on Starter/Pro (15 lower-48 points, 6 Alaska points, Hawaii and Puerto Rico).
 - It reads `X-FIA-Plan` and `X-FIA-Limit-Per-Min` from the API and adapts the collection batch and radius to the key's plan.
 - Free plan: up to 30 requests/minute and 500-km radius. The Worker uses 27 calls per minute, so the 49-area sweep takes about 2 minutes.
-- Starter plan: up to 60 requests/minute and 1,000-km radius. The Worker can collect all 49 areas in one scheduled minute.
+- Starter plan: up to 60 requests/minute and 1,000-km radius. The Worker can collect all 23 areas in one scheduled minute.
 - Pro/Fleet plans have higher limits and whole-world access; the current Worker still uses the 49-area grid.
 - Collection is protected by an expiring D1 lock to prevent overlapping scheduled sweeps. Individual region failures are recorded while successful regions are saved.
 - ADSB.fi collection is disabled because its public endpoint returned Cloudflare HTTP 403 responses from the Worker egress. Its health endpoint remains available for diagnostics only.
