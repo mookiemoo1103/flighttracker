@@ -104,13 +104,15 @@ function branch(a) {
  for (const [terms,name] of MILITARY_BRANCHES) if(terms.some(t=>fields.includes(t))) return name;
  return "MILITARY (BRANCH UNKNOWN)";
 }
-function classify(a) {
- const t=clean(a.t).toUpperCase(), desc=clean(a.desc).toUpperCase();
+function classify(a, registry = {}) {
+ const t=clean(registry.icao_type_code||a.t).toUpperCase();
+ const desc=[a.desc,registry.type,registry.manufacturer].map(clean).join(" ").toUpperCase();
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
- // Identify rotorcraft before military/operator classification so military helicopters
- // also receive the dedicated helicopter symbol.
- const helicopterPrefixes=["R22","R44","R66","B06","B06T","B407","B412","B429","B505","EC","AS","H125","H130","H135","H145","H160","H175","H215","H225","S76","S92","A109","A119","A139","A169","A189","MD5","MD6","OH","UH","HH","CH","MH","AH","TH"];
- if(/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING/.test(desc)||helicopterPrefixes.some(prefix=>t.startsWith(prefix))) return [2,"HELICOPTER",""];
+ // Rotorcraft classification uses live aircraft description/type and the ICAO-hex
+ // registration database's manufacturer, model and ICAO type code.
+ const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
+ const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
+ if(rotorWords.test(desc)||rotorCodes.test(t)) return [2,"HELICOPTER",""];
  if(a.mil||a.military||(flags&1)) return [1,"MILITARY",branch(a)];
  if(desc.includes("CARGO")||desc.includes("FREIGHT")) return [1,"CARGO",airline(a)];
  const op=airline(a), flight=clean(a.flight);
@@ -124,8 +126,9 @@ function altText(a) {
  const n=Number(alt);
  return alt!==null&&alt!==undefined&&Number.isFinite(n)?Math.trunc(n).toLocaleString("en-US")+" FT":"ALT N/A";
 }
-function render(rows, usage, source = "FlyItalyADSB", region = null) {
- const now=Date.now(), aircraft=new Map();
+function render(rows, usage, source = "FlyItalyADSB", region = null, registryRows = []) {
+ const now=Date.now(), aircraft=new Map(), registry=new Map();
+ for(const item of registryRows){try{registry.set(clean(item.hex).toLowerCase(),JSON.parse(item.payload));}catch{}}
  for(const row of rows) {
   if(now-Number(row.updated_at)>SNAPSHOT_TTL) continue;
   let list; try { list=JSON.parse(row.payload); } catch { continue; }
@@ -150,12 +153,12 @@ function render(rows, usage, source = "FlyItalyADSB", region = null) {
   const a=item.a, lat=Number(a.lat),lon=Number(a.lon);
   if(!Number.isFinite(lat)||!Number.isFinite(lon)) continue;
   if(region && !region.test(lat,lon)) continue;
-  const [icon,kind,org]=classify(a), ident=clean(a.flight)||clean(a.r)||hx;
+  const reg=registry.get(hx)||{}, [icon,kind,org]=classify(a,reg), ident=clean(a.flight)||clean(a.r)||clean(reg.registration)||hx;
   const gs=Number(a.gs), speed=a.gs!=null&&Number.isFinite(gs)?Math.round(gs)+" KT":"SPEED N/A";
   const alt=altText(a), heading=Number(a.track??a.true_heading??0);
   const hdg=Number.isFinite(heading)?((heading%360)+360)%360:0;
   const orgline=org?"\\n"+org:"";
-  const hover=[kind,`ID: ${ident}`,...(org?[org]:[]),`Speed: ${speed}`,`Altitude: ${alt}`,`Registration: ${clean(a.r)||"Unknown"}`,`Aircraft type: ${clean(a.t)||"Unknown"}`,`ICAO24: ${hx}`].map(clean).join("\\n");
+  const hover=[kind,`ID: ${ident}`,...(org?[org]:[]),`Speed: ${speed}`,`Altitude: ${alt}`,`Registration: ${clean(a.r)||"Unknown"}`,`Aircraft type: ${clean(a.t||reg.icao_type_code)||"Unknown"}`,`Manufacturer: ${clean(reg.manufacturer)||"Unknown"}`,`Model: ${clean(reg.type)||"Unknown"}`,`ICAO24: ${hx}`].map(clean).join("\\n");
   lines.push(`Object: ${lat.toFixed(5)},${lon.toFixed(5)}`,"Threshold: 999",
    `Icon: 0,0,${Math.round(hdg)},1,${icon},"${hover}"`,
    `Text: 0,22,1,"${ident}"`,`Text: 0,34,1,"${speed} | ${alt}"`);
@@ -229,10 +232,10 @@ export default {
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
-   const [{results:rows=[]},{results:states=[]}] = await Promise.all([env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),env.DB.prepare("SELECT key,value FROM tracker_state").all()]);
+   const [{results:rows=[]},{results:states=[]},{results:registryRows=[]}] = await Promise.all([env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),env.DB.prepare("SELECT key,value FROM tracker_state").all(),env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all()]);
    const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
    const lastSuccess = Number(stateMap[`adsbfi_last_success_${regionalPath}`] || 0);
-   const body = render(rows,{used:"adsb.fi public",limit:"1 request/second"},"adsb.fi",region).replace("; Updated:", "; Last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\n; Updated:");
+   const body = render(rows,{used:"adsb.fi public",limit:"1 request/second"},"adsb.fi",region,registryRows).replace("; Updated:", "; Last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\n; Updated:");
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if (url.pathname === "/adsbfi-test.txt") {

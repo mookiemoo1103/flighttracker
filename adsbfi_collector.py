@@ -113,6 +113,38 @@ def collect_sweep(sweep_number):
         )
     print(f"SWEEP {sweep_number} SUCCESS: {len(REGIONS)} grid points; {total_records} aircraft records; {datetime.now(timezone.utc).isoformat()}")
 
+def enrich_aircraft_registry():
+    # Cache a bounded number of unseen aircraft by ICAO hex each collector run.
+    known_result = d1("SELECT hex FROM aircraft_registry", [])
+    known = {row["hex"].lower() for result in known_result.get("result", []) for row in result.get("results", [])}
+    snapshot_result = d1("SELECT payload FROM adsbfi_region_data", [])
+    candidates = set()
+    for result in snapshot_result.get("result", []):
+        for row in result.get("results", []):
+            try:
+                items = json.loads(row["payload"])
+            except (TypeError, json.JSONDecodeError):
+                continue
+            for item in items:
+                hx = str(item.get("hex", "")).lower()
+                if len(hx) == 6 and all(c in "0123456789abcdef" for c in hx) and hx not in known:
+                    candidates.add(hx)
+    enriched = 0
+    for hx in sorted(candidates)[:40]:
+        try:
+            req = urllib.request.Request(f"https://hexdb.io/api/v2/aircraft/{hx}",
+                headers={"Accept": "application/json", "User-Agent": "USFlightTracker/1.0"})
+            with urllib.request.urlopen(req, timeout=15) as response:
+                record = json.loads(response.read().decode("utf-8"))
+            if record.get("hex"):
+                d1("INSERT INTO aircraft_registry(hex,registration,manufacturer,type,icao_type_code,registered_owner,payload,updated_at) VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(hex) DO UPDATE SET registration=excluded.registration,manufacturer=excluded.manufacturer,type=excluded.type,icao_type_code=excluded.icao_type_code,registered_owner=excluded.registered_owner,payload=excluded.payload,updated_at=excluded.updated_at",
+                   [hx,record.get("registration"),record.get("manufacturer"),record.get("type"),record.get("icao_type_code"),record.get("registered_owner"),json.dumps(record,separators=(",",":")),int(time.time()*1000)])
+                enriched += 1
+        except Exception as exc:
+            print(f"Registry lookup skipped for {hx}: {exc}")
+        time.sleep(1.05)
+    print(f"AIRCRAFT REGISTRY: cached {enriched} new ICAO records from {len(candidates)} candidates")
+
 def main():
     run_started = time.monotonic()
     for sweep in range(1, SWEEPS_PER_RUN + 1):
@@ -122,6 +154,7 @@ def main():
             print(f"Waiting {wait:.1f}s before sweep {sweep}")
             time.sleep(wait)
         collect_sweep(sweep)
+    enrich_aircraft_registry()
     print(f"Completed {SWEEPS_PER_RUN} full lower-48 sweeps in {time.monotonic() - run_started:.1f}s")
 
 if __name__ == "__main__":
