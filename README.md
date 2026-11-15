@@ -32,8 +32,10 @@ The combined placefiles merge independent live networks and de-duplicate aircraf
 
 ## Helicopter and aircraft icons
 
-- Helicopters use icon file 2: `assets/helicopter-map-icon-96.png`, 96×96, centered anchor 48×48.
-- Helicopter detection uses multiple aircraft type/model/description fields, registry enrichment, and ADS-B emitter categories A7/A8. Unknown aircraft remain General Aviation rather than being dropped.
+- Helicopters use icon file 2: `assets/helicopter-aircraft-theme-96.png`, 96×96, centered anchor 48×48, very light grey fill with the same black outline weight as the airplane icons.
+- Helicopter detection uses multiple aircraft type/model/description fields, registry enrichment, and ADS-B emitter categories A7/A8. Unknown aircraft with valid positions remain displayed as General Aviation rather than being dropped.
+- Business-jet type codes are matched individually against every available ADS-B and registry type field; they are not tested against one concatenated string. This prevents populated secondary metadata fields from hiding a valid jet code.
+- Placefile diagnostics report the number rendered in each category, selected records per source, and ICAO24 duplicates removed.
 - Passenger, commercial, business-jet, general-aviation, military/government and helicopter icon assignments are kept separate.
 
 ## Diagnostics
