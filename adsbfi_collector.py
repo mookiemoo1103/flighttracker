@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""Collect the lower-48 adsb.fi grid from GitHub Actions and stage it for Cloudflare D1."""
+"""Collect lower-48 adsb.fi aircraft and write snapshots to Cloudflare D1 using bound parameters."""
 import json
+import os
 import time
 import urllib.request
 from datetime import datetime, timezone
-from pathlib import Path
 
 API = "https://opendata.adsb.fi/api/v3/lat"
+CF_ACCOUNT_ID = os.environ["CLOUDFLARE_ACCOUNT_ID"]
+CF_DATABASE_ID = os.environ["CLOUDFLARE_D1_DATABASE_ID"]
+CF_TOKEN = os.environ["CLOUDFLARE_API_TOKEN"]
+D1_QUERY = f"https://api.cloudflare.com/client/v4/accounts/{CF_ACCOUNT_ID}/d1/database/{CF_DATABASE_ID}/query"
 REGIONS = [
     (26,-119),(26,-112),(26,-105),(26,-98),(26,-91),(26,-84),(26,-77),(26,-70),
     (31,-116.5),(31,-109.5),(31,-102.5),(31,-95.5),(31,-88.5),(31,-81.5),(31,-74.5),
@@ -15,8 +19,18 @@ REGIONS = [
     (46,-119),(46,-112),(46,-105),(46,-98),(46,-91),(46,-84),(46,-77),(46,-70),
 ]
 
-def sql_literal(value):
-    return "'" + str(value).replace("'", "''") + "'"
+def d1(sql, params):
+    body = json.dumps({"sql": sql, "params": params}, separators=(",", ":")).encode()
+    req = urllib.request.Request(D1_QUERY, data=body, method="POST", headers={
+        "Authorization": f"Bearer {CF_TOKEN}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    })
+    with urllib.request.urlopen(req, timeout=60) as response:
+        result = json.loads(response.read().decode("utf-8"))
+    if not result.get("success"):
+        raise RuntimeError("Cloudflare D1 API error: " + json.dumps(result.get("errors", result)))
+    return result
 
 def main():
     snapshots = []
@@ -38,29 +52,28 @@ def main():
             time.sleep(1.1)
 
     now_ms = int(time.time() * 1000)
-    statements = []
+    # Bound parameters keep large aircraft JSON out of the SQL statement text.
     for region_id, payload in snapshots:
-        statements.append(
-            "INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES "
-            f"({region_id},{sql_literal(payload)},{now_ms}) "
-            "ON CONFLICT(region_id) DO UPDATE SET "
-            "payload=excluded.payload,updated_at=excluded.updated_at;"
+        d1(
+            "INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES(?,?,?) "
+            "ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at",
+            [region_id, payload, now_ms],
         )
-    state = {
-        "adsbfi_next_region": "0",
-        "adsbfi_last_success": str(now_ms),
-        "adsbfi_last_batch_count": str(len(snapshots)),
-        "adsbfi_last_source": "github-actions",
-    }
-    for key, value in state.items():
-        statements.append(
-            "INSERT INTO tracker_state(key,value) VALUES "
-            f"({sql_literal(key)},{sql_literal(value)}) "
-            "ON CONFLICT(key) DO UPDATE SET value=excluded.value;"
+        print(f"Saved region {region_id + 1}/{len(REGIONS)} to D1")
+    state = [
+        ("adsbfi_next_region", "0"),
+        ("adsbfi_last_success", str(now_ms)),
+        ("adsbfi_last_batch_count", str(len(snapshots))),
+        ("adsbfi_last_source", "github-actions"),
+    ]
+    for key, value in state:
+        d1(
+            "INSERT INTO tracker_state(key,value) VALUES(?,?) "
+            "ON CONFLICT(key) DO UPDATE SET value=excluded.value",
+            [key, value],
         )
-    Path("adsbfi_refresh.sql").write_text("\n".join(statements) + "\n", encoding="utf-8")
     total = sum(len(json.loads(payload)) for _, payload in snapshots)
-    print(f"Prepared {len(snapshots)} regions; {total} aircraft records; timestamp {datetime.now(timezone.utc).isoformat()}")
+    print(f"SUCCESS: {len(snapshots)} regions; {total} aircraft records; {datetime.now(timezone.utc).isoformat()}")
 
 if __name__ == "__main__":
     main()
