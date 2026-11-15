@@ -92,6 +92,9 @@ def classify(a):
     identity = " ".join([desc, " ".join(type_fields),
         clean(a.get("ownOp")), clean(a.get("operator")),
         clean(a.get("flight")), clean(a.get("r"))]).upper()
+    flight = clean(a.get("flight")).upper()
+    prefix = "".join(ch for ch in flight if ch.isalpha())[:3]
+    op = clean(a.get("ownOp") or a.get("operator")).upper()
     try:
         db_flags = int(str(a.get("dbFlags") or "0"), 0)
     except (TypeError, ValueError):
@@ -138,9 +141,6 @@ def classify(a):
     if any(w in identity for w in commercial_words):
         return 4, "COMMERCIAL", op or "COMMERCIAL OPERATOR"
 
-    flight = clean(a.get("flight")).upper()
-    prefix = "".join(ch for ch in flight if ch.isalpha())[:3]
-    op = clean(a.get("ownOp") or a.get("operator")).upper()
     cargo_prefixes = {"FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX"}
     if prefix in cargo_prefixes or any(w in identity for w in ("CARGO","FREIGHT","AIR CARGO","PARCEL","EXPRESS LOGISTICS")):
         return 4, "CARGO / COMMERCIAL", airline(a) or op or "CARGO"
