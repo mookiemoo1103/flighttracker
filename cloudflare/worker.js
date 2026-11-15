@@ -160,6 +160,17 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  return lines.join("\n")+"\n";
 }
 
+async function readFlyitalyRows(env) {
+ const rows=[];
+ // D1 caps individual result payloads. Read small region-id ranges so a
+ // nationwide snapshot cannot exceed the per-query result-size limit.
+ for(let start=0;start<REGIONS_FREE.length;start+=8) {
+  const end=Math.min(start+8,REGIONS_FREE.length);
+  const result=await env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data WHERE region_id>=? AND region_id<? ORDER BY region_id").bind(start,end).all();
+  rows.push(...(result.results||[]));
+ }
+ return rows;
+}
 async function writeState(env, entries) {
  const statements=entries.map(([key,value])=>env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,String(value)));
  if(statements.length) await env.DB.batch(statements);
@@ -317,10 +328,10 @@ export default {
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
-   const [{results:flyitalyRows=[]},{results:states=[]}] = await Promise.all([
-    env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
+   const [{results:states=[]}] = await Promise.all([
     env.DB.prepare("SELECT key,value FROM tracker_state").all()
    ]);
+   const flyitalyRows=await readFlyitalyRows(env);
    // Render the active FlyItalyADSB region snapshots; aircraft are deduplicated by ICAO24.
    // Registry enrichment is optional; never let a missing registry table
    // suppress live aircraft positions in a placefile.
@@ -350,10 +361,10 @@ export default {
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if(url.pathname!=="/flighttracker.txt"&&url.pathname!=="/") return new Response("Not found",{status:404});
-  const [{results:flyitalyRows=[]},{results:states=[]}] = await Promise.all([
-   env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
+  const [{results:states=[]}] = await Promise.all([
    env.DB.prepare("SELECT key,value FROM tracker_state").all()
   ]);
+  const flyitalyRows=await readFlyitalyRows(env);
   let registryRows = [];
   try {
    const registryResult = await env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all();
