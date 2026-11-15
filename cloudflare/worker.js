@@ -112,8 +112,9 @@ function classify(a, registry = {}) {
  const prefix=(flight.match(/[A-Z]/g)||[]).join("").slice(0,3);
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
  const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
- const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
- if(rotorWords.test(desc)||rotorCodes.test(t)) return [2,"Helicopter",""];
+ const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|H500|H269|H34[0-9A-Z]*|H46[0-9A-Z]*|H47[0-9A-Z]*|H53[0-9A-Z]*|H60[0-9A-Z]*|H64[0-9A-Z]*|S55|S58|S61|S64|S70[0-9A-Z]*|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
+ const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory).toUpperCase();
+ if(rotorWords.test(desc)||rotorCodes.test(t)||emitterCategory==="A7") return [2,"Helicopter",""];
 
  const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
  const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
@@ -178,7 +179,8 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  }
  const stamp=new Date(now).toISOString().replace("T"," ").replace(/\.\d{3}Z$/," UTC");
  const adsbfi = source === "adsb.fi";
- const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
+ const multi = source === "multi";
+ const lines=[...(multi ? ["; Flight data: adsb.fi; https://adsb.fi/","; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"] : [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"]),
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,
   `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=2"`,`; Updated: ${stamp}`,
@@ -271,10 +273,13 @@ export default {
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
-   const [{results:rows=[]},{results:states=[]}] = await Promise.all([
+   const [{results:adsbfiRows=[]},{results:flyitalyRows=[]},{results:states=[]}] = await Promise.all([
     env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),
+    env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
     env.DB.prepare("SELECT key,value FROM tracker_state").all()
    ]);
+   // Merge independent live networks; render() deduplicates by ICAO24 hex and
+   // keeps the freshest position, so aircraft reported by both appear once.
    // Registry enrichment is optional; never let a missing registry table
    // suppress live aircraft positions in a placefile.
    let registryRows = [];
@@ -286,7 +291,7 @@ export default {
    }
    const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
    const lastSuccess = Number(stateMap[`adsbfi_last_success_${regionalPath}`] || 0);
-   const body = render(rows,{used:"adsb.fi public",limit:"1 request/second"},"adsb.fi",region,registryRows).replace("; Updated:", "; Last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\\\n; Updated:");
+   const body = render([...adsbfiRows,...flyitalyRows],{used:"multiple free feeds",limit:"source-specific limits"},"multi",region,registryRows).replace("; Updated:", "; adsb.fi last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\\\n; Updated:");
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
   }
   if (url.pathname === "/adsbfi-test.txt") {
