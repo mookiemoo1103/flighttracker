@@ -60,10 +60,13 @@ jobs:
               age = (int(time.time() * 1000) - last_success) // 1000 if last_success else 999999
               batch_count = int(state.get("last_batch_count", 0))
               batch_failed = int(state.get("last_batch_failed", 0))
-              if health.get("ok") is True and last_success and age <= 180 and batch_count >= 20 and batch_failed <= 7:
-                  print(f"FlyItaly collection succeeded {age}s ago; {batch_count}/27 areas refreshed; {batch_failed} failed; full sweep ~{health.get('approximate_full_sweep_minutes')} minutes")
+              lol_success = int(state.get("adsblol_last_success", 0))
+              lol_age = (int(time.time() * 1000) - lol_success) // 1000 if lol_success else 999999
+              lol_count = int(state.get("adsblol_last_batch_count", 0))
+              if health.get("ok") is True and last_success and age <= 180 and batch_count >= 20 and batch_failed <= 7 and lol_success and lol_age <= 300 and lol_count > 0:
+                  print(f"FlyItaly succeeded {age}s ago ({batch_count}/27 areas); ADSB.lol succeeded {lol_age}s ago ({lol_count}/10 areas); full FlyItaly sweep ~{health.get('approximate_full_sweep_minutes')} minutes")
                   sys.exit(0)
-              print(f"Waiting for healthy collection: last success {age}s ago; batch={batch_count}/27; failed={batch_failed}")
+              print(f"Waiting for both live feeds: FlyItaly age={age}s batch={batch_count}/27 failed={batch_failed}; ADSB.lol age={lol_age}s batch={lol_count}/10")
           except Exception as exc:
               print("Health check not ready:", exc)
           sys.exit(1)
@@ -78,11 +81,24 @@ jobs:
             fi
             sleep 5
           done
+          curl --fail --silent --show-error --max-time 20 "$BASE/adsblol-health" -o /tmp/adsblol-health.json
+          python - <<'PY'
+          import json, time
+          with open("/tmp/adsblol-health.json", encoding="utf-8") as f:
+              h=json.load(f)
+          age=(int(time.time()*1000)-int(h.get("last_success",0)))//1000
+          assert h.get("ok") and h.get("last_batch_count",0)>0 and age<=300, h
+          print(f"ADSB.lol live: {h.get('regions_cached')} regions cached; {h.get('last_batch_count')}/10 areas last batch; {age}s old")
+          PY
+          curl --fail --silent --show-error --max-time 20 "$BASE/adsblol-test.txt" -o /tmp/adsblol-test.txt
+          curl --fail --silent --show-error --max-time 20 "$BASE/flyitaly-test.txt" -o /tmp/flyitaly-test.txt
+          grep -q '^; Flight data: ADSB.lol' /tmp/adsblol-test.txt
+          grep -q '^; Flight data: FlyItalyADSB' /tmp/flyitaly-test.txt
           for region in pacific southwest mountain central southeast northeast; do
             curl --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"
             grep -q '^Refresh: 1$' "/tmp/$region.txt"
             grep -q '^IconFile: 7,' "/tmp/$region.txt"
-            grep -q '^IconFile: 2,' "/tmp/$region.txt"
+            grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-map-icon-96.png' "/tmp/$region.txt"
             grep -q '^IconFile: 3,' "/tmp/$region.txt"
             grep -q '^IconFile: 4,' "/tmp/$region.txt"
             grep -q '^IconFile: 5,' "/tmp/$region.txt"
@@ -96,7 +112,7 @@ jobs:
           curl --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
           grep -q '^Refresh: 1$' /tmp/flighttracker.txt
           grep -q '^IconFile: 7,' /tmp/flighttracker.txt
-          grep -q '^IconFile: 2,' /tmp/flighttracker.txt
+          grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-map-icon-96.png' /tmp/flighttracker.txt
           object_count=$(grep -c '^Object:' /tmp/flighttracker.txt || true)
           echo "Nationwide placefile contains $object_count aircraft records"
           test "$object_count" -gt 0
