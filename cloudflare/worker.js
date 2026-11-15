@@ -144,7 +144,7 @@ function classify(a, registry = {}) {
  // ADS-B emitter size categories. Keep this after existing commercial and
  // passenger rules so those previously recognized categories retain priority.
  const businessJetCodes=/^(C25[ABC]|C510|C525|C526|C550|C551|C560|C56X|C68A|C700|C750|CL30|CL35|CL60|GLF[234567]|G150|G280|FA50|FA7X|FA8X|E35L|E50P|E55P|E545|E550|LJ35|LJ45|LJ55|LJ60|GALX|ASTR|H25B|H25C|H25D|HA4T|HA4T|F2TH|F900|F2000|F7X|F8X)$/;
- const businessJetWords=/\\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|G280|G200)\\b/;
+ const businessJetWords=/\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|G280|G200)\b/;
  if(businessJetCodes.test(t)||businessJetWords.test(desc)) return [1,"Business Jets",""];
  return [1,"GENERAL AVIATION",""];
 }
