@@ -187,7 +187,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  `IconFile: 4, 64, 64, 64, 64, "${ICON_COMMERCIAL}"`,
  `IconFile: 5, 64, 64, 64, 64, "${ICON_MILITARY}"`,
  `IconFile: 6, 64, 64, 64, 64, "${ICON_GENERAL}"`,
- `IconFile: 7, 64, 64, 64, 64, "${ICON_BUSINESS}"``,`; Updated: ${stamp}`,
+ `IconFile: 7, 64, 64, 64, 64, "${ICON_BUSINESS}"`, `; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
  for(const [hx,item] of aircraft) {
