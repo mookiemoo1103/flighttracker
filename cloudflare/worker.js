@@ -113,7 +113,7 @@ function classify(a, registry = {}) {
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
  const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
  const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
- if(rotorWords.test(desc)||rotorCodes.test(t)) return [2,"HELICOPTER",""];
+ if(rotorWords.test(desc)||rotorCodes.test(t)) return [2,"Helicopter",""];
 
  const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
  const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
@@ -139,6 +139,13 @@ function classify(a, registry = {}) {
  // Corporate/private aircraft remain General Aviation unless positively identified.
  const commercialWords=/\b(CHARTER|AIR TAXI|AEROMEDICAL|AIR AMBULANCE|COMMUTER AIR|AIR TRANSPORT|AIR SERVICES|FLIGHT SERVICES)\b/;
  if(commercialWords.test(identity)) return [1,"COMMERCIAL",operator||"COMMERCIAL OPERATOR"];
+
+ // Business jets are identified from aircraft model/type records, not from
+ // ADS-B emitter size categories. Keep this after existing commercial and
+ // passenger rules so those previously recognized categories retain priority.
+ const businessJetCodes=/^(C25[ABC]|C510|C525|C526|C550|C551|C560|C56X|C68A|C700|C750|CL30|CL35|CL60|GLF[234567]|G150|G280|FA50|FA7X|FA8X|E35L|E50P|E55P|E545|E550|LJ35|LJ45|LJ55|LJ60|GALX|ASTR|H25B|H25C|H25D|HA4T|HA4T|F2TH|F900|F2000|F7X|F8X)$/;
+ const businessJetWords=/\\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|G280|G200)\\b/;
+ if(businessJetCodes.test(t)||businessJetWords.test(desc)) return [1,"Business Jets",""];
  return [1,"GENERAL AVIATION",""];
 }
 function altText(a) {
