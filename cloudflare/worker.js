@@ -1,6 +1,6 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png?v=2";
+const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=1";
 const REGIONS = [
   [25, -124, 500],
   [25, -116, 500],
@@ -90,6 +90,7 @@ const ADSBFI_REGIONS = [
  [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
 ];
 const ADSBFI_BATCH = 19;
+const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
 const SNAPSHOT_TTL = 15 * 60 * 1000;
@@ -106,9 +107,9 @@ function branch(a) {
 function classify(a) {
  const t=clean(a.t).toUpperCase(), desc=clean(a.desc).toUpperCase();
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
- if(a.mil||a.military||(flags&1)) return [5,"MILITARY",branch(a)];
+ if(a.mil||a.military||(flags&1)) return [1,"MILITARY",branch(a)];
  if(desc.includes("HELI")||t.startsWith("R")||t.startsWith("H")) return [3,"HELICOPTER",""];
- if(desc.includes("CARGO")||desc.includes("FREIGHT")) return [4,"CARGO",airline(a)];
+ if(desc.includes("CARGO")||desc.includes("FREIGHT")) return [1,"CARGO",airline(a)];
  const op=airline(a), flight=clean(a.flight);
  if(op&&(t.startsWith("A")||t.startsWith("B")||t.startsWith("E")||flight.length>=3)) return [1,"COMMERCIAL",op];
  if(["A3","A2","B7","B3","B4","B5","B6","B8"].some(x=>t.startsWith(x))) return [1,"COMMERCIAL",op];
@@ -120,7 +121,7 @@ function altText(a) {
  const n=Number(alt);
  return alt!==null&&alt!==undefined&&Number.isFinite(n)?Math.trunc(n).toLocaleString("en-US")+" FT":"ALT N/A";
 }
-function render(rows, usage, source = "FlyItalyADSB") {
+function render(rows, usage, source = "FlyItalyADSB", region = null) {
  const now=Date.now(), aircraft=new Map();
  for(const row of rows) {
   if(now-Number(row.updated_at)>SNAPSHOT_TTL) continue;
@@ -136,14 +137,15 @@ function render(rows, usage, source = "FlyItalyADSB") {
  }
  const stamp=new Date(now).toISOString().replace("T"," ").replace(/\.\d{3}Z$/," UTC");
  const adsbfi = source === "adsb.fi";
- const lines=[adsbfi ? "; Flight data: adsb.fi (adsb.fi), personal non-commercial use; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
+ const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
  adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB","Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
- `IconFile: 1, 32, 32, 16, 16, "${ICON_URL}"`,`; Updated: ${stamp}`,
+ `IconFile: 1, 96, 32, 32, 32, "${ICON_URL}"`,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
  for(const [hx,item] of aircraft) {
   const a=item.a, lat=Number(a.lat),lon=Number(a.lon);
   if(!Number.isFinite(lat)||!Number.isFinite(lon)) continue;
+  if(region && !region.test(lat,lon)) continue;
   const [icon,kind,org]=classify(a), ident=clean(a.flight)||clean(a.r)||hx;
   const gs=Number(a.gs), speed=a.gs!=null&&Number.isFinite(gs)?Math.round(gs)+" KT":"SPEED N/A";
   const alt=altText(a), heading=Number(a.track??a.true_heading??0);
@@ -219,6 +221,14 @@ export default {
   if (url.pathname === "/adsbfi-health") {
    const state = await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all();
    return Response.json({ok:true,source:"adsb.fi",regions:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,estimated_sweep_minutes:Math.ceil(ADSBFI_REGIONS.length/ADSBFI_BATCH),state:state.results||[]});
+  }
+  const regionalPath = url.pathname.split("/")[1].replace(".txt","");
+  if (PLACEFILE_REGIONS[regionalPath]) {
+   const region = PLACEFILE_REGIONS[regionalPath];
+   const [{results:rows=[]},{results:states=[]}] = await Promise.all([env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),env.DB.prepare("SELECT key,value FROM tracker_state").all()]);
+   const lastSuccess = Number(Object.fromEntries(states.map(x=>[x.key,x.value])).adsbfi_last_success || 0);
+   const body = render(rows,{used:"adsb.fi public",limit:"1 request/second"},"adsb.fi",region).replace("; Updated:", "; Last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\n; Updated:");
+   return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if (url.pathname === "/adsbfi-test.txt") {
    const [{results:rows=[]},{results:states=[]}] = await Promise.all([
