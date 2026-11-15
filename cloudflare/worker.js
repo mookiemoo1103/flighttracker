@@ -1,4 +1,5 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
+const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
 const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft.png?v=2";
 const REGIONS = [
   [25, -124, 500],
@@ -79,6 +80,18 @@ const MILITARY_BRANCHES = [
  [["UNITED STATES SPACE FORCE","USSF","SPACE FORCE"],"U.S. SPACE FORCE"]
 ];
 const BATCH = 6;
+// Separate lower-48 test grid for adsb.fi. 38 overlapping 250-NM circles.
+// 19 calls per scheduled minute, with one-second spacing: ~2-minute sweep.
+const ADSBFI_REGIONS = [
+ [26,-119],[26,-112],[26,-105],[26,-98],[26,-91],[26,-84],[26,-77],[26,-70],
+ [31,-116.5],[31,-109.5],[31,-102.5],[31,-95.5],[31,-88.5],[31,-81.5],[31,-74.5],
+ [36,-119],[36,-112],[36,-105],[36,-98],[36,-91],[36,-84],[36,-77],[36,-70],
+ [41,-116.5],[41,-109.5],[41,-102.5],[41,-95.5],[41,-88.5],[41,-81.5],[41,-74.5],
+ [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
+];
+const ADSBFI_BATCH = 19;
+const ADSBFI_STALE_MS = 5 * 60 * 1000;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
 const SNAPSHOT_TTL = 15 * 60 * 1000;
 const clean = v => String(v ?? "").replaceAll('"',"'").replaceAll("\\","/").replace(/[\r\n]/g," ").trim();
@@ -108,7 +121,7 @@ function altText(a) {
  const n=Number(alt);
  return alt!==null&&alt!==undefined&&Number.isFinite(n)?Math.trunc(n).toLocaleString("en-US")+" FT":"ALT N/A";
 }
-function render(rows, usage) {
+function render(rows, usage, source = "FlyItalyADSB") {
  const now=Date.now(), aircraft=new Map();
  for(const row of rows) {
   if(now-Number(row.updated_at)>SNAPSHOT_TTL) continue;
@@ -123,8 +136,9 @@ function render(rows, usage) {
   }
  }
  const stamp=new Date(now).toISOString().replace("T"," ").replace(/\.\d{3}Z$/," UTC");
- const lines=["; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
- "Title: US FLIGHT TRACKER - FLYITALYADSB","Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
+ const adsbfi = source === "adsb.fi";
+ const lines=[adsbfi ? "; Flight data: adsb.fi (adsb.fi), personal non-commercial use; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
+ adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB","Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 32, 32, 16, 16, "${ICON_URL}"`,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
@@ -144,6 +158,32 @@ function render(rows, usage) {
   lines.push("End:");
  }
  return lines.join("\n")+"\n";
+}
+async function collectAdsbfi(env) {
+ const state = await env.DB.prepare("SELECT value FROM tracker_state WHERE key='adsbfi_next_region'").first();
+ const start = Number(state?.value || 0) % ADSBFI_REGIONS.length;
+ const stmts = [];
+ let success = 0;
+ for (let i = 0; i < ADSBFI_BATCH; i++) {
+  const idx = (start + i) % ADSBFI_REGIONS.length;
+  const [lat, lon] = ADSBFI_REGIONS[idx];
+  if (i > 0) await sleep(1100);
+  const res = await fetch(`${ADSBFI_API}/${lat}/lon/${lon}/dist/250`, {
+   headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/adsbfi-test" }
+  });
+  if (!res.ok) throw new Error(`adsb.fi HTTP ${res.status} for region ${idx}`);
+  const data = await res.json();
+  if (!Array.isArray(data.ac)) throw new Error(`adsb.fi response missing aircraft array for region ${idx}`);
+  stmts.push(env.DB.prepare("INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
+   .bind(idx, JSON.stringify(data.ac), Date.now()));
+  success++;
+ }
+ const next = (start + success) % ADSBFI_REGIONS.length;
+ const now = Date.now();
+ stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
+ stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_success',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(now)));
+ stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
+ await env.DB.batch(stmts);
 }
 async function collect(env) {
  if(!env.FLYITALYADSB_API_KEY) throw new Error("Missing FLYITALYADSB_API_KEY Worker secret");
@@ -170,12 +210,26 @@ async function collect(env) {
  await env.DB.batch(stmts);
 }
 export default {
- async scheduled(controller,env,ctx) { ctx.waitUntil(collect(env)); },
+ async scheduled(controller,env,ctx) { ctx.waitUntil(Promise.all([collect(env), collectAdsbfi(env)])); },
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
    const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit')").all();
    return Response.json({ok:true,total_regions:REGIONS.length,regions_per_minute:BATCH,approximate_full_sweep_minutes:Math.ceil(REGIONS.length/BATCH),state:state.results||[]});
+  }
+  if (url.pathname === "/adsbfi-health") {
+   const state = await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all();
+   return Response.json({ok:true,source:"adsb.fi",regions:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,estimated_sweep_minutes:Math.ceil(ADSBFI_REGIONS.length/ADSBFI_BATCH),state:state.results||[]});
+  }
+  if (url.pathname === "/adsbfi-test.txt") {
+   const [{results:rows=[]},{results:states=[]}] = await Promise.all([
+    env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),
+    env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all()
+   ]);
+   const lastSuccess = Number(Object.fromEntries(states.map(x=>[x.key,x.value])).adsbfi_last_success || 0);
+   const usage = {used:"public API",limit:"1 request/second"};
+   const body = render(rows,usage,"adsb.fi").replace("; Updated:", `; Last successful collection: ${lastSuccess ? new Date(lastSuccess).toISOString() : "not yet"}\\n; Updated:`);
+   return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if(url.pathname!=="/flighttracker.txt"&&url.pathname!=="/") return new Response("Not found",{status:404});
   const [{results:rows=[]},{results:states=[]}]=await Promise.all([
