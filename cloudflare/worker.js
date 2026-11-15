@@ -146,7 +146,7 @@ function classify(a, registry = {}) {
  // anchored this expression to the entire concatenated metadata string;
  // a valid code such as C25A was missed whenever any other type/description
  // field was also populated. ADS-B emitter category is not used to infer jets.
- const businessJetCode=/^(?:BE40|BE4T|BD100|BD700|C25[ABC]|C510|C525|C526|C550|C551|C560|C56X|C680|C68A|C700|C750|CL30|CL35|CL60|GLF[234567]|G150|G200|G280|GLEX|FA50|FA7X|FA8X|E35L|E50P|E55P|E545|E550|E75L|LJ2[3458]|LJ3[15]|LJ35|LJ40|LJ45|LJ55|LJ60|LJ70|LJ75|GALX|ASTR|H25B|H25C|HA4T|F2TH|F900|F2000|F7X|F8X|PC24|SF50|WW24)$/;
+ const businessJetCode=/^(?:BE40|BE4T|BD100|BD700|C25[ABC]|C510|C525|C526|C550|C551|C560|C56X|C650|C680|C68A|C700|C750|CL30|CL35|CL60|GLF[234567]|G150|G200|G280|GLEX|FA50|FA7X|FA8X|E35L|E50P|E55P|E545|E550|E75L|LJ2[3458]|LJ3[15]|LJ35|LJ40|LJ45|LJ55|LJ60|LJ70|LJ75|GALX|ASTR|H25A|H25B|H25C|H25D|HA4T|PRM1|F2TH|F900|F2000|F7X|F8X|PC24|SF50|WW24)$/;
  const typeTokens=typeFields.flatMap(value=>value.toUpperCase().split(/[^A-Z0-9]+/).filter(Boolean));
  const hasBusinessJetCode=typeTokens.some(code=>businessJetCode.test(code));
  const businessJetWords=/\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GLOBAL [0-9]{4}|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|BEECHJET|PC[- ]?24|VISION JET)\b/;
