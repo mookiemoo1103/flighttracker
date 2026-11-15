@@ -116,7 +116,6 @@ def render(aircraft, stamp, usage):
       try:
         lat, lon = float(a["lat"]), float(a["lon"])
         icon, kind, org = classify(a)
-        if kind == "HELICOPTER":
         ident = clean(a.get("flight")).strip() or clean(a.get("r")) or hx
         try: speed = f"{float(a.get('gs')):.0f} KT"
         except (TypeError, ValueError): speed = "SPEED N/A"
