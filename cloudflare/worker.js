@@ -1,5 +1,6 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
+const ADSBLOL_API = "https://api.adsb.lol/v2/point";
 const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"; // Shared grayscale aircraft sprite
 const REGIONS = [
   [25, -124, 500],
@@ -344,6 +345,27 @@ export default {
     },
     quota:{used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"}
    });
+  }
+  if (url.pathname === "/adsblol-probe") {
+   const started = Date.now();
+   try {
+    const res = await fetch(`${ADSBLOL_API}/30/-90/25`, {
+     headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/diagnostic (+https://github.com/mookiemoo1103/flighttracker)" },
+     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
+    });
+    const body = await res.text();
+    let parsed = null;
+    try { parsed = JSON.parse(body); } catch {}
+    return Response.json({
+     ok:res.ok,status:res.status,status_text:res.statusText,
+     content_type:res.headers.get("content-type"),
+     elapsed_ms:Date.now()-started,
+     aircraft_count:Array.isArray(parsed?.ac)?parsed.ac.length:null,
+     response_preview:body.slice(0,500)
+    });
+   } catch(error) {
+    return Response.json({ok:false,error:String(error?.stack||error),elapsed_ms:Date.now()-started},{status:502});
+   }
   }
   if (url.pathname === "/adsbfi-probe") {
    const started = Date.now();
