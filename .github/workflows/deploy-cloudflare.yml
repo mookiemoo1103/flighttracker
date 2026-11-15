@@ -47,9 +47,10 @@ jobs:
         run: |
           set -euo pipefail
           BASE="https://flighttracker.mitchellgeissler.workers.dev"
-          deadline=$((SECONDS + 180))
+          deadline=$((SECONDS + 300))
           while true; do
             curl --fail --silent --show-error --max-time 20 "$BASE/health" -o /tmp/health.json
+            curl --fail --silent --show-error --max-time 20 "$BASE/adsblol-health" -o /tmp/adsblol-health.json
             if python - <<'PY'
           import json, time, sys
           try:
@@ -63,10 +64,14 @@ jobs:
               lol_success = int(state.get("adsblol_last_success", 0))
               lol_age = (int(time.time() * 1000) - lol_success) // 1000 if lol_success else 999999
               lol_count = int(state.get("adsblol_last_batch_count", 0))
-              if health.get("ok") is True and last_success and age <= 180 and batch_count >= 20 and batch_failed <= 7 and lol_success and lol_age <= 300 and lol_count > 0:
-                  print(f"FlyItaly succeeded {age}s ago ({batch_count}/27 areas); ADSB.lol succeeded {lol_age}s ago ({lol_count}/10 areas); full FlyItaly sweep ~{health.get('approximate_full_sweep_minutes')} minutes")
+              with open("/tmp/adsblol-health.json", encoding="utf-8") as f:
+                  lol_health = json.load(f)
+              lol_regions = int(lol_health.get("regions_cached", 0))
+              if health.get("ok") is True and last_success and age <= 180 and batch_count >= 20 and batch_failed <= 7 and lol_success and lol_age <= 300 and lol_count > 0 and lol_regions >= 30:
+                  print(f"FlyItaly succeeded {age}s ago ({batch_count}/27 areas); ADSB.lol succeeded {lol_age}s ago ({lol_count}/10 areas), {lol_regions}/{lol_health.get('total_regions')} coverage regions cached; full FlyItaly sweep ~{health.get('approximate_full_sweep_minutes')} minutes")
+                  print("ADSB.lol latest collection errors:", lol_health.get("last_error") or "none")
                   sys.exit(0)
-              print(f"Waiting for both live feeds: FlyItaly age={age}s batch={batch_count}/27 failed={batch_failed}; ADSB.lol age={lol_age}s batch={lol_count}/10")
+              print(f"Waiting for both live feeds: FlyItaly age={age}s batch={batch_count}/27 failed={batch_failed}; ADSB.lol age={lol_age}s batch={lol_count}/10 cached={lol_regions}/{lol_health.get('total_regions')} error={lol_health.get('last_error') or 'none'}")
           except Exception as exc:
               print("Health check not ready:", exc)
           sys.exit(1)
@@ -75,7 +80,7 @@ jobs:
               break
             fi
             if (( SECONDS >= deadline )); then
-              echo "No successful FlyItaly collection within 180 seconds"
+              echo "Both aircraft feeds did not reach the required live-collection state within 300 seconds"
               cat /tmp/health.json || true
               exit 1
             fi
