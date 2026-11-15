@@ -314,6 +314,78 @@ async function collectAdsbLol(env) {
  if(failures.length) console.warn(`ADSB.lol partial batch: ${success}/${attempted} succeeded; ${failures.length} failed`);
  if(success===0) throw new Error("ADSB.lol batch returned no successful regions: "+failures.slice(0,3).join(" | "));
 }
+async function collectRegistry(env) {
+ const now=Date.now(), cacheCutoff=now-30*24*60*60*1000;
+ const [{results:flyRows=[]},{results:lolRows=[]},{results:cachedRows=[]}] = await Promise.all([
+  env.DB.prepare("SELECT payload,updated_at FROM region_data").all(),
+  env.DB.prepare("SELECT payload,updated_at FROM adsblol_region_data").all(),
+  env.DB.prepare("SELECT hex,updated_at FROM aircraft_registry WHERE updated_at>?").bind(cacheCutoff).all()
+ ]);
+ const cached=new Set(cachedRows.map(row=>clean(row.hex).toLowerCase()));
+ const candidates=new Map();
+ for(const row of [...flyRows,...lolRows]) {
+  if(now-Number(row.updated_at)>SNAPSHOT_TTL) continue;
+  let list=[]; try { list=JSON.parse(row.payload); } catch { continue; }
+  for(const a of list) {
+   const hex=clean(a.hex).toLowerCase();
+   if(!/^[0-9a-f]{6}$/.test(hex)||cached.has(hex)||candidates.has(hex)) continue;
+   // The ADS-B "type" field is a reception/source type (adsb_icao, mlat, etc.),
+   // not an aircraft model. Only skip lookup when actual model/type metadata exists.
+   const hasAircraftType=[a.t,a.icao_type,a.typeCode,a.typeName,a.model,a.model_name,a.type_code,a.type_description,a.aircraft_desc,a.desc]
+    .some(value=>clean(value)!=="");
+   if(!hasAircraftType) candidates.set(hex,a);
+  }
+ }
+ const selected=[...candidates.keys()].slice(0,20), stmts=[], failures=[];
+ let success=0,notFound=0;
+ for(let i=0;i<selected.length;i++) {
+  const hex=selected[i];
+  if(i>0) await sleep(250);
+  try {
+   const res=await fetch(`https://hexdb.io/api/v2/aircraft/${hex}`,{
+    headers:{"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/5.1 (+https://github.com/mookiemoo1103/flighttracker)"},
+    signal:AbortSignal.timeout(8000)
+   });
+   if(res.status===404) {
+    stmts.push(env.DB.prepare("INSERT INTO aircraft_registry(hex,registration,manufacturer,type,icao_type_code,registered_owner,payload,updated_at) VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(hex) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
+     .bind(hex,null,null,null,null,null,JSON.stringify({not_found:true}),now));
+    notFound++;
+    continue;
+   }
+   if(!res.ok) throw new Error(`HexDB HTTP ${res.status}: ${(await res.text()).slice(0,160)}`);
+   const data=await res.json();
+   const record={
+    hex:clean(data.hex||hex).toLowerCase(),
+    registration:data.registration||null,
+    manufacturer:data.manufacturer||null,
+    type:data.type||null,
+    icao_type_code:data.icao_type_code||null,
+    registered_owner:data.registered_owner||null,
+    typeName:data.type||null,
+    model:data.type||null,
+    model_name:data.type||null,
+    typeCode:data.icao_type_code||null,
+    operator_flag_code:data.operator_flag_code||null
+   };
+   stmts.push(env.DB.prepare("INSERT INTO aircraft_registry(hex,registration,manufacturer,type,icao_type_code,registered_owner,payload,updated_at) VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(hex) DO UPDATE SET registration=excluded.registration,manufacturer=excluded.manufacturer,type=excluded.type,icao_type_code=excluded.icao_type_code,registered_owner=excluded.registered_owner,payload=excluded.payload,updated_at=excluded.updated_at")
+    .bind(hex,record.registration,record.manufacturer,record.type,record.icao_type_code,record.registered_owner,JSON.stringify(record),now));
+   success++;
+  } catch(error) {
+   failures.push(`${hex}: ${String(error?.message||error).slice(0,160)}`);
+   console.warn("Aircraft registry lookup failed:",hex,error);
+   if(String(error).includes("HTTP 429")) break;
+  }
+ }
+ const upsert=(key,value)=>env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,String(value));
+ stmts.push(upsert("registry_last_attempt",now));
+ stmts.push(upsert("registry_last_batch_count",success));
+ stmts.push(upsert("registry_last_not_found",notFound));
+ stmts.push(upsert("registry_last_batch_failed",failures.length));
+ stmts.push(upsert("registry_last_error",failures.slice(0,5).join(" | ")));
+ if(success+notFound>0) stmts.push(upsert("registry_last_success",now));
+ if(stmts.length) await env.DB.batch(stmts);
+ if(failures.length) console.warn(`Aircraft registry partial batch: ${success} enriched, ${notFound} not found, ${failures.length} failed`);
+}
 async function collect(env) {
  if(!env.FLYITALYADSB_API_KEY) throw new Error("Missing FLYITALYADSB_API_KEY Worker secret");
  const state=await env.DB.prepare("SELECT value FROM tracker_state WHERE key='next_region'").first();
@@ -354,13 +426,14 @@ export default {
  async scheduled(controller,env,ctx) {
   ctx.waitUntil(Promise.allSettled([
    collect(env).catch(error => console.error("FlyItalyADSB collection failed:", error)),
-   collectAdsbLol(env).catch(error => console.error("ADSB.lol collection failed:", error))
+   collectAdsbLol(env).catch(error => console.error("ADSB.lol collection failed:", error)),
+   collectRegistry(env).catch(error => console.error("Aircraft registry enrichment failed:", error))
   ]));
  },
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
-   const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit','last_batch_count','last_batch_failed','last_error','adsblol_last_success','adsblol_last_batch_count','adsblol_last_batch_failed','adsblol_last_error')").all();
+   const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit','last_batch_count','last_batch_failed','last_error','adsblol_last_success','adsblol_last_batch_count','adsblol_last_batch_failed','adsblol_last_error','registry_last_success','registry_last_batch_count','registry_last_not_found','registry_last_batch_failed','registry_last_error')").all();
    return Response.json({ok:true,total_regions:REGIONS.length,regions_per_minute:BATCH,approximate_full_sweep_minutes:Math.ceil(REGIONS.length/BATCH),state:state.results||[]});
   }
   if(url.pathname==="/adsblol-health") {
