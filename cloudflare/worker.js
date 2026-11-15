@@ -1,6 +1,6 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ICON_HELICOPTER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=2";
+const ICON_HELICOPTER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-map-icon-96.png?v=1";
 const ICON_PASSENGER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/passenger-light-red.png?v=1";
 const ICON_COMMERCIAL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/commercial-yellow.png?v=3";
 const ICON_BUSINESS = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/business-jet-purple.png?v=2";
@@ -95,6 +95,11 @@ const ADSBFI_REGIONS = [
  [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
 ];
 const ADSBFI_BATCH = 19;
+// Independent secondary feed. ADSB.lol's public point endpoint is queried
+// separately from FlyItalyADSB; ICAO24 de-duplication happens in render().
+const ADSBLOL_API = "https://api.adsb.lol/v2/point";
+const ADSBLOL_REGIONS = ADSBFI_REGIONS;
+const ADSBLOL_BATCH = 10;
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
@@ -110,23 +115,25 @@ function branch(a) {
  return "MILITARY (BRANCH UNKNOWN)";
 }
 function classify(a, registry = {}) {
- const t=clean(registry.icao_type_code||a.t).toUpperCase();
- const desc=[a.desc,registry.type,registry.manufacturer].map(clean).join(" ").toUpperCase();
+ const typeFields=[a.t,a.type,a.icao_type,a.typeCode,a.typeName,a.model,a.model_name,a.icaoType,a.type_code,a.type_description,a.description,registry.icao_type_code,registry.typeCode,registry.type,registry.typeName,registry.model,registry.model_name].map(clean).filter(Boolean);
+ const t=typeFields.join(" ").toUpperCase();
+ const desc=[a.desc,a.typeDesc,a.category_desc,a.category_description,a.aircraft_desc,a.description,a.manufacturer,a.model,registry.type,registry.typeName,registry.model,registry.model_name,registry.manufacturer,registry.aircraft_desc,registry.description].map(clean).filter(Boolean).join(" ").toUpperCase();
  const operator=[a.ownOp,a.operator,registry.registered_owner].map(clean).filter(Boolean).join(" ").toUpperCase();
  const flight=clean(a.flight).toUpperCase();
  const prefix=(flight.match(/[A-Z]/g)||[]).join("").slice(0,3);
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
- const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
- const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|H500|H269|H34[0-9A-Z]*|H46[0-9A-Z]*|H47[0-9A-Z]*|H53[0-9A-Z]*|H60[0-9A-Z]*|H64[0-9A-Z]*|S55|S58|S61|S64|S70[0-9A-Z]*|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
- const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory).toUpperCase();
- if(rotorWords.test(desc)||rotorCodes.test(t)||emitterCategory==="A7") return [2,"Helicopter",""];
+ const rotorWords=/\b(HELI(?:COPTER)?|ROTORCRAFT|ROTOR[- ]?WING|GYROCOPTER|AUTOGYRO|BELL\s*(?:206|407|412|429|505)|ROBINSON\s*R?(?:22|44|66)|EUROCOPTER|AIRBUS\s*HELI|SIKORSKY|AGUSTA(?:WESTLAND)?|LEONARDO\s*HELI|MD\s*HELI|ENSTROM|KAMOV|MIL\s*MI[- ]?\d|HUGHES\s*(?:500|369)|BOEING\s*CH[- ]?47|BLACK\s*HAWK)\b/i;
+ const rotorCodes=/(^|\b)(R22|R44|R66|B06T?|B206|B407|B412|B429|B505|EC(20|30|35|45|55|75|120|130|135|145|155|175|225)|AS(32|35|50|55|65|33|36)|H125|H130|H135|H145|H160|H175|H215|H225|H500|H269|H34[0-9A-Z]*|H46[0-9A-Z]*|H47[0-9A-Z]*|H53[0-9A-Z]*|H60[0-9A-Z]*|H64[0-9A-Z]*|S55|S58|S61|S64|S70[0-9A-Z]*|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+|BK117|BO105|B105|MBB|K32|KA32)(?=$|\b)/;
+ const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory||a.emitter_category_type||a.aircraft_category).toUpperCase();
+ const rotorIdentity=[t,desc,operator,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
+ if(rotorWords.test(rotorIdentity)||rotorCodes.test(rotorIdentity)||["A7","ROTORCRAFT","HELICOPTER","GYROCOPTER"].includes(emitterCategory)) return [2,"Helicopter",""];
 
  const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
  const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
  if(a.mil||a.military||(flags&1)) return [1,"MILITARY OR GOVERNMENT",branch(a)];
  if(government.test(identity)) return [1,"MILITARY OR GOVERNMENT",operator||"GOVERNMENT"];
 
- const cargoPrefixes=new Set(["FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX"]);
+ const cargoPrefixes=new Set(["FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX","RPA"]);
  const cargoWords=/\b(CARGO|FREIGHT|AIR CARGO|LOGISTICS|PARCEL|EXPRESS)\b/;
  if(cargoPrefixes.has(prefix)||cargoWords.test(identity)) return [1,"COMMERCIAL",airline(a)||operator||"CARGO"];
 
@@ -170,19 +177,23 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
    const hx=clean(a.hex).toLowerCase();
    if(!hx||a.lat==null||a.lon==null) continue;
    // Provider snapshots are already current; avoid an unreliable second age filter.
-   const seenRaw = a.seen_pos ?? a.seen ?? 0;
-   const seen = Number(seenRaw);
-   const observed = Number.isFinite(seen) && seen > 0 && seen < 3600 ? now - seen * 1000 : Number(row.updated_at);
+   const seenRaw = a.seen_pos ?? a.seen;
+   const seen = seenRaw == null || seenRaw === "" ? NaN : Number(seenRaw);
+   const observed = Number.isFinite(seen) && seen >= 0 && seen < 3600
+    ? now - seen * 1000
+    : Number(row.updated_at);
+   const score = obj => Object.values(obj || {}).filter(v => v !== null && v !== undefined && v !== "").length;
    const old=aircraft.get(hx);
-   if(!old||observed>old.observed) aircraft.set(hx,{a,observed});
+   if(!old || observed>old.observed || (observed===old.observed && score(a)>score(old.a)))
+    aircraft.set(hx,{a,observed,feed:row.feed||"unknown"});
   }
  }
  const stamp=new Date(now).toISOString().replace("T"," ").replace(/\.\d{3}Z$/," UTC");
  const adsbfi = source === "adsb.fi";
- const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
+ const lines=[...(source==="multi" ? ["; Flight data: FlyItalyADSB (flyitalyadsb.com)","; Flight data: ADSB.lol (adsb.lol)"] : [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"]),
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"`,
- `IconFile: 2, 64, 64, 64, 64, "${ICON_HELICOPTER}"`,
+ `IconFile: 2, 96, 96, 48, 48, "${ICON_HELICOPTER}"`,
  `IconFile: 3, 64, 64, 64, 64, "${ICON_PASSENGER}"`,
  `IconFile: 4, 64, 64, 64, 64, "${ICON_COMMERCIAL}"`,
  `IconFile: 5, 64, 64, 64, 64, "${ICON_MILITARY}"`,
@@ -190,12 +201,16 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  `IconFile: 7, 64, 64, 64, 64, "${ICON_BUSINESS}"`, `; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
+ let helicopterCount=0;
+ const sourceCounts={"FlyItalyADSB":0,"ADSB.lol":0};
  for(const [hx,item] of aircraft) {
   const a=item.a, lat=Number(a.lat),lon=Number(a.lon);
+  if(sourceCounts[item.feed]!==undefined) sourceCounts[item.feed]++;
   if(!Number.isFinite(lat)||!Number.isFinite(lon)) continue;
   if(region && !region.test(lat,lon)) continue;
   const reg=registry.get(hx)||{}, [icon,kind,org]=classify(a,reg), ident=clean(a.flight)||clean(a.r)||clean(reg.registration)||hx;
-  const displayIcon=kind==="PASSENGER"?3:kind==="COMMERCIAL"?4:kind==="MILITARY OR GOVERNMENT"?5:kind==="GENERAL AVIATION"?6:kind==="Business Jets"?7:icon;
+  if(kind==="Helicopter") helicopterCount++;
+  const displayIcon=kind==="Helicopter"?2:kind==="PASSENGER"?3:kind==="COMMERCIAL"?4:kind==="MILITARY OR GOVERNMENT"?5:kind==="GENERAL AVIATION"?6:kind==="Business Jets"?7:icon;
   const gs=Number(a.gs), speed=a.gs!=null&&Number.isFinite(gs)?Math.round(gs)+" KT":"SPEED N/A";
   const alt=altText(a), heading=Number(a.track??a.true_heading??0);
   const hdg=Number.isFinite(heading)?((heading%360)+360)%360:0;
@@ -207,6 +222,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   if(org) lines.push(`Text: 0,46,1,"${clean(org)}"`);
   lines.push("End:");
  }
+ lines.push(`; Unique aircraft: ${aircraft.size}`,`; Helicopters rendered: ${helicopterCount}`,`; Selected records by source: FlyItalyADSB ${sourceCounts["FlyItalyADSB"]||0}, ADSB.lol ${sourceCounts["ADSB.lol"]||0}`,`; Duplicate ICAO24 records removed: source records merged by ICAO24`);
  return lines.join("\n")+"\n";
 }
 async function collectAdsbfi(env) {
@@ -243,6 +259,44 @@ async function collectAdsbfi(env) {
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_success',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(now)));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
  await env.DB.batch(stmts);
+}
+async function collectAdsbLol(env) {
+ const state=await env.DB.prepare("SELECT value FROM tracker_state WHERE key='adsblol_next_region'").first();
+ const start=Number(state?.value||0)%ADSBLOL_REGIONS.length, stmts=[], failures=[];
+ let success=0,attempted=0;
+ for(let i=0;i<ADSBLOL_BATCH;i++) {
+  const regionId=(start+i)%ADSBLOL_REGIONS.length;
+  const [lat,lon]=ADSBLOL_REGIONS[regionId];
+  if(i>0) await sleep(1100);
+  attempted++;
+  try {
+   const res=await fetch(`${ADSBLOL_API}/${lat}/${lon}/250`,{
+    headers:{"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/5.0 (+https://github.com/mookiemoo1103/flighttracker)"},
+    signal:AbortSignal.timeout(12000)
+   });
+   if(!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}: ${(await res.text()).slice(0,180)}`);
+   const data=await res.json();
+   if(!Array.isArray(data.ac)) throw new Error("response missing aircraft array");
+   stmts.push(env.DB.prepare("INSERT INTO adsblol_region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
+    .bind(regionId,JSON.stringify(data.ac),Date.now()));
+   success++;
+  } catch(error) {
+   failures.push(`region ${regionId} (${lat},${lon}): ${String(error?.message||error).slice(0,200)}`);
+   console.error("ADSB.lol region collection failed:",regionId,error);
+   if(String(error).includes("HTTP 429")) break;
+  }
+ }
+ const next=(start+attempted)%ADSBLOL_REGIONS.length, now=Date.now();
+ const upsert=(key,value)=>env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,String(value));
+ stmts.push(upsert("adsblol_next_region",next));
+ stmts.push(upsert("adsblol_last_attempt",now));
+ stmts.push(upsert("adsblol_last_batch_count",success));
+ stmts.push(upsert("adsblol_last_batch_failed",failures.length));
+ stmts.push(upsert("adsblol_last_error",failures.slice(0,5).join(" | ")));
+ if(success>0) stmts.push(upsert("adsblol_last_success",now));
+ await env.DB.batch(stmts);
+ if(failures.length) console.warn(`ADSB.lol partial batch: ${success}/${attempted} succeeded; ${failures.length} failed`);
+ if(success===0) throw new Error("ADSB.lol batch returned no successful regions: "+failures.slice(0,3).join(" | "));
 }
 async function collect(env) {
  if(!env.FLYITALYADSB_API_KEY) throw new Error("Missing FLYITALYADSB_API_KEY Worker secret");
@@ -282,7 +336,10 @@ async function collect(env) {
 }
 export default {
  async scheduled(controller,env,ctx) {
-  ctx.waitUntil(collect(env).catch(error => console.error("FlyItalyADSB collection failed:", error)));
+  ctx.waitUntil(Promise.allSettled([
+   collect(env).catch(error => console.error("FlyItalyADSB collection failed:", error)),
+   collectAdsbLol(env).catch(error => console.error("ADSB.lol collection failed:", error))
+  ]));
  },
  async fetch(request,env) {
   const url=new URL(request.url);
@@ -296,10 +353,12 @@ export default {
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
-   const [{results:rows=[]},{results:states=[]}] = await Promise.all([
+   const [{results:flyRows=[]},{results:lolRows=[]},{results:states=[]}] = await Promise.all([
     env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
-    env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('quota_used','quota_limit','last_success')").all()
+    env.DB.prepare("SELECT region_id,payload,updated_at FROM adsblol_region_data").all(),
+    env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('quota_used','quota_limit','last_success','adsblol_last_success','adsblol_last_error')").all()
    ]);
+   const rows=[...flyRows.map(row=>({...row,feed:"FlyItalyADSB"})),...lolRows.map(row=>({...row,feed:"ADSB.lol"}))];
    let registryRows = [];
    try {
     const registryResult = await env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all();
@@ -310,9 +369,11 @@ export default {
    const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
    const usage = {used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"};
    const lastSuccess = Number(stateMap.last_success||0);
-   const body = render(rows,usage,"FlyItalyADSB",region,registryRows).replace(
+   const body = render(rows,usage,"multi",region,registryRows).replace(
     "; Updated:",
-    "; Last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\n; Updated:"
+    "; FlyItalyADSB last success: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") +
+    "\\n; ADSB.lol last success: " + (stateMap.adsblol_last_success ? new Date(Number(stateMap.adsblol_last_success)).toISOString() : "not yet") +
+    "\\n; ADSB.lol last error: " + (stateMap.adsblol_last_error||"none") + "\\n; Updated:"
    );
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
   }
@@ -327,11 +388,21 @@ export default {
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if(url.pathname!=="/flighttracker.txt"&&url.pathname!=="/") return new Response("Not found",{status:404});
-  const [{results:rows=[]},{results:states=[]}]=await Promise.all([
+  const [{results:flyRows=[]},{results:lolRows=[]},{results:states=[]},{results:registryRows=[]}]=await Promise.all([
    env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
-   env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('quota_used','quota_limit')").all()
+   env.DB.prepare("SELECT region_id,payload,updated_at FROM adsblol_region_data").all(),
+   env.DB.prepare("SELECT key,value FROM tracker_state").all(),
+   env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all().catch(()=>({results:[]}))
   ]);
-  const usage=Object.fromEntries(states.map(x=>[x.key==="quota_used"?"used":"limit",x.value]));
-  return new Response(render(rows,usage),{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
+  const stateMap=Object.fromEntries(states.map(x=>[x.key,x.value]));
+  const rows=[...flyRows.map(row=>({...row,feed:"FlyItalyADSB"})),...lolRows.map(row=>({...row,feed:"ADSB.lol"}))];
+  const usage={used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"};
+  const body=render(rows,usage,"multi",null,registryRows).replace(
+   "; Updated:",
+   "; FlyItalyADSB latest snapshot: "+(flyRows.length?new Date(Math.max(...flyRows.map(x=>Number(x.updated_at)||0))).toISOString():"not yet")+
+   "\\n; ADSB.lol latest snapshot: "+(lolRows.length?new Date(Math.max(...lolRows.map(x=>Number(x.updated_at)||0))).toISOString():"not yet")+
+   "\\n; ADSB.lol last error: "+(stateMap.adsblol_last_error||"none")+"\\n; Updated:"
+  );
+  return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
  }
 };
