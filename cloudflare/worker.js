@@ -102,6 +102,35 @@ const ADSBLOL_REGIONS = ADSBFI_REGIONS;
 const ADSBLOL_BATCH = 10;
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const PLACEFILE_MEMORY_CACHE = new Map();
+const PLACEFILE_CACHE_TTL = 20 * 1000;
+const PLACEFILE_STALE_TTL = 5 * 60 * 1000;
+async function serveCachedPlacefile(key, build) {
+ const cached = PLACEFILE_MEMORY_CACHE.get(key);
+ const response = (body, mode) => new Response(body, {
+  headers: {
+   "content-type": "text/plain; charset=utf-8",
+   "cache-control": "no-store, max-age=0",
+   "x-flighttracker-cache": mode
+  }
+ });
+ if (cached && Date.now() - cached.generatedAt < PLACEFILE_CACHE_TTL)
+  return response(cached.body, "memory-hit");
+ try {
+  const body = await build();
+  PLACEFILE_MEMORY_CACHE.set(key, { body, generatedAt: Date.now() });
+  if (PLACEFILE_MEMORY_CACHE.size > 8)
+   PLACEFILE_MEMORY_CACHE.delete(PLACEFILE_MEMORY_CACHE.keys().next().value);
+  return response(body, "generated");
+ } catch (error) {
+  if (cached && Date.now() - cached.generatedAt < PLACEFILE_STALE_TTL) {
+   console.warn("Serving last successful placefile after refresh error:", key, error);
+   return response(cached.body, "stale-fallback");
+  }
+  throw error;
+ }
+}
+
 const CACHE_TTL = 6 * 60 * 1000;
 const SNAPSHOT_TTL = 15 * 60 * 1000;
 const clean = v => String(v ?? "").replaceAll('"',"'").replaceAll("\\","/").replace(/[\r\n]/g," ").trim();
@@ -490,6 +519,7 @@ export default {
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
+   return serveCachedPlacefile(url.pathname, async () => {
    const [{results:flyRows=[]},{results:lolRows=[]},{results:states=[]}] = await Promise.all([
     env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
     env.DB.prepare("SELECT region_id,payload,updated_at FROM adsblol_region_data").all(),
@@ -512,7 +542,8 @@ export default {
     "\\n; ADSB.lol last success: " + (stateMap.adsblol_last_success ? new Date(Number(stateMap.adsblol_last_success)).toISOString() : "not yet") +
     "\\n; ADSB.lol last error: " + (stateMap.adsblol_last_error||"none") + "\\n; Updated:"
    );
-   return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
+   return body;
+   });
   }
   if (url.pathname === "/adsblol-test.txt" || url.pathname === "/flyitaly-test.txt") {
    const useLol=url.pathname==="/adsblol-test.txt";
@@ -535,6 +566,7 @@ export default {
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if(url.pathname!=="/flighttracker.txt"&&url.pathname!=="/") return new Response("Not found",{status:404});
+  return serveCachedPlacefile(url.pathname, async () => {
   const [{results:flyRows=[]},{results:lolRows=[]},{results:states=[]},{results:registryRows=[]}]=await Promise.all([
    env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
    env.DB.prepare("SELECT region_id,payload,updated_at FROM adsblol_region_data").all(),
@@ -550,6 +582,7 @@ export default {
    "\\n; ADSB.lol latest snapshot: "+(lolRows.length?new Date(Math.max(...lolRows.map(x=>Number(x.updated_at)||0))).toISOString():"not yet")+
    "\\n; ADSB.lol last error: "+(stateMap.adsblol_last_error||"none")+"\\n; Updated:"
   );
-  return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
+  return body;
+  });
  }
 };
