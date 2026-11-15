@@ -114,7 +114,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  const adsbfi = source === "adsb.fi";
  const multi = source === "multi";
  let helicopterCount=0;
- const lines=[...(multi ? ["; Flight data: adsb.fi; https://adsb.fi/","; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"] : [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"]),
+ const lines=[...(multi ? ["; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"] : [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"]),
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"RefreshSeconds: 15","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,
   `IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-map-icon-96.png?v=1"`,
@@ -299,8 +299,7 @@ export default {
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
-   const [{results:adsbfiRows=[]},{results:flyitalyRows=[]},{results:states=[]}] = await Promise.all([
-    env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),
+   const [{results:flyitalyRows=[]},{results:states=[]}] = await Promise.all([
     env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
     env.DB.prepare("SELECT key,value FROM tracker_state").all()
    ]);
@@ -317,10 +316,10 @@ export default {
    }
    const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
    const latest = rows => rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
-   const adsbLatest=latest(adsbfiRows), flyLatest=latest(flyitalyRows);
+   const flyLatest=latest(flyitalyRows);
    const feedLine=(label,value)=>label+": "+(value?new Date(value).toISOString():"not yet");
-   const body = render([...adsbfiRows,...flyitalyRows],{used:"multiple live feeds",limit:"source-specific limits"},"multi",region,registryRows)
-    .replace("; Updated:", "; "+feedLine("adsb.fi latest data",adsbLatest)+"\n; "+feedLine("FlyItalyADSB latest data",flyLatest)+"\n; ADSB.fi collector error: "+(stateMap.adsbfi_last_error||"none")+"\n; FlyItalyADSB collector error: "+(stateMap.flyitaly_last_error||"none")+"\n; Updated:");
+   const body = render(flyitalyRows,{used:"FlyItalyADSB",limit:stateMap.quota_limit||"unknown"},"multi",region,registryRows)
+    .replace("; Updated:", "; "+feedLine("FlyItalyADSB latest data",flyLatest)+"\n; ADSB.fi collector error: "+(stateMap.adsbfi_last_error||"none")+"\n; FlyItalyADSB collector error: "+(stateMap.flyitaly_last_error||"none")+"\n; Updated:");
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
   }
   if (url.pathname === "/adsbfi-test.txt") {
@@ -334,8 +333,7 @@ export default {
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if(url.pathname!=="/flighttracker.txt"&&url.pathname!=="/") return new Response("Not found",{status:404});
-  const [{results:adsbfiRows=[]},{results:flyitalyRows=[]},{results:states=[]}] = await Promise.all([
-   env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),
+  const [{results:flyitalyRows=[]},{results:states=[]}] = await Promise.all([
    env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
    env.DB.prepare("SELECT key,value FROM tracker_state").all()
   ]);
@@ -348,9 +346,9 @@ export default {
   }
   const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
   const latest = rows => rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
-  const adsbLatest=latest(adsbfiRows), flyLatest=latest(flyitalyRows);
-  const body = render([...adsbfiRows,...flyitalyRows],{used:"multiple live feeds",limit:"source-specific limits"},"multi",null,registryRows)
-   .replace("; Updated:", "; adsb.fi latest data: "+(adsbLatest?new Date(adsbLatest).toISOString():"not yet")+
+  const flyLatest=latest(flyitalyRows);
+  const body = render(flyitalyRows,{used:"FlyItalyADSB",limit:stateMap.quota_limit||"unknown"},"multi",null,registryRows)
+   .replace("; Updated:", "; adsb.fi source: disabled (HTTP 403)"+
     "\\n; FlyItalyADSB latest data: "+(flyLatest?new Date(flyLatest).toISOString():"not yet")+
     "\\n; adsb.fi collector error: "+(stateMap.adsbfi_last_error||"none")+
     "\\n; FlyItalyADSB collector error: "+(stateMap.flyitaly_last_error||"none")+"\\n; Updated:");
