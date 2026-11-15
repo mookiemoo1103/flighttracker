@@ -67,11 +67,11 @@ jobs:
               ages = [int(row.get("age_seconds", 999999)) for row in regions]
               fresh = age <= 120 and int(feed.get("last_batch_count", 0)) > 0
               if plan in ("starter", "pro", "fleet"):
-                  fresh = fresh and len(regions) == 49 and max(ages, default=999999) <= 120
+                  fresh = fresh and len(regions) == 23 and max(ages, default=999999) <= 120
               if fresh:
                   print(f"Live feed OK: plan={plan}; last collection={age}s ago; {feed.get('last_batch_count')} regions collected; estimated full sweep={feed.get('full_sweep_minutes')} minute(s)")
                   sys.exit(0)
-              print(f"Waiting for live collection: plan={plan}; last success={age}s ago; batch={feed.get('last_batch_count')}; regions={len(regions)}/49; failures={feed.get('regions_failed')}; error={feed.get('last_error')}")
+              print(f"Waiting for live collection: plan={plan}; last success={age}s ago; batch={feed.get('last_batch_count')}; regions={len(regions)}/23; failures={feed.get('regions_failed')}; error={feed.get('last_error')}")
           except Exception as exc:
               print("Health check not ready:", exc)
           sys.exit(1)
