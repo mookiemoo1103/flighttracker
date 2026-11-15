@@ -201,7 +201,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   const orgline=org?"\\n"+org:"";
   const hover=[kind,`ID: ${ident}`,...(org?[org]:[]),`Speed: ${speed}`,`Altitude: ${alt}`,`Registration: ${clean(a.r)||"Unknown"}`,`Aircraft type: ${clean(a.t||reg.icao_type_code)||"Unknown"}`,`Manufacturer: ${clean(reg.manufacturer)||"Unknown"}`,`Model: ${clean(reg.type)||"Unknown"}`,`ICAO24: ${hx}`].map(clean).join("\\n");
   lines.push(`Object: ${lat.toFixed(5)},${lon.toFixed(5)}`,"Threshold: 999",
-   `Icon: 0,0,${Math.round(hdg)},1,${displayIcon},"${hover}"`,
+   `Icon: 0,0,${Math.round(hdg)},${displayIcon},1,"${hover}"`,
    `Text: 0,22,1,"${ident}"`,`Text: 0,34,1,"${speed} | ${alt}"`);
   if(org) lines.push(`Text: 0,46,1,"${clean(org)}"`);
   lines.push("End:");
