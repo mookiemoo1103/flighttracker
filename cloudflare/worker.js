@@ -190,7 +190,8 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  }
  const stamp=new Date(now).toISOString().replace("T"," ").replace(/\.\d{3}Z$/," UTC");
  const adsbfi = source === "adsb.fi";
- const lines=[...(source==="multi" ? ["; Flight data: FlyItalyADSB (flyitalyadsb.com)","; Flight data: ADSB.lol (adsb.lol)"] : [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"]),
+ const sourceLines=source==="multi"?["; Flight data: FlyItalyADSB (flyitalyadsb.com)","; Flight data: ADSB.lol (adsb.lol)"]:source==="adsblol"?["; Flight data: ADSB.lol (adsb.lol)"]:source==="flyitaly"?["; Flight data: FlyItalyADSB (flyitalyadsb.com)"]: [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"];
+ const lines=[...sourceLines,
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"`,
  `IconFile: 2, 96, 96, 48, 48, "${ICON_HELICOPTER}"`,
@@ -205,9 +206,9 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  const sourceCounts={"FlyItalyADSB":0,"ADSB.lol":0};
  for(const [hx,item] of aircraft) {
   const a=item.a, lat=Number(a.lat),lon=Number(a.lon);
-  if(sourceCounts[item.feed]!==undefined) sourceCounts[item.feed]++;
   if(!Number.isFinite(lat)||!Number.isFinite(lon)) continue;
   if(region && !region.test(lat,lon)) continue;
+  if(sourceCounts[item.feed]!==undefined) sourceCounts[item.feed]++;
   const reg=registry.get(hx)||{}, [icon,kind,org]=classify(a,reg), ident=clean(a.flight)||clean(a.r)||clean(reg.registration)||hx;
   if(kind==="Helicopter") helicopterCount++;
   const displayIcon=kind==="Helicopter"?2:kind==="PASSENGER"?3:kind==="COMMERCIAL"?4:kind==="MILITARY OR GOVERNMENT"?5:kind==="GENERAL AVIATION"?6:kind==="Business Jets"?7:icon;
@@ -403,7 +404,7 @@ export default {
     env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all().catch(()=>({results:[]}))
    ]);
    const tagged=rows.map(row=>({...row,feed:useLol?"ADSB.lol":"FlyItalyADSB"}));
-   const body=render(tagged,{used:useLol?"public":"API key",limit:"source-only"},"multi",null,registryRows);
+   const body=render(tagged,{used:useLol?"public":"API key",limit:"source-only"},useLol?"adsblol":"flyitaly",null,registryRows);
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
   }
   if (url.pathname === "/adsbfi-test.txt") {
