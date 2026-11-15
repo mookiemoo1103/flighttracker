@@ -258,6 +258,7 @@ async function collectAdsbfi(env) {
   ["adsbfi_last_batch_count", String(success)],
   ["adsbfi_regions_failed", String(failures.length)],
   ["adsbfi_last_error", errorSummary],
+  ["adsbfi_last_error_at", failures.length ? String(now) : "0"],
   ["adsbfi_last_source", "cloudflare-worker-full-grid"],
   ["adsbfi_last_duration_ms", String(now - started)]
  ];
@@ -312,6 +313,7 @@ async function collect(env) {
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_used',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(used));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_limit',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(limit));
+ stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_last_error',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(""));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('last_success',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(now)));
  await env.DB.batch(stmts);
 }
