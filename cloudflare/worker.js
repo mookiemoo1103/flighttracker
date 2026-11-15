@@ -89,11 +89,12 @@ const ADSBFI_REGIONS = [
  [41,-116.5],[41,-109.5],[41,-102.5],[41,-95.5],[41,-88.5],[41,-81.5],[41,-74.5],
  [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
 ];
-const ADSBFI_BATCH = ADSBFI_REGIONS.length; // Full lower-48 sweep every minute
+const ADSBFI_BATCH = 6; // Six regions per minute; full lower-48 sweep about every 7 minutes
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
 const SNAPSHOT_TTL = 15 * 60 * 1000;
+const REQUEST_TIMEOUT_MS = 12000;
 const clean = v => String(v ?? "").replaceAll('"',"'").replaceAll("\\","/").replace(/[\r\n]/g," ").trim();
 function airline(a) {
  const op=clean(a.ownOp||a.operator), flight=clean(a.flight).toUpperCase(), prefix=(flight.match(/[A-Z]/g)||[]).join("").slice(0,3);
@@ -221,7 +222,8 @@ async function collectAdsbfi(env) {
   const [lat, lon] = ADSBFI_REGIONS[idx];
   if (i > 0) await sleep(1100);
   const res = await fetch(`${ADSBFI_API}/${lat}/lon/${lon}/dist/250`, {
-   headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/adsbfi-test" }
+   headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/adsbfi-test" },
+   signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
   });
   if (!res.ok) throw new Error(`adsb.fi HTTP ${res.status} for region ${idx}`);
   const data = await res.json();
@@ -237,6 +239,28 @@ async function collectAdsbfi(env) {
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
  await env.DB.batch(stmts);
 }
+async function writeState(env, entries) {
+ const statements=entries.map(([key,value])=>env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,String(value)));
+ if(statements.length) await env.DB.batch(statements);
+}
+async function runCollector(env,name,collector) {
+ const started=Date.now();
+ try {
+  await writeState(env,[[name+"_last_attempt",started],[name+"_last_error",""]]);
+  await collector(env);
+  const finished=Date.now();
+  await writeState(env,[[name+"_last_success",finished],[name+"_last_duration_ms",finished-started],[name+"_last_error",""]]);
+  console.log(name+" collector succeeded in "+(finished-started)+" ms");
+ } catch(error) {
+  const failed=Date.now(), message=String(error?.stack||error).slice(0,1500);
+  try {
+   await writeState(env,[[name+"_last_attempt",started],[name+"_last_error_at",failed],[name+"_last_error",message],[name+"_last_duration_ms",failed-started]]);
+  } catch(stateError) {
+   console.error(name+" collector failed and status could not be saved:",String(stateError));
+  }
+  console.error(name+" collector failed:",message);
+ }
+}
 async function collect(env) {
  if(!env.FLYITALYADSB_API_KEY) throw new Error("Missing FLYITALYADSB_API_KEY Worker secret");
  const state=await env.DB.prepare("SELECT value FROM tracker_state WHERE key='next_region'").first();
@@ -245,7 +269,7 @@ async function collect(env) {
  for(let i=0;i<BATCH;i++) {
   const idx=(start+i)%REGIONS.length,[lat,lon,radius]=REGIONS[idx];
   const url=`${API}/${lat}/lon/${lon}/dist/${radius}`;
-  const res=await fetch(url,{headers:{"X-Api-Key":env.FLYITALYADSB_API_KEY,"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/4.0"}});
+  const res=await fetch(url,{headers:{"X-Api-Key":env.FLYITALYADSB_API_KEY,"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/4.0"},signal:AbortSignal.timeout(REQUEST_TIMEOUT_MS)});
   if(!res.ok) throw new Error(`FlyItalyADSB HTTP ${res.status} for region ${idx}`);
   used=res.headers.get("X-FIA-Used-Month")||used;
   limit=res.headers.get("X-FIA-Quota-Month")||limit;
@@ -263,19 +287,45 @@ async function collect(env) {
 }
 export default {
  async scheduled(controller,env,ctx) {
-  // Refresh both independent data feeds on every minute tick. adsb.fi's
-  // 38-region sweep is paced at ~1.1s/request and completes within the minute.
-  ctx.waitUntil(Promise.allSettled([collect(env), collectAdsbfi(env)]));
+  // Each feed runs independently. Persist success/failure and log errors so a
+  // scheduled invocation cannot silently hide a failed collection cycle.
+  ctx.waitUntil(Promise.all([
+   runCollector(env,"flyitaly",collect),
+   runCollector(env,"adsbfi",collectAdsbfi)
+  ]));
  },
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
-   const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit')").all();
-   return Response.json({ok:true,total_regions:REGIONS.length,regions_per_minute:BATCH,approximate_full_sweep_minutes:Math.ceil(REGIONS.length/BATCH),state:state.results||[]});
+   const [{results:state=[]},{results:flyRows=[]},{results:adsbRows=[]}] = await Promise.all([
+    env.DB.prepare("SELECT key,value FROM tracker_state").all(),
+    env.DB.prepare("SELECT region_id,updated_at FROM region_data").all(),
+    env.DB.prepare("SELECT region_id,updated_at FROM adsbfi_region_data").all()
+   ]);
+   const stateMap=Object.fromEntries(state.map(x=>[x.key,x.value]));
+   const latest=rows=>rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
+   return Response.json({
+    ok:true,generated_at:new Date().toISOString(),
+    feeds:{
+     flyitaly:{last_attempt:stateMap.flyitaly_last_attempt||"0",last_success:stateMap.flyitaly_last_success||stateMap.last_success||"0",last_error:stateMap.flyitaly_last_error||"",regions_cached:flyRows.length,total_regions:REGIONS.length,latest_region_update:latest(flyRows),full_sweep_minutes:Math.ceil(REGIONS.length/BATCH)},
+     adsbfi:{last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",regions_cached:adsbRows.length,total_regions:ADSBFI_REGIONS.length,latest_region_update:latest(adsbRows),full_sweep_minutes:Math.ceil(ADSBFI_REGIONS.length/ADSBFI_BATCH)}
+    },
+    quota:{used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"}
+   });
   }
   if (url.pathname === "/adsbfi-health") {
-   const state = await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all();
-   return Response.json({ok:true,source:"adsb.fi",regions:ADSBFI_REGIONS.length,collection_target_seconds:50,placefiles:Object.keys(PLACEFILE_REGIONS).map(name=>({name,last_success:(state.results||[]).find(x=>x.key===`adsbfi_last_success_${name}`)?.value||"0"})),state:state.results||[]});
+   const [{results:state=[]},{results:rows=[]}] = await Promise.all([
+    env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all(),
+    env.DB.prepare("SELECT region_id,updated_at FROM adsbfi_region_data ORDER BY region_id").all()
+   ]);
+   const stateMap=Object.fromEntries(state.map(x=>[x.key,x.value]));
+   const latest=rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
+   return Response.json({
+    ok:true,source:"adsb.fi",generated_at:new Date().toISOString(),
+    regions_total:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,approximate_full_sweep_minutes:Math.ceil(ADSBFI_REGIONS.length/ADSBFI_BATCH),
+    last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",last_error_at:stateMap.adsbfi_last_error_at||"0",
+    latest_region_update:latest,regions:rows.map(row=>({region_id:row.region_id,updated_at:row.updated_at,age_seconds:Math.max(0,Math.round((Date.now()-Number(row.updated_at))/1000))}))
+   });
   }
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
@@ -297,8 +347,11 @@ export default {
     console.log("Aircraft registry unavailable; using live ADS-B type data:", String(error));
    }
    const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
-   const lastSuccess = Number(stateMap[`adsbfi_last_success_${regionalPath}`] || 0);
-   const body = render([...adsbfiRows,...flyitalyRows],{used:"multiple free feeds",limit:"source-specific limits"},"multi",region,registryRows).replace("; Updated:", "; adsb.fi last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\\\n; Updated:");
+   const latest = rows => rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
+   const adsbLatest=latest(adsbfiRows), flyLatest=latest(flyitalyRows);
+   const feedLine=(label,value)=>label+": "+(value?new Date(value).toISOString():"not yet");
+   const body = render([...adsbfiRows,...flyitalyRows],{used:"multiple live feeds",limit:"source-specific limits"},"multi",region,registryRows)
+    .replace("; Updated:", "; "+feedLine("adsb.fi latest data",adsbLatest)+"\n; "+feedLine("FlyItalyADSB latest data",flyLatest)+"\n; ADSB.fi collector error: "+(stateMap.adsbfi_last_error||"none")+"\n; FlyItalyADSB collector error: "+(stateMap.flyitaly_last_error||"none")+"\n; Updated:");
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
   }
   if (url.pathname === "/adsbfi-test.txt") {
