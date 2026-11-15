@@ -138,7 +138,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null) {
  const stamp=new Date(now).toISOString().replace("T"," ").replace(/\.\d{3}Z$/," UTC");
  const adsbfi = source === "adsb.fi";
  const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
- adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB","Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
+ region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 96, 32, 32, 32, "${ICON_URL}"`,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
