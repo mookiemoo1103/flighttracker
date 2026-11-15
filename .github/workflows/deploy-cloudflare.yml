@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "cloudflare/worker.js"
+      - "tests/**"
       - "assets/airplane-commercial-yellow.png"
       - "assets/airplane-private-blue.png"
       - "assets/airplane-military-gray.png"
