@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "flighttracker",
+  "main": "cloudflare/worker.js",
+  "compatibility_date": "2026-11-14",
+  "workers_dev": true,
+  "triggers": { "crons": ["* * * * *"] },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "flighttracker",
+      "database_id": "16f85ffc-fda8-4fe4-a3db-0ae95a5eb315",
+      "migrations_dir": "cloudflare/migrations"
+    }
+  ]
+}
