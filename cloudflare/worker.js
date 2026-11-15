@@ -344,8 +344,27 @@ export default {
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
-   const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit','last_batch_count','last_batch_failed','last_error')").all();
+   const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit','last_batch_count','last_batch_failed','last_error','adsblol_last_success','adsblol_last_batch_count','adsblol_last_batch_failed','adsblol_last_error')").all();
    return Response.json({ok:true,total_regions:REGIONS.length,regions_per_minute:BATCH,approximate_full_sweep_minutes:Math.ceil(REGIONS.length/BATCH),state:state.results||[]});
+  }
+  if(url.pathname==="/adsblol-health") {
+   const [{results:rows=[]},{results:states=[]}] = await Promise.all([
+    env.DB.prepare("SELECT region_id,updated_at,payload FROM adsblol_region_data ORDER BY region_id").all(),
+    env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsblol_%'").all()
+   ]);
+   const state=Object.fromEntries(states.map(x=>[x.key,x.value]));
+   return Response.json({
+    ok:Number(state.adsblol_last_batch_count||0)>0,
+    source:"ADSB.lol",
+    total_regions:ADSBLOL_REGIONS.length,
+    regions_cached:rows.length,
+    last_attempt:state.adsblol_last_attempt||"0",
+    last_success:state.adsblol_last_success||"0",
+    last_batch_count:Number(state.adsblol_last_batch_count||0),
+    last_batch_failed:Number(state.adsblol_last_batch_failed||0),
+    last_error:state.adsblol_last_error||"",
+    regions:rows.map(row=>({region_id:row.region_id,aircraft_count:(()=>{try{return JSON.parse(row.payload).length}catch{return 0}})(),updated_at:row.updated_at,age_seconds:Math.max(0,Math.round((Date.now()-Number(row.updated_at))/1000))}))
+   });
   }
   if (url.pathname === "/adsbfi-health") {
    return Response.json({ok:false,enabled:false,source:"adsb.fi",reason:"Disabled for live placefiles; provider requests from this Worker were returning HTTP 403. Live maps use FlyItalyADSB."});
@@ -375,6 +394,16 @@ export default {
     "\\n; ADSB.lol last success: " + (stateMap.adsblol_last_success ? new Date(Number(stateMap.adsblol_last_success)).toISOString() : "not yet") +
     "\\n; ADSB.lol last error: " + (stateMap.adsblol_last_error||"none") + "\\n; Updated:"
    );
+   return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
+  }
+  if (url.pathname === "/adsblol-test.txt" || url.pathname === "/flyitaly-test.txt") {
+   const useLol=url.pathname==="/adsblol-test.txt";
+   const [{results:rows=[]},{results:registryRows=[]}] = await Promise.all([
+    env.DB.prepare(useLol?"SELECT region_id,payload,updated_at FROM adsblol_region_data":"SELECT region_id,payload,updated_at FROM region_data").all(),
+    env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all().catch(()=>({results:[]}))
+   ]);
+   const tagged=rows.map(row=>({...row,feed:useLol?"ADSB.lol":"FlyItalyADSB"}));
+   const body=render(tagged,{used:useLol?"public":"API key",limit:"source-only"},"multi",null,registryRows);
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
   }
   if (url.pathname === "/adsbfi-test.txt") {
