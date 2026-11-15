@@ -150,7 +150,7 @@ function classify(a, registry = {}) {
  const typeTokens = new Set(typeFields.join(" ").toUpperCase().split(/[^A-Z0-9]+/).filter(Boolean));
  const businessJetCodes = new Set([
   "C25A","C25B","C25C","C510","C525","C526","C550","C551","C552","C560","C56X","C650","C680","C68A","C700","C750",
-  "CL30","CL35","CL60","GLF2","GLF3","GLF4","GLF5","GLF6","GLF7","G150","G200","G280","FA50","FA7X","FA8X",
+  "CL30","CL35","CL60","GLF2","GLF3","GLF4","GLF5","GLF6","GLF7","GLF8","G150","G200","G280","G500","G600","G650","G700","G800","BD700","GLEX","GL7T","PC24","FA50","FA7X","FA8X",
   "E35L","E50P","E55P","E545","E550","LJ23","LJ24","LJ25","LJ28","LJ31","LJ35","LJ40","LJ45","LJ55","LJ60","LJ70","LJ75",
   "GALX","ASTR","H25B","H25C","H25D","HA4T","F2TH","F900","F2000","F7X","F8X","F10X","PRM1","HDJT","E290","E295"
  ]);
