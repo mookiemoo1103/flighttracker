@@ -43,4 +43,15 @@ jobs:
             exit 0
           fi
           git commit -m "Refresh full U.S. aircraft coverage"
-          git push
+          # Other repository edits can land while the 59-region collection is running.
+          # Rebase the generated data commit on top of those edits before publishing.
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt rejected; retrying after remote update"
+            sleep 3
+          done
+          echo "Could not publish refreshed placefile after three attempts"
+          exit 1
