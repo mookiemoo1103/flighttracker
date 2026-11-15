@@ -13,7 +13,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: flighttracker-cloudflare-deploy
+  group: flighttracker-known-good-restore
   cancel-in-progress: true
 jobs:
   deploy:
