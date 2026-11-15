@@ -102,5 +102,5 @@ jobs:
           done
           curl --fail --silent --show-error "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
           grep -q '^RefreshSeconds: 15$' /tmp/flighttracker.txt
-          grep -q 'Business Jets' /tmp/flighttracker.txt
+          grep -q '^IconFile: 7,' /tmp/flighttracker.txt
           echo "flighttracker.txt OK"
