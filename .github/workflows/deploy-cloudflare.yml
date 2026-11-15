@@ -27,6 +27,12 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
+      - name: Configure FlyItalyADSB API key
+        run: printf '%s' "$FLYITALYADSB_API_KEY" | npx wrangler@4 secret put FLYITALYADSB_API_KEY
+        env:
+          FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
       - name: Smoke-test live health and all six regional placefiles
         shell: bash
         run: |
@@ -43,19 +49,7 @@ jobs:
           PY
           for region in pacific southwest mountain central southeast northeast; do
             curl --fail --silent --show-error --retry 3 --retry-delay 2 "$BASE/$region.txt" -o "/tmp/$region.txt"
-            grep -q '^Refresh: 1      - name: Configure FlyItalyADSB API key
-        run: printf '%s' "$FLYITALYADSB_API_KEY" | npx wrangler@4 secret put FLYITALYADSB_API_KEY
-        env:
-          FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
- "/tmp/$region.txt"
+            grep -q '^Refresh: 1$' "/tmp/$region.txt"
             grep -q 'Helicopters rendered:' "/tmp/$region.txt"
             echo "$region.txt OK"
           done
-      - name: Configure FlyItalyADSB API key
-        run: printf '%s' "$FLYITALYADSB_API_KEY" | npx wrangler@4 secret put FLYITALYADSB_API_KEY
-        env:
-          FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
