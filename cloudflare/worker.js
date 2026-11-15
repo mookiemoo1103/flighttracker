@@ -216,24 +216,36 @@ async function collect(env) {
  const state=await env.DB.prepare("SELECT value FROM tracker_state WHERE key='next_region'").first();
  const start=Number(state?.value||0)%REGIONS.length, stmts=[];
  let used="unknown",limit="unknown",success=0;
+ const failures=[];
  for(let i=0;i<BATCH;i++) {
   const idx=(start+i)%REGIONS.length,[lat,lon,radius]=REGIONS[idx];
   const url=`${API}/${lat}/lon/${lon}/dist/${radius}`;
-  const res=await fetch(url,{headers:{"X-Api-Key":env.FLYITALYADSB_API_KEY,"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/4.0"}});
-  if(!res.ok) throw new Error(`FlyItalyADSB HTTP ${res.status} for region ${idx}`);
-  used=res.headers.get("X-FIA-Used-Month")||used;
-  limit=res.headers.get("X-FIA-Quota-Month")||limit;
-  const data=await res.json();
-  stmts.push(env.DB.prepare("INSERT INTO region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
-   .bind(idx,JSON.stringify(data.ac||[]),Date.now()));
-  success++;
+  try {
+   const res=await fetch(url,{headers:{"X-Api-Key":env.FLYITALYADSB_API_KEY,"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/4.0"}});
+   if(!res.ok) throw new Error(`HTTP ${res.status}`);
+   used=res.headers.get("X-FIA-Used-Month")||used;
+   limit=res.headers.get("X-FIA-Quota-Month")||limit;
+   const data=await res.json();
+   if(!Array.isArray(data.ac)) throw new Error("response missing aircraft array");
+   stmts.push(env.DB.prepare("INSERT INTO region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
+    .bind(idx,JSON.stringify(data.ac),Date.now()));
+   success++;
+  } catch(error) {
+   failures.push(`region ${idx}: ${String(error?.message||error).slice(0,180)}`);
+   console.error("FlyItalyADSB region collection failed:",idx,error);
+  }
  }
- const next=(start+success)%REGIONS.length, now=Date.now();
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_used',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(used));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_limit',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(limit));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('last_success',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(now)));
+ const next=(start+BATCH)%REGIONS.length, now=Date.now();
+ const stateUpsert=(key,value)=>env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,String(value));
+ stmts.push(stateUpsert("next_region",next));
+ stmts.push(stateUpsert("quota_used",used));
+ stmts.push(stateUpsert("quota_limit",limit));
+ stmts.push(stateUpsert("last_batch_count",success));
+ stmts.push(stateUpsert("last_batch_failed",failures.length));
+ stmts.push(stateUpsert("last_error",failures.slice(0,5).join(" | ")));
+ if(success>0) stmts.push(stateUpsert("last_success",now));
  await env.DB.batch(stmts);
+ if(failures.length) console.warn(`FlyItalyADSB partial batch: ${success}/${BATCH} succeeded; ${failures.length} failed`);
 }
 export default {
  async scheduled(controller,env,ctx) {
@@ -242,7 +254,7 @@ export default {
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
-   const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit')").all();
+   const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit','last_batch_count','last_batch_failed','last_error')").all();
    return Response.json({ok:true,total_regions:REGIONS.length,regions_per_minute:BATCH,approximate_full_sweep_minutes:Math.ceil(REGIONS.length/BATCH),state:state.results||[]});
   }
   if (url.pathname === "/adsbfi-health") {
