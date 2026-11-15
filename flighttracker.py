@@ -120,21 +120,6 @@ def classify(a):
     if any(word in identity for word in rotor_words) or type_tokens.intersection(rotor_codes) or category in ("A7","ROTORCRAFT","HELICOPTER","GYROCOPTER"):
         return 2, "HELICOPTER", ""
 
-    flight = clean(a.get("flight")).upper()
-    prefix = "".join(ch for ch in flight if ch.isalpha())[:3]
-    op = clean(a.get("ownOp") or a.get("operator")).upper()
-    cargo_prefixes = {"FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX"}
-    if prefix in cargo_prefixes or any(w in identity for w in ("CARGO","FREIGHT","AIR CARGO","PARCEL","EXPRESS LOGISTICS")):
-        return 4, "CARGO / COMMERCIAL", airline(a) or op or "CARGO"
-
-    passenger_prefixes = {"AAL","UAL","DAL","SWA","JBU","ASA","FFT","NKS","SKW","RPA",
-        "ENY","PDT","AAY","KAL","BAW","AFR","DLH","ACA","WJA","AMX","JAL","ANA",
-        "QTR","UAE","EVA","THY","SIA","IBE","AUA","KLM","VIR","FLE","ROU","POE",
-        "AIC","ANZ","QFA","CCA","CSN","CES","SAS","FIN","LOT","TAP","EZY","RYR","WZZ",
-        "ETD","SAA","ETH"}
-    if prefix in passenger_prefixes or any(name.upper() in op for name in AIRLINES.values()):
-        return 3, "PASSENGER", airline(a) or op
-
     business_jet_codes = {"C25A","C25B","C25C","C510","C525","C526","C550","C551",
         "C552","C560","C56X","C650","C680","C68A","C700","C750","CL30","CL35","CL60",
         "GLF2","GLF3","GLF4","GLF5","GLF6","GLF7","GLF8","G150","G200","G280","G500","G600","G650","G700","G800","BD700","GLEX","GL7T","PC24","FA50","FA7X",
@@ -152,6 +137,22 @@ def classify(a):
         "COMMUTER AIR","AIR TRANSPORT","AIR SERVICES","FLIGHT SERVICES")
     if any(w in identity for w in commercial_words):
         return 4, "COMMERCIAL", op or "COMMERCIAL OPERATOR"
+
+    flight = clean(a.get("flight")).upper()
+    prefix = "".join(ch for ch in flight if ch.isalpha())[:3]
+    op = clean(a.get("ownOp") or a.get("operator")).upper()
+    cargo_prefixes = {"FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX"}
+    if prefix in cargo_prefixes or any(w in identity for w in ("CARGO","FREIGHT","AIR CARGO","PARCEL","EXPRESS LOGISTICS")):
+        return 4, "CARGO / COMMERCIAL", airline(a) or op or "CARGO"
+
+    passenger_prefixes = {"AAL","UAL","DAL","SWA","JBU","ASA","FFT","NKS","SKW","RPA",
+        "ENY","PDT","AAY","KAL","BAW","AFR","DLH","ACA","WJA","AMX","JAL","ANA",
+        "QTR","UAE","EVA","THY","SIA","IBE","AUA","KLM","VIR","FLE","ROU","POE",
+        "AIC","ANZ","QFA","CCA","CSN","CES","SAS","FIN","LOT","TAP","EZY","RYR","WZZ",
+        "ETD","SAA","ETH"}
+    if prefix in passenger_prefixes or any(name.upper() in op for name in AIRLINES.values()):
+        return 3, "PASSENGER", airline(a) or op
+
     return 6, "GENERAL AVIATION", ""
 
 def alt_text(a):
