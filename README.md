@@ -43,6 +43,7 @@ The combined placefiles merge independent live networks and de-duplicate aircraf
 
 - `/health` reports FlyItalyADSB and ADSB.lol last-success times, batch counts and errors.
 - `/adsblol-health` reports ADSB.lol cached regions, aircraft record counts, per-region freshness and collection errors.
+- `/registry-health` reports HexDB registry cache size, aircraft with known ICAO types, latest enrichment batch counts and lookup errors.
 - `/flyitaly-test.txt` and `/adsblol-test.txt` allow side-by-side source comparison without the combined de-duplication layer.
 
 ## Data limitations
@@ -53,3 +54,4 @@ Aircraft appear only when a source has a usable ADS-B/MLAT position and reports 
 
 - FlyItalyADSB: `flyitalyadsb.com`, CC BY-SA 4.0.
 - ADSB.lol: community network, ODbL 1.0.
+- HexDB: aircraft registration/type lookup; data courtesy of the providers listed in the [HexDB documentation](https://hexdb.io/).
