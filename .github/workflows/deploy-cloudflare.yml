@@ -12,6 +12,7 @@ on:
       - "assets/general-aviation-blue.png"
       - "assets/business-jet-purple.png"
       - "wrangler.jsonc"
+      - "flighttracker.py"
       - ".github/workflows/deploy-cloudflare.yml"
 permissions:
   contents: read
