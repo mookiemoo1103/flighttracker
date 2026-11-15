@@ -1,6 +1,5 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ADSBLOL_API = "https://api.adsb.lol/v2/point";
 const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"; // Shared grayscale aircraft sprite
 // Coverage grid: 38 lower-48 points plus Alaska, Hawaii and Puerto Rico.
 // Radius is selected from the active FlyItalyADSB plan (500 km Free; 1,000 km Starter/Pro).
@@ -147,53 +146,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  lines.push(`; Helicopters rendered: ${helicopterCount}`);
  return lines.join("\n")+"\n";
 }
-async function collectAdsbfi(env) {
- const started = Date.now();
- const stmts = [];
- const failures = [];
- let success = 0;
- for (let idx = 0; idx < ADSBFI_REGIONS.length; idx++) {
-  const [lat, lon] = ADSBFI_REGIONS[idx];
-  if (idx > 0) await sleep(1250); // leave headroom above the public feed's 1 request/second limit
-  try {
-   const res = await fetch(`${ADSBFI_API}/${lat}/lon/${lon}/dist/250`, {
-    headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/adsbfi-live" },
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
-   });
-   if (!res.ok) {
-    const preview = (await res.text()).slice(0,180);
-    throw new Error(`HTTP ${res.status} ${res.statusText}; body=${preview}`);
-   }
-   const data = await res.json();
-   if (!Array.isArray(data.ac)) throw new Error("HTTP 200 but response has no 'ac' array");
-   stmts.push(env.DB.prepare("INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
-    .bind(idx, JSON.stringify(data.ac), Date.now()));
-   success++;
-  } catch (error) {
-   const message = `region ${idx} (${lat},${lon}): ${String(error).slice(0,360)}`;
-   failures.push(message);
-   console.error("adsb.fi region failed:", message);
-  }
- }
- const now = Date.now();
- const errorSummary = failures.length ? failures.slice(0,8).join(" | ").slice(0,1800) : "";
- const state = [
-  ["adsbfi_last_attempt", String(now)],
-  ["adsbfi_last_batch_count", String(success)],
-  ["adsbfi_regions_failed", String(failures.length)],
-  ["adsbfi_last_error", errorSummary],
-  ["adsbfi_last_error_at", failures.length ? String(now) : "0"],
-  ["adsbfi_last_source", "cloudflare-worker-full-grid"],
-  ["adsbfi_last_duration_ms", String(now - started)]
- ];
- if (success > 0) state.push(["adsbfi_last_success", String(now)]);
- for (const [key,value] of state) {
-  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,value));
- }
- if (stmts.length) await env.DB.batch(stmts);
- console.log(`adsb.fi full-grid sweep: ${success}/${ADSBFI_REGIONS.length} regions refreshed; ${failures.length} failed; sample errors: ${errorSummary}`);
- if (success === 0) throw new Error("adsb.fi full-grid sweep failed for every region: " + errorSummary);
-}
+
 async function writeState(env, entries) {
  const statements=entries.map(([key,value])=>env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,String(value)));
  if(statements.length) await env.DB.batch(statements);
@@ -294,27 +247,6 @@ export default {
     },
     quota:{plan:stateMap.quota_plan||"unknown",per_minute:stateMap.quota_per_minute||"unknown",used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"}
    });
-  }
-  if (url.pathname === "/adsblol-probe") {
-   const started = Date.now();
-   try {
-    const res = await fetch(`${ADSBLOL_API}/30/-90/25`, {
-     headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/diagnostic (+https://github.com/mookiemoo1103/flighttracker)" },
-     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
-    });
-    const body = await res.text();
-    let parsed = null;
-    try { parsed = JSON.parse(body); } catch {}
-    return Response.json({
-     ok:res.ok,status:res.status,status_text:res.statusText,
-     content_type:res.headers.get("content-type"),
-     elapsed_ms:Date.now()-started,
-     aircraft_count:Array.isArray(parsed?.ac)?parsed.ac.length:null,
-     response_preview:body.slice(0,500)
-    });
-   } catch(error) {
-    return Response.json({ok:false,error:String(error?.stack||error),elapsed_ms:Date.now()-started},{status:502});
-   }
   }
   if (url.pathname === "/adsbfi-probe") {
    const started = Date.now();
