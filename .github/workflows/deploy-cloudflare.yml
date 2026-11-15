@@ -9,6 +9,10 @@ on:
       - ".github/workflows/deploy-cloudflare.yml"
 permissions:
   contents: read
+
+concurrency:
+  group: flighttracker-cloudflare-deploy
+  cancel-in-progress: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
