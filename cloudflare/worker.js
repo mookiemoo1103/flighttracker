@@ -330,10 +330,12 @@ async function collectRegistry(env) {
    const hex=clean(a.hex).toLowerCase();
    if(!/^[0-9a-f]{6}$/.test(hex)||cached.has(hex)||candidates.has(hex)) continue;
    // The ADS-B "type" field is a reception/source type (adsb_icao, mlat, etc.),
-   // not an aircraft model. Only skip lookup when actual model/type metadata exists.
-   const hasAircraftType=[a.t,a.icao_type,a.typeCode,a.typeName,a.model,a.model_name,a.type_code,a.type_description,a.aircraft_desc,a.desc]
+   // while "t" is only a short ICAO designator. Enrich aircraft that lack a
+   // descriptive model/manufacturer/owner so uncommon business-jet codes can
+   // be recognized even when a short type code is present.
+   const hasDescriptiveType=[a.typeName,a.model,a.model_name,a.type_description,a.aircraft_desc,a.desc,a.description,a.manufacturer,a.ownOp,a.operator]
     .some(value=>clean(value)!=="");
-   if(!hasAircraftType) candidates.set(hex,a);
+   if(!hasDescriptiveType) candidates.set(hex,a);
   }
  }
  const selected=[...candidates.keys()].slice(0,20), stmts=[], failures=[];
