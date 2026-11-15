@@ -333,7 +333,7 @@ async function collectRegistry(env) {
    // while "t" is only a short ICAO designator. Enrich aircraft that lack a
    // descriptive model/manufacturer/owner so uncommon business-jet codes can
    // be recognized even when a short type code is present.
-   const hasDescriptiveType=[a.typeName,a.model,a.model_name,a.type_description,a.aircraft_desc,a.desc,a.description,a.manufacturer,a.ownOp,a.operator]
+   const hasDescriptiveType=[a.typeName,a.model,a.model_name,a.desc,a.description]
     .some(value=>clean(value)!=="");
    if(!hasDescriptiveType) candidates.set(hex,a);
   }
