@@ -426,10 +426,18 @@ async function collect(env) {
 }
 export default {
  async scheduled(controller,env,ctx) {
+  // Keep the three collectors below Cloudflare's per-invocation subrequest
+  // ceiling. Live feeds run on four out of every five minutes; the separate
+  // registry minute performs its own bounded HexDB batch without competing
+  // with either live feed.
+  const minute = new Date(controller.scheduledTime).getUTCMinutes();
+  if (minute % 5 === 0) {
+   ctx.waitUntil(collectRegistry(env).catch(error => console.error("Aircraft registry enrichment failed:", error)));
+   return;
+  }
   ctx.waitUntil(Promise.allSettled([
    collect(env).catch(error => console.error("FlyItalyADSB collection failed:", error)),
-   collectAdsbLol(env).catch(error => console.error("ADSB.lol collection failed:", error)),
-   collectRegistry(env).catch(error => console.error("Aircraft registry enrichment failed:", error))
+   collectAdsbLol(env).catch(error => console.error("ADSB.lol collection failed:", error))
   ]));
  },
  async fetch(request,env) {
