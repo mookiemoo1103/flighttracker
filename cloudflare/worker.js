@@ -220,13 +220,14 @@ export default {
   }
   if (url.pathname === "/adsbfi-health") {
    const state = await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all();
-   return Response.json({ok:true,source:"adsb.fi",regions:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,estimated_sweep_minutes:Math.ceil(ADSBFI_REGIONS.length/ADSBFI_BATCH),state:state.results||[]});
+   return Response.json({ok:true,source:"adsb.fi",regions:ADSBFI_REGIONS.length,collection_target_seconds:50,placefiles:Object.keys(PLACEFILE_REGIONS).map(name=>({name,last_success:(state.results||[]).find(x=>x.key===`adsbfi_last_success_${name}`)?.value||"0"})),state:state.results||[]});
   }
   const regionalPath = url.pathname.split("/")[1].replace(".txt","");
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
    const [{results:rows=[]},{results:states=[]}] = await Promise.all([env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),env.DB.prepare("SELECT key,value FROM tracker_state").all()]);
-   const lastSuccess = Number(Object.fromEntries(states.map(x=>[x.key,x.value])).adsbfi_last_success || 0);
+   const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
+   const lastSuccess = Number(stateMap[`adsbfi_last_success_${regionalPath}`] || 0);
    const body = render(rows,{used:"adsb.fi public",limit:"1 request/second"},"adsb.fi",region).replace("; Updated:", "; Last successful collection: " + (lastSuccess ? new Date(lastSuccess).toISOString() : "not yet") + "\\n; Updated:");
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
