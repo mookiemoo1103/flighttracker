@@ -8,7 +8,7 @@ const end = worker.indexOf("function altText", start);
 assert.ok(start >= 0 && end > start, "classify() must exist in the Worker");
 
 const context = {
-  clean: value => String(value ?? "").replaceAll('"', "'").replaceAll("\\", "/").replace(/[\\r\\n]/g, " ").trim(),
+  clean: value => String(value ?? "").replaceAll('"', "'").replaceAll("\\", "/").replace(/[\r\n]/g, " ").trim(),
   branch: () => "MILITARY (BRANCH UNKNOWN)",
   airline: () => "",
   AIRLINES: {}
