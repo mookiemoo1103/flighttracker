@@ -4,31 +4,23 @@ on:
   push:
     paths:
       - "cloudflare/worker.js"
-      - "assets/aircraft-gray.png"
-      - "assets/helicopter-map-icon-96.png"
-      - "assets/passenger-light-red.png"
-      - "assets/commercial-yellow.png"
-      - "assets/military-green.png"
-      - "assets/general-aviation-blue.png"
-      - "assets/business-jet-purple.png"
+      - "assets/airplane-commercial-yellow.png"
+      - "assets/airplane-private-blue.png"
+      - "assets/airplane-military-gray.png"
+      - "assets/helicopter-gray.png"
       - "wrangler.jsonc"
-      - "flighttracker.py"
       - ".github/workflows/deploy-cloudflare.yml"
 permissions:
   contents: read
-
 concurrency:
   group: flighttracker-cloudflare-deploy
   cancel-in-progress: false
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: Validate legacy generator syntax
-        run: python -m py_compile flighttracker.py
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -48,7 +40,7 @@ jobs:
           FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
-      - name: Smoke-test live collection and all placefiles
+      - name: Verify live FlyItaly collection and all placefiles
         shell: bash
         run: |
           set -euo pipefail
@@ -61,20 +53,13 @@ jobs:
           try:
               with open("/tmp/health.json", encoding="utf-8") as f:
                   health = json.load(f)
-              feed = health["feeds"]["flyitaly"]
-              now = int(time.time() * 1000)
-              last_success = int(feed.get("last_success", 0))
-              age = (now - last_success) // 1000 if last_success else 999999
-              regions = feed.get("regions", [])
-              plan = str(health.get("quota", {}).get("plan", "unknown")).lower()
-              ages = [int(row.get("age_seconds", 999999)) for row in regions]
-              fresh = age <= 120 and int(feed.get("last_batch_count", 0)) > 0
-              if plan in ("starter", "pro", "fleet"):
-                  fresh = fresh and len(regions) == 23 and max(ages, default=999999) <= 120
-              if fresh:
-                  print(f"Live feed OK: plan={plan}; last collection={age}s ago; {feed.get('last_batch_count')} regions collected; estimated full sweep={feed.get('full_sweep_minutes')} minute(s)")
+              state = {row["key"]: row["value"] for row in health.get("state", [])}
+              last_success = int(state.get("last_success", 0))
+              age = (int(time.time() * 1000) - last_success) // 1000 if last_success else 999999
+              if health.get("ok") is True and last_success and age <= 180:
+                  print(f"FlyItaly collection succeeded {age}s ago; {health.get('regions_per_minute')} areas/minute; full sweep ~{health.get('approximate_full_sweep_minutes')} minutes")
                   sys.exit(0)
-              print(f"Waiting for live collection: plan={plan}; last success={age}s ago; batch={feed.get('last_batch_count')}; regions={len(regions)}/23; failures={feed.get('regions_failed')}; error={feed.get('last_error')}")
+              print(f"Waiting for live collection: last success {age}s ago; {health.get('regions_per_minute')} areas/minute")
           except Exception as exc:
               print("Health check not ready:", exc)
           sys.exit(1)
@@ -83,30 +68,22 @@ jobs:
               break
             fi
             if (( SECONDS >= deadline )); then
-              echo "FlyItalyADSB did not complete a fresh collection within 180 seconds"
+              echo "No successful FlyItaly collection within 180 seconds"
               cat /tmp/health.json || true
               exit 1
             fi
             sleep 5
           done
           for region in pacific southwest mountain central southeast northeast; do
-            if ! curl --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"; then
-              curl --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt" || true
-              cat "/tmp/$region.txt" || true
-              exit 1
-            fi
-            grep -q '^RefreshSeconds: 15$' "/tmp/$region.txt"
-            grep -q '^IconFile: 2,' "/tmp/$region.txt"
-            grep -q '^IconFile: 7,' "/tmp/$region.txt"
-            grep -q 'Helicopters rendered:' "/tmp/$region.txt"
+            curl --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"
+            grep -q '^Refresh: 1$' "/tmp/$region.txt"
+            grep -q '^IconFile: 4,' "/tmp/$region.txt"
+            grep -q '^Title:' "/tmp/$region.txt"
             echo "$region.txt OK"
           done
-          if ! curl --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt; then
-            curl --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt || true
-            cat /tmp/flighttracker.txt || true
-            exit 1
-          fi
-          grep -q '^RefreshSeconds: 15$' /tmp/flighttracker.txt
-          grep -q '^IconFile: 2,' /tmp/flighttracker.txt
-          grep -q '^IconFile: 7,' /tmp/flighttracker.txt
-          echo "flighttracker.txt OK"
+          curl --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
+          grep -q '^Refresh: 1$' /tmp/flighttracker.txt
+          grep -q '^IconFile: 4,' /tmp/flighttracker.txt
+          object_count=$(grep -c '^Object:' /tmp/flighttracker.txt || true)
+          echo "Nationwide placefile contains $object_count aircraft records"
+          test "$object_count" -gt 0
