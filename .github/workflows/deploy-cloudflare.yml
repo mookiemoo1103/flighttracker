@@ -5,6 +5,12 @@ on:
     paths:
       - "cloudflare/worker.js"
       - "assets/aircraft-gray.png"
+      - "assets/helicopter-map-icon-96.png"
+      - "assets/passenger-light-red.png"
+      - "assets/commercial-yellow.png"
+      - "assets/military-green.png"
+      - "assets/general-aviation-blue.png"
+      - "assets/business-jet-purple.png"
       - "wrangler.jsonc"
       - ".github/workflows/deploy-cloudflare.yml"
 permissions:
@@ -13,9 +19,11 @@ permissions:
 concurrency:
   group: flighttracker-cloudflare-deploy
   cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,7 +45,7 @@ jobs:
           FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
-      - name: Smoke-test live health and all six regional placefiles
+      - name: Smoke-test provider, freshness, and all placefiles
         shell: bash
         run: |
           set -euo pipefail
@@ -45,12 +53,12 @@ jobs:
           echo "ADS-B provider connectivity probe:"
           curl --silent --show-error --max-time 20 "$BASE/adsbfi-probe" | tee /tmp/probe.json || true
           echo
-          echo "Current ADS-B health before waiting for a fresh collection:"
+          echo "Current ADS-B health:"
           curl --silent --show-error --max-time 20 "$BASE/adsbfi-health" | tee /tmp/health-before.json || true
           echo
           deadline=$((SECONDS + 100))
           while true; do
-            curl --fail --silent --show-error --retry 2 --retry-delay 1 "$BASE/adsbfi-health" -o /tmp/health.json || true
+            curl --silent --show-error --max-time 20 "$BASE/adsbfi-health" -o /tmp/health.json || true
             if python - <<'PY'
           import json, time, sys
           try:
@@ -70,7 +78,7 @@ jobs:
               if fresh:
                   print(f"Fresh ADS-B grid: {len(regions)}/38 regions; oldest region {max(ages)} seconds")
                   sys.exit(0)
-              print(f"Waiting for fresh full grid: {len(regions)}/38 cached; oldest region {max(ages, default=-1)} seconds")
+              print(f"Waiting for fresh grid: {len(regions)}/38 cached; oldest region {max(ages, default=-1)} seconds; failed this cycle: {health.get('regions_failed')}; error: {health.get('last_error')}")
           except Exception as exc:
               print("Health check not ready:", exc)
           sys.exit(1)
@@ -80,6 +88,7 @@ jobs:
             fi
             if (( SECONDS >= deadline )); then
               echo "ADS-B full-grid data did not refresh within 100 seconds"
+              cat /tmp/probe.json || true
               cat /tmp/health.json || true
               exit 1
             fi
@@ -87,11 +96,11 @@ jobs:
           done
           for region in pacific southwest mountain central southeast northeast; do
             curl --fail --silent --show-error --retry 3 --retry-delay 2 "$BASE/$region.txt" -o "/tmp/$region.txt"
-            grep -q '^RefreshSeconds: 15 "/tmp/$region.txt"
+            grep -q '^RefreshSeconds: 15$' "/tmp/$region.txt"
             grep -q 'Helicopters rendered:' "/tmp/$region.txt"
             echo "$region.txt OK"
           done
- "/tmp/$region.txt"
-            grep -q 'Helicopters rendered:' "/tmp/$region.txt"
-            echo "$region.txt OK"
-          done
+          curl --fail --silent --show-error "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
+          grep -q '^RefreshSeconds: 15$' /tmp/flighttracker.txt
+          grep -q 'Business Jets' /tmp/flighttracker.txt
+          echo "flighttracker.txt OK"
