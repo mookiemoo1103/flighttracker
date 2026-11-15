@@ -1,6 +1,6 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=1"; // Shared grayscale aircraft sprite
+const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=2"; // Shared grayscale aircraft sprite
 const REGIONS = [
   [25, -124, 500],
   [25, -116, 500],
@@ -108,12 +108,12 @@ function classify(a) {
  const t=clean(a.t).toUpperCase(), desc=clean(a.desc).toUpperCase();
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
  if(a.mil||a.military||(flags&1)) return [1,"MILITARY",branch(a)];
- if(desc.includes("HELI")||t.startsWith("R")||t.startsWith("H")) return [3,"HELICOPTER",""];
+ if(desc.includes("HELI")||t.startsWith("R")||t.startsWith("H")) return [1,"HELICOPTER",""];
  if(desc.includes("CARGO")||desc.includes("FREIGHT")) return [1,"CARGO",airline(a)];
  const op=airline(a), flight=clean(a.flight);
  if(op&&(t.startsWith("A")||t.startsWith("B")||t.startsWith("E")||flight.length>=3)) return [1,"COMMERCIAL",op];
  if(["A3","A2","B7","B3","B4","B5","B6","B8"].some(x=>t.startsWith(x))) return [1,"COMMERCIAL",op];
- return [2,"PRIVATE / GENERAL AVIATION",""];
+ return [1,"PRIVATE / GENERAL AVIATION",""];
 }
 function altText(a) {
  const alt=a.alt_baro ?? a.alt_geom;
@@ -139,7 +139,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null) {
  const adsbfi = source === "adsb.fi";
  const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
- `IconFile: 1, 96, 32, 32, 32, "${ICON_URL}"`,`; Updated: ${stamp}`,
+ `IconFile: 1, 32, 32, 32, 32, "${ICON_URL}"`,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
  for(const [hx,item] of aircraft) {
