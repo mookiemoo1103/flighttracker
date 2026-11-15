@@ -78,7 +78,7 @@ function render(rows, usage) {
   const alt=altText(a), heading=Number(a.track??a.true_heading??0);
   const hdg=Number.isFinite(heading)?((heading%360)+360)%360:0;
   const orgline=org?"\\n"+org:"";
-  const hover=clean(`${kind}\nID: ${ident}${orgline}\nSpeed: ${speed}\nAltitude: ${alt}\nRegistration: ${clean(a.r)||"Unknown"}\nAircraft type: ${clean(a.t)||"Unknown"}\nICAO24: ${hx}`);
+  const hover=[kind,`ID: ${ident}`,...(org?[org]:[]),`Speed: ${speed}`,`Altitude: ${alt}`,`Registration: ${clean(a.r)||"Unknown"}`,`Aircraft type: ${clean(a.t)||"Unknown"}`,`ICAO24: ${hx}`].map(clean).join("\\n");
   lines.push(`Object: ${lat.toFixed(5)},${lon.toFixed(5)}`,"Threshold: 999",
    `Icon: 0,0,${Math.round(hdg)},1,${icon},"${hover}"`,
    `Text: 0,22,1,"${ident}"`,`Text: 0,34,1,"${speed} | ${alt}"`);
