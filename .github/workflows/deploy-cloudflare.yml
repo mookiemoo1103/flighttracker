@@ -38,15 +38,43 @@ jobs:
         run: |
           set -euo pipefail
           BASE="https://flighttracker.mitchellgeissler.workers.dev"
-          curl --fail --silent --show-error --retry 5 --retry-delay 2 "$BASE/health" -o /tmp/health.json
-          python - <<'PY'
-          import json
-          with open("/tmp/health.json", encoding="utf-8") as f:
-              health = json.load(f)
-          assert health.get("ok") is True, health
-          assert "adsbfi" in health.get("feeds", {}), health
-          print("Health endpoint OK:", health["feeds"]["adsbfi"])
+          deadline=$((SECONDS + 100))
+          while true; do
+            curl --fail --silent --show-error --retry 2 --retry-delay 1 "$BASE/adsbfi-health" -o /tmp/health.json || true
+            if python - <<'PY'
+          import json, time, sys
+          try:
+              with open("/tmp/health.json", encoding="utf-8") as f:
+                  health = json.load(f)
+              now = int(time.time() * 1000)
+              regions = health.get("regions", [])
+              ages = [int(row.get("age_seconds", 999999)) for row in regions]
+              fresh = (
+                  health.get("source") == "adsb.fi"
+                  and len(regions) == 38
+                  and int(health.get("last_success", 0)) > 0
+                  and now - int(health["last_success"]) < 120000
+                  and len(ages) == 38
+                  and max(ages, default=999999) <= 120
+              )
+              if fresh:
+                  print(f"Fresh ADS-B grid: {len(regions)}/38 regions; oldest region {max(ages)} seconds")
+                  sys.exit(0)
+              print(f"Waiting for fresh full grid: {len(regions)}/38 cached; oldest region {max(ages, default=-1)} seconds")
+          except Exception as exc:
+              print("Health check not ready:", exc)
+          sys.exit(1)
           PY
+            then
+              break
+            fi
+            if (( SECONDS >= deadline )); then
+              echo "ADS-B full-grid data did not refresh within 100 seconds"
+              cat /tmp/health.json || true
+              exit 1
+            fi
+            sleep 5
+          done
           for region in pacific southwest mountain central southeast northeast; do
             curl --fail --silent --show-error --retry 3 --retry-delay 2 "$BASE/$region.txt" -o "/tmp/$region.txt"
             grep -q '^Refresh: 1$' "/tmp/$region.txt"
