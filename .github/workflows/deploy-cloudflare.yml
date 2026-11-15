@@ -24,6 +24,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Validate Worker JavaScript
+        run: node --check cloudflare/worker.js
       - name: Apply D1 migrations
         run: npx wrangler@4 d1 migrations apply DB --remote
         env:
