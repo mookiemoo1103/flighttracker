@@ -418,11 +418,26 @@ export default {
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if(url.pathname!=="/flighttracker.txt"&&url.pathname!=="/") return new Response("Not found",{status:404});
-  const [{results:rows=[]},{results:states=[]}]=await Promise.all([
+  const [{results:adsbfiRows=[]},{results:flyitalyRows=[]},{results:states=[]}] = await Promise.all([
+   env.DB.prepare("SELECT region_id,payload,updated_at FROM adsbfi_region_data").all(),
    env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
-   env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('quota_used','quota_limit')").all()
+   env.DB.prepare("SELECT key,value FROM tracker_state").all()
   ]);
-  const usage=Object.fromEntries(states.map(x=>[x.key==="quota_used"?"used":"limit",x.value]));
-  return new Response(render(rows,usage),{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
+  let registryRows = [];
+  try {
+   const registryResult = await env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all();
+   registryRows = registryResult.results || [];
+  } catch (error) {
+   console.log("Aircraft registry unavailable; using live ADS-B type data:", String(error));
+  }
+  const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
+  const latest = rows => rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
+  const adsbLatest=latest(adsbfiRows), flyLatest=latest(flyitalyRows);
+  const body = render([...adsbfiRows,...flyitalyRows],{used:"multiple live feeds",limit:"source-specific limits"},"multi",null,registryRows)
+   .replace("; Updated:", "; adsb.fi latest data: "+(adsbLatest?new Date(adsbLatest).toISOString():"not yet")+
+    "\\n; FlyItalyADSB latest data: "+(flyLatest?new Date(flyLatest).toISOString():"not yet")+
+    "\\n; adsb.fi collector error: "+(stateMap.adsbfi_last_error||"none")+
+    "\\n; FlyItalyADSB collector error: "+(stateMap.flyitaly_last_error||"none")+"\\n; Updated:");
+  return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
  }
 };
