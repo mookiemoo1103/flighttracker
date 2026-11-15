@@ -90,7 +90,6 @@ const ADSBFI_REGIONS = [
  [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
 ];
 const ADSBFI_BATCH = 19;
-const ADSBFI_STALE_MS = 5 * 60 * 1000;
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
 const SNAPSHOT_TTL = 15 * 60 * 1000;
@@ -227,8 +226,8 @@ export default {
     env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all()
    ]);
    const lastSuccess = Number(Object.fromEntries(states.map(x=>[x.key,x.value])).adsbfi_last_success || 0);
-   const usage = {used:"public API",limit:"1 request/second"};
-   const body = render(rows,usage,"adsb.fi").replace("; Updated:", `; Last successful collection: ${lastSuccess ? new Date(lastSuccess).toISOString() : "not yet"}\\n; Updated:`);
+   const usage = {used:"adsb.fi public",limit:"1 request/second"};
+   const body = render(rows,usage,"adsb.fi").replace("; Updated:", `; Last successful collection: ${lastSuccess ? new Date(lastSuccess).toISOString() : "not yet"}\n; Updated:`);
    return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=1"}});
   }
   if(url.pathname!=="/flighttracker.txt"&&url.pathname!=="/") return new Response("Not found",{status:404});
