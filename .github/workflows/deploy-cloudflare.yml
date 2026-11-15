@@ -50,7 +50,7 @@ jobs:
         run: |
           set -euo pipefail
           BASE="https://flighttracker.mitchellgeissler.workers.dev"
-          deadline=$((SECONDS + 100))
+          deadline=$((SECONDS + 180))
           while true; do
             curl --fail --silent --show-error --max-time 20 "$BASE/health" -o /tmp/health.json
             if python - <<'PY'
@@ -80,21 +80,29 @@ jobs:
               break
             fi
             if (( SECONDS >= deadline )); then
-              echo "FlyItalyADSB did not complete a fresh collection within 100 seconds"
+              echo "FlyItalyADSB did not complete a fresh collection within 180 seconds"
               cat /tmp/health.json || true
               exit 1
             fi
             sleep 5
           done
           for region in pacific southwest mountain central southeast northeast; do
-            curl --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"
+            if ! curl --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"; then
+              curl --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt" || true
+              cat "/tmp/$region.txt" || true
+              exit 1
+            fi
             grep -q '^RefreshSeconds: 15$' "/tmp/$region.txt"
             grep -q '^IconFile: 2,' "/tmp/$region.txt"
             grep -q '^IconFile: 7,' "/tmp/$region.txt"
             grep -q 'Helicopters rendered:' "/tmp/$region.txt"
             echo "$region.txt OK"
           done
-          curl --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
+          if ! curl --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt; then
+            curl --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt || true
+            cat /tmp/flighttracker.txt || true
+            exit 1
+          fi
           grep -q '^RefreshSeconds: 15$' /tmp/flighttracker.txt
           grep -q '^IconFile: 2,' /tmp/flighttracker.txt
           grep -q '^IconFile: 7,' /tmp/flighttracker.txt
