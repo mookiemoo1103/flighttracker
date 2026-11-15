@@ -89,7 +89,7 @@ const ADSBFI_REGIONS = [
  [41,-116.5],[41,-109.5],[41,-102.5],[41,-95.5],[41,-88.5],[41,-81.5],[41,-74.5],
  [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
 ];
-const ADSBFI_BATCH = 6; // Six regions per minute; full lower-48 sweep about every 7 minutes
+const ADSBFI_BATCH = ADSBFI_REGIONS.length; // Full lower-48 sweep every scheduled minute (38 calls, spaced 1.1s apart)
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
@@ -326,7 +326,7 @@ export default {
    const latest=rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
    return Response.json({
     ok:true,source:"adsb.fi",generated_at:new Date().toISOString(),
-    regions_total:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,approximate_full_sweep_minutes:Math.ceil(ADSBFI_REGIONS.length/ADSBFI_BATCH),
+    regions_total:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,approximate_full_sweep_minutes:1,
     last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",last_error_at:stateMap.adsbfi_last_error_at||"0",
     latest_region_update:latest,regions:rows.map(row=>({region_id:row.region_id,updated_at:row.updated_at,age_seconds:Math.max(0,Math.round((Date.now()-Number(row.updated_at))/1000))}))
    });
