@@ -45,43 +45,33 @@ jobs:
           FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
-      - name: Smoke-test provider, freshness, and all placefiles
+      - name: Smoke-test live collection and all placefiles
         shell: bash
         run: |
           set -euo pipefail
           BASE="https://flighttracker.mitchellgeissler.workers.dev"
-          echo "ADS-B provider connectivity probe:"
-          curl --silent --show-error --max-time 20 "$BASE/adsbfi-probe" | tee /tmp/probe.json || true
-          echo
-          echo "ADSB.lol provider connectivity probe:"
-          curl --silent --show-error --max-time 20 "$BASE/adsblol-probe" | tee /tmp/adsblol-probe.json || true
-          echo
-          echo "Current combined feed health:"
-          curl --silent --show-error --max-time 20 "$BASE/health" | tee /tmp/health-before.json || true
-          echo
           deadline=$((SECONDS + 100))
           while true; do
-            curl --silent --show-error --max-time 20 "$BASE/adsbfi-health" -o /tmp/health.json || true
+            curl --fail --silent --show-error --max-time 20 "$BASE/health" -o /tmp/health.json
             if python - <<'PY'
           import json, time, sys
           try:
               with open("/tmp/health.json", encoding="utf-8") as f:
                   health = json.load(f)
+              feed = health["feeds"]["flyitaly"]
               now = int(time.time() * 1000)
-              regions = health.get("regions", [])
+              last_success = int(feed.get("last_success", 0))
+              age = (now - last_success) // 1000 if last_success else 999999
+              regions = feed.get("regions", [])
+              plan = str(health.get("quota", {}).get("plan", "unknown")).lower()
               ages = [int(row.get("age_seconds", 999999)) for row in regions]
-              fresh = (
-                  health.get("source") == "adsb.fi"
-                  and len(regions) == 38
-                  and int(health.get("last_success", 0)) > 0
-                  and now - int(health["last_success"]) < 120000
-                  and len(ages) == 38
-                  and max(ages, default=999999) <= 120
-              )
+              fresh = age <= 120 and int(feed.get("last_batch_count", 0)) > 0
+              if plan in ("starter", "pro", "fleet"):
+                  fresh = fresh and len(regions) == 49 and max(ages, default=999999) <= 120
               if fresh:
-                  print(f"Fresh ADS-B grid: {len(regions)}/38 regions; oldest region {max(ages)} seconds")
+                  print(f"Live feed OK: plan={plan}; last collection={age}s ago; {feed.get('last_batch_count')} regions collected; estimated full sweep={feed.get('full_sweep_minutes')} minute(s)")
                   sys.exit(0)
-              print(f"Waiting for fresh grid: {len(regions)}/38 cached; oldest region {max(ages, default=-1)} seconds; failed this cycle: {health.get('regions_failed')}; error: {health.get('last_error')}")
+              print(f"Waiting for live collection: plan={plan}; last success={age}s ago; batch={feed.get('last_batch_count')}; regions={len(regions)}/49; failures={feed.get('regions_failed')}; error={feed.get('last_error')}")
           except Exception as exc:
               print("Health check not ready:", exc)
           sys.exit(1)
@@ -90,20 +80,22 @@ jobs:
               break
             fi
             if (( SECONDS >= deadline )); then
-              echo "ADS-B full-grid data did not refresh within 100 seconds"
-              cat /tmp/probe.json || true
+              echo "FlyItalyADSB did not complete a fresh collection within 100 seconds"
               cat /tmp/health.json || true
               exit 1
             fi
             sleep 5
           done
           for region in pacific southwest mountain central southeast northeast; do
-            curl --fail --silent --show-error --retry 3 --retry-delay 2 "$BASE/$region.txt" -o "/tmp/$region.txt"
+            curl --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"
             grep -q '^RefreshSeconds: 15$' "/tmp/$region.txt"
+            grep -q '^IconFile: 2,' "/tmp/$region.txt"
+            grep -q '^IconFile: 7,' "/tmp/$region.txt"
             grep -q 'Helicopters rendered:' "/tmp/$region.txt"
             echo "$region.txt OK"
           done
-          curl --fail --silent --show-error "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
+          curl --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
           grep -q '^RefreshSeconds: 15$' /tmp/flighttracker.txt
+          grep -q '^IconFile: 2,' /tmp/flighttracker.txt
           grep -q '^IconFile: 7,' /tmp/flighttracker.txt
           echo "flighttracker.txt OK"
