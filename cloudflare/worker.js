@@ -217,31 +217,44 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  return lines.join("\n")+"\n";
 }
 async function collectAdsbfi(env) {
- const state = await env.DB.prepare("SELECT value FROM tracker_state WHERE key='adsbfi_next_region'").first();
- const start = Number(state?.value || 0) % ADSBFI_REGIONS.length;
  const stmts = [];
+ const failures = [];
  let success = 0;
- for (let i = 0; i < ADSBFI_BATCH; i++) {
-  const idx = (start + i) % ADSBFI_REGIONS.length;
+ for (let idx = 0; idx < ADSBFI_REGIONS.length; idx++) {
   const [lat, lon] = ADSBFI_REGIONS[idx];
-  if (i > 0) await sleep(1100);
-  const res = await fetch(`${ADSBFI_API}/${lat}/lon/${lon}/dist/250`, {
-   headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/adsbfi-test" },
-   signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
-  });
-  if (!res.ok) throw new Error(`adsb.fi HTTP ${res.status} for region ${idx}`);
-  const data = await res.json();
-  if (!Array.isArray(data.ac)) throw new Error(`adsb.fi response missing aircraft array for region ${idx}`);
-  stmts.push(env.DB.prepare("INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
-   .bind(idx, JSON.stringify(data.ac), Date.now()));
-  success++;
+  if (idx > 0) await sleep(1050); // stay within the public feed's 1 request/second guidance
+  try {
+   const res = await fetch(`${ADSBFI_API}/${lat}/lon/${lon}/dist/250`, {
+    headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/adsbfi-live" },
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
+   });
+   if (!res.ok) throw new Error(`adsb.fi HTTP ${res.status}`);
+   const data = await res.json();
+   if (!Array.isArray(data.ac)) throw new Error("response missing aircraft array");
+   stmts.push(env.DB.prepare("INSERT INTO adsbfi_region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
+    .bind(idx, JSON.stringify(data.ac), Date.now()));
+   success++;
+  } catch (error) {
+   const message = `region ${idx} (${lat},${lon}): ${String(error).slice(0,300)}`;
+   failures.push(message);
+   console.error("adsb.fi region failed:", message);
+  }
  }
- const next = (start + success) % ADSBFI_REGIONS.length;
  const now = Date.now();
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_success',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(now)));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
- await env.DB.batch(stmts);
+ const state = [
+  ["adsbfi_last_attempt", String(now)],
+  ["adsbfi_last_batch_count", String(success)],
+  ["adsbfi_regions_failed", String(failures.length)],
+  ["adsbfi_last_error", failures.join(" | ").slice(0,1500)],
+  ["adsbfi_last_source", "cloudflare-worker-full-grid"]
+ ];
+ if (success > 0) state.push(["adsbfi_last_success", String(now)]);
+ for (const [key,value] of state) {
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,value));
+ }
+ if (stmts.length) await env.DB.batch(stmts);
+ console.log(`adsb.fi full-grid sweep: ${success}/${ADSBFI_REGIONS.length} regions refreshed; ${failures.length} failed`);
+ if (success === 0) throw new Error("adsb.fi full-grid sweep failed for every region: " + failures.join(" | "));
 }
 async function writeState(env, entries) {
  const statements=entries.map(([key,value])=>env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(key,String(value)));
@@ -326,7 +339,7 @@ export default {
    const latest=rows.reduce((max,row)=>Math.max(max,Number(row.updated_at)||0),0);
    return Response.json({
     ok:true,source:"adsb.fi",generated_at:new Date().toISOString(),
-    regions_total:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,approximate_full_sweep_minutes:1,
+    regions_total:ADSBFI_REGIONS.length,regions_per_minute:ADSBFI_BATCH,approximate_full_sweep_minutes:1,regions_failed:Number(stateMap.adsbfi_regions_failed||0),
     last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",last_error_at:stateMap.adsbfi_last_error_at||"0",
     latest_region_update:latest,regions:rows.map(row=>({region_id:row.region_id,updated_at:row.updated_at,age_seconds:Math.max(0,Math.round((Date.now()-Number(row.updated_at))/1000))}))
    });
