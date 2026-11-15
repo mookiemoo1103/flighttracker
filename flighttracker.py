@@ -149,6 +149,7 @@ def alt_text(a):
     except (TypeError, ValueError): return "ALT N/A"
 
 def render(aircraft, stamp, usage):
+    helicopter_count = 0
     lines = ["; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
       "Title: US FLIGHT TRACKER - FLYITALYADSB", "Refresh: 1",
       "Color: 235 235 235", 'Font: 1, 10, 1, "Arial"',
@@ -162,6 +163,8 @@ def render(aircraft, stamp, usage):
       try:
         lat, lon = float(a["lat"]), float(a["lon"])
         icon, kind, org = classify(a)
+        if kind == "HELICOPTER":
+            helicopter_count += 1
         ident = clean(a.get("flight")).strip() or clean(a.get("r")) or hx
         try: speed = f"{float(a.get('gs')):.0f} KT"
         except (TypeError, ValueError): speed = "SPEED N/A"
@@ -173,11 +176,12 @@ def render(aircraft, stamp, usage):
                  f"\\nRegistration: {clean(a.get('r')) or 'Unknown'}"
                  f"\\nAircraft type: {clean(a.get('t')) or 'Unknown'}\\nICAO24: {hx}")
         lines += [f"Object: {lat:.5f},{lon:.5f}", "Threshold: 999",
-          f'Icon: 0,0,{heading:.0f},1,{2 if kind == "HELICOPTER" else 1},"{hover}"',
+          f'Icon: 0,0,{heading:.0f},{2 if kind == "HELICOPTER" else 1},1,"{hover}"',
           f'Text: 0,22,1,"{ident}"', f'Text: 0,34,1,"{speed} | {altitude}"']
         if org: lines.append(f'Text: 0,46,1,"{clean(org)}"')
         lines.append("End:")
       except (KeyError, TypeError, ValueError): continue
+    lines.append(f"; Helicopters rendered: {helicopter_count}")
     return "\n".join(lines) + "\n"
 
 def main():
