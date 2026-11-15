@@ -52,9 +52,9 @@ jobs:
           BASE="https://flighttracker.mitchellgeissler.workers.dev"
           deadline=$((SECONDS + 300))
           while true; do
-            curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/health" -o /tmp/health.json
-            curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/adsblol-health" -o /tmp/adsblol-health.json
-          curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/registry-health" -o /tmp/registry-health.json
+            curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/health" -o /tmp/health.json
+            curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/adsblol-health" -o /tmp/adsblol-health.json
+          curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/registry-health" -o /tmp/registry-health.json
             if python - <<'PY'
           import json, time, sys
           try:
@@ -90,7 +90,7 @@ jobs:
             fi
             sleep 5
           done
-          curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/adsblol-health" -o /tmp/adsblol-health.json
+          curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/adsblol-health" -o /tmp/adsblol-health.json
           python - <<'PY'
           import json, time
           with open("/tmp/adsblol-health.json", encoding="utf-8") as f:
@@ -99,12 +99,12 @@ jobs:
           assert h.get("ok") and h.get("last_batch_count",0)>0 and age<=300, h
           print(f"ADSB.lol live: {h.get('regions_cached')} regions cached; {h.get('last_batch_count')}/10 areas last batch; {age}s old")
           PY
-          curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/adsblol-test.txt" -o /tmp/adsblol-test.txt
-          curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/flyitaly-test.txt" -o /tmp/flyitaly-test.txt
+          curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/adsblol-test.txt" -o /tmp/adsblol-test.txt
+          curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/flyitaly-test.txt" -o /tmp/flyitaly-test.txt
           grep -q '^; Flight data: ADSB.lol' /tmp/adsblol-test.txt
           grep -q '^; Flight data: FlyItalyADSB' /tmp/flyitaly-test.txt
           for region in pacific southwest mountain central southeast northeast; do
-            curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"
+            curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"
             grep -q '^Refresh: 1$' "/tmp/$region.txt"
             grep -q '^IconFile: 7,' "/tmp/$region.txt"
             grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png' "/tmp/$region.txt"
@@ -120,7 +120,7 @@ jobs:
             grep -q '^Title:' "/tmp/$region.txt"
             echo "$region.txt OK"
           done
-          curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
+          curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
           grep -q '^Refresh: 1$' /tmp/flighttracker.txt
           grep -q '^IconFile: 7,' /tmp/flighttracker.txt
           grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png' /tmp/flighttracker.txt
