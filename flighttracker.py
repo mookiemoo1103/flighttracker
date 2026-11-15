@@ -153,7 +153,7 @@ def render(aircraft, stamp, usage):
       "Title: US FLIGHT TRACKER - FLYITALYADSB", "Refresh: 1",
       "Color: 235 235 235", 'Font: 1, 10, 1, "Arial"',
       f'IconFile: 1, 32, 32, 16, 16, "{ICON_URL}"',
-      f'IconFile: 2, 96, 96, 96, 96, "{HELICOPTER_ICON_URL}"',
+      f'IconFile: 2, 96, 96, 48, 48, "{HELICOPTER_ICON_URL}"',
       "; Updated: " + stamp.strftime("%Y-%m-%d %H:%M:%S UTC"),
       f"; Active aircraft cached across full U.S. coverage grid: {len(aircraft)}",
       f"; API quota used this month: {usage.get('used','unknown')} / {usage.get('limit','unknown')}"]
