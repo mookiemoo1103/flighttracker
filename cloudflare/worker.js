@@ -107,18 +107,39 @@ function branch(a) {
 function classify(a, registry = {}) {
  const t=clean(registry.icao_type_code||a.t).toUpperCase();
  const desc=[a.desc,registry.type,registry.manufacturer].map(clean).join(" ").toUpperCase();
+ const operator=[a.ownOp,a.operator,registry.registered_owner].map(clean).filter(Boolean).join(" ").toUpperCase();
+ const flight=clean(a.flight).toUpperCase();
+ const prefix=(flight.match(/[A-Z]/g)||[]).join("").slice(0,3);
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
- // Rotorcraft classification uses live aircraft description/type and the ICAO-hex
- // registration database's manufacturer, model and ICAO type code.
  const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
  const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
  if(rotorWords.test(desc)||rotorCodes.test(t)) return [2,"HELICOPTER",""];
- if(a.mil||a.military||(flags&1)) return [1,"MILITARY",branch(a)];
- if(desc.includes("CARGO")||desc.includes("FREIGHT")) return [1,"CARGO",airline(a)];
- const op=airline(a), flight=clean(a.flight);
- if(op&&(t.startsWith("A")||t.startsWith("B")||t.startsWith("E")||flight.length>=3)) return [1,"COMMERCIAL",op];
- if(["A3","A2","B7","B3","B4","B5","B6","B8"].some(x=>t.startsWith(x))) return [1,"COMMERCIAL",op];
- return [1,"PRIVATE / GENERAL AVIATION",""];
+
+ const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
+ const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
+ if(a.mil||a.military||(flags&1)) return [1,"MILITARY OR GOVERNMENT",branch(a)];
+ if(government.test(identity)) return [1,"MILITARY OR GOVERNMENT",operator||"GOVERNMENT"];
+
+ const cargoPrefixes=new Set(["FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX","RPA"]);
+ const cargoWords=/\b(CARGO|FREIGHT|AIR CARGO|LOGISTICS|PARCEL|EXPRESS)\b/;
+ if(cargoPrefixes.has(prefix)||cargoWords.test(identity)) return [1,"COMMERCIAL",airline(a)||operator||"CARGO"];
+
+ // Airline callsigns and known airline operators identify scheduled passenger
+ // service. Aircraft size/type alone is deliberately not used to infer this.
+ const passengerAirlinePrefixes=new Set([
+  "AAL","UAL","DAL","SWA","JBU","ASA","FFT","NKS","SKW","RPA","ENY","PDT","AAY",
+  "KAL","BAW","AFR","DLH","ACA","WJA","AMX","JAL","ANA","QTR","UAE","EVA","THY",
+  "SIA","IBE","AUA","KLM","VIR","FLE","ROU","POE","AIC","ANZ","QFA","CCA","CSN",
+  "CES","SAS","FIN","LOT","TAP","EZY","RYR","WZZ","ETD","ETI","SAA","ETH","QTR"
+ ]);
+ const knownAirline=Object.values(AIRLINES).some(name=>operator.includes(name.toUpperCase()));
+ if(passengerAirlinePrefixes.has(prefix)||knownAirline) return [1,"PASSENGER",airline(a)||operator];
+
+ // Explicit commercial charter, air-taxi and commuter operators are commercial.
+ // Corporate/private aircraft remain General Aviation unless positively identified.
+ const commercialWords=/\b(CHARTER|AIR TAXI|AEROMEDICAL|AIR AMBULANCE|COMMUTER AIR|AIR TRANSPORT|AIR SERVICES|FLIGHT SERVICES)\b/;
+ if(commercialWords.test(identity)) return [1,"COMMERCIAL",operator||"COMMERCIAL OPERATOR"];
+ return [1,"GENERAL AVIATION",""];
 }
 function altText(a) {
  const alt=a.alt_baro ?? a.alt_geom;
