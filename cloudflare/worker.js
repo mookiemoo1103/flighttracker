@@ -190,6 +190,15 @@ async function collectAdsbfi(env) {
  }
  const next = (start + success) % ADSBFI_REGIONS.length;
  const now = Date.now();
+ const touched = new Set();
+ for (let i = 0; i < success; i++) {
+  const [lat, lon] = ADSBFI_REGIONS[(start + i) % ADSBFI_REGIONS.length];
+  const name = lon < -116 ? "pacific" : lon < -102 ? (lat < 37 ? "southwest" : "mountain") : lon < -90 ? "central" : (lat < 37 ? "southeast" : "northeast");
+  touched.add(name);
+ }
+ for (const name of touched) {
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(`adsbfi_last_success_${name}`,String(now)));
+ }
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_success',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(now)));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('adsbfi_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
@@ -220,7 +229,12 @@ async function collect(env) {
  await env.DB.batch(stmts);
 }
 export default {
- async scheduled(controller,env,ctx) { ctx.waitUntil(collect(env)); },
+ async scheduled(controller,env,ctx) {
+  ctx.waitUntil(Promise.allSettled([
+   collect(env).catch(error => console.error("FlyItalyADSB collection failed:", error)),
+   collectAdsbfi(env).catch(error => console.error("adsb.fi collection failed:", error))
+  ]));
+ },
  async fetch(request,env) {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
