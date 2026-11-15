@@ -105,16 +105,17 @@ function branch(a) {
  return "MILITARY (BRANCH UNKNOWN)";
 }
 function classify(a, registry = {}) {
- const t=clean(registry.icao_type_code||a.t).toUpperCase();
- const desc=[a.desc,registry.type,registry.manufacturer].map(clean).join(" ").toUpperCase();
+ const typeFields=[a.t,a.type,a.icao_type,registry.icao_type_code,registry.type].map(clean).filter(Boolean);
+ const t=typeFields.join(" ").toUpperCase();
+ const desc=[a.desc,a.typeDesc,a.category_desc,a.category_description,registry.type,registry.manufacturer].map(clean).filter(Boolean).join(" ").toUpperCase();
  const operator=[a.ownOp,a.operator,registry.registered_owner].map(clean).filter(Boolean).join(" ").toUpperCase();
  const flight=clean(a.flight).toUpperCase();
  const prefix=(flight.match(/[A-Z]/g)||[]).join("").slice(0,3);
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
- const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
- const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|H500|H269|H34[0-9A-Z]*|H46[0-9A-Z]*|H47[0-9A-Z]*|H53[0-9A-Z]*|H60[0-9A-Z]*|H64[0-9A-Z]*|S55|S58|S61|S64|S70[0-9A-Z]*|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
- const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory).toUpperCase();
- if(rotorWords.test(desc)||rotorCodes.test(t)||emitterCategory==="A7") return [2,"Helicopter",""];
+ const rotorWords=/\b(HELI(?:COPTER)?|ROTORCRAFT|ROTOR[- ]?WING|GYROCOPTER|AUTOGYRO|BELL\s*(?:206|407|412|429|505)|ROBINSON\s*R?(?:22|44|66)|EUROCOPTER|AIRBUS\s*HELI|SIKORSKY|AGUSTA(?:WESTLAND)?|LEONARDO\s*HELI|MD\s*HELI|ENSTROM|KAMOV|MIL\s*MI[- ]?\d|HUGHES\s*(?:500|369)|BOEING\s*CH[- ]?47|BLACK\s*HAWK)\b/i;
+ const rotorCodes=/(^|\b)(R22|R44|R66|B06T?|B206|B407|B412|B429|B505|EC(20|30|35|45|55|75|120|130|135|145|155|175|225)|AS(32|35|50|55|65|33|36)|H125|H130|H135|H145|H160|H175|H215|H225|H500|H269|H34[0-9A-Z]*|H46[0-9A-Z]*|H47[0-9A-Z]*|H53[0-9A-Z]*|H60[0-9A-Z]*|H64[0-9A-Z]*|S55|S58|S61|S64|S70[0-9A-Z]*|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+|BK117|BO105|B105|MBB|K32|KA32)(?=$|\b)/;
+ const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory||a.emitter_category_type).toUpperCase();
+ if(rotorWords.test(desc)||rotorWords.test(operator)||rotorCodes.test(t)||emitterCategory==="A7"||emitterCategory==="A8") return [2,"Helicopter",""];
 
  const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
  const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
