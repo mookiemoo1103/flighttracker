@@ -54,6 +54,7 @@ jobs:
           while true; do
             curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/health" -o /tmp/health.json
             curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/adsblol-health" -o /tmp/adsblol-health.json
+          curl --retry 4 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$BASE/registry-health" -o /tmp/registry-health.json
             if python - <<'PY'
           import json, time, sys
           try:
