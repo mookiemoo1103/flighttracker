@@ -81,21 +81,78 @@ def branch(a):
     return "MILITARY (BRANCH UNKNOWN)"
 
 def classify(a):
-    t, desc = clean(a.get("t")).upper(), clean(a.get("desc")).upper()
+    type_fields = [clean(a.get(k)).upper() for k in
+        ("t","type","icao_type","typeCode","typeName","model","model_name") if clean(a.get(k))]
+    type_tokens = set()
+    for value in type_fields:
+        type_tokens.update(x for x in __import__("re").split(r"[^A-Z0-9]+", value) if x)
+    desc = " ".join(clean(a.get(k)) for k in
+        ("desc","typeDesc","category_desc","category_description","aircraft_desc",
+         "description","manufacturer","model","model_name")).upper()
+    identity = " ".join([desc, " ".join(type_fields),
+        clean(a.get("ownOp")), clean(a.get("operator")),
+        clean(a.get("flight")), clean(a.get("r"))]).upper()
     try:
         db_flags = int(str(a.get("dbFlags") or "0"), 0)
     except (TypeError, ValueError):
         db_flags = 0
     if a.get("mil") or a.get("military") or db_flags & 1:
         return 5, "MILITARY", branch(a)
-    if "HELI" in desc or t.startswith(("R","H")): return 3, "HELICOPTER", ""
-    if any(x in desc for x in ("CARGO","FREIGHT")): return 4, "CARGO", airline(a)
-    op = airline(a)
-    if op and (t.startswith(("A","B","E")) or len(clean(a.get("flight")).strip()) >= 3):
-        return 1, "COMMERCIAL", op
-    if t.startswith(("A3","A2","B7","B3","B4","B5","B6","B8")):
-        return 1, "COMMERCIAL", op
-    return 2, "PRIVATE / GENERAL AVIATION", ""
+    if any(word in identity for word in
+        ("UNITED STATES AIR FORCE","USAF","U.S. AIR FORCE","UNITED STATES NAVY",
+         "US NAVY","UNITED STATES ARMY","US ARMY","UNITED STATES MARINE",
+         "USMC","UNITED STATES COAST GUARD","USCG","UNITED STATES SPACE FORCE",
+         "USSF","MILITARY")):
+        return 5, "MILITARY", branch(a)
+
+    rotor_words = ("HELICOPTER","ROTORCRAFT","ROTOR-WING","ROTOR WING",
+        "GYROCOPTER","AUTOGYRO","EUROCOPTER","AIRBUS HELI","SIKORSKY",
+        "AGUSTA","LEONARDO HELI","MD HELI","ENSTROM","KAMOV","HUGHES 500",
+        "BLACK HAWK","BELL 206","BELL 407","BELL 412","BELL 429","ROBINSON")
+    rotor_codes = {"R22","R44","R66","B06","B06T","B206","B407","B412","B429","B505",
+        "EC20","EC30","EC35","EC45","EC55","EC75","EC120","EC130","EC135","EC145",
+        "EC155","EC175","EC225","AS32","AS33","AS35","AS50","AS55","AS65","H125",
+        "H130","H135","H145","H160","H175","H215","H225","H269","H500","S55","S58",
+        "S61","S64","S70","S76","S92","A109","A119","A139","A169","A189","BK117",
+        "BO105","B105","K32","KA32","UH60","HH60","CH47","AH64","MH60"}
+    category = clean(a.get("category") or a.get("emitter_category") or
+                     a.get("emitterCategory") or a.get("aircraft_category")).upper()
+    if any(word in identity for word in rotor_words) or type_tokens.intersection(rotor_codes) or category in ("A7","ROTORCRAFT","HELICOPTER","GYROCOPTER"):
+        return 2, "HELICOPTER", ""
+
+    flight = clean(a.get("flight")).upper()
+    prefix = "".join(ch for ch in flight if ch.isalpha())[:3]
+    op = clean(a.get("ownOp") or a.get("operator")).upper()
+    cargo_prefixes = {"FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX"}
+    if prefix in cargo_prefixes or any(w in identity for w in ("CARGO","FREIGHT","AIR CARGO","PARCEL","EXPRESS LOGISTICS")):
+        return 4, "CARGO / COMMERCIAL", airline(a) or op or "CARGO"
+
+    passenger_prefixes = {"AAL","UAL","DAL","SWA","JBU","ASA","FFT","NKS","SKW","RPA",
+        "ENY","PDT","AAY","KAL","BAW","AFR","DLH","ACA","WJA","AMX","JAL","ANA",
+        "QTR","UAE","EVA","THY","SIA","IBE","AUA","KLM","VIR","FLE","ROU","POE",
+        "AIC","ANZ","QFA","CCA","CSN","CES","SAS","FIN","LOT","TAP","EZY","RYR","WZZ",
+        "ETD","SAA","ETH"}
+    if prefix in passenger_prefixes or any(name.upper() in op for name in AIRLINES.values()):
+        return 3, "PASSENGER", airline(a) or op
+
+    business_jet_codes = {"C25A","C25B","C25C","C510","C525","C526","C550","C551",
+        "C552","C560","C56X","C650","C680","C68A","C700","C750","CL30","CL35","CL60",
+        "GLF2","GLF3","GLF4","GLF5","GLF6","GLF7","G150","G200","G280","FA50","FA7X",
+        "FA8X","E35L","E50P","E55P","E545","E550","LJ23","LJ24","LJ25","LJ28","LJ31",
+        "LJ35","LJ40","LJ45","LJ55","LJ60","LJ70","LJ75","GALX","ASTR","H25B","H25C",
+        "H25D","HA4T","F2TH","F900","F2000","F7X","F8X","F10X","PRM1","HDJT"}
+    business_words = ("BUSINESS JET","CORPORATE JET","EXECUTIVE JET","CITATION",
+        "LEARJET","CHALLENGER","GLOBAL EXPRESS","GULFSTREAM","FALCON 7X","FALCON 8X",
+        "PHENOM","LEGACY 600","LEGACY 650","PRAETOR","HONDAJET","HAWKER","WESTWIND",
+        "ASTRA","G280","G200","BEECHJET")
+    if type_tokens.intersection(business_jet_codes) or any(w in identity for w in business_words):
+        return 7, "BUSINESS JET", ""
+
+    commercial_words = ("CHARTER","AIR TAXI","AEROMEDICAL","AIR AMBULANCE",
+        "COMMUTER AIR","AIR TRANSPORT","AIR SERVICES","FLIGHT SERVICES")
+    if any(w in identity for w in commercial_words):
+        return 4, "COMMERCIAL", op or "COMMERCIAL OPERATOR"
+    return 6, "GENERAL AVIATION", ""
 
 def alt_text(a):
     alt = a.get("alt_baro", a.get("alt_geom"))
@@ -107,10 +164,16 @@ def render(aircraft, stamp, usage):
     lines = ["; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
       "Title: US FLIGHT TRACKER - FLYITALYADSB", "Refresh: 1",
       "Color: 235 235 235", 'Font: 1, 10, 1, "Arial"',
-      f'IconFile: 1, 32, 32, 16, 16, "{ICON_URL}"',
+      'IconFile: 1, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"',
+      'IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-map-icon-96.png?v=1"',
+      'IconFile: 3, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/passenger-light-red.png?v=1"',
+      'IconFile: 4, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/commercial-yellow.png?v=3"',
+      'IconFile: 5, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/military-green.png?v=3"',
+      'IconFile: 6, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/general-aviation-blue.png?v=2"',
+      'IconFile: 7, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/business-jet-purple.png?v=2"',
       "; Updated: " + stamp.strftime("%Y-%m-%d %H:%M:%S UTC"),
       f"; Active aircraft cached across full U.S. coverage grid: {len(aircraft)}",
-      f"; API quota used this month: {usage.get('used','unknown')} / {usage.get('limit','unknown')}"]
+      f"; API quota used this month: {usage.get('used','unknown')} / {usage.get('limit','unknown')} / Business jets and helicopters use dedicated icon files"]
     for hx, item in aircraft.items():
       a = item.get("data", {})
       try:
@@ -127,7 +190,7 @@ def render(aircraft, stamp, usage):
                  f"\\nRegistration: {clean(a.get('r')) or 'Unknown'}"
                  f"\\nAircraft type: {clean(a.get('t')) or 'Unknown'}\\nICAO24: {hx}")
         lines += [f"Object: {lat:.5f},{lon:.5f}", "Threshold: 999",
-          f'Icon: 0,0,{heading:.0f},1,{icon},"{hover}"',
+          f'Icon: 0,0,{heading:.0f},{icon},1,"{hover}"',
           f'Text: 0,22,1,"{ident}"', f'Text: 0,34,1,"{speed} | {altitude}"']
         if org: lines.append(f'Text: 0,46,1,"{clean(org)}"')
         lines.append("End:")
