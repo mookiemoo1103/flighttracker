@@ -162,7 +162,7 @@ def alt_text(a):
 
 def render(aircraft, stamp, usage):
     lines = ["; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
-      "Title: US FLIGHT TRACKER - FLYITALYADSB", "Refresh: 1",
+      "Title: US FLIGHT TRACKER - FLYITALYADSB", "RefreshSeconds: 15",
       "Color: 235 235 235", 'Font: 1, 10, 1, "Arial"',
       'IconFile: 1, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"',
       'IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-map-icon-96.png?v=1"',
