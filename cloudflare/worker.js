@@ -1,9 +1,11 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ICON_COMMERCIAL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/airplane-commercial-yellow.png?v=1";
-const ICON_PRIVATE = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/airplane-private-blue.png?v=1";
-const ICON_MILITARY = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/airplane-military-gray.png?v=1";
 const ICON_HELICOPTER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=2";
+const ICON_PASSENGER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/passenger-light-red.png?v=1";
+const ICON_COMMERCIAL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/commercial-yellow.png?v=3";
+const ICON_BUSINESS = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/business-jet-purple.png?v=2";
+const ICON_GENERAL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/general-aviation-blue.png?v=2";
+const ICON_MILITARY = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/military-green.png?v=3";
 const REGIONS = [
   [25, -124, 500],
   [25, -116, 500],
@@ -82,7 +84,7 @@ const MILITARY_BRANCHES = [
  [["UNITED STATES COAST GUARD","USCG","COAST GUARD"],"U.S. COAST GUARD"],
  [["UNITED STATES SPACE FORCE","USSF","SPACE FORCE"],"U.S. SPACE FORCE"]
 ];
-const BATCH = 6;
+const BATCH = 27;
 // Separate lower-48 test grid for adsb.fi. 38 overlapping 250-NM circles.
 // 19 calls per scheduled minute, with one-second spacing: ~2-minute sweep.
 const ADSBFI_REGIONS = [
@@ -110,20 +112,47 @@ function branch(a) {
 function classify(a, registry = {}) {
  const t=clean(registry.icao_type_code||a.t).toUpperCase();
  const desc=[a.desc,registry.type,registry.manufacturer].map(clean).join(" ").toUpperCase();
- let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
- // Military status takes priority: all military aircraft remain gray.
- if(a.mil||a.military||(flags&1)||/\bMILITARY\b|UNITED STATES (AIR FORCE|NAVY|ARMY|MARINE|COAST GUARD|SPACE FORCE)|\bUSAF\b|\bUSN\b|\bUSMC\b|\bUSCG\b/.test([a.ownOp,a.operator,a.desc,a.flight,a.r,registry.registered_owner].map(clean).join(" ").toUpperCase())) return [3,"MILITARY",branch(a)];
- const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
- const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
- if(rotorWords.test(desc)||rotorCodes.test(t)) return [4,"HELICOPTER",""];
+ const operator=[a.ownOp,a.operator,registry.registered_owner].map(clean).filter(Boolean).join(" ").toUpperCase();
  const flight=clean(a.flight).toUpperCase();
- const prefix=(flight.match(/^[A-Z]{3}/)||[])[0]||"";
- const op=clean(a.ownOp||a.operator||registry.registered_owner).toUpperCase();
- const knownCommercial=Boolean(AIRLINES[prefix]) || Object.values(AIRLINES).some(name=>op.includes(name.toUpperCase())) ||
-  /\b(COMMERCIAL|AIRLINE|AIR CARGO|CARGO AIRLINE)\b/.test([a.category,a.category_desc,a.type,a.desc].map(clean).join(" ").toUpperCase()) ||
-  /\b(AMERICAN AIRLINES|AMERICAN EAGLE|FEDEX|FEDERAL EXPRESS|UPS AIRLINES|UNITED PARCEL SERVICE|AMAZON AIR|SOUTHWEST AIRLINES|DELTA AIR LINES|FLAIR AIRLINES|UNITED AIRLINES)\b/.test(op);
- if(knownCommercial) return [1,"COMMERCIAL",airline(a)||clean(a.ownOp||a.operator)];
- return [2,"PRIVATE / GENERAL AVIATION",""];
+ const prefix=(flight.match(/[A-Z]/g)||[]).join("").slice(0,3);
+ let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
+ const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
+ const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|H500|H269|H34[0-9A-Z]*|H46[0-9A-Z]*|H47[0-9A-Z]*|H53[0-9A-Z]*|H60[0-9A-Z]*|H64[0-9A-Z]*|S55|S58|S61|S64|S70[0-9A-Z]*|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
+ const emitterCategory=clean(a.category||a.emitter_category||a.emitterCategory).toUpperCase();
+ if(rotorWords.test(desc)||rotorCodes.test(t)||emitterCategory==="A7") return [2,"Helicopter",""];
+
+ const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
+ const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
+ if(a.mil||a.military||(flags&1)) return [1,"MILITARY OR GOVERNMENT",branch(a)];
+ if(government.test(identity)) return [1,"MILITARY OR GOVERNMENT",operator||"GOVERNMENT"];
+
+ const cargoPrefixes=new Set(["FDX","UPS","GTI","ABX","CKS","PAC","ATN","MML","CLX","BOX","WGN","GTX"]);
+ const cargoWords=/\b(CARGO|FREIGHT|AIR CARGO|LOGISTICS|PARCEL|EXPRESS)\b/;
+ if(cargoPrefixes.has(prefix)||cargoWords.test(identity)) return [1,"COMMERCIAL",airline(a)||operator||"CARGO"];
+
+ // Airline callsigns and known airline operators identify scheduled passenger
+ // service. Aircraft size/type alone is deliberately not used to infer this.
+ const passengerAirlinePrefixes=new Set([
+  "AAL","UAL","DAL","SWA","JBU","ASA","FFT","NKS","SKW","RPA","ENY","PDT","AAY",
+  "KAL","BAW","AFR","DLH","ACA","WJA","AMX","JAL","ANA","QTR","UAE","EVA","THY",
+  "SIA","IBE","AUA","KLM","VIR","FLE","ROU","POE","AIC","ANZ","QFA","CCA","CSN",
+  "CES","SAS","FIN","LOT","TAP","EZY","RYR","WZZ","ETD","ETI","SAA","ETH","QTR"
+ ]);
+ const knownAirline=Object.values(AIRLINES).some(name=>operator.includes(name.toUpperCase()));
+ if(passengerAirlinePrefixes.has(prefix)||knownAirline) return [1,"PASSENGER",airline(a)||operator];
+
+ // Explicit commercial charter, air-taxi and commuter operators are commercial.
+ // Corporate/private aircraft remain General Aviation unless positively identified.
+ const commercialWords=/\b(CHARTER|AIR TAXI|AEROMEDICAL|AIR AMBULANCE|COMMUTER AIR|AIR TRANSPORT|AIR SERVICES|FLIGHT SERVICES)\b/;
+ if(commercialWords.test(identity)) return [1,"COMMERCIAL",operator||"COMMERCIAL OPERATOR"];
+
+ // Business jets are identified from aircraft model/type records, not from
+ // ADS-B emitter size categories. Keep this after existing commercial and
+ // passenger rules so those previously recognized categories retain priority.
+ const businessJetCodes=/^(C25[ABC]|C510|C525|C526|C550|C551|C560|C56X|C68A|C700|C750|CL30|CL35|CL60|GLF[234567]|G150|G280|FA50|FA7X|FA8X|E35L|E50P|E55P|E545|E550|LJ35|LJ45|LJ55|LJ60|GALX|ASTR|H25B|H25C|H25D|HA4T|HA4T|F2TH|F900|F2000|F7X|F8X)$/;
+ const businessJetWords=/\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|G280|G200)\b/;
+ if(businessJetCodes.test(t)||businessJetWords.test(desc)) return [1,"Business Jets",""];
+ return [1,"GENERAL AVIATION",""];
 }
 function altText(a) {
  const alt=a.alt_baro ?? a.alt_geom;
@@ -152,10 +181,13 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  const adsbfi = source === "adsb.fi";
  const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
- `IconFile: 1, 64, 64, 64, 64, "${ICON_COMMERCIAL}"`,
-  `IconFile: 2, 64, 64, 64, 64, "${ICON_PRIVATE}"`,
-  `IconFile: 3, 64, 64, 64, 64, "${ICON_MILITARY}"`,
-  `IconFile: 4, 64, 64, 64, 64, "${ICON_HELICOPTER}"`,`; Updated: ${stamp}`,
+ `IconFile: 1, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"`,
+ `IconFile: 2, 64, 64, 64, 64, "${ICON_HELICOPTER}"`,
+ `IconFile: 3, 64, 64, 64, 64, "${ICON_PASSENGER}"`,
+ `IconFile: 4, 64, 64, 64, 64, "${ICON_COMMERCIAL}"`,
+ `IconFile: 5, 64, 64, 64, 64, "${ICON_MILITARY}"`,
+ `IconFile: 6, 64, 64, 64, 64, "${ICON_GENERAL}"`,
+ `IconFile: 7, 64, 64, 64, 64, "${ICON_BUSINESS}"``,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
  for(const [hx,item] of aircraft) {
@@ -163,13 +195,14 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   if(!Number.isFinite(lat)||!Number.isFinite(lon)) continue;
   if(region && !region.test(lat,lon)) continue;
   const reg=registry.get(hx)||{}, [icon,kind,org]=classify(a,reg), ident=clean(a.flight)||clean(a.r)||clean(reg.registration)||hx;
+  const displayIcon=kind==="PASSENGER"?3:kind==="COMMERCIAL"?4:kind==="MILITARY OR GOVERNMENT"?5:kind==="GENERAL AVIATION"?6:kind==="Business Jets"?7:icon;
   const gs=Number(a.gs), speed=a.gs!=null&&Number.isFinite(gs)?Math.round(gs)+" KT":"SPEED N/A";
   const alt=altText(a), heading=Number(a.track??a.true_heading??0);
   const hdg=Number.isFinite(heading)?((heading%360)+360)%360:0;
   const orgline=org?"\\n"+org:"";
   const hover=[kind,`ID: ${ident}`,...(org?[org]:[]),`Speed: ${speed}`,`Altitude: ${alt}`,`Registration: ${clean(a.r)||"Unknown"}`,`Aircraft type: ${clean(a.t||reg.icao_type_code)||"Unknown"}`,`Manufacturer: ${clean(reg.manufacturer)||"Unknown"}`,`Model: ${clean(reg.type)||"Unknown"}`,`ICAO24: ${hx}`].map(clean).join("\\n");
   lines.push(`Object: ${lat.toFixed(5)},${lon.toFixed(5)}`,"Threshold: 999",
-   `Icon: 0,0,${Math.round(hdg)},1,${icon},"${hover}"`,
+   `Icon: 0,0,${Math.round(hdg)},${displayIcon},1,"${hover}"`,
    `Text: 0,22,1,"${ident}"`,`Text: 0,34,1,"${speed} | ${alt}"`);
   if(org) lines.push(`Text: 0,46,1,"${clean(org)}"`);
   lines.push("End:");
