@@ -3,7 +3,7 @@
 AquaCeroWx / GRLevelX placefile using the **FlyItalyADSB** live aircraft API.
 
 ## Placefile
-https://flighttracker.mitchellgeissler.workers.dev/flighttracker.txt
+https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/flighttracker.txt
 
 ## Coverage and update frequency
 - Queries a full U.S. coverage grid on every workflow run: 48 overlapping 500-km circles across the contiguous states, plus additional circles for Alaska, Hawaii and Puerto Rico.
