@@ -1,6 +1,11 @@
 name: Deploy Flight Tracker to Cloudflare
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "cloudflare/worker.js"
+      - "assets/aircraft-gray.png"
+      - "wrangler.jsonc"
 permissions:
   contents: read
 jobs:
