@@ -169,6 +169,7 @@ function altText(a) {
 }
 function render(rows, usage, source = "FlyItalyADSB", region = null, registryRows = []) {
  const now=Date.now(), aircraft=new Map(), registry=new Map();
+ let sourceRecordCount=0;
  for(const item of registryRows){try{registry.set(clean(item.hex).toLowerCase(),JSON.parse(item.payload));}catch{}}
  for(const row of rows) {
   if(now-Number(row.updated_at)>SNAPSHOT_TTL) continue;
@@ -176,6 +177,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   for(const a of list) {
    const hx=clean(a.hex).toLowerCase();
    if(!hx||a.lat==null||a.lon==null) continue;
+   sourceRecordCount++;
    // Provider snapshots are already current; avoid an unreliable second age filter.
    const seenRaw = a.seen_pos ?? a.seen;
    const seen = seenRaw == null || seenRaw === "" ? NaN : Number(seenRaw);
@@ -223,7 +225,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   if(org) lines.push(`Text: 0,46,1,"${clean(org)}"`);
   lines.push("End:");
  }
- lines.push(`; Unique aircraft: ${aircraft.size}`,`; Helicopters rendered: ${helicopterCount}`,`; Selected records by source: FlyItalyADSB ${sourceCounts["FlyItalyADSB"]||0}, ADSB.lol ${sourceCounts["ADSB.lol"]||0}`,`; Duplicate ICAO24 records removed: source records merged by ICAO24`);
+ lines.push(`; Unique aircraft: ${aircraft.size}`,`; Helicopters rendered: ${helicopterCount}`,`; Selected records by source: FlyItalyADSB ${sourceCounts["FlyItalyADSB"]||0}, ADSB.lol ${sourceCounts["ADSB.lol"]||0}`,`; Duplicate source/overlap records removed: ${Math.max(0,sourceRecordCount-aircraft.size)}`);
  return lines.join("\n")+"\n";
 }
 async function collectAdsbfi(env) {
