@@ -26,6 +26,8 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+      - name: Validate legacy generator syntax
+        run: python -m py_compile flighttracker.py
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
