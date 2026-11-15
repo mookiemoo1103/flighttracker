@@ -183,7 +183,10 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  const lines=[...(multi ? ["; Flight data: adsb.fi; https://adsb.fi/","; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"] : [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"]),
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,
-  `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=2"`,`; Updated: ${stamp}`,
+  `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=2"`,
+ `IconFile: 3, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/passenger-gold.png?v=1"`,
+ `IconFile: 4, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/commercial-yellow.png?v=1"`,
+ `IconFile: 5, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/military-green.png?v=1"`,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
  for(const [hx,item] of aircraft) {
@@ -191,13 +194,14 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   if(!Number.isFinite(lat)||!Number.isFinite(lon)) continue;
   if(region && !region.test(lat,lon)) continue;
   const reg=registry.get(hx)||{}, [icon,kind,org]=classify(a,reg), ident=clean(a.flight)||clean(a.r)||clean(reg.registration)||hx;
+  const displayIcon=kind==="PASSENGER"?3:kind==="COMMERCIAL"?4:kind==="MILITARY OR GOVERNMENT"?5:icon;
   const gs=Number(a.gs), speed=a.gs!=null&&Number.isFinite(gs)?Math.round(gs)+" KT":"SPEED N/A";
   const alt=altText(a), heading=Number(a.track??a.true_heading??0);
   const hdg=Number.isFinite(heading)?((heading%360)+360)%360:0;
   const orgline=org?"\\n"+org:"";
   const hover=[kind,`ID: ${ident}`,...(org?[org]:[]),`Speed: ${speed}`,`Altitude: ${alt}`,`Registration: ${clean(a.r)||"Unknown"}`,`Aircraft type: ${clean(a.t||reg.icao_type_code)||"Unknown"}`,`Manufacturer: ${clean(reg.manufacturer)||"Unknown"}`,`Model: ${clean(reg.type)||"Unknown"}`,`ICAO24: ${hx}`].map(clean).join("\\n");
   lines.push(`Object: ${lat.toFixed(5)},${lon.toFixed(5)}`,"Threshold: 999",
-   `Icon: 0,0,${Math.round(hdg)},1,${icon},"${hover}"`,
+   `Icon: 0,0,${Math.round(hdg)},1,${displayIcon},"${hover}"`,
    `Text: 0,22,1,"${ident}"`,`Text: 0,34,1,"${speed} | ${alt}"`);
   if(org) lines.push(`Text: 0,46,1,"${clean(org)}"`);
   lines.push("End:");
