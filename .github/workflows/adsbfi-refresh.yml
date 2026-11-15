@@ -21,13 +21,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Fetch all lower-48 adsb.fi regions
+      - name: Fetch lower-48 adsb.fi regions and write snapshots to D1
         run: python adsbfi_collector.py
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - name: Write snapshots to Cloudflare D1
-        run: npx wrangler@4 d1 execute DB --remote --file=adsbfi_refresh.sql
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
+          CLOUDFLARE_D1_DATABASE_ID: "16f85ffc-fda8-4fe4-a3db-0ae95a5eb315"
