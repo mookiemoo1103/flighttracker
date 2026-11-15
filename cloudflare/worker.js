@@ -2,95 +2,18 @@ const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
 const ADSBLOL_API = "https://api.adsb.lol/v2/point";
 const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"; // Shared grayscale aircraft sprite
+// Coverage grid: 38 lower-48 points plus Alaska, Hawaii and Puerto Rico.
+// Radius is selected from the active FlyItalyADSB plan (500 km Free; 1,000 km Starter/Pro).
 const REGIONS = [
-  [25, -124, 500],
-  [25, -116, 500],
-  [25, -108, 500],
-  [25, -100, 500],
-  [25, -92, 500],
-  [25, -84, 500],
-  [25, -76, 500],
-  [25, -68, 500],
-  [30, -124, 500],
-  [30, -116, 500],
-  [30, -108, 500],
-  [30, -100, 500],
-  [30, -92, 500],
-  [30, -84, 500],
-  [30, -76, 500],
-  [30, -68, 500],
-  [35, -124, 500],
-  [35, -116, 500],
-  [35, -108, 500],
-  [35, -100, 500],
-  [35, -92, 500],
-  [35, -84, 500],
-  [35, -76, 500],
-  [35, -68, 500],
-  [40, -124, 500],
-  [40, -116, 500],
-  [40, -108, 500],
-  [40, -100, 500],
-  [40, -92, 500],
-  [40, -84, 500],
-  [40, -76, 500],
-  [40, -68, 500],
-  [45, -124, 500],
-  [45, -116, 500],
-  [45, -108, 500],
-  [45, -100, 500],
-  [45, -92, 500],
-  [45, -84, 500],
-  [45, -76, 500],
-  [45, -68, 500],
-  [50, -124, 500],
-  [50, -116, 500],
-  [50, -108, 500],
-  [50, -100, 500],
-  [50, -92, 500],
-  [50, -84, 500],
-  [50, -76, 500],
-  [50, -68, 500],
-  [54, -164, 500],
-  [58, -156, 500],
-  [62, -148, 500],
-  [66, -140, 500],
-  [60, -136, 500],
-  [56, -150, 500],
-  [64, -160, 500],
-  [68, -152, 500],
-  [19.5, -155.5, 500],
-  [21, -158.5, 500],
-  [18.2, -66.5, 500]
+ [26,-119,500],[26,-112,500],[26,-105,500],[26,-98,500],[26,-91,500],[26,-84,500],[26,-77,500],[26,-70,500],
+ [31,-116.5,500],[31,-109.5,500],[31,-102.5,500],[31,-95.5,500],[31,-88.5,500],[31,-81.5,500],[31,-74.5,500],
+ [36,-119,500],[36,-112,500],[36,-105,500],[36,-98,500],[36,-91,500],[36,-84,500],[36,-77,500],[36,-70,500],
+ [41,-116.5,500],[41,-109.5,500],[41,-102.5,500],[41,-95.5,500],[41,-88.5,500],[41,-81.5,500],[41,-74.5,500],
+ [46,-119,500],[46,-112,500],[46,-105,500],[46,-98,500],[46,-91,500],[46,-84,500],[46,-77,500],[46,-70,500],
+ [54,-164,500],[58,-156,500],[62,-148,500],[66,-140,500],[60,-136,500],[56,-150,500],[64,-160,500],[68,-152,500],
+ [19.5,-155.5,500],[21,-158.5,500],[18.2,-66.5,500]
 ];
-const AIRLINES = {
- AAL:"American Airlines",UAL:"United Airlines",DAL:"Delta Air Lines",SWA:"Southwest Airlines",JBU:"JetBlue",
- ASA:"Alaska Airlines",FFT:"Frontier Airlines",NKS:"Spirit Airlines",SKW:"SkyWest Airlines",RPA:"Republic Airways",
- ENY:"Envoy Air",PDT:"Piedmont Airlines",AAY:"Allegiant Air",FDX:"FedEx",UPS:"UPS Airlines",GTI:"Atlas Air",
- ABX:"ABX Air",KAL:"Korean Air",BAW:"British Airways",AFR:"Air France",DLH:"Lufthansa",ACA:"Air Canada",
- WJA:"WestJet",AMX:"Aeromexico",JAL:"Japan Airlines",ANA:"All Nippon Airways",QTR:"Qatar Airways",
- UAE:"Emirates",EVA:"EVA Air",THY:"Turkish Airlines",SIA:"Singapore Airlines",IBE:"Iberia",AUA:"Austrian Airlines",
- KLM:"KLM",VIR:"Virgin Atlantic",FLE:"Flair Airlines",ROU:"Air Canada Rouge",POE:"Porter Airlines"
-};
-const MILITARY_BRANCHES = [
- [["UNITED STATES AIR FORCE","USAF","AIR FORCE"],"U.S. AIR FORCE"],
- [["UNITED STATES NAVY","US NAVY","NAVY"],"U.S. NAVY"],
- [["UNITED STATES ARMY","US ARMY","ARMY"],"U.S. ARMY"],
- [["UNITED STATES MARINE","USMC","MARINE"],"U.S. MARINE CORPS"],
- [["UNITED STATES COAST GUARD","USCG","COAST GUARD"],"U.S. COAST GUARD"],
- [["UNITED STATES SPACE FORCE","USSF","SPACE FORCE"],"U.S. SPACE FORCE"]
-];
-const BATCH = 6;
-// Separate lower-48 test grid for adsb.fi. 38 overlapping 250-NM circles.
-// 19 calls per scheduled minute, with one-second spacing: ~2-minute sweep.
-const ADSBFI_REGIONS = [
- [26,-119],[26,-112],[26,-105],[26,-98],[26,-91],[26,-84],[26,-77],[26,-70],
- [31,-116.5],[31,-109.5],[31,-102.5],[31,-95.5],[31,-88.5],[31,-81.5],[31,-74.5],
- [36,-119],[36,-112],[36,-105],[36,-98],[36,-91],[36,-84],[36,-77],[36,-70],
- [41,-116.5],[41,-109.5],[41,-102.5],[41,-95.5],[41,-88.5],[41,-81.5],[41,-74.5],
- [46,-119],[46,-112],[46,-105],[46,-98],[46,-91],[46,-84],[46,-77],[46,-70]
-];
-const ADSBFI_BATCH = ADSBFI_REGIONS.length; // Full lower-48 sweep every scheduled minute (38 calls, spaced 1.25s apart)
+const DEFAULT_BATCH = 27; // 90% of the Free plan's 30 requests/minute
 const PLACEFILE_REGIONS = { pacific:{title:"PACIFIC AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-125&&b< -116}, southwest:{title:"SOUTHWEST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-116&&b< -102}, mountain:{title:"MOUNTAIN AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-116&&b< -102}, central:{title:"CENTRAL AIRCRAFT",test:(a,b)=>a>=24&&a<=50&&b>=-102&&b< -90}, southeast:{title:"SOUTHEAST AIRCRAFT",test:(a,b)=>a>=24&&a<37&&b>=-90&&b<=-66}, northeast:{title:"NORTHEAST AIRCRAFT",test:(a,b)=>a>=37&&a<=50&&b>=-90&&b<=-66} };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const CACHE_TTL = 6 * 60 * 1000;
@@ -295,16 +218,27 @@ async function runCollector(env,name,collector) {
 }
 async function collect(env) {
  if(!env.FLYITALYADSB_API_KEY) throw new Error("Missing FLYITALYADSB_API_KEY Worker secret");
- const state=await env.DB.prepare("SELECT value FROM tracker_state WHERE key='next_region'").first();
- const start=Number(state?.value||0)%REGIONS.length, stmts=[];
- let used="unknown",limit="unknown",success=0;
- for(let i=0;i<BATCH;i++) {
-  const idx=(start+i)%REGIONS.length,[lat,lon,radius]=REGIONS[idx];
+ const stateRows=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','quota_plan','quota_per_minute')").all();
+ const state=Object.fromEntries((stateRows.results||[]).map(x=>[x.key,x.value]));
+ const start=Number(state.next_region||0)%REGIONS.length, stmts=[];
+ const plan=String(state.quota_plan||"free").toLowerCase();
+ const perMinute=Math.max(1,Number(state.quota_per_minute)||30);
+ const batchSize=Math.min(REGIONS.length,Math.max(1,Math.floor(perMinute*0.9)));
+ const radius=(plan.includes("starter")||plan.includes("pro")||plan.includes("fleet"))?1000:500;
+ let used="unknown",limit="unknown",planHeader=plan,perMinuteHeader=String(perMinute),success=0;
+ for(let i=0;i<batchSize;i++) {
+  const idx=(start+i)%REGIONS.length,[lat,lon]=REGIONS[idx];
+  if(i>0) await sleep(1050);
   const url=`${API}/${lat}/lon/${lon}/dist/${radius}`;
-  const res=await fetch(url,{headers:{"X-Api-Key":env.FLYITALYADSB_API_KEY,"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/4.0"},signal:AbortSignal.timeout(REQUEST_TIMEOUT_MS)});
-  if(!res.ok) throw new Error(`FlyItalyADSB HTTP ${res.status} for region ${idx}`);
+  const res=await fetch(url,{headers:{"X-Api-Key":env.FLYITALYADSB_API_KEY,"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/4.1"},signal:AbortSignal.timeout(REQUEST_TIMEOUT_MS)});
+  if(!res.ok) {
+   const detail=(await res.text()).slice(0,300);
+   throw new Error(`FlyItalyADSB HTTP ${res.status} for region ${idx}: ${detail}`);
+  }
   used=res.headers.get("X-FIA-Used-Month")||used;
   limit=res.headers.get("X-FIA-Quota-Month")||limit;
+  planHeader=res.headers.get("X-FIA-Plan")||planHeader;
+  perMinuteHeader=res.headers.get("X-FIA-Limit-Per-Min")||perMinuteHeader;
   const data=await res.json();
   stmts.push(env.DB.prepare("INSERT INTO region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
    .bind(idx,JSON.stringify(data.ac||[]),Date.now()));
@@ -314,18 +248,20 @@ async function collect(env) {
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_used',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(used));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_limit',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(limit));
+ stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_plan',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(planHeader));
+ stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_per_minute',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(perMinuteHeader));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_last_error',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(""));
  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('last_success',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(now)));
  await env.DB.batch(stmts);
+ console.log(`FlyItalyADSB ${planHeader}: ${success}/${batchSize} regions refreshed; grid ${REGIONS.length} areas; estimated sweep ${Math.ceil(REGIONS.length/batchSize)} minute(s)`);
 }
 export default {
  async scheduled(controller,env,ctx) {
   // Each feed runs independently. Persist success/failure and log errors so a
   // scheduled invocation cannot silently hide a failed collection cycle.
-  ctx.waitUntil(Promise.all([
-   runCollector(env,"flyitaly",collect),
-   runCollector(env,"adsbfi",collectAdsbfi)
-  ]));
+  // adsb.fi is disabled: its edge returns Cloudflare 403 to this Worker.
+  // Use FlyItalyADSB and adapt polling volume to the key tier.
+  ctx.waitUntil(runCollector(env,"flyitaly",collect));
  },
  async fetch(request,env) {
   const url=new URL(request.url);
@@ -340,10 +276,10 @@ export default {
    return Response.json({
     ok:true,generated_at:new Date().toISOString(),
     feeds:{
-     flyitaly:{last_attempt:stateMap.flyitaly_last_attempt||"0",last_success:stateMap.flyitaly_last_success||stateMap.last_success||"0",last_error:stateMap.flyitaly_last_error||"",regions_cached:flyRows.length,total_regions:REGIONS.length,latest_region_update:latest(flyRows),full_sweep_minutes:Math.ceil(REGIONS.length/BATCH)},
+     flyitaly:{last_attempt:stateMap.flyitaly_last_attempt||"0",last_success:stateMap.flyitaly_last_success||stateMap.last_success||"0",last_error:stateMap.flyitaly_last_error||"",regions_cached:flyRows.length,total_regions:REGIONS.length,latest_region_update:latest(flyRows),full_sweep_minutes:Math.ceil(REGIONS.length/Math.min(REGIONS.length,Math.max(1,Math.floor((Number(stateMap.quota_per_minute)||30)*0.9))))},
      adsbfi:{last_attempt:stateMap.adsbfi_last_attempt||"0",last_success:stateMap.adsbfi_last_success||"0",last_error:stateMap.adsbfi_last_error||"",regions_cached:adsbRows.length,total_regions:ADSBFI_REGIONS.length,latest_region_update:latest(adsbRows),full_sweep_minutes:Math.ceil(ADSBFI_REGIONS.length/ADSBFI_BATCH)}
     },
-    quota:{used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"}
+    quota:{plan:stateMap.quota_plan||"unknown",per_minute:stateMap.quota_per_minute||"unknown",used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"}
    });
   }
   if (url.pathname === "/adsblol-probe") {
