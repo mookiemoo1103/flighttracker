@@ -183,7 +183,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  const lines=[...(multi ? ["; Flight data: adsb.fi; https://adsb.fi/","; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"] : [adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0"]),
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
  `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,
-  `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-dark-gray.png?v=2"`,
+  `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-dark-gray.png?v=3"`,
  `IconFile: 3, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/passenger-light-red.png?v=1"`,
  `IconFile: 4, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/commercial-yellow.png?v=3"`,
  `IconFile: 5, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/military-green.png?v=3"`,
