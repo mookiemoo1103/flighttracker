@@ -135,8 +135,15 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   for(const a of list) {
    const hx=clean(a.hex).toLowerCase();
    if(!hx||a.lat==null||a.lon==null) continue;
-   const seen=Number(a.seen_pos||0), observed=now-(Number.isFinite(seen)?seen*1000:0);
-   if(now-observed>CACHE_TTL) continue;
+   // adsb.fi may provide seen_pos, seen, or neither depending on the
+   // aircraft record. When the age field is absent or invalid, use the
+   // snapshot timestamp rather than incorrectly dropping a valid aircraft.
+   const seenRaw = a.seen_pos ?? a.seen;
+   const seen = Number(seenRaw);
+   const observed = Number.isFinite(seen) && seen >= 0 && seen < 3600
+    ? now - seen * 1000
+    : Number(row.updated_at);
+   if (!Number.isFinite(observed) || now - observed > SNAPSHOT_TTL) continue;
    const old=aircraft.get(hx);
    if(!old||observed>old.observed) aircraft.set(hx,{a,observed});
   }
