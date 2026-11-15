@@ -438,6 +438,25 @@ export default {
    const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit','last_batch_count','last_batch_failed','last_error','adsblol_last_success','adsblol_last_batch_count','adsblol_last_batch_failed','adsblol_last_error','registry_last_success','registry_last_batch_count','registry_last_not_found','registry_last_batch_failed','registry_last_error')").all();
    return Response.json({ok:true,total_regions:REGIONS.length,regions_per_minute:BATCH,approximate_full_sweep_minutes:Math.ceil(REGIONS.length/BATCH),state:state.results||[]});
   }
+  if(url.pathname==="/registry-health") {
+   const [{results:states=[]},{results:counts=[]}] = await Promise.all([
+    env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'registry_%'").all(),
+    env.DB.prepare("SELECT COUNT(*) AS cached, SUM(CASE WHEN icao_type_code IS NOT NULL AND icao_type_code!='' THEN 1 ELSE 0 END) AS with_type FROM aircraft_registry").all()
+   ]);
+   const state=Object.fromEntries(states.map(x=>[x.key,x.value]));
+   const totals=counts[0]||{};
+   return Response.json({
+    source:"HexDB aircraft registry",
+    cached_aircraft:Number(totals.cached||0),
+    cached_with_icao_type:Number(totals.with_type||0),
+    last_attempt:state.registry_last_attempt||"0",
+    last_success:state.registry_last_success||"0",
+    last_batch_enriched:Number(state.registry_last_batch_count||0),
+    last_batch_not_found:Number(state.registry_last_not_found||0),
+    last_batch_failed:Number(state.registry_last_batch_failed||0),
+    last_error:state.registry_last_error||""
+   });
+  }
   if(url.pathname==="/adsblol-health") {
    const [{results:rows=[]},{results:states=[]}] = await Promise.all([
     env.DB.prepare("SELECT region_id,updated_at,payload FROM adsblol_region_data ORDER BY region_id").all(),
