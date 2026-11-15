@@ -257,6 +257,7 @@ export default {
   ctx.waitUntil(runCollector(env,"flyitaly",collect));
  },
  async fetch(request,env) {
+  try {
   const url=new URL(request.url);
   if(url.pathname==="/health") {
    const [{results:state=[]},{results:flyRows=[]},{results:adsbRows=[]}] = await Promise.all([
@@ -369,5 +370,10 @@ export default {
     "\\n; adsb.fi collector error: "+(stateMap.adsbfi_last_error||"none")+
     "\\n; FlyItalyADSB collector error: "+(stateMap.flyitaly_last_error||"none")+"\\n; Updated:");
   return new Response(body,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store, max-age=0"}});
+  } catch(error) {
+   const message=String(error?.stack||error);
+   console.error("Flight tracker request failed:",message);
+   return new Response("Flight tracker request failed: "+String(error?.message||error),{status:500,headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store"}});
+  }
  }
 };
