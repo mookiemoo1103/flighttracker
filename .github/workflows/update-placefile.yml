@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'flighttracker.py'
-      - 'assets/helicopter-custom-96.png'
+      - 'assets/helicopter-map-icon-96.png'
       - '.github/workflows/update-placefile.yml'
   workflow_dispatch:
   schedule:
