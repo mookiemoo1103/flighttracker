@@ -1,6 +1,9 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=5"; // Shared grayscale aircraft sprite
+const ICON_COMMERCIAL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/airplane-commercial-yellow.png?v=1";
+const ICON_PRIVATE = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/airplane-private-blue.png?v=1";
+const ICON_MILITARY = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/airplane-military-gray.png?v=1";
+const ICON_HELICOPTER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=2";
 const REGIONS = [
   [25, -124, 500],
   [25, -116, 500],
@@ -67,7 +70,7 @@ const AIRLINES = {
  ASA:"Alaska Airlines",FFT:"Frontier Airlines",NKS:"Spirit Airlines",SKW:"SkyWest Airlines",RPA:"Republic Airways",
  ENY:"Envoy Air",PDT:"Piedmont Airlines",AAY:"Allegiant Air",FDX:"FedEx",UPS:"UPS Airlines",GTI:"Atlas Air",
  ABX:"ABX Air",KAL:"Korean Air",BAW:"British Airways",AFR:"Air France",DLH:"Lufthansa",ACA:"Air Canada",
- WJA:"WestJet",AMX:"Aeromexico",JAL:"Japan Airlines",ANA:"All Nippon Airways",QTR:"Qatar Airways",
+ WJA:"WestJet",AMX:"Aeromexico",AMZ:"Amazon Air",JAL:"Japan Airlines",ANA:"All Nippon Airways",QTR:"Qatar Airways",
  UAE:"Emirates",EVA:"EVA Air",THY:"Turkish Airlines",SIA:"Singapore Airlines",IBE:"Iberia",AUA:"Austrian Airlines",
  KLM:"KLM",VIR:"Virgin Atlantic",FLE:"Flair Airlines",ROU:"Air Canada Rouge",POE:"Porter Airlines"
 };
@@ -108,17 +111,19 @@ function classify(a, registry = {}) {
  const t=clean(registry.icao_type_code||a.t).toUpperCase();
  const desc=[a.desc,registry.type,registry.manufacturer].map(clean).join(" ").toUpperCase();
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
- // Rotorcraft classification uses live aircraft description/type and the ICAO-hex
- // registration database's manufacturer, model and ICAO type code.
+ // Military status takes priority: all military aircraft remain gray.
+ if(a.mil||a.military||(flags&1)||/\bMILITARY\b|UNITED STATES (AIR FORCE|NAVY|ARMY|MARINE|COAST GUARD|SPACE FORCE)|\bUSAF\b|\bUSN\b|\bUSMC\b|\bUSCG\b/.test([a.ownOp,a.operator,a.desc,a.flight,a.r,registry.registered_owner].map(clean).join(" ").toUpperCase())) return [3,"MILITARY",branch(a)];
  const rotorWords=/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING|GYROCOPTER|AUTOGYRO/;
  const rotorCodes=/^(R22|R44|R66|B06|B06T|B407|B412|B429|B505|EC[0-9A-Z]+|AS[0-9A-Z]+|H125|H130|H135|H145|H160|H175|H215|H225|S76|S92|A109|A119|A139|A169|A189|MD5[0-9A-Z]*|MD6[0-9A-Z]*|OH[0-9A-Z]+|UH[0-9A-Z]+|HH[0-9A-Z]+|CH[0-9A-Z]+|MH[0-9A-Z]+|AH[0-9A-Z]+|TH[0-9A-Z]+)$/;
- if(rotorWords.test(desc)||rotorCodes.test(t)) return [2,"HELICOPTER",""];
- if(a.mil||a.military||(flags&1)) return [1,"MILITARY",branch(a)];
- if(desc.includes("CARGO")||desc.includes("FREIGHT")) return [1,"CARGO",airline(a)];
- const op=airline(a), flight=clean(a.flight);
- if(op&&(t.startsWith("A")||t.startsWith("B")||t.startsWith("E")||flight.length>=3)) return [1,"COMMERCIAL",op];
- if(["A3","A2","B7","B3","B4","B5","B6","B8"].some(x=>t.startsWith(x))) return [1,"COMMERCIAL",op];
- return [1,"PRIVATE / GENERAL AVIATION",""];
+ if(rotorWords.test(desc)||rotorCodes.test(t)) return [4,"HELICOPTER",""];
+ const flight=clean(a.flight).toUpperCase();
+ const prefix=(flight.match(/^[A-Z]{3}/)||[])[0]||"";
+ const op=clean(a.ownOp||a.operator||registry.registered_owner).toUpperCase();
+ const knownCommercial=Boolean(AIRLINES[prefix]) || Object.values(AIRLINES).some(name=>op.includes(name.toUpperCase())) ||
+  /\b(COMMERCIAL|AIRLINE|AIR CARGO|CARGO AIRLINE)\b/.test([a.category,a.category_desc,a.type,a.desc].map(clean).join(" ").toUpperCase()) ||
+  /\b(AMERICAN AIRLINES|AMERICAN EAGLE|FEDEX|FEDERAL EXPRESS|UPS AIRLINES|UNITED PARCEL SERVICE|AMAZON AIR|SOUTHWEST AIRLINES|DELTA AIR LINES|FLAIR AIRLINES|UNITED AIRLINES)\b/.test(op);
+ if(knownCommercial) return [1,"COMMERCIAL",airline(a)||clean(a.ownOp||a.operator)];
+ return [2,"PRIVATE / GENERAL AVIATION",""];
 }
 function altText(a) {
  const alt=a.alt_baro ?? a.alt_geom;
@@ -147,8 +152,10 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  const adsbfi = source === "adsb.fi";
  const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
- `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,
-  `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=2"`,`; Updated: ${stamp}`,
+ `IconFile: 1, 64, 64, 64, 64, "${ICON_COMMERCIAL}"`,
+  `IconFile: 2, 64, 64, 64, 64, "${ICON_PRIVATE}"`,
+  `IconFile: 3, 64, 64, 64, 64, "${ICON_MILITARY}"`,
+  `IconFile: 4, 64, 64, 64, 64, "${ICON_HELICOPTER}"`,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
  for(const [hx,item] of aircraft) {
