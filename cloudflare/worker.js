@@ -1,6 +1,6 @@
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
-const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=2"; // Shared grayscale aircraft sprite
+const ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/aircraft-gray.png?v=3"; // Shared grayscale aircraft sprite
 const REGIONS = [
   [25, -124, 500],
   [25, -116, 500],
@@ -139,7 +139,7 @@ function render(rows, usage, source = "FlyItalyADSB", region = null) {
  const adsbfi = source === "adsb.fi";
  const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
- `IconFile: 1, 32, 32, 32, 32, "${ICON_URL}"`,`; Updated: ${stamp}`,
+ `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
  for(const [hx,item] of aircraft) {
