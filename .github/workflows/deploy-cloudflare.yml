@@ -87,7 +87,11 @@ jobs:
           done
           for region in pacific southwest mountain central southeast northeast; do
             curl --fail --silent --show-error --retry 3 --retry-delay 2 "$BASE/$region.txt" -o "/tmp/$region.txt"
-            grep -q '^Refresh: 1$' "/tmp/$region.txt"
+            grep -q '^RefreshSeconds: 15 "/tmp/$region.txt"
+            grep -q 'Helicopters rendered:' "/tmp/$region.txt"
+            echo "$region.txt OK"
+          done
+ "/tmp/$region.txt"
             grep -q 'Helicopters rendered:' "/tmp/$region.txt"
             echo "$region.txt OK"
           done
