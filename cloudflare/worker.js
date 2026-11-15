@@ -55,6 +55,20 @@ function classify(a, registry = {}) {
  const rotorIdentity=[t,desc,operator,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
  if(rotorWords.test(rotorIdentity)||rotorCodes.test(rotorIdentity)||["A7","ROTORCRAFT","HELICOPTER","GYROCOPTER"].includes(emitterCategory)) return [2,"Helicopter",""];
 
+ // Business jets are identified from aircraft model/type records, not from
+ // ADS-B emitter size categories. Keep this after existing commercial and
+ // passenger rules so those previously recognized categories retain priority.
+ const typeTokens = new Set(typeFields.join(" ").toUpperCase().split(/[^A-Z0-9]+/).filter(Boolean));
+ const businessJetCodes = new Set([
+  "C25A","C25B","C25C","C510","C525","C526","C550","C551","C552","C560","C56X","C650","C680","C68A","C700","C750",
+  "CL30","CL35","CL60","GLF2","GLF3","GLF4","GLF5","GLF6","GLF7","GLF8","G150","G200","G280","G500","G600","G650","G700","G800","BD700","GLEX","GL7T","PC24","FA50","FA7X","FA8X",
+  "E35L","E50P","E55P","E545","E550","LJ23","LJ24","LJ25","LJ28","LJ31","LJ35","LJ40","LJ45","LJ55","LJ60","LJ70","LJ75",
+  "GALX","ASTR","H25B","H25C","H25D","HA4T","F2TH","F900","F2000","F7X","F8X","F10X","PRM1","HDJT","E290","E295"
+ ]);
+ const businessJetWords=/\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|G280|G200|BEECHJET|KING AIR 350|TURBO COMMANDER)\b/i;
+ const businessIdentity = [desc,t,clean(registry.model),clean(registry.model_name),clean(registry.type),clean(registry.manufacturer)].join(" ").toUpperCase();
+ if([...businessJetCodes].some(code=>typeTokens.has(code))||businessJetWords.test(businessIdentity)) return [1,"Business Jets",""];
+
  const identity=[operator,desc,clean(a.flight),clean(a.r),clean(registry.registration)].join(" ").toUpperCase();
  const government=/\b(UNITED STATES GOVERNMENT|U\.S\. GOVERNMENT|GOVERNMENT|DEPARTMENT OF|FEDERAL|STATE POLICE|HIGHWAY PATROL|SHERIFF|POLICE DEPARTMENT|POLICE|BORDER PATROL|CUSTOMS AND BORDER PROTECTION|CBP|DHS|DEA|FBI|ATF|USFS|FOREST SERVICE|NATIONAL PARK SERVICE|NOAA|NASA|FAA|CAL FIRE|CALIFORNIA HIGHWAY PATROL|TEXAS DPS)\b/;
  if(a.mil||a.military||(flags&1)) return [1,"MILITARY OR GOVERNMENT",branch(a)];
@@ -80,19 +94,6 @@ function classify(a, registry = {}) {
  const commercialWords=/\b(CHARTER|AIR TAXI|AEROMEDICAL|AIR AMBULANCE|COMMUTER AIR|AIR TRANSPORT|AIR SERVICES|FLIGHT SERVICES)\b/;
  if(commercialWords.test(identity)) return [1,"COMMERCIAL",operator||"COMMERCIAL OPERATOR"];
 
- // Business jets are identified from aircraft model/type records, not from
- // ADS-B emitter size categories. Keep this after existing commercial and
- // passenger rules so those previously recognized categories retain priority.
- const typeTokens = new Set(typeFields.join(" ").toUpperCase().split(/[^A-Z0-9]+/).filter(Boolean));
- const businessJetCodes = new Set([
-  "C25A","C25B","C25C","C510","C525","C526","C550","C551","C552","C560","C56X","C650","C680","C68A","C700","C750",
-  "CL30","CL35","CL60","GLF2","GLF3","GLF4","GLF5","GLF6","GLF7","GLF8","G150","G200","G280","G500","G600","G650","G700","G800","BD700","GLEX","GL7T","PC24","FA50","FA7X","FA8X",
-  "E35L","E50P","E55P","E545","E550","LJ23","LJ24","LJ25","LJ28","LJ31","LJ35","LJ40","LJ45","LJ55","LJ60","LJ70","LJ75",
-  "GALX","ASTR","H25B","H25C","H25D","HA4T","F2TH","F900","F2000","F7X","F8X","F10X","PRM1","HDJT","E290","E295"
- ]);
- const businessJetWords=/\b(BUSINESS JET|CORPORATE JET|EXECUTIVE JET|CITATION|LEARJET|CHALLENGER|GLOBAL EXPRESS|GULFSTREAM|FALCON [0-9]|PHENOM|LEGACY [0-9]|PRAETOR|HONDAJET|HAWKER|WESTWIND|ASTRA|G280|G200|BEECHJET|KING AIR 350|TURBO COMMANDER)\b/i;
- const businessIdentity = [desc,t,clean(registry.model),clean(registry.model_name),clean(registry.type),clean(registry.manufacturer)].join(" ").toUpperCase();
- if([...businessJetCodes].some(code=>typeTokens.has(code))||businessJetWords.test(businessIdentity)) return [1,"Business Jets",""];
  return [1,"GENERAL AVIATION",""];
 }
 function altText(a) {
