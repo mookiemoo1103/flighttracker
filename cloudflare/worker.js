@@ -155,7 +155,8 @@ async function runCollector(env,name,collector) {
  const started=Date.now();
  try {
   await writeState(env,[[name+"_last_attempt",started]]);
-  await collector(env);
+  const result=await collector(env);
+  if(result===false) { console.log(name+" collector skipped; a previous cycle still holds the lock"); return; }
   const finished=Date.now();
   await writeState(env,[[name+"_last_success",finished],[name+"_last_duration_ms",finished-started]]);
   console.log(name+" collector succeeded in "+(finished-started)+" ms");
@@ -171,55 +172,67 @@ async function runCollector(env,name,collector) {
 }
 async function collect(env) {
  if(!env.FLYITALYADSB_API_KEY) throw new Error("Missing FLYITALYADSB_API_KEY Worker secret");
- const stateRows=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','quota_plan','quota_per_minute')").all();
- const state=Object.fromEntries((stateRows.results||[]).map(x=>[x.key,x.value]));
- const start=Number(state.next_region||0)%REGIONS.length, stmts=[];
- const plan=String(state.quota_plan||"free").toLowerCase();
- const perMinute=Math.max(1,Number(state.quota_per_minute)||30);
- const batchSize=Math.min(REGIONS.length,Math.max(1,Math.floor(perMinute*0.9)));
- const radius=(plan.includes("starter")||plan.includes("pro")||plan.includes("fleet"))?1000:500;
- let used="unknown",limit="unknown",planHeader=plan,perMinuteHeader=String(perMinute),success=0;
- const failures=[];
- for(let i=0;i<batchSize;i++) {
-  const idx=(start+i)%REGIONS.length,[lat,lon]=REGIONS[idx];
-  if(i>0) await sleep(1050);
-  try {
-   const url=`${API}/${lat}/lon/${lon}/dist/${radius}`;
-   const res=await fetch(url,{headers:{"X-Api-Key":env.FLYITALYADSB_API_KEY,"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/4.2"},signal:AbortSignal.timeout(REQUEST_TIMEOUT_MS)});
-   if(!res.ok) {
-    const detail=(await res.text()).slice(0,220);
-    throw new Error(`HTTP ${res.status} ${res.statusText}: ${detail}`);
+ const lockNow=Date.now(),lockUntil=lockNow+90000;
+ const lock=await env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_lock_until',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value WHERE CAST(tracker_state.value AS INTEGER) < ?")
+  .bind(String(lockUntil),String(lockNow)).run();
+ if(Number(lock.meta?.changes||0)===0) return false;
+ try {
+  const stateRows=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','quota_plan','quota_per_minute')").all();
+  const state=Object.fromEntries((stateRows.results||[]).map(x=>[x.key,x.value]));
+  const start=Number(state.next_region||0)%REGIONS.length, stmts=[];
+  const plan=String(state.quota_plan||"free").toLowerCase();
+  const perMinute=Math.max(1,Number(state.quota_per_minute)||30);
+  const batchSize=Math.min(REGIONS.length,Math.max(1,Math.floor(perMinute*0.9)));
+  const radius=(plan.includes("starter")||plan.includes("pro")||plan.includes("fleet"))?1000:500;
+  let used="unknown",limit="unknown",planHeader=plan,perMinuteHeader=String(perMinute),success=0;
+  const failures=[];
+  for(let i=0;i<batchSize;i++) {
+   const idx=(start+i)%REGIONS.length,[lat,lon]=REGIONS[idx];
+   if(i>0) await sleep(1050);
+   try {
+    const url=`${API}/${lat}/lon/${lon}/dist/${radius}`;
+    const res=await fetch(url,{headers:{"X-Api-Key":env.FLYITALYADSB_API_KEY,"Accept":"application/json","User-Agent":"USFlightTrackerPlacefile/4.2"},signal:AbortSignal.timeout(REQUEST_TIMEOUT_MS)});
+    if(!res.ok) {
+     const detail=(await res.text()).slice(0,220);
+     throw new Error(`HTTP ${res.status} ${res.statusText}: ${detail}`);
+    }
+    used=res.headers.get("X-FIA-Used-Month")||used;
+    limit=res.headers.get("X-FIA-Quota-Month")||limit;
+    planHeader=res.headers.get("X-FIA-Plan")||planHeader;
+    perMinuteHeader=res.headers.get("X-FIA-Limit-Per-Min")||perMinuteHeader;
+    const data=await res.json();
+    if(!Array.isArray(data.ac)) throw new Error("response missing aircraft array");
+    stmts.push(env.DB.prepare("INSERT INTO region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
+     .bind(idx,JSON.stringify(data.ac),Date.now()));
+    success++;
+   } catch(error) {
+    const message=`region ${idx} (${lat},${lon}): ${String(error).slice(0,260)}`;
+    failures.push(message);
+    console.error("FlyItalyADSB region failed:",message);
+    if(String(error).includes("HTTP 429")) break;
    }
-   used=res.headers.get("X-FIA-Used-Month")||used;
-   limit=res.headers.get("X-FIA-Quota-Month")||limit;
-   planHeader=res.headers.get("X-FIA-Plan")||planHeader;
-   perMinuteHeader=res.headers.get("X-FIA-Limit-Per-Min")||perMinuteHeader;
-   const data=await res.json();
-   if(!Array.isArray(data.ac)) throw new Error("response missing aircraft array");
-   stmts.push(env.DB.prepare("INSERT INTO region_data(region_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(region_id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at")
-    .bind(idx,JSON.stringify(data.ac),Date.now()));
-   success++;
+  }
+  const next=(start+batchSize)%REGIONS.length, now=Date.now();
+  const errorSummary=failures.slice(0,6).join(" | ").slice(0,1500);
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_used',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(used));
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_limit',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(limit));
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_plan',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(planHeader));
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_per_minute',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(perMinuteHeader));
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_last_error',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(errorSummary));
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
+  stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_regions_failed',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(failures.length)));
+  stmts.push(env.DB.prepare("DELETE FROM region_data WHERE region_id>=?").bind(REGIONS.length));
+  if(stmts.length) await env.DB.batch(stmts);
+  console.log(`FlyItalyADSB ${planHeader}: ${success}/${batchSize} regions refreshed; ${failures.length} failed; grid ${REGIONS.length}; estimated sweep ${Math.ceil(REGIONS.length/batchSize)} minute(s)`);
+  if(success===0) throw new Error("FlyItalyADSB batch failed: "+errorSummary);
+ } finally {
+  try {
+   await env.DB.prepare("UPDATE tracker_state SET value='0' WHERE key='flyitaly_lock_until' AND value=?").bind(String(lockUntil)).run();
   } catch(error) {
-   const message=`region ${idx} (${lat},${lon}): ${String(error).slice(0,260)}`;
-   failures.push(message);
-   console.error("FlyItalyADSB region failed:",message);
-   if(String(error).includes("HTTP 429")) break;
+   console.error("Could not release FlyItalyADSB collection lock:",String(error));
   }
  }
- const next=(start+batchSize)%REGIONS.length, now=Date.now();
- const errorSummary=failures.slice(0,6).join(" | ").slice(0,1500);
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('next_region',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(next)));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_used',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(used));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_limit',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(limit));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_plan',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(planHeader));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('quota_per_minute',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(perMinuteHeader));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_last_error',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(errorSummary));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_last_batch_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(success)));
- stmts.push(env.DB.prepare("INSERT INTO tracker_state(key,value) VALUES('flyitaly_regions_failed',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").bind(String(failures.length)));
- stmts.push(env.DB.prepare("DELETE FROM region_data WHERE region_id>=?").bind(REGIONS.length));
- if(stmts.length) await env.DB.batch(stmts);
- console.log(`FlyItalyADSB ${planHeader}: ${success}/${batchSize} regions refreshed; ${failures.length} failed; grid ${REGIONS.length}; estimated sweep ${Math.ceil(REGIONS.length/batchSize)} minute(s)`);
- if(success===0) throw new Error("FlyItalyADSB batch failed: "+errorSummary);
 }
 export default {
  async scheduled(controller,env,ctx) {
