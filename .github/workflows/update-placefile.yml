@@ -1,6 +1,12 @@
 name: Generate U.S. flight tracker placefile
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'flighttracker.py'
+      - 'assets/helicopter-custom-96.png'
+      - '.github/workflows/update-placefile.yml'
   workflow_dispatch:
   schedule:
     - cron: "4-59/5 * * * *"
