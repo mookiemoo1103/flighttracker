@@ -1,15 +1,7 @@
 name: Generate U.S. flight tracker placefile
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'flighttracker.py'
-      - 'assets/helicopter-map-icon-96.png'
-      - '.github/workflows/update-placefile.yml'
   workflow_dispatch:
-  schedule:
-    - cron: "4-59/5 * * * *"
 
 permissions:
   contents: write
@@ -29,7 +21,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Fetch full U.S. coverage grid within the free API quota
+      - name: Validate placefile generator
+        run: python -m py_compile flighttracker.py
+      - name: Fetch full U.S. coverage grid (manual backup only)
         env:
           FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
         run: python flighttracker.py
@@ -43,8 +37,6 @@ jobs:
             exit 0
           fi
           git commit -m "Refresh full U.S. aircraft coverage"
-          # Other repository edits can land while the 59-region collection is running.
-          # Rebase the generated data commit on top of those edits before publishing.
           for attempt in 1 2 3; do
             git pull --rebase origin main
             if git push; then
