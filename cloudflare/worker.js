@@ -107,8 +107,11 @@ function branch(a) {
 function classify(a) {
  const t=clean(a.t).toUpperCase(), desc=clean(a.desc).toUpperCase();
  let flags=0; try { flags=Number.parseInt(String(a.dbFlags||"0"),0)||0; } catch {}
+ // Identify rotorcraft before military/operator classification so military helicopters
+ // also receive the dedicated helicopter symbol.
+ const helicopterPrefixes=["R22","R44","R66","B06","B06T","B407","B412","B429","B505","EC","AS","H125","H130","H135","H145","H160","H175","H215","H225","S76","S92","A109","A119","A139","A169","A189","MD5","MD6","OH","UH","HH","CH","MH","AH","TH"];
+ if(/HELI|HELICOPTER|ROTORCRAFT|ROTOR WING/.test(desc)||helicopterPrefixes.some(prefix=>t.startsWith(prefix))) return [2,"HELICOPTER",""];
  if(a.mil||a.military||(flags&1)) return [1,"MILITARY",branch(a)];
- if(desc.includes("HELI")||t.startsWith("R")||t.startsWith("H")) return [1,"HELICOPTER",""];
  if(desc.includes("CARGO")||desc.includes("FREIGHT")) return [1,"CARGO",airline(a)];
  const op=airline(a), flight=clean(a.flight);
  if(op&&(t.startsWith("A")||t.startsWith("B")||t.startsWith("E")||flight.length>=3)) return [1,"COMMERCIAL",op];
@@ -139,7 +142,8 @@ function render(rows, usage, source = "FlyItalyADSB", region = null) {
  const adsbfi = source === "adsb.fi";
  const lines=[adsbfi ? "; Flight data: adsb.fi; https://adsb.fi/" : "; Flight data: FlyItalyADSB (flyitalyadsb.com), CC BY-SA 4.0",
  region ? "Title: " + region.title : (adsbfi ? "Title: US FLIGHT TRACKER - ADSB.FI TEST" : "Title: US FLIGHT TRACKER - FLYITALYADSB"),"Refresh: 1","Color: 235 235 235",'Font: 1, 10, 1, "Arial"',
- `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,`; Updated: ${stamp}`,
+ `IconFile: 1, 64, 64, 64, 64, "${ICON_URL}"`,
+  `IconFile: 2, 64, 64, 64, 64, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-gray.png?v=1"`,`; Updated: ${stamp}`,
  `; Active aircraft cached across full U.S. coverage grid: ${aircraft.size}`,
  `; API quota used this month: ${usage.used||"unknown"} / ${usage.limit||"unknown"}`];
  for(const [hx,item] of aircraft) {
