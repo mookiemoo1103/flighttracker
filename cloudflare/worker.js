@@ -343,6 +343,27 @@ export default {
     quota:{used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"}
    });
   }
+  if (url.pathname === "/adsbfi-probe") {
+   const started = Date.now();
+   try {
+    const res = await fetch(`${ADSBFI_API}/30/lon/-90/dist/25`, {
+     headers: { "Accept": "application/json", "User-Agent": "USFlightTrackerPlacefile/diagnostic" },
+     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
+    });
+    const body = await res.text();
+    let parsed = null;
+    try { parsed = JSON.parse(body); } catch {}
+    return Response.json({
+     ok:res.ok,status:res.status,status_text:res.statusText,
+     content_type:res.headers.get("content-type"),
+     elapsed_ms:Date.now()-started,
+     aircraft_count:Array.isArray(parsed?.ac)?parsed.ac.length:null,
+     response_preview:body.slice(0,500)
+    });
+   } catch(error) {
+    return Response.json({ok:false,error:String(error?.stack||error),elapsed_ms:Date.now()-started},{status:502});
+   }
+  }
   if (url.pathname === "/adsbfi-health") {
    const [{results:state=[]},{results:rows=[]}] = await Promise.all([
     env.DB.prepare("SELECT key,value FROM tracker_state WHERE key LIKE 'adsbfi_%'").all(),
