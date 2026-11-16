@@ -191,7 +191,7 @@ def main():
         f"; Locations: {len(records)}",
     ]
     for lat, lon, tooltip in sorted(records.values(), key=lambda row: (row[0], row[1])):
-        safe_tooltip = tooltip.replace("\\", "/").replace('"', "'').replace("\r", "").replace("\n", "\\n")
+        safe_tooltip = tooltip.replace("\\", "/").replace('"', "'\').replace("\r", "").replace("\n", "\\n")
         lines.extend([
             f"Object: {lat:.6f},{lon:.6f}",
             "Threshold: 999",
