@@ -20,10 +20,10 @@ function statusFor(properties) {
   const relative = Number(properties.traffic_level);
   const closed = properties.road_closure === true;
   if (closed || !Number.isFinite(relative) || relative < 0.45)
-    return { color: [227, 38, 38], label: closed ? "CLOSED" : "VERY SLOW" };
-  if (relative < 0.65) return { color: [242, 140, 24], label: "SLOW" };
-  if (relative < 0.85) return { color: [244, 210, 31], label: "MODERATE" };
-  return { color: [22, 184, 78], label: "FAST" };
+    return { color: [255, 0, 0], label: closed ? "CLOSED" : "STOPPED / VERY SLOW", className: "red" };
+  if (relative < 0.65) return { color: [255, 128, 0], label: "SLOW", className: "orange" };
+  if (relative < 0.85) return { color: [255, 220, 0], label: "MODERATE", className: "yellow" };
+  return { color: [0, 220, 0], label: "FAST", className: "green" };
 }
 
 async function fetchTile(x, y) {
@@ -83,10 +83,12 @@ const lines = [
 ];
 
 let drawn = 0;
+const classCounts = { red: 0, orange: 0, yellow: 0, green: 0 };
 for (const segment of usable) {
   const roadType = roadTypeNumber(segment.properties.road_type);
   const status = statusFor(segment.properties);
   const [red, green, blue] = status.color;
+  classCounts[status.className]++;
   lines.push(`Color: ${red} ${green} ${blue}`);
   const label = clean(status.label + (segment.properties.road_closure === true ? " - ROAD CLOSED" : ""));
   lines.push(`Line: ${roadType === 0 ? 2 : 1}, 0, "${label}"`);
@@ -96,6 +98,11 @@ for (const segment of usable) {
 }
 lines.push("; Vector road segments: " + drawn);
 lines.push("; Interstate road type: 0; highway road types: 1, 2, 3");
+lines.push("; Traffic color classes (red/orange/yellow/green): " + Object.values(classCounts).join("/"));
+console.log("Traffic color class counts:", JSON.stringify(classCounts));
+if (drawn !== lines.filter(line => line.startsWith("Line:")).length || drawn !== lines.filter(line => line.startsWith("Color:")).length) {
+  throw new Error("Placefile validation failed: each road must have exactly one RGB color and one Line command.");
+}
 
 await writeFile("traffic.txt", lines.join("\n") + "\n", "utf8");
 console.log(`Generated traffic.txt with ${drawn} colored vector road segments from ${TILES.length} tiles.`);
