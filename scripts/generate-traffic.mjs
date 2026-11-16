@@ -107,11 +107,22 @@ const usable = segments.filter(s =>
 );
 if (!usable.length) throw new Error("TomTom returned no usable colored road segments; existing published placefile was not overwritten.");
 
+// Draw green roads first so yellow, orange, red, and magenta roads render on top.
+const drawPriority = status => {
+  const [r, g, b] = status.color;
+  if (r === 255 && b === 255) return 4; // magenta
+  if (r >= 200 && g < 80 && b < 80) return 3; // red
+  if (r >= 200 && g >= 80 && g < 190) return 2; // orange
+  if (r >= 200 && g >= 190) return 1; // yellow
+  return 0; // green / normal
+};
+usable.sort((a, b) => drawPriority(statusFor(a.properties)) - drawPriority(statusFor(b.properties)));
+
 const lines = [
   "; Southeast Louisiana live traffic - GitHub Actions generated static placefile",
   "; Source: TomTom Traffic Flow Vector Tiles",
   "; Vector road geometry remains sharp at close zoom levels.",
-  "; Interstates: 6px; other included roads: 4px. Single-color lines only; no generated black casing. Interstate offset 32m and highway offset 50m.",
+  "; Interstates: 5px; other included roads: 3px. Single-color lines only; no generated black casing. Interstate offset 45m and highway offset 50m.",
   "; Coverage: Baton Rouge/Livingston, Northshore, Pearl River, Slidell, New Orleans and Mississippi Gulf Coast",
   "; Traffic data © TomTom",
   "; Updated: " + new Date().toISOString(),
@@ -128,8 +139,8 @@ for (const segment of usable) {
   const [red, green, blue] = status.color;
   classCounts[status.className]++;
   const hex = "#" + [red, green, blue].map(v => v.toString(16).padStart(2, "0")).join("");
-  const offsetMeters = roadType === 0 ? 32 : 50;
-  const displayWidth = roadType === 0 ? 6 : 4;
+  const offsetMeters = roadType === 0 ? 45 : 50;
+  const displayWidth = roadType === 0 ? 5 : 3;
   const coordinates = offsetPath(segment.path, offsetMeters).map(([lat, lon]) => [lon, lat]);
   const closed = isRoadClosed(segment.properties);
   const featureProperties = {
