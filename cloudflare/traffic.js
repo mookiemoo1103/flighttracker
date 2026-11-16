@@ -193,6 +193,38 @@ function buildPlacefile(updatedAt, origin, stale = false) {
   return lines.join("\n") + "\n";
 }
 
+
+function buildRoadClassPlacefile(segments, updatedAt, roadClass) {
+  const isInterstate = roadClass === "interstate";
+  const wanted = isInterstate ? new Set([0]) : new Set([1, 2, 3]);
+  const lines = [
+    "; Live traffic flow from TomTom vector traffic tiles",
+    "; Separate road-class feed for independent AquaCeroWx zoom-range control.",
+    "; " + (isInterstate ? "Interstates" : "U.S. highways and major/state highways"),
+    "; Traffic data © TomTom",
+    "; Updated: " + new Date(updatedAt).toISOString(),
+    "Title: SOUTHEAST LOUISIANA " + (isInterstate ? "INTERSTATE" : "HIGHWAY") + " TRAFFIC",
+    "Refresh: 1"
+  ];
+  let count = 0;
+  for (const segment of segments) {
+    const roadType = Number(segment.properties?.road_type);
+    if (!wanted.has(roadType)) continue;
+    const points = segment.path || [];
+    if (points.length < 2) continue;
+    const status = statusFor(segment.properties || {});
+    const [red, green, blue] = status.color;
+    lines.push("Color: " + red + " " + green + " " + blue);
+    const label = clean(status.label + (segment.properties?.road_closure === true ? " - ROAD CLOSED" : ""));
+    lines.push('Line: ' + (isInterstate ? 4 : 3) + ', 0, "' + label + '"');
+    for (const [lat, lon] of points) lines.push(lat.toFixed(6) + ", " + lon.toFixed(6));
+    lines.push("End:");
+    count++;
+  }
+  lines.push("; " + (isInterstate ? "Interstate" : "Highway") + " segments: " + count);
+  return lines.join("\n") + "\n";
+}
+
 async function fetchRasterTile(x, y, apiKey) {
   const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative/" + ZOOM + "/" + x + "/" + y + ".png");
   url.searchParams.set("key", apiKey);
@@ -244,6 +276,24 @@ async function fetchTrafficSegments(apiKey) {
 
 export async function handleTrafficRequest(request, env) {
   const url = new URL(request.url);
+  const roadClass = url.searchParams.get("roads");
+  if (roadClass === "interstate" || roadClass === "highway") {
+    const headers = {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "no-store, max-age=0",
+      "access-control-allow-origin": "*"
+    };
+    if (!env.TOMTOM_API_KEY) {
+      return new Response("; TomTom API key is not configured.\\nTitle: SOUTHEAST LOUISIANA TRAFFIC\\nRefresh: 1\\n", { status: 503, headers });
+    }
+    try {
+      const data = await fetchTrafficSegments(env.TOMTOM_API_KEY);
+      const body = buildRoadClassPlacefile(data.segments, Date.now(), roadClass);
+      return new Response(body, { headers: { ...headers, "x-traffic-segments": String(data.segments.length) } });
+    } catch (error) {
+      return new Response("; Traffic vector feed temporarily unavailable: " + clean(error?.message || error) + "\\nTitle: SOUTHEAST LOUISIANA TRAFFIC\\nRefresh: 1\\n", { status: 502, headers });
+    }
+  }
   const tileMatch = url.searchParams.get("tile")?.match(/^(\d+)\/(\d+)$/);
   if (tileMatch) {
     const x = Number(tileMatch[1]), y = Number(tileMatch[2]);
