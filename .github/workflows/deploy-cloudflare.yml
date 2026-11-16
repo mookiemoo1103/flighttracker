@@ -165,6 +165,18 @@ jobs:
             echo "Traffic endpoint request failed"
             exit 0
           }
+          image_count=$(grep -c '^Image:' /tmp/traffic.txt || true)
+          echo "Traffic raster image overlays: $image_count"
+          test "$image_count" -eq 12
+          tile_url=$(grep '^Image:' /tmp/traffic.txt | head -1 | cut -d' ' -f2-)
+          curl --retry 3 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$tile_url" -o /tmp/traffic-tile.png
+          file /tmp/traffic-tile.png
+          python - <<'PY'
+          from pathlib import Path
+          data=Path("/tmp/traffic-tile.png").read_bytes()
+          assert data.startswith(bytes([137,80,78,71,13,10,26,10])), "Traffic tile is not a PNG image"
+          print("TomTom traffic tile PNG signature OK; bytes:", len(data))
+          PY
           color_count=$(grep -c '^Color:' /tmp/traffic.txt || true)
           line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
           echo "Traffic placefile Color directives: $color_count"
