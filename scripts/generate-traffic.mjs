@@ -54,9 +54,17 @@ await Promise.all(Array.from({ length: 8 }, () => worker()));
 
 const segments = results.flat();
 console.log("Decoded segments:", segments.length);
-console.log("Decoded road types:", [...new Set(segments.map(x => x.properties?.road_type))]);
+
+const roadTypeNumber = value => {
+  const name = String(value ?? "").trim().toLowerCase();
+  if (name === "motorway") return 0;
+  if (name === "international road") return 1;
+  if (name === "major road") return 2;
+  if (name === "secondary road") return 3;
+  return -1;
+};
 const usable = segments.filter(s =>
-  [0, 1, 2, 3].includes(Number(s.properties?.road_type)) &&
+  roadTypeNumber(s.properties?.road_type) >= 0 &&
   (Number.isFinite(Number(s.properties?.traffic_level)) || s.properties?.road_closure === true) &&
   Array.isArray(s.path) && s.path.length >= 2
 );
@@ -76,7 +84,7 @@ const lines = [
 
 let drawn = 0;
 for (const segment of usable) {
-  const roadType = Number(segment.properties.road_type);
+  const roadType = roadTypeNumber(segment.properties.road_type);
   const status = statusFor(segment.properties);
   const [red, green, blue] = status.color;
   lines.push(`Color: ${red} ${green} ${blue}`);
