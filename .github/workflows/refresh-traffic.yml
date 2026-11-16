@@ -36,6 +36,8 @@ jobs:
         run: |
           set -euo pipefail
           test -s traffic.txt
+          test -s traffic.geojson
+          node -e 'const j=JSON.parse(require("fs").readFileSync("traffic.geojson","utf8")); if(j.type!=="FeatureCollection" || !Array.isArray(j.features) || j.features.length<100 || !j.features.every(f=>f.geometry?.type==="LineString" && /^#[0-9a-f]{6}$/i.test(f.properties?.stroke) && f.properties?.["stroke-opacity"]===1)) process.exit(1); console.log("Validated",j.features.length,"GeoJSON road features with per-feature colors.")'
           colors=$(grep -c '^Color:' traffic.txt)
           lines=$(grep -c '^Line:' traffic.txt)
           test "$lines" -gt 100
@@ -49,7 +51,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add traffic.txt
+          git add traffic.txt traffic.geojson
           if git diff --cached --quiet; then
             echo "Traffic placefile unchanged."
             exit 0
