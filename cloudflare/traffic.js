@@ -162,13 +162,6 @@ function tileBounds(x, y, zoom) {
   return { north: lat(y), south: lat(y + 1), west: lon(x), east: lon(x + 1) };
 }
 
-function tileBounds(x, y, zoom) {
-  const n = Math.pow(2, zoom);
-  const lon = tx => tx / n * 360 - 180;
-  const lat = ty => Math.atan(Math.sinh(Math.PI * (1 - 2 * ty / n))) * 180 / Math.PI;
-  return { north: lat(y), south: lat(y + 1), west: lon(x), east: lon(x + 1) };
-}
-
 function buildPlacefile(updatedAt, origin, stale = false) {
   const lines = [
     "; Live traffic flow from TomTom pre-colored raster flow tiles",
