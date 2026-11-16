@@ -261,54 +261,14 @@ export async function handleTrafficRequest(request, env) {
     "cache-control": "no-store, max-age=0",
     "access-control-allow-origin": "*"
   };
-  if (!env.DB) return new Response("; Traffic service unavailable: D1 binding is missing.\nTitle: SOUTHEAST LOUISIANA LIVE TRAFFIC\nRefresh: 5\n", { status: 503, headers });
   if (!env.TOMTOM_API_KEY) {
     return new Response([
       "; Live traffic placefile is deployed, but the free TomTom Traffic API key has not been configured.",
-      "; Create a free TomTom developer account, enable Traffic Flow Vector Tiles, then add a GitHub Actions secret named TOMTOM_API_KEY.",
-      "Title: SOUTHEAST LOUISIANA LIVE TRAFFIC",
-      "Refresh: 5",
-      "Font: 1, 10, 1, Arial",
-      "Color: 255 220 80",
-      'Text: 0,0,1,"CONFIGURE FREE TOMTOM API KEY"',
-      ""
-    ].join("\n"), { status: 200, headers });
-  }
-
-  let cached = null;
-  try { cached = await env.DB.prepare("SELECT payload, updated_at FROM traffic_cache WHERE id=?").bind(CACHE_ID).first(); }
-  catch (error) { console.error("Traffic cache read failed:", String(error)); }
-  const cachedAt = Number(cached?.updated_at || 0);
-  if (cached && cachedAt && Date.now() - cachedAt < CACHE_MS) {
-    try {
-      const payload = JSON.parse(cached.payload);
-      return new Response(buildPlacefile(cachedAt, url.origin, false), { headers });
-    } catch (error) { console.error("Traffic cache parse failed:", String(error)); }
-  }
-
-  try {
-    const { segments, errors } = await fetchTrafficSegments(env.TOMTOM_API_KEY);
-    const updatedAt = Date.now();
-    await env.DB.prepare("INSERT INTO traffic_cache(id,payload,updated_at,last_error) VALUES(1,?,?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at,last_error=excluded.last_error")
-      .bind(JSON.stringify({ segments }), updatedAt, errors.join(" | ").slice(0, 1000) || null).run();
-    const responseHeaders = errors.length ? { ...headers, "x-traffic-partial": String(errors.length) } : headers;
-    return new Response(buildPlacefile(updatedAt, url.origin), { headers: responseHeaders });
-  } catch (error) {
-    const message = clean(error?.message || error);
-    console.error("TomTom traffic refresh failed:", message);
-    if (cached && cachedAt && Date.now() - cachedAt < STALE_MS) {
-      try {
-        const payload = JSON.parse(cached.payload);
-        await env.DB.prepare("UPDATE traffic_cache SET last_error=? WHERE id=1").bind(message).run();
-        return new Response(buildPlacefile(cachedAt, url.origin, true), { ...headers, "x-traffic-cache": "stale-fallback" });
-      } catch {}
-    }
-    return new Response([
-      "; TomTom traffic refresh failed: " + message,
-      "; No current traffic-speed data is available. The placefile will retry on its next refresh.",
+      "; Add a GitHub Actions secret named TOMTOM_API_KEY.",
       "Title: SOUTHEAST LOUISIANA LIVE TRAFFIC",
       "Refresh: 5",
       ""
-    ].join("\n"), { status: 200, headers });
+    ].join("\\n"), { status: 200, headers });
   }
+  return new Response(buildPlacefile(Date.now(), url.origin), { headers });
 }
