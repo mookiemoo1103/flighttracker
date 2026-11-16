@@ -51,7 +51,7 @@ function classify(a) {
   const type = normalizeType(a);
   const sub = String(a.EventSubType ?? "").toLowerCase();
   const desc = String(a.Description ?? "").toLowerCase();
-  if (a.ClosureExists === 1 || /closure|closed|road closed/.test(type + " " + sub + " " + desc)) return "closure";
+  if (/closure|closed/.test(type) || /closure|closed/.test(sub)) return "closure";
   if (/roadwork|construction|workzone/.test(type) || /construction|road work|work zone|maintenance/.test(sub + " " + desc)) return "construction";
   if (/accident|incident/.test(type) || /crash|collision|disabled vehicle|vehicle fire|debris|hazard/.test(sub + " " + desc)) return "incident";
   return null;
@@ -83,7 +83,7 @@ function eventKey(a, kind, position) {
   ].join("|");
 }
 function popup(a, kind) {
-  const direction = ({N:"Northbound",NB:"Northbound",S:"Southbound",SB:"Southbound",E:"Eastbound",EB:"Eastbound",W:"Westbound",WB:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || "").toUpperCase()] || a.TravelDirection || "";
+  const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || "").toUpperCase()] || a.TravelDirection || "";
   const parts = [
     kind === "closure" ? "ROAD CLOSURE" : kind === "construction" ? "CONSTRUCTION / ROADWORK" : "TRAFFIC INCIDENT",
     a.RoadName,
