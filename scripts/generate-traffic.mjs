@@ -106,7 +106,7 @@ const lines = [
   "; Southeast Louisiana live traffic - GitHub Actions generated static placefile",
   "; Source: TomTom Traffic Flow Vector Tiles",
   "; Vector road geometry remains sharp at close zoom levels.",
-  "; Interstates: 6px; other included roads: 5px. Direction-aware offsets separate opposing carriageways; highway offset 50m.",
+  "; Interstates: 6px; other included roads: 4px. Thin black casing on all roads; interstate offset 32m and highway offset 50m.",
   "; Coverage: Baton Rouge/Livingston, Northshore, Pearl River, Slidell, New Orleans and Mississippi Gulf Coast",
   "; Traffic data © TomTom",
   "; Updated: " + new Date().toISOString(),
@@ -123,26 +123,37 @@ for (const segment of usable) {
   const [red, green, blue] = status.color;
   classCounts[status.className]++;
   const hex = "#" + [red, green, blue].map(v => v.toString(16).padStart(2, "0")).join("");
+  const offsetMeters = roadType === 0 ? 32 : 50;
+  const displayWidth = roadType === 0 ? 6 : 4;
+  const coordinates = offsetPath(segment.path, offsetMeters).map(([lat, lon]) => [lon, lat]);
+  const closed = segment.properties.road_closure === true || segment.properties.road_closure === 1 || String(segment.properties.road_closure).toLowerCase() === "true";
+  const featureProperties = {
+    "stroke-opacity": 1,
+    traffic_status: status.label,
+    road_type: segment.properties.road_type,
+    traffic_level: Number(segment.properties.traffic_level),
+    road_closure: closed
+  };
+  // Draw a thin black casing underneath each colored road in GeoJSON.
   geoFeatures.push({
     type: "Feature",
-    properties: {
-      stroke: hex,
-      "stroke-width": roadType === 0 ? 6 : 4,
-      "stroke-opacity": 1,
-      traffic_status: status.label,
-      road_type: segment.properties.road_type,
-      traffic_level: Number(segment.properties.traffic_level),
-      road_closure: segment.properties.road_closure === true || segment.properties.road_closure === 1 || String(segment.properties.road_closure).toLowerCase() === "true"
-    },
-    geometry: {
-      type: "LineString",
-      coordinates: offsetPath(segment.path, roadType === 0 ? 25 : 50).map(([lat, lon]) => [lon, lat])
-    }
+    properties: { ...featureProperties, stroke: "#000000", "stroke-width": displayWidth + 2, layer: "road-outline" },
+    geometry: { type: "LineString", coordinates }
   });
+  geoFeatures.push({
+    type: "Feature",
+    properties: { ...featureProperties, stroke: hex, "stroke-width": displayWidth, layer: "traffic" },
+    geometry: { type: "LineString", coordinates }
+  });
+  const label = clean(status.label + (closed ? " - ROAD CLOSED" : ""));
+  // Draw the wider black line first, then the traffic-colored line on top.
+  lines.push("Color: 0 0 0");
+  lines.push(`Line: ${displayWidth + 2}, 0, "${label}"`);
+  for (const [lat, lon] of offsetPath(segment.path, offsetMeters)) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
+  lines.push("End:");
   lines.push(`Color: ${red} ${green} ${blue}`);
-  const label = clean(status.label + ((segment.properties.road_closure === true || segment.properties.road_closure === 1 || String(segment.properties.road_closure).toLowerCase() === "true") ? " - ROAD CLOSED" : ""));
-  lines.push(`Line: ${roadType === 0 ? 6 : 4}, 0, "${label}"`);
-  for (const [lat, lon] of offsetPath(segment.path, roadType === 0 ? 25 : 35)) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
+  lines.push(`Line: ${displayWidth}, 0, "${label}"`);
+  for (const [lat, lon] of offsetPath(segment.path, offsetMeters)) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
   lines.push("End:");
   drawn++;
 }
@@ -151,7 +162,7 @@ lines.push("; Interstate road type: 0; highway road types: 1, 2, 3, 4, 5 (includ
 lines.push("; Traffic color classes (closed/red/orange/yellow/green): " + Object.values(classCounts).join("/"));
 console.log("Traffic color class counts:", JSON.stringify(classCounts));
 if (drawn !== lines.filter(line => line.startsWith("Line:")).length || drawn !== lines.filter(line => line.startsWith("Color:")).length) {
-  throw new Error("Placefile validation failed: each road must have exactly one RGB color and one Line command.");
+  throw new Error("Placefile validation failed: each road outline and traffic line must have matching RGB color and Line commands.");
 }
 
 await writeFile("traffic.txt", lines.join("\n") + "\n", "utf8");
