@@ -50,7 +50,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
       - name: Configure Louisiana 511 API key
-        if: ${{ secrets.LOUISIANA_511_API_KEY != '' }}
+        if: ${{ env.LOUISIANA_511_API_KEY != '' }}
         run: printf '%s' "$LOUISIANA_511_API_KEY" | npx wrangler@4 secret put LOUISIANA_511_API_KEY
         env:
           LOUISIANA_511_API_KEY: ${{ secrets.LOUISIANA_511_API_KEY }}
