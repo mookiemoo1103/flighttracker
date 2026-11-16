@@ -1,289 +1,50 @@
 ; Louisiana DOTD / 511 traffic events - separate additive layer
-; Source: DOTD 511 Road Closures FeatureServer
+; Source: DOTD 511 Road Closures FeatureServer (point + line layers)
+; Freshness: incidents updated within 72 hours; closures/construction within 14 days.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-16T23:38:20.237Z
+; Updated: 2026-11-16T23:56:07.616Z
 Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
 IconFile: 2, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-construction.png"
 IconFile: 3, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-incident.png"
-Object: 29.973899,-90.111082
+Object: 30.247018,-92.094094
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEastbound\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near US 61 Northbound (MM 232). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 3\nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEastbound\nCrash\nCrash on I-10 Eastbound Near Coulee Mine (MM 98). 1 Right lane blocked.\nLafayette\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed\nReporting agency: DOTD\nSource: Statewide TMC"
+End:
+Object: 30.295109,-90.106139
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLake Pontchartrain Cswy\nSouthbound\nRoad Construction\nRoad Construction on Lake Pontchartrain Cswy Southbound Near Jefferson St Tammany Parish Line. 1 Left lane blocked. Starting 11/12/2026 2:26 PM\nSt. Tammany\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed\nReporting agency: DOTD\nSource: Other - External"
 End:
 Object: 29.598755,-90.716231
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 182\nEastbound\nBridge Closure\nBridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 182\nEastbound\nBridge Closure\nBridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed\nReporting agency: TMC\nSource: Houma TMC"
+End:
+Object: 29.758683,-90.816954
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 3185\nBoth Directions\nPaving Operations\nPaving Operations on LA 3185 Both Directions At LA 20 Eastbound. Lanes Alternating. Starting 4/22/2026 7:30 AM\nTerrebonne\nSeverity: None\nLanes open: 2\nStatus: Confirmed\nReporting agency: TMC\nSource: Houma TMC"
 End:
 Object: 29.598755,-90.716231
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 182\nEastbound\nBridge Closure\nBridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.938681,-90.042822
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nUS 90-BR\nEastbound\nStalled Vehicle\nOrleans\nSeverity: Major\nLanes closed: 1\nLanes open: 3\nExpected end: 10/21/2029, 9:40:00 AM"
-End:
-Object: 29.647178,-90.536656
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 655\nBoth Directions\nTruck Restrictions\nTruck Restrictions on LA 655 Both Directions At Rita Bridge. Lane Affected. Weight Restriction: 30000lbs Additional Restrictions: No Oversized Loads\nLafourche\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.598579,-90.716192
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 24\nBoth Directions\nBridge Maintenance Operations\nBridge Maintenance Operations on LA 24 Both Directions At E Main St. Lanes Alternating. Starting 4/21/2026 7:00 AM\nTerrebonne\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd MM (51) to US 51 MM (51). Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.382768,-90.714738
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 57\nBoth Directions\nBridge Closure\nBridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 31.165020,-92.092607
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 107\nBoth Directions\nRoad Marking Operations\nRoad Marking Operations on LA 107 Both Directions from Red River to E Mark St . All Lanes Intermittent. Starting 8/10/2026 12:00 AM\nAvoyelles\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.417670,-91.101701
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-12\nWestbound\nBridge Construction\nEast Baton Rouge\nSeverity: None\nLanes open: 3\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.428389,-91.443348
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nBoth Directions\nRoad Maintenance Operations\nIberville\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 30.444706,-91.179216
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouthbound\nCrash\nCrash on ramp Southbound from I-110 Southbound to LA 73 Westbound MM (1). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.382768,-90.714738
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 57\nBoth Directions\nBridge Closure\nBridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.894065,-90.109040
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUS 90 BUS\nEastbound\nRoad Construction\nRoad Construction on US 90-BR Eastbound from Westwood to Westbank Expy. 1 Right lane blocked. Starting 4/15/2024 8:26 PM\nJefferson\nSeverity: None\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.382768,-90.714738
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 57\nBoth Directions\nBridge Closure\nBridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.412470,-91.099890
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 3064\nWestbound\nRoad Construction\nEast Baton Rouge\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
-End:
-Object: 30.518675,-91.161087
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nEastbound\nCrash\nCrash on ramp from LA 408 Eastbound ramp to I-110 Southbound to I-110 Southbound (MM 6) . Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 30.424099,-91.156008
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWestbound\nStalled Vehicle\nStalled Vehicle on ramp Westbound from Perkins Rd ramp to I-10 Westbound to I-10 Westbound MM (158). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
-End:
-Object: 30.456979,-91.179741
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 3045\nSouthbound\nStalled Vehicle\nStalled Vehicle on ramp Southbound from Capitol Access Rd ramp to I-110 Southbound to I-110 Southbound MM (1). 1 Right Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.422333,-91.131833
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nUnknown\nCrash\nCrash on ramp from I-10 Westbound to College Dr. All Ramps Closed.\nEast Baton Rouge\nSeverity: Major\nLanes closed: 1\nStatus: Confirmed"
-End:
-Object: 30.000297,-90.156977
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nNorthbound\nVehicle on Fire\nVehicle on Fire on ramp from N Causeway Blvd ramp to I-10 Westbound to I-10 Westbound (MM 228) . All Ramps Blocked.\nJefferson\nSeverity: Minor\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.382768,-90.714738
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 57\nBoth Directions\nBridge Closure\nBridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.933147,-90.039027
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWestbound\nIncident\nIncident on ramp Westbound from US 90-BR Westbound to LA 428 Westbound. 1 Right lane blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.425726,-91.073773
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWestbound\nCrash\nCrash on ramp Westbound from I-12 Westbound ramp to US 61 Northbound to US 61 Northbound. 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 4\nLanes open: 2\nStatus: Confirmed"
-End:
-Object: 30.457233,-91.177179
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorthbound\nStalled Vehicle\nStalled Vehicle on ramp from Capitol Access Rd ramp to I-110 Northbound to I-110 Northbound (MM 1) . Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 182\nEastbound\nBridge Closure\nBridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed\nReporting agency: TMC\nSource: Houma TMC"
 End:
 Object: 30.463649,-91.166600
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouthbound\nCrash\nCrash on ramp from I-110 Southbound ramp to LA 67 Southbound to LA 67 Southbound . Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouthbound\nCrash\nCrash on ramp from I-110 Southbound ramp to LA 67 Southbound to LA 67 Southbound . All lanes blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed"
 End:
-Object: 30.361394,-92.047852
+Object: 30.440283,-91.179212
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-49\nUnknown\nEmergency Maintenance\nEmergency Maintenance on ramp from LA 182 Northbound to I-49 Southbound. All Ramps Closed. Starting 5/11/2026 8:32 AM\nLafayette\nSeverity: Moderate\nLanes closed: 1\nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nUnknown\nRoad Construction\nRoad Construction on ramp from I-10 Eastbound to I-110 Northbound . All Ramps Closed. Starting 11/16/2026 10:00 PM and Ending 11/20/2026 5:00 AM.\nEast Baton Rouge\nSeverity: Major\nLanes closed: 1\nStatus: Confirmed\nExpected end: 11/20/2026, 5:00:00 AM"
 End:
-Object: 29.424388,-90.292244
+Object: 30.549767,-91.948113
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 1\nBoth Directions\nConstruction Work\nConstruction Work on LA 1 Both Directions from W 186th St to W 191st St. All Lanes Intermittent. Starting 11/20/2024 12:45 PM\nLafourche\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 741\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 741 Both Directions from US 190 Westbound to Bear St . All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 11/16/2026 7:00 AM and Ending 11/22/2026 5:00 PM.\nSt. Landry\nSeverity: None\nLanes closed: 1\nStatus: Confirmed\nExpected end: 11/22/2026, 5:00:00 PM"
 End:
-Object: 30.058214,-89.937891
+Object: 30.505890,-90.453653
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-510\nNorthbound\nRoad Maintenance Operations\nRoad Maintenance Operations on ramp Northbound from I-510 Northbound to I-10 Eastbound MM (247). All lanes blocked. Starting 4/23/2026 9:02 PM\nOrleans\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUS 51 BUS\nBoth Directions\nRoad Marking Operations\nRoad Marking Operations on US 190 Both Directions from NW Railroad Ave to LA 443 . All lanes closed. Width Restriction: 12ft Starting 11/15/2026 6:00 PM and Ending 11/19/2026 6:00 AM.\nTangipahoa\nSeverity: None\nLanes closed: 2\nStatus: Confirmed\nExpected end: 11/19/2026, 6:00:00 AM"
 End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 29.787179,-90.822742
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUNNAMED RD\nBoth Directions\nRoad Construction\nRoad Construction on LA 20 Both Directions from E 12th St to LA 648. Lanes Alternating. Starting 2/26/2024 12:00 PM\nLafourche\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
-End:
-Object: 30.445544,-91.179117
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorthbound\nStalled Vehicle\nStalled Vehicle on ramp Northbound from Government St to I-110 Northbound MM (1). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
-End:
-; Current events displayed: 69
-; Closures: 36
-; Construction: 19
-; Incidents: 14
+; Current events displayed: 9
+; Closures: 2
+; Construction: 5
+; Incidents: 2
