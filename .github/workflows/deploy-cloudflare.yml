@@ -166,51 +166,12 @@ jobs:
             exit 0
           }
           image_count=$(grep -c '^Image:' /tmp/traffic.txt || true)
-          echo "Traffic raster image overlays (zoom 11, 512px): $image_count"
-          test "$image_count" -eq 320
-          # Test a tile centered on Pearl River / Slidell rather than an outer edge tile.
-          tile_url=$(grep '^Image:' /tmp/traffic.txt | sed -n '86p' | cut -d' ' -f2-)
-          curl --retry 3 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$tile_url" -o /tmp/traffic-tile.png
-          file /tmp/traffic-tile.png
-          python - <<'PY'
-          from pathlib import Path
-          import struct, zlib
-          data=Path("/tmp/traffic-tile.png").read_bytes()
-          assert data.startswith(bytes([137,80,78,71,13,10,26,10])), "Traffic tile is not a PNG image"
-          pos=8; compressed=b""; width=height=color_type=bit_depth=None
-          while pos < len(data):
-              n=struct.unpack(">I",data[pos:pos+4])[0]; typ=data[pos+4:pos+8]; chunk=data[pos+8:pos+8+n]; pos += 12+n
-              if typ==b"IHDR": width,height,bit_depth,color_type,_=struct.unpack(">IIBBBBB",chunk)
-              elif typ==b"IDAT": compressed += chunk
-              elif typ==b"IEND": break
-          assert width==512 and height==512, f"Expected 512x512 detailed tile, got {width}x{height}"
-          assert bit_depth==8 and color_type in (2,6), f"Unsupported PNG format: depth={bit_depth}, type={color_type}"
-          bpp=4 if color_type==6 else 3
-          raw=zlib.decompress(compressed); stride=width*bpp; rows=[]; prev=bytearray(stride); off=0
-          for _ in range(height):
-              filt=raw[off]; off+=1; scan=bytearray(raw[off:off+stride]); off+=stride
-              for i in range(stride):
-                  a=scan[i-bpp] if i>=bpp else 0; b=prev[i]; cc=prev[i-bpp] if i>=bpp else 0
-                  if filt==1: scan[i]=(scan[i]+a)&255
-                  elif filt==2: scan[i]=(scan[i]+b)&255
-                  elif filt==3: scan[i]=(scan[i]+((a+b)//2))&255
-                  elif filt==4:
-                      p=a+b-cc; pa=abs(p-a); pb=abs(p-b); pc=abs(p-cc); pr=a if pa<=pb and pa<=pc else (b if pb<=pc else cc); scan[i]=(scan[i]+pr)&255
-                  elif filt!=0: raise AssertionError(f"Unknown PNG filter {filt}")
-              rows.append(scan); prev=scan
-          opaque=0; traffic={}
-          for row in rows:
-              for i in range(0,len(row),bpp):
-                  r,g,b=row[i:i+3]; a=row[i+3] if bpp==4 else 255
-                  if a:
-                      opaque+=1
-                      if g>r*1.25 and g>b*0.75: traffic["green"]=traffic.get("green",0)+1
-                      if r>180 and g>100 and g<230 and b<100: traffic["yellow_or_orange"]=traffic.get("yellow_or_orange",0)+1
-                      if r>150 and r>g*1.4 and r>b*1.4: traffic["red"]=traffic.get("red",0)+1
-          print(f"Pearl River tile {width}x{height}: {opaque} nontransparent pixels; likely traffic colors: {traffic}")
-          assert opaque>0, "TomTom traffic tile is completely transparent"
-          assert sum(traffic.values())>0, "TomTom tile contains no recognizable traffic-color pixels"
-          PY
+          echo "Traffic raster image overlays: $image_count (vector feed should be 0)"
+          echo "Traffic vector color directives: $color_count"
+          echo "Traffic vector road lines: $line_count"
+          test "$image_count" -eq 0
+          test "$line_count" -gt 0
+          test "$color_count" -eq "$line_count"
           color_count=$(grep -c '^Color:' /tmp/traffic.txt || true)
           line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
           echo "Traffic placefile Color directives: $color_count"
