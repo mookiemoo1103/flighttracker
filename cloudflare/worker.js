@@ -277,6 +277,38 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
  lines.push(`; Unique aircraft: ${aircraft.size}`,`; Helicopters rendered: ${helicopterCount}`,`; Business jets rendered: ${businessJetCount}`,`; General aviation rendered: ${generalAviationCount}`,`; Passenger aircraft rendered: ${passengerCount}`,`; Commercial aircraft rendered: ${commercialCount}`,`; Military/government aircraft rendered: ${militaryCount}`,`; Selected records by source: FlyItalyADSB ${sourceCounts["FlyItalyADSB"]||0}, ADSB.lol ${sourceCounts["ADSB.lol"]||0}`,`; Duplicate source/overlap records removed: ${Math.max(0,sourceRecordCount-aircraft.size)}`);
  return lines.join("\n")+"\n";
 }
+function regionGridIds(grid, radiusNm, region) {
+ const latPad=radiusNm/60+0.5;
+ const midLat=(region.minLat+region.maxLat)/2;
+ const lonPad=radiusNm/(60*Math.max(0.25,Math.cos(midLat*Math.PI/180)))+0.5;
+ const ids=[];
+ for(let i=0;i<grid.length;i++){
+  const [lat,lon]=grid[i];
+  if(lat>=region.minLat-latPad&&lat<=region.maxLat+latPad&&lon>=region.minLon-lonPad&&lon<=region.maxLon+lonPad) ids.push(i);
+ }
+ return ids;
+}
+async function selectRegionalRows(db, table, grid, radiusNm, region) {
+ const ids=regionGridIds(grid,radiusNm,region);
+ if(!ids.length) return [];
+ const marks=ids.map(()=>"?").join(",");
+ const result=await db.prepare(`SELECT region_id,payload,updated_at FROM ${table} WHERE region_id IN (${marks})`).bind(...ids).all();
+ return result.results||[];
+}
+async function selectRegistryForRows(db, rows) {
+ const hexes=new Set();
+ for(const row of rows){
+  let aircraft=[];try{aircraft=JSON.parse(row.payload)||[];}catch{}
+  for(const a of aircraft) if(a.hex) hexes.add(String(a.hex).toLowerCase());
+ }
+ const ids=[...hexes], found=[];
+ for(let i=0;i<ids.length;i+=80){
+  const batch=ids.slice(i,i+80), marks=batch.map(()=>"?").join(",");
+  const result=await db.prepare(`SELECT hex,payload FROM aircraft_registry WHERE hex IN (${marks})`).bind(...batch).all();
+  found.push(...(result.results||[]));
+ }
+ return found;
+}
 async function collectAdsbfi(env) {
  const state = await env.DB.prepare("SELECT value FROM tracker_state WHERE key='adsbfi_next_region'").first();
  const start = Number(state?.value || 0) % ADSBFI_REGIONS.length;
@@ -528,18 +560,18 @@ export default {
   if (PLACEFILE_REGIONS[regionalPath]) {
    const region = PLACEFILE_REGIONS[regionalPath];
    return serveCachedPlacefile(url.pathname, async () => {
-   const [{results:flyRows=[]},{results:lolRows=[]},{results:states=[]}] = await Promise.all([
-    env.DB.prepare("SELECT region_id,payload,updated_at FROM region_data").all(),
-    env.DB.prepare("SELECT region_id,payload,updated_at FROM adsblol_region_data").all(),
+   const [flyRows,lolRows,statesResult] = await Promise.all([
+    selectRegionalRows(env.DB,"region_data",REGIONS,500,region),
+    selectRegionalRows(env.DB,"adsblol_region_data",ADSBLOL_REGIONS,250,region),
     env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('quota_used','quota_limit','last_success','adsblol_last_success','adsblol_last_error')").all()
    ]);
+   const states=statesResult.results||[];
    const rows=[...flyRows.map(row=>({...row,feed:"FlyItalyADSB"})),...lolRows.map(row=>({...row,feed:"ADSB.lol"}))];
    let registryRows = [];
    try {
-    const registryResult = await env.DB.prepare("SELECT hex,payload FROM aircraft_registry").all();
-    registryRows = registryResult.results || [];
+    registryRows=await selectRegistryForRows(env.DB,rows);
    } catch (error) {
-    console.log("Aircraft registry unavailable; using live ADS-B type data:", String(error));
+    console.log("Regional aircraft registry lookup unavailable; using live ADS-B type data:",String(error));
    }
    const stateMap = Object.fromEntries(states.map(x=>[x.key,x.value]));
    const usage = {used:stateMap.quota_used||"unknown",limit:stateMap.quota_limit||"unknown"};
