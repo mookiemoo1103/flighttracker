@@ -87,7 +87,7 @@ for (const segment of usable) {
   const roadType = roadTypeNumber(segment.properties.road_type);
   const status = statusFor(segment.properties);
   const [red, green, blue] = status.color;
-  lines.push(`Color: ${red} ${green} ${blue}`);
+  lines.push(`Color: ${red} ${green} ${blue} 255`);
   const label = clean(status.label + (segment.properties.road_closure === true ? " - ROAD CLOSED" : ""));
   lines.push(`Line: ${roadType === 0 ? 2 : 1}, 0, "${label}"`);
   for (const [lat, lon] of segment.path) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
