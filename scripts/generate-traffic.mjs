@@ -96,7 +96,7 @@ for (const segment of usable) {
     type: "Feature",
     properties: {
       stroke: hex,
-      "stroke-width": roadType === 0 ? 3 : 2,
+      "stroke-width": roadType === 0 ? 8 : 5,
       "stroke-opacity": 1,
       traffic_status: status.label,
       road_type: segment.properties.road_type,
@@ -110,7 +110,7 @@ for (const segment of usable) {
   });
   lines.push(`Color: ${red} ${green} ${blue}`);
   const label = clean(status.label + (segment.properties.road_closure === true ? " - ROAD CLOSED" : ""));
-  lines.push(`Line: ${roadType === 0 ? 3 : 2}, 0, "${label}"`);
+  lines.push(`Line: ${roadType === 0 ? 8 : 5}, 0, "${label}"`);
   for (const [lat, lon] of segment.path) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
   lines.push("End:");
   drawn++;
