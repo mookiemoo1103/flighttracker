@@ -42,7 +42,7 @@ jobs:
           lines=$(grep -c '^Line:' traffic.txt)
           test "$lines" -gt 100
           test "$colors" -eq "$lines"
-          valid_colors=$(grep -Ec '^Color: (0 220 0|255 220 0|255 128 0|255 0 0|72 76 82)$' traffic.txt)
+          valid_colors=$(grep -Ec '^Color: (0 220 0|255 220 0|255 128 0|255 0 0|84 84 84)$' traffic.txt)
           test "$valid_colors" -eq "$colors"
           echo "Validated $lines traffic segments with matching RGB color directives."
           echo "Published color distribution:"
