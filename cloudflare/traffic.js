@@ -153,54 +153,54 @@ function statusFor(properties) {
   return { color:[22,184,78], label:"FAST", ratio:relative };
 }
 
-function buildPlacefile(segments, updatedAt, stale = false) {
+function tileBounds(x, y, zoom) {
+  const n = Math.pow(2, zoom);
+  const lon = tx => tx / n * 360 - 180;
+  const lat = ty => Math.atan(Math.sinh(Math.PI * (1 - 2 * ty / n))) * 180 / Math.PI;
+  return { north: lat(y), south: lat(y + 1), west: lon(x), east: lon(x + 1) };
+}
+
+function buildPlacefile(updatedAt, origin, stale = false) {
   const lines = [
-    "; Live traffic flow from TomTom Traffic Flow Vector Tiles",
+    "; Live traffic flow from TomTom pre-colored raster flow tiles",
     "; Coverage: Pearl River, Slidell, Northshore, New Orleans, Baton Rouge and surrounding Southeast Louisiana",
-    "; Colors are based on current speed as a percentage of free-flow speed.",
-    "; GREEN >=85%; YELLOW 65-84%; ORANGE 45-64%; RED <45% or road closed.",
+    "; Native TomTom relative0 colors show congestion directly in transparent PNG tiles.",
     "; Traffic data © TomTom",
     "; Updated: " + new Date(updatedAt).toISOString() + (stale ? " (STALE CACHE)" : ""),
     "Title: SOUTHEAST LOUISIANA LIVE TRAFFIC",
     "Refresh: 5",
-    "Font: 1, 10, 1, Arial",
-    "HSLuv: false"
+    "Threshold: 999"
   ];
-  const seen = new Set();
-  const groups = new Map();
-  for (const segment of segments) {
-    const props = segment.properties || {};
-    const state = statusFor(props);
-    const path = segment.path || [];
-    if (path.length < 2) continue;
-    const forward = path.map(p => p[0].toFixed(5) + "," + p[1].toFixed(5)).join(";");
-    const reverse = path.slice().reverse().map(p => p[0].toFixed(5) + "," + p[1].toFixed(5)).join(";");
-    const signature = (forward < reverse ? forward : reverse) + "|" + String(props.traffic_level) + "|" + String(props.road_closure);
-    if (seen.has(signature)) continue;
-    seen.add(signature);
-    const roadType = clean(props.road_type || "Road");
-    const ratioText = Number.isFinite(state.ratio) ? Math.round(state.ratio * 100) + "% of free-flow speed" : "speed unavailable";
-    const coverage = clean(props.traffic_road_coverage || "not specified");
-    const hover = clean(roadType + " | " + state.label + " | " + ratioText + " | Coverage: " + coverage + (props.road_closure ? " | ROAD CLOSED" : ""));
-    const width = /motorway/i.test(roadType) ? 1.8 : /international|major road|secondary road/i.test(roadType) ? 1.5 : 1.2;
-    const colorKey = state.color.join(" ");
-    if (!groups.has(colorKey)) groups.set(colorKey, []);
-    groups.get(colorKey).push({ path, hover, width });
+  for (const [x, y] of TILES) {
+    const b = tileBounds(x, y, ZOOM);
+    const imageUrl = origin + "/traffic.txt?tile=" + x + "/" + y;
+    lines.push("Image: " + imageUrl);
+    lines.push(b.north.toFixed(6) + ", " + b.west.toFixed(6) + ", 0, 0");
+    lines.push(b.north.toFixed(6) + ", " + b.east.toFixed(6) + ", 1, 0");
+    lines.push(b.south.toFixed(6) + ", " + b.east.toFixed(6) + ", 1, 1");
+    lines.push(b.south.toFixed(6) + ", " + b.west.toFixed(6) + ", 0, 1");
+    lines.push("End:");
   }
+  lines.push("; Raster traffic tiles: " + TILES.length);
+  return lines.join("\\n") + "\\n";
+}
 
-  // Group by color so each Color directive unambiguously governs all
-  // following Line statements of that speed class in GRLevelX placefiles.
-  for (const [color, items] of groups) {
-    lines.push("Color: " + color + " 255");
-    for (const item of items) {
-      lines.push('Line: ' + item.width + ', 0, "' + item.hover + '"');
-      for (const point of item.path) lines.push(point[0].toFixed(5) + ", " + point[1].toFixed(5));
-      lines.push("End:");
-    }
+async function fetchRasterTile(x, y, apiKey) {
+  const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative0/" + ZOOM + "/" + x + "/" + y + ".png");
+  url.searchParams.set("key", apiKey);
+  url.searchParams.set("thickness", "3");
+  url.searchParams.set("tileSize", "256");
+  const response = await fetch(url.toString(), {
+    headers: { "Accept": "image/png, application/json" },
+    signal: AbortSignal.timeout(15000)
+  });
+  if (!response.ok) {
+    const detail = (await response.text()).slice(0, 500);
+    throw new Error("TomTom raster tile " + x + "/" + y + " HTTP " + response.status + ": " + detail);
   }
-  lines.push("; Unique traffic segments rendered: " + seen.size);
-  lines.push("; Free-tier request estimate: 12 tiles every 5 minutes (about 103,680 tile requests per 30 days).");
-  return lines.join("\n") + "\n";
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.includes("image/png")) throw new Error("TomTom returned non-PNG tile for " + x + "/" + y);
+  return response;
 }
 async function fetchTrafficSegments(apiKey) {
   const results = await Promise.allSettled(TILES.map(async ([x, y]) => {
@@ -232,6 +232,30 @@ async function fetchTrafficSegments(apiKey) {
 }
 
 export async function handleTrafficRequest(request, env) {
+  const url = new URL(request.url);
+  const tileMatch = url.searchParams.get("tile")?.match(/^(\\d+)\\/(\\d+)$/);
+  if (tileMatch) {
+    const x = Number(tileMatch[1]), y = Number(tileMatch[2]);
+    if (!TILES.some(([tx, ty]) => tx === x && ty === y)) {
+      return new Response("Unknown traffic tile", { status: 404 });
+    }
+    if (!env.TOMTOM_API_KEY) return new Response("TomTom API key is not configured", { status: 503 });
+    try {
+      const upstream = await fetchRasterTile(x, y, env.TOMTOM_API_KEY);
+      return new Response(upstream.body, {
+        headers: {
+          "content-type": "image/png",
+          "cache-control": "public, max-age=240, s-maxage=240",
+          "access-control-allow-origin": "*"
+        }
+      });
+    } catch (error) {
+      return new Response("Traffic raster tile unavailable: " + clean(error?.message || error), {
+        status: 502,
+        headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" }
+      });
+    }
+  }
   const headers = {
     "content-type": "text/plain; charset=utf-8",
     "cache-control": "no-store, max-age=0",
@@ -258,7 +282,7 @@ export async function handleTrafficRequest(request, env) {
   if (cached && cachedAt && Date.now() - cachedAt < CACHE_MS) {
     try {
       const payload = JSON.parse(cached.payload);
-      return new Response(buildPlacefile(payload.segments || [], cachedAt, false), { headers });
+      return new Response(buildPlacefile(cachedAt, url.origin, false), { headers });
     } catch (error) { console.error("Traffic cache parse failed:", String(error)); }
   }
 
@@ -268,7 +292,7 @@ export async function handleTrafficRequest(request, env) {
     await env.DB.prepare("INSERT INTO traffic_cache(id,payload,updated_at,last_error) VALUES(1,?,?,?) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,updated_at=excluded.updated_at,last_error=excluded.last_error")
       .bind(JSON.stringify({ segments }), updatedAt, errors.join(" | ").slice(0, 1000) || null).run();
     const responseHeaders = errors.length ? { ...headers, "x-traffic-partial": String(errors.length) } : headers;
-    return new Response(buildPlacefile(segments, updatedAt), { headers: responseHeaders });
+    return new Response(buildPlacefile(updatedAt, url.origin), { headers: responseHeaders });
   } catch (error) {
     const message = clean(error?.message || error);
     console.error("TomTom traffic refresh failed:", message);
@@ -276,7 +300,7 @@ export async function handleTrafficRequest(request, env) {
       try {
         const payload = JSON.parse(cached.payload);
         await env.DB.prepare("UPDATE traffic_cache SET last_error=? WHERE id=1").bind(message).run();
-        return new Response(buildPlacefile(payload.segments || [], cachedAt, true), { ...headers, "x-traffic-cache": "stale-fallback" });
+        return new Response(buildPlacefile(cachedAt, url.origin, true), { ...headers, "x-traffic-cache": "stale-fallback" });
       } catch {}
     }
     return new Response([
