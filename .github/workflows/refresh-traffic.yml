@@ -31,6 +31,99 @@ jobs:
         run: node scripts/generate-traffic.mjs
         env:
           TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
+      - name: Validate colored traffic placefile
+        run: |
+          set -euo pipefail
+          test -s traffic.txt
+          colors=$(grep -c '^Color:' traffic.txt)
+          lines=$(grep -c '^Line:' traffic.txt)
+          test "$lines" -gt 100
+          test "$colors" -eq "$lines"
+          grep -q '^Color: 0 220 0      - name: Publish updated placefile to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic.txt
+          if git diff --cached --quiet; then
+            echo "Traffic placefile unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh Southeast Louisiana traffic placefile"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish traffic placefile after three attempts."
+          exit 1
+ traffic.txt
+          grep -q '^Color: 255 220 0      - name: Publish updated placefile to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic.txt
+          if git diff --cached --quiet; then
+            echo "Traffic placefile unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh Southeast Louisiana traffic placefile"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish traffic placefile after three attempts."
+          exit 1
+ traffic.txt
+          grep -q '^Color: 255 128 0      - name: Publish updated placefile to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic.txt
+          if git diff --cached --quiet; then
+            echo "Traffic placefile unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh Southeast Louisiana traffic placefile"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish traffic placefile after three attempts."
+          exit 1
+ traffic.txt
+          grep -q '^Color: 255 0 0      - name: Publish updated placefile to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic.txt
+          if git diff --cached --quiet; then
+            echo "Traffic placefile unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh Southeast Louisiana traffic placefile"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish traffic placefile after three attempts."
+          exit 1
+ traffic.txt
+          echo "Validated $lines traffic segments with matching RGB color directives."
       - name: Publish updated placefile to GitHub
         run: |
           git config user.name "github-actions[bot]"
