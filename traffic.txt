@@ -4,7 +4,7 @@
 ; Interstates are slightly thicker than highways.
 ; Coverage: Baton Rouge/Livingston, Northshore, Pearl River, Slidell, New Orleans and Mississippi Gulf Coast
 ; Traffic data © TomTom
-; Updated: 2026-11-16T21:12:03.272Z
+; Updated: 2026-11-16T21:12:16.056Z
 Title: SOUTHEAST LOUISIANA LIVE TRAFFIC
 Refresh: 5
 Color: 0 220 0
