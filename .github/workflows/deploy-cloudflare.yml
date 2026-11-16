@@ -171,16 +171,14 @@ jobs:
             exit 0
           }
           image_count=$(grep -c '^Image:' /tmp/traffic.txt || true)
+          color_count=$(grep -c '^Color:' /tmp/traffic.txt || true)
+          line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
           echo "Traffic raster image overlays: $image_count (vector feed should be 0)"
           echo "Traffic vector color directives: $color_count"
           echo "Traffic vector road lines: $line_count"
           test "$image_count" -eq 0
           test "$line_count" -gt 0
           test "$color_count" -eq "$line_count"
-          color_count=$(grep -c '^Color:' /tmp/traffic.txt || true)
-          line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
-          echo "Traffic placefile Color directives: $color_count"
-          echo "Traffic placefile Line objects: $line_count"
           echo "Traffic color distribution (RGB: segment count):"
           grep '^Color:' /tmp/traffic.txt | sort | uniq -c | sort -nr | head -10 || true
           echo "Traffic line widths:"
