@@ -27,6 +27,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install image processing dependency
+        run: python -m pip install Pillow
       - name: Generate nationwide Waffle House placefile
         run: python wafflehouse/generate.py
       - name: Validate output
@@ -35,6 +37,7 @@ jobs:
           set -euo pipefail
           test -s wafflehouse/wafflehouse.txt
           test -s wafflehouse/assets/waffle-house.png
+          test -s wafflehouse/assets/waffle-house-icon.png
           count=$(grep -c '^Object:' wafflehouse/wafflehouse.txt)
           test "$count" -ge 1000
           test "$(grep -c '^Icon:' wafflehouse/wafflehouse.txt)" -eq "$count"
@@ -43,7 +46,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add wafflehouse/wafflehouse.txt wafflehouse/assets/waffle-house.png
+          git add wafflehouse/wafflehouse.txt wafflehouse/assets/waffle-house.png wafflehouse/assets/waffle-house-icon.png
           if git diff --cached --quiet; then
             echo "Waffle House placefile unchanged."
             exit 0
