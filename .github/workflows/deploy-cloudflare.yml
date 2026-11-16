@@ -49,11 +49,11 @@ jobs:
           FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
-      - name: Configure Louisiana 511 API key
-        if: ${{ env.LOUISIANA_511_API_KEY != '' }}
-        run: printf '%s' "$LOUISIANA_511_API_KEY" | npx wrangler@4 secret put LOUISIANA_511_API_KEY
+      - name: Configure TomTom Traffic API key
+        if: ${{ env.TOMTOM_API_KEY != '' }}
+        run: printf '%s' "$TOMTOM_API_KEY" | npx wrangler@4 secret put TOMTOM_API_KEY
         env:
-          LOUISIANA_511_API_KEY: ${{ secrets.LOUISIANA_511_API_KEY }}
+          TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
       - name: Verify live FlyItaly collection and all placefiles

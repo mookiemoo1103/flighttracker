@@ -4,25 +4,15 @@ AquaCeroWx / GRLevelX live aircraft placefiles served by the Cloudflare Worker a
 
 ## Live combined placefiles
 
-## Regional Southeast Louisiana traffic placefile
+## Regional Southeast Louisiana live traffic placefile
 
-- Traffic-event placefile: `https://flighttracker.mitchellgeissler.workers.dev/traffic.txt`
+- Live traffic-speed placefile: `https://flighttracker.mitchellgeissler.workers.dev/traffic.txt`
 - Coverage: Pearl River, Slidell, the Northshore, New Orleans, Baton Rouge and nearby corridors.
-- Source: Louisiana DOTD 511LA developer API. The free API key is stored as the Cloudflare Worker secret `LOUISIANA_511_API_KEY`.
-- The documented 511LA API exposes events, advisories, cameras and related traveler information; it does **not** document a live road-speed endpoint. This placefile therefore draws event/incident polylines only and colors them by event class: red for full closures/critical events, orange for incidents/major events, and yellow for roadwork/moderate events. These colors are not measured speed bands.
-- To enable the feed, create a free account at [511LA Developers](https://511la.org/developers/doc), request an API key, then add a GitHub Actions repository secret named `LOUISIANA_511_API_KEY`. The deployment workflow copies it into Cloudflare as a Worker secret.
-- Placefile output refreshes every minute and uses a D1 cache to stay below 511LA's documented API throttle.
-
-
-- Full U.S. coverage: `https://flighttracker.mitchellgeissler.workers.dev/flighttracker.txt`
-- Pacific: `/pacific.txt`
-- Southwest: `/southwest.txt`
-- Mountain: `/mountain.txt`
-- Central: `/central.txt`
-- Southeast: `/southeast.txt`
-- Northeast: `/northeast.txt`
-
-The combined placefiles merge independent live networks and de-duplicate aircraft by normalized ICAO24 hex address. When both feeds report the same aircraft, the record with the freshest observed position is retained; ties prefer the record with more aircraft details.
+- Source: TomTom Traffic Flow Vector Tiles. The free developer tier includes 200,000 monthly vector-tile requests; this configuration requests 12 regional tiles every 5 minutes (about 103,680 requests per 30 days).
+- Speed colors use TomTom's measured speed relative to free-flow speed: green at 85% or faster, yellow at 65–84%, orange at 45–64%, and red below 45% or when a road is marked closed.
+- Popup information reports the road class, relative speed and closure status. TomTom's vector-flow tiles do not provide street names in the default feature attributes.
+- To enable the feed, create a free TomTom developer account, enable Traffic Flow Vector Tiles, then add a GitHub Actions repository secret named `TOMTOM_API_KEY`. The deployment workflow copies it into Cloudflare as a Worker secret.
+- The Worker caches the latest regional snapshot in D1, serves the placefile every five minutes, and can fall back to a recent cached snapshot if TomTom is temporarily unavailable.
 
 ## Compare individual data sources
 
