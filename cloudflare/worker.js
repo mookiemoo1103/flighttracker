@@ -215,6 +215,12 @@ function render(rows, usage, source = "FlyItalyADSB", region = null, registryRow
   for(const a of list) {
    const hx=clean(a.hex).toLowerCase();
    if(!hx||a.lat==null||a.lon==null) continue;
+   // Filter to the requested regional bounds before de-duplication and
+   // aircraft classification. This keeps high-traffic regions from doing
+   // unnecessary work on the entire nationwide cache in a single request.
+   const aircraftLat=Number(a.lat), aircraftLon=Number(a.lon);
+   if(!Number.isFinite(aircraftLat)||!Number.isFinite(aircraftLon)) continue;
+   if(region && !region.test(aircraftLat,aircraftLon)) continue;
    sourceRecordCount++;
    // Provider snapshots are already current; avoid an unreliable second age filter.
    const seenRaw = a.seen_pos ?? a.seen;
