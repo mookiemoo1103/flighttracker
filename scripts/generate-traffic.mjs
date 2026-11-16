@@ -47,9 +47,10 @@ function offsetPath(path, offsetMeters) {
 
 function statusFor(properties) {
   const relative = Number(properties.traffic_level);
-  const closed = properties.road_closure === true;
-  if (closed || !Number.isFinite(relative) || relative < 0.45)
-    return { color: [255, 0, 0], label: closed ? "CLOSED" : "STOPPED / VERY SLOW", className: "red" };
+  const closed = properties.road_closure === true || properties.road_closure === 1 || String(properties.road_closure).toLowerCase() === "true";
+  if (closed) return { color: [72, 76, 82], label: "CLOSED", className: "closed" };
+  if (!Number.isFinite(relative) || relative < 0.45)
+    return { color: [255, 0, 0], label: "STOPPED / VERY SLOW", className: "red" };
   if (relative < 0.65) return { color: [255, 128, 0], label: "SLOW", className: "orange" };
   if (relative < 0.85) return { color: [255, 220, 0], label: "MODERATE", className: "yellow" };
   return { color: [0, 220, 0], label: "FAST", className: "green" };
@@ -131,17 +132,17 @@ for (const segment of usable) {
       traffic_status: status.label,
       road_type: segment.properties.road_type,
       traffic_level: Number(segment.properties.traffic_level),
-      road_closure: segment.properties.road_closure === true
+      road_closure: segment.properties.road_closure === true || segment.properties.road_closure === 1 || String(segment.properties.road_closure).toLowerCase() === "true"
     },
     geometry: {
       type: "LineString",
-      coordinates: offsetPath(segment.path, roadType === 0 ? 25 : 18).map(([lat, lon]) => [lon, lat])
+      coordinates: offsetPath(segment.path, roadType === 0 ? 25 : 35).map(([lat, lon]) => [lon, lat])
     }
   });
   lines.push(`Color: ${red} ${green} ${blue}`);
-  const label = clean(status.label + (segment.properties.road_closure === true ? " - ROAD CLOSED" : ""));
+  const label = clean(status.label + ((segment.properties.road_closure === true || segment.properties.road_closure === 1 || String(segment.properties.road_closure).toLowerCase() === "true") ? " - ROAD CLOSED" : ""));
   lines.push(`Line: ${roadType === 0 ? 6 : 5}, 0, "${label}"`);
-  for (const [lat, lon] of offsetPath(segment.path, roadType === 0 ? 6 : 11)) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
+  for (const [lat, lon] of offsetPath(segment.path, roadType === 0 ? 25 : 35)) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
   lines.push("End:");
   drawn++;
 }
