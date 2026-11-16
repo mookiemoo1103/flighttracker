@@ -182,11 +182,11 @@ function buildPlacefile(segments, updatedAt, stale = false) {
     const ratioText = Number.isFinite(state.ratio) ? Math.round(state.ratio * 100) + "% of free-flow speed" : "speed unavailable";
     const coverage = clean(props.traffic_road_coverage || "not specified");
     const hover = clean(roadType + " | " + state.label + " | " + ratioText + " | Coverage: " + coverage + (props.road_closure ? " | ROAD CLOSED" : ""));
-    const width = /motorway/i.test(roadType) ? 6 : /international|major road/i.test(roadType) ? 5 : 4;
+    const width = /motorway/i.test(roadType) ? 2.5 : /international|major road|secondary road/i.test(roadType) ? 2 : 1.5;
+    // Each segment gets its own RGB color immediately before its Line object.
+    // Keep widths close to the GRLevelX default so roads do not obscure the map.
     lines.push("Color: " + state.color.join(" "));
-    // AquaCeroWX/GRLevelX placefile line flags: use 0 (standard solid line).
-    // Flag 1 can be interpreted differently by some placefile renderers.
-    lines.push('Line: ' + width + ', 0, "' + hover + '"');
+    lines.push('Line: ' + width + ', 1, "' + hover + '"');
     for (const point of path) lines.push(point[0].toFixed(5) + ", " + point[1].toFixed(5));
     lines.push("End:");
     drawn++;
