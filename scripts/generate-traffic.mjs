@@ -45,9 +45,14 @@ function offsetPath(path, offsetMeters) {
   });
 }
 
+function isRoadClosed(properties) {
+  const value = properties?.road_closure;
+  return value === true || value === 1 || ["true", "1", "yes", "closed"].includes(String(value ?? "").trim().toLowerCase());
+}
+
 function statusFor(properties) {
   const relative = Number(properties.traffic_level);
-  const closed = properties.road_closure === true || properties.road_closure === 1 || String(properties.road_closure).toLowerCase() === "true";
+  const closed = isRoadClosed(properties);
   if (closed) return { color: [255, 0, 255], label: "CLOSED", className: "magenta" };
   if (!Number.isFinite(relative) || relative < 0.45)
     return { color: [255, 0, 255], label: "STOPPED / VERY SLOW", className: "magenta" };
@@ -97,7 +102,7 @@ const roadTypeNumber = value => {
 };
 const usable = segments.filter(s =>
   roadTypeNumber(s.properties?.road_type) >= 0 &&
-  (Number.isFinite(Number(s.properties?.traffic_level)) || s.properties?.road_closure === true) &&
+  (Number.isFinite(Number(s.properties?.traffic_level)) || isRoadClosed(s.properties)) &&
   Array.isArray(s.path) && s.path.length >= 2
 );
 if (!usable.length) throw new Error("TomTom returned no usable colored road segments; existing published placefile was not overwritten.");
@@ -106,7 +111,7 @@ const lines = [
   "; Southeast Louisiana live traffic - GitHub Actions generated static placefile",
   "; Source: TomTom Traffic Flow Vector Tiles",
   "; Vector road geometry remains sharp at close zoom levels.",
-  "; Interstates: 6px; other included roads: 4px. Thin black casing on all roads; interstate offset 32m and highway offset 50m.",
+  "; Interstates: 6px; other included roads: 4px. Single-color lines only; no generated black casing. Interstate offset 32m and highway offset 50m.",
   "; Coverage: Baton Rouge/Livingston, Northshore, Pearl River, Slidell, New Orleans and Mississippi Gulf Coast",
   "; Traffic data © TomTom",
   "; Updated: " + new Date().toISOString(),
@@ -126,7 +131,7 @@ for (const segment of usable) {
   const offsetMeters = roadType === 0 ? 32 : 50;
   const displayWidth = roadType === 0 ? 6 : 4;
   const coordinates = offsetPath(segment.path, offsetMeters).map(([lat, lon]) => [lon, lat]);
-  const closed = segment.properties.road_closure === true || segment.properties.road_closure === 1 || String(segment.properties.road_closure).toLowerCase() === "true";
+  const closed = isRoadClosed(segment.properties);
   const featureProperties = {
     "stroke-opacity": 1,
     traffic_status: status.label,
