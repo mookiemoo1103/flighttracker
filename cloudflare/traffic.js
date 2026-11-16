@@ -164,10 +164,10 @@ function buildPlacefile(segments, updatedAt, stale = false) {
     "Title: SOUTHEAST LOUISIANA LIVE TRAFFIC",
     "Refresh: 5",
     "Font: 1, 10, 1, Arial",
-    "Threshold: 999"
+    "HSLuv: false"
   ];
-  let drawn = 0;
   const seen = new Set();
+  const groups = new Map();
   for (const segment of segments) {
     const props = segment.properties || {};
     const state = statusFor(props);
@@ -182,20 +182,26 @@ function buildPlacefile(segments, updatedAt, stale = false) {
     const ratioText = Number.isFinite(state.ratio) ? Math.round(state.ratio * 100) + "% of free-flow speed" : "speed unavailable";
     const coverage = clean(props.traffic_road_coverage || "not specified");
     const hover = clean(roadType + " | " + state.label + " | " + ratioText + " | Coverage: " + coverage + (props.road_closure ? " | ROAD CLOSED" : ""));
-    const width = /motorway/i.test(roadType) ? 2.5 : /international|major road|secondary road/i.test(roadType) ? 2 : 1.5;
-    // Each segment gets its own RGB color immediately before its Line object.
-    // Keep widths close to the GRLevelX default so roads do not obscure the map.
-    lines.push("Color: " + state.color.join(" "));
-    lines.push('Line: ' + width + ', 1, "' + hover + '"');
-    for (const point of path) lines.push(point[0].toFixed(5) + ", " + point[1].toFixed(5));
-    lines.push("End:");
-    drawn++;
+    const width = /motorway/i.test(roadType) ? 1.8 : /international|major road|secondary road/i.test(roadType) ? 1.5 : 1.2;
+    const colorKey = state.color.join(" ");
+    if (!groups.has(colorKey)) groups.set(colorKey, []);
+    groups.get(colorKey).push({ path, hover, width });
   }
-  lines.push("; Unique traffic segments rendered: " + drawn);
+
+  // Group by color so each Color directive unambiguously governs all
+  // following Line statements of that speed class in GRLevelX placefiles.
+  for (const [color, items] of groups) {
+    lines.push("Color: " + color + " 255");
+    for (const item of items) {
+      lines.push('Line: ' + item.width + ', 0, "' + item.hover + '"');
+      for (const point of item.path) lines.push(point[0].toFixed(5) + ", " + point[1].toFixed(5));
+      lines.push("End:");
+    }
+  }
+  lines.push("; Unique traffic segments rendered: " + seen.size);
   lines.push("; Free-tier request estimate: 12 tiles every 5 minutes (about 103,680 tile requests per 30 days).");
   return lines.join("\n") + "\n";
 }
-
 async function fetchTrafficSegments(apiKey) {
   const results = await Promise.allSettled(TILES.map(async ([x, y]) => {
     const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative/" + ZOOM + "/" + x + "/" + y + ".pbf");
