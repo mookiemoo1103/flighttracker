@@ -3,11 +3,11 @@
 // Uses relative speed (current speed / free-flow speed) for the requested colors.
 const ZOOM = 8;
 // Web Mercator z8 tiles covering Southeast Louisiana and the adjacent
-// Mississippi coast. At this zoom, Louisiana is around tile Y 54-56.
+// Mississippi coast. Louisiana is around tile Y 104-106 at this zoom.
 const TILES = [
-  [62,54],[63,54],[64,54],[65,54],
-  [62,55],[63,55],[64,55],[65,55],
-  [62,56],[63,56],[64,56],[65,56]
+  [62,104],[63,104],[64,104],[65,104],
+  [62,105],[63,105],[64,105],[65,105],
+  [62,106],[63,106],[64,106],[65,106]
 ];
 const CACHE_ID = 1;
 const CACHE_MS = 290 * 1000;
