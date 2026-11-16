@@ -216,7 +216,7 @@ function buildRoadClassPlacefile(segments, updatedAt, roadClass) {
     const [red, green, blue] = status.color;
     lines.push("Color: " + red + " " + green + " " + blue);
     const label = clean(status.label + (segment.properties?.road_closure === true ? " - ROAD CLOSED" : ""));
-    lines.push('Line: ' + (isInterstate ? 4 : 3) + ', 0, "' + label + '"');
+    lines.push('Line: ' + (isInterstate ? 2 : 1) + ', 0, "' + label + '"');
     for (const [lat, lon] of points) lines.push(lat.toFixed(6) + ", " + lon.toFixed(6));
     lines.push("End:");
     count++;
