@@ -4,6 +4,16 @@ AquaCeroWx / GRLevelX live aircraft placefiles served by the Cloudflare Worker a
 
 ## Live combined placefiles
 
+## Regional Southeast Louisiana traffic placefile
+
+- Traffic-event placefile: `https://flighttracker.mitchellgeissler.workers.dev/traffic.txt`
+- Coverage: Pearl River, Slidell, the Northshore, New Orleans, Baton Rouge and nearby corridors.
+- Source: Louisiana DOTD 511LA developer API. The free API key is stored as the Cloudflare Worker secret `LOUISIANA_511_API_KEY`.
+- The documented 511LA API exposes events, advisories, cameras and related traveler information; it does **not** document a live road-speed endpoint. This placefile therefore draws event/incident polylines only and colors them by event class: red for full closures/critical events, orange for incidents/major events, and yellow for roadwork/moderate events. These colors are not measured speed bands.
+- To enable the feed, create a free account at [511LA Developers](https://511la.org/developers/doc), request an API key, then add a GitHub Actions repository secret named `LOUISIANA_511_API_KEY`. The deployment workflow copies it into Cloudflare as a Worker secret.
+- Placefile output refreshes every minute and uses a D1 cache to stay below 511LA's documented API throttle.
+
+
 - Full U.S. coverage: `https://flighttracker.mitchellgeissler.workers.dev/flighttracker.txt`
 - Pacific: `/pacific.txt`
 - Southwest: `/southwest.txt`

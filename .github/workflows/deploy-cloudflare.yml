@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "cloudflare/worker.js"
+      - "cloudflare/traffic.js"
+      - "cloudflare/migrations/**"
       - "tests/**"
       - "assets/airplane-commercial-yellow.png"
       - "assets/airplane-private-blue.png"
@@ -27,6 +29,8 @@ jobs:
           node-version: "22"
       - name: Validate Worker JavaScript
         run: node --check cloudflare/worker.js
+      - name: Validate traffic Worker module
+        run: node --check cloudflare/traffic.js
       - name: Test aircraft classification
         run: node tests/aircraft-classification.test.mjs
       - name: Apply D1 migrations
@@ -43,6 +47,13 @@ jobs:
         run: printf '%s' "$FLYITALYADSB_API_KEY" | npx wrangler@4 secret put FLYITALYADSB_API_KEY
         env:
           FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
+      - name: Configure Louisiana 511 API key
+        if: ${{ secrets.LOUISIANA_511_API_KEY != '' }}
+        run: printf '%s' "$LOUISIANA_511_API_KEY" | npx wrangler@4 secret put LOUISIANA_511_API_KEY
+        env:
+          LOUISIANA_511_API_KEY: ${{ secrets.LOUISIANA_511_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
       - name: Verify live FlyItaly collection and all placefiles

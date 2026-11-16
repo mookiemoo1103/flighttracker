@@ -1,3 +1,4 @@
+import { handleTrafficRequest } from "./traffic.js";
 const API = "https://api.flyitalyadsb.com/v2/lat";
 const ADSBFI_API = "https://opendata.adsb.fi/api/v3/lat";
 const ICON_HELICOPTER = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png?v=1";
@@ -471,6 +472,7 @@ export default {
  },
  async fetch(request,env) {
   const url=new URL(request.url);
+  if (url.pathname === "/traffic.txt") return handleTrafficRequest(request, env);
   if(url.pathname==="/health") {
    const state=await env.DB.prepare("SELECT key,value FROM tracker_state WHERE key IN ('next_region','last_success','quota_used','quota_limit','last_batch_count','last_batch_failed','last_error','adsblol_last_success','adsblol_last_batch_count','adsblol_last_batch_failed','adsblol_last_error','registry_last_success','registry_last_batch_count','registry_last_not_found','registry_last_batch_failed','registry_last_error')").all();
    return Response.json({ok:true,total_regions:REGIONS.length,regions_per_minute:BATCH,approximate_full_sweep_minutes:Math.ceil(REGIONS.length/BATCH),state:state.results||[]});
