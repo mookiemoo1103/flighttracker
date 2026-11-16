@@ -134,23 +134,12 @@ for (const segment of usable) {
     traffic_level: Number(segment.properties.traffic_level),
     road_closure: closed
   };
-  // Draw a thin black casing underneath each colored road in GeoJSON.
-  geoFeatures.push({
-    type: "Feature",
-    properties: { ...featureProperties, stroke: "#000000", "stroke-width": displayWidth + 2, layer: "road-outline" },
-    geometry: { type: "LineString", coordinates }
-  });
   geoFeatures.push({
     type: "Feature",
     properties: { ...featureProperties, stroke: hex, "stroke-width": displayWidth, layer: "traffic" },
     geometry: { type: "LineString", coordinates }
   });
   const label = clean(status.label + (closed ? " - ROAD CLOSED" : ""));
-  // Draw the wider black line first, then the traffic-colored line on top.
-  lines.push("Color: 0 0 0");
-  lines.push(`Line: ${displayWidth + 2}, 0, "${label}"`);
-  for (const [lat, lon] of offsetPath(segment.path, offsetMeters)) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
-  lines.push("End:");
   lines.push(`Color: ${red} ${green} ${blue}`);
   lines.push(`Line: ${displayWidth}, 0, "${label}"`);
   for (const [lat, lon] of offsetPath(segment.path, offsetMeters)) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
@@ -161,8 +150,8 @@ lines.push("; Vector road segments: " + drawn);
 lines.push("; Interstate road type: 0; highway road types: 1, 2, 3, 4, 5 (including connecting roads/ramps and major local roads; excludes local/minor residential streets)");
 lines.push("; Traffic color classes (magenta/orange/yellow/green): " + Object.values(classCounts).join("/"));
 console.log("Traffic color class counts:", JSON.stringify(classCounts));
-if (drawn * 2 !== lines.filter(line => line.startsWith("Line:")).length || drawn * 2 !== lines.filter(line => line.startsWith("Color:")).length) {
-  throw new Error("Placefile validation failed: each road outline and traffic line must have matching RGB color and Line commands.");
+if (drawn !== lines.filter(line => line.startsWith("Line:")).length || drawn !== lines.filter(line => line.startsWith("Color:")).length) {
+  throw new Error("Placefile validation failed: each road must have exactly one RGB color and one Line command.");
 }
 
 await writeFile("traffic.txt", lines.join("\n") + "\n", "utf8");
