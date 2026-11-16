@@ -1,0 +1,61 @@
+name: Update Waffle House nationwide placefile
+
+on:
+  schedule:
+    - cron: "17 10 * * 0"
+  workflow_dispatch:
+  push:
+    paths:
+      - "wafflehouse/generate.py"
+      - ".github/workflows/wafflehouse.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wafflehouse-placefile
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate nationwide Waffle House placefile
+        run: python wafflehouse/generate.py
+      - name: Validate output
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s wafflehouse/wafflehouse.txt
+          test -s wafflehouse/assets/waffle-house.png
+          count=$(grep -c '^Object:' wafflehouse/wafflehouse.txt)
+          test "$count" -ge 1000
+          test "$(grep -c '^Icon:' wafflehouse/wafflehouse.txt)" -eq "$count"
+          echo "Validated $count Waffle House map icons."
+      - name: Publish placefile and logo to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add wafflehouse/wafflehouse.txt wafflehouse/assets/waffle-house.png
+          if git diff --cached --quiet; then
+            echo "Waffle House placefile unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh nationwide Waffle House placefile"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish Waffle House placefile after three attempts."
+          exit 1
