@@ -231,7 +231,7 @@ async function fetchRasterTile(x, y, apiKey) {
   // TomTom only supports thickness on the relative/absolute styles;
   // relative0 ignores/rejects this parameter. Use the maximum documented
   // width so traffic routes are clearly visible over the base map.
-  url.searchParams.set("thickness", "5");
+  url.searchParams.set("thickness", "3");
   url.searchParams.set("tileSize", String(TILE_SIZE));
   const response = await fetch(url.toString(), {
     headers: { "Accept": "image/png, application/json" },
