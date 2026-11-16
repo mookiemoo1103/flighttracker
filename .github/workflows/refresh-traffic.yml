@@ -1,0 +1,53 @@
+name: Refresh Southeast Louisiana traffic placefile
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/generate-traffic.mjs"
+      - ".github/workflows/refresh-traffic.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-traffic-placefile
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Generate live vector traffic placefile
+        run: node scripts/generate-traffic.mjs
+        env:
+          TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
+      - name: Publish updated placefile to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic.txt
+          if git diff --cached --quiet; then
+            echo "Traffic placefile unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh Southeast Louisiana traffic placefile"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish traffic placefile after three attempts."
+          exit 1
