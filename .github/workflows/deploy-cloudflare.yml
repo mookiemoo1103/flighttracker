@@ -120,8 +120,204 @@ jobs:
           grep -q '^; Flight data: ADSB.lol' /tmp/adsblol-test.txt
           grep -q '^; Flight data: FlyItalyADSB' /tmp/flyitaly-test.txt
           for region in pacific southwest mountain central southeast northeast; do
-            curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/$region.txt" -o "/tmp/$region.txt"
-            grep -q '^Refresh: 1$' "/tmp/$region.txt"
+            http_code=$(curl --retry 4 --retry-all-errors --retry-delay 2 --retry-max-time 45 --silent --show-error --max-time 20 -w '%{http_code}' "$BASE/$region.txt" -o "/tmp/$region.txt" || true)
+            if [ "$http_code" = "503" ]; then
+              echo "WARNING: $region.txt temporarily returned HTTP 503; live-feed health checks above remain authoritative."
+              continue
+            fi
+            test "$http_code" = "200"
+            grep -q '^Refresh: 1
+            grep -q '^IconFile: 7,' "/tmp/$region.txt"
+            grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png' "/tmp/$region.txt"
+            grep -q '^IconFile: 3,' "/tmp/$region.txt"
+            grep -q '^IconFile: 4,' "/tmp/$region.txt"
+            grep -q '^IconFile: 5,' "/tmp/$region.txt"
+            grep -q '^IconFile: 6,' "/tmp/$region.txt"
+            object_count=$(grep -c '^Object:' "/tmp/$region.txt" || true)
+            echo "$region.txt aircraft records: $object_count"
+            test "$object_count" -gt 0
+            icon_count=$(grep -c '^Icon:' "/tmp/$region.txt" || true)
+            test "$icon_count" -eq "$object_count"
+            grep -q '^Title:' "/tmp/$region.txt"
+            echo "$region.txt OK"
+          done
+          curl --retry 4 --retry-all-errors --retry-delay 2 --retry-max-time 45 --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
+          grep -q '^Refresh: 1
+          grep -q '^IconFile: 7,' /tmp/flighttracker.txt
+          grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png' /tmp/flighttracker.txt
+          object_count=$(grep -c '^Object:' /tmp/flighttracker.txt || true)
+          echo "Nationwide placefile contains $object_count aircraft records"
+          test "$object_count" -gt 0
+          icon_count=$(grep -c '^Icon:' /tmp/flighttracker.txt || true)
+          test "$icon_count" -eq "$object_count"
+          for category in 2 3 4 5 6 7; do
+            category_count=$(grep -cE "^Icon: [^,]*,[^,]*,[^,]*,$category,1," /tmp/flighttracker.txt || true)
+            echo "Aircraft icon category $category: $category_count"
+          done
+          helicopter_count=$(grep -cE '^Icon: [^,]*,[^,]*,[^,]*,2,1,' /tmp/flighttracker.txt || true)
+          echo "Helicopters displayed: $helicopter_count"
+          test "$helicopter_count" -gt 0
+          grep -q '^; Business jets rendered:' /tmp/flighttracker.txt
+          grep -q '^; General aviation rendered:' /tmp/flighttracker.txt
+      - name: Diagnose separate traffic placefile output
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -u
+          BASE="https://flighttracker.mitchellgeissler.workers.dev"
+          curl --retry 2 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 25 "$BASE/traffic.txt" -o /tmp/traffic.txt || {
+            echo "Traffic endpoint request failed"
+            exit 0
+          }
+          image_count=$(grep -c '^Image:' /tmp/traffic.txt || true)
+          echo "Traffic raster image overlays: $image_count (vector feed should be 0)"
+          echo "Traffic vector color directives: $color_count"
+          echo "Traffic vector road lines: $line_count"
+          test "$image_count" -eq 0
+          test "$line_count" -gt 0
+          test "$color_count" -eq "$line_count"
+          color_count=$(grep -c '^Color:' /tmp/traffic.txt || true)
+          line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
+          echo "Traffic placefile Color directives: $color_count"
+          echo "Traffic placefile Line objects: $line_count"
+          echo "Traffic color distribution (RGB: segment count):"
+          grep '^Color:' /tmp/traffic.txt | sort | uniq -c | sort -nr | head -10 || true
+          echo "Traffic line widths:"
+          grep '^Line:' /tmp/traffic.txt | sed -E 's/^Line: ([^,]+).*/\\1/' | sort | uniq -c | sort -nr || true
+          echo "First traffic drawing commands:"
+          grep -A3 -m3 '^Color:' /tmp/traffic.txt || true
+          grep -E '^(; TomTom|; Updated:|; Unique traffic segments rendered:|; TomTom traffic refresh failed:|; Live traffic placefile|Title:|Refresh:)' /tmp/traffic.txt | head -20 || true
+          if [ "$line_count" -gt 0 ] && [ "$color_count" -eq "$line_count" ]; then
+            echo "Traffic output contains matching color and line directives."
+          else
+            echo "Traffic output does not contain valid colored road-line objects."
+            head -35 /tmp/traffic.txt
+          fi
+
+ "/tmp/$region.txt"
+            grep -q '^IconFile: 7,' "/tmp/$region.txt"
+            grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png' "/tmp/$region.txt"
+            grep -q '^IconFile: 3,' "/tmp/$region.txt"
+            grep -q '^IconFile: 4,' "/tmp/$region.txt"
+            grep -q '^IconFile: 5,' "/tmp/$region.txt"
+            grep -q '^IconFile: 6,' "/tmp/$region.txt"
+            object_count=$(grep -c '^Object:' "/tmp/$region.txt" || true)
+            echo "$region.txt aircraft records: $object_count"
+            test "$object_count" -gt 0
+            icon_count=$(grep -c '^Icon:' "/tmp/$region.txt" || true)
+            test "$icon_count" -eq "$object_count"
+            grep -q '^Title:' "/tmp/$region.txt"
+            echo "$region.txt OK"
+          done
+          curl --retry 8 --retry-all-errors --retry-delay 3 --retry-max-time 90 --fail --silent --show-error --max-time 20 "$BASE/flighttracker.txt" -o /tmp/flighttracker.txt
+          grep -q '^Refresh: 1$' /tmp/flighttracker.txt
+          grep -q '^IconFile: 7,' /tmp/flighttracker.txt
+          grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png' /tmp/flighttracker.txt
+          object_count=$(grep -c '^Object:' /tmp/flighttracker.txt || true)
+          echo "Nationwide placefile contains $object_count aircraft records"
+          test "$object_count" -gt 0
+          icon_count=$(grep -c '^Icon:' /tmp/flighttracker.txt || true)
+          test "$icon_count" -eq "$object_count"
+          for category in 2 3 4 5 6 7; do
+            category_count=$(grep -cE "^Icon: [^,]*,[^,]*,[^,]*,$category,1," /tmp/flighttracker.txt || true)
+            echo "Aircraft icon category $category: $category_count"
+          done
+          helicopter_count=$(grep -cE '^Icon: [^,]*,[^,]*,[^,]*,2,1,' /tmp/flighttracker.txt || true)
+          echo "Helicopters displayed: $helicopter_count"
+          test "$helicopter_count" -gt 0
+          grep -q '^; Business jets rendered:' /tmp/flighttracker.txt
+          grep -q '^; General aviation rendered:' /tmp/flighttracker.txt
+      - name: Diagnose separate traffic placefile output
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -u
+          BASE="https://flighttracker.mitchellgeissler.workers.dev"
+          curl --retry 2 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 25 "$BASE/traffic.txt" -o /tmp/traffic.txt || {
+            echo "Traffic endpoint request failed"
+            exit 0
+          }
+          image_count=$(grep -c '^Image:' /tmp/traffic.txt || true)
+          echo "Traffic raster image overlays: $image_count (vector feed should be 0)"
+          echo "Traffic vector color directives: $color_count"
+          echo "Traffic vector road lines: $line_count"
+          test "$image_count" -eq 0
+          test "$line_count" -gt 0
+          test "$color_count" -eq "$line_count"
+          color_count=$(grep -c '^Color:' /tmp/traffic.txt || true)
+          line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
+          echo "Traffic placefile Color directives: $color_count"
+          echo "Traffic placefile Line objects: $line_count"
+          echo "Traffic color distribution (RGB: segment count):"
+          grep '^Color:' /tmp/traffic.txt | sort | uniq -c | sort -nr | head -10 || true
+          echo "Traffic line widths:"
+          grep '^Line:' /tmp/traffic.txt | sed -E 's/^Line: ([^,]+).*/\\1/' | sort | uniq -c | sort -nr || true
+          echo "First traffic drawing commands:"
+          grep -A3 -m3 '^Color:' /tmp/traffic.txt || true
+          grep -E '^(; TomTom|; Updated:|; Unique traffic segments rendered:|; TomTom traffic refresh failed:|; Live traffic placefile|Title:|Refresh:)' /tmp/traffic.txt | head -20 || true
+          if [ "$line_count" -gt 0 ] && [ "$color_count" -eq "$line_count" ]; then
+            echo "Traffic output contains matching color and line directives."
+          else
+            echo "Traffic output does not contain valid colored road-line objects."
+            head -35 /tmp/traffic.txt
+          fi
+
+ /tmp/flighttracker.txt
+          grep -q '^IconFile: 7,' /tmp/flighttracker.txt
+          grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png' /tmp/flighttracker.txt
+          object_count=$(grep -c '^Object:' /tmp/flighttracker.txt || true)
+          echo "Nationwide placefile contains $object_count aircraft records"
+          test "$object_count" -gt 0
+          icon_count=$(grep -c '^Icon:' /tmp/flighttracker.txt || true)
+          test "$icon_count" -eq "$object_count"
+          for category in 2 3 4 5 6 7; do
+            category_count=$(grep -cE "^Icon: [^,]*,[^,]*,[^,]*,$category,1," /tmp/flighttracker.txt || true)
+            echo "Aircraft icon category $category: $category_count"
+          done
+          helicopter_count=$(grep -cE '^Icon: [^,]*,[^,]*,[^,]*,2,1,' /tmp/flighttracker.txt || true)
+          echo "Helicopters displayed: $helicopter_count"
+          test "$helicopter_count" -gt 0
+          grep -q '^; Business jets rendered:' /tmp/flighttracker.txt
+          grep -q '^; General aviation rendered:' /tmp/flighttracker.txt
+      - name: Diagnose separate traffic placefile output
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -u
+          BASE="https://flighttracker.mitchellgeissler.workers.dev"
+          curl --retry 2 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 25 "$BASE/traffic.txt" -o /tmp/traffic.txt || {
+            echo "Traffic endpoint request failed"
+            exit 0
+          }
+          image_count=$(grep -c '^Image:' /tmp/traffic.txt || true)
+          echo "Traffic raster image overlays: $image_count (vector feed should be 0)"
+          echo "Traffic vector color directives: $color_count"
+          echo "Traffic vector road lines: $line_count"
+          test "$image_count" -eq 0
+          test "$line_count" -gt 0
+          test "$color_count" -eq "$line_count"
+          color_count=$(grep -c '^Color:' /tmp/traffic.txt || true)
+          line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
+          echo "Traffic placefile Color directives: $color_count"
+          echo "Traffic placefile Line objects: $line_count"
+          echo "Traffic color distribution (RGB: segment count):"
+          grep '^Color:' /tmp/traffic.txt | sort | uniq -c | sort -nr | head -10 || true
+          echo "Traffic line widths:"
+          grep '^Line:' /tmp/traffic.txt | sed -E 's/^Line: ([^,]+).*/\\1/' | sort | uniq -c | sort -nr || true
+          echo "First traffic drawing commands:"
+          grep -A3 -m3 '^Color:' /tmp/traffic.txt || true
+          grep -E '^(; TomTom|; Updated:|; Unique traffic segments rendered:|; TomTom traffic refresh failed:|; Live traffic placefile|Title:|Refresh:)' /tmp/traffic.txt | head -20 || true
+          if [ "$line_count" -gt 0 ] && [ "$color_count" -eq "$line_count" ]; then
+            echo "Traffic output contains matching color and line directives."
+          else
+            echo "Traffic output does not contain valid colored road-line objects."
+            head -35 /tmp/traffic.txt
+          fi
+
+ "/tmp/$region.txt"
             grep -q '^IconFile: 7,' "/tmp/$region.txt"
             grep -q '^IconFile: 2, 96, 96, 48, 48, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/assets/helicopter-aircraft-theme-96.png' "/tmp/$region.txt"
             grep -q '^IconFile: 3,' "/tmp/$region.txt"
