@@ -18,8 +18,8 @@ const lineFields = [
   "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
   "Severity","EventStatus","Description","ClosureExists","LanesOpen","LanesClosed",
   "LaneStatus","ParishName1","ParishName2","ParishName3","EventStartDateUTC",
-  "EventEndDateUTC","EventClosureStartDateUTC","EventClosureEndDateUTC",
-  "EventName","FromCrossStreet","ToCrossStreet"
+  "EventEndDateUTC","EventClosureStartDateUTC","EventClosureEndDateUTC","EventCreatedOnUTC","EventLastUpdatedUTC","service_last_updated",
+  "EventName","FromCrossStreet","ToCrossStreet","ReportAgency","EventSource","OwnerName","RoadClassCodeDesc"
 ].join(",");
 
 async function queryLayer(layer) {
