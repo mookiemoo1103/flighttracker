@@ -12,7 +12,7 @@ const pointFields = [
   "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
   "Severity","EventStatus","Description","ClosureExists","LanesOpen","LanesClosed",
   "LaneStatus","ParishName","EventStartDateUTC","EventEndDateUTC",
-  "EventClosureStartDateUTC","EventClosureEndDateUTC","EventCreatedOnUTC","EventLastUpdatedUTC","EventName","FromCrossStreet"
+  "EventClosureStartDateUTC","EventClosureEndDateUTC","EventCreatedOnUTC","EventLastUpdatedUTC","service_last_updated","EventName","FromCrossStreet","ReportAgency","EventSource","OwnerName","RoadClassCodeDesc"
 ].join(",");
 const lineFields = [
   "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
@@ -24,9 +24,10 @@ const lineFields = [
 
 async function queryLayer(layer) {
   const all = [];
-  for (let offset = 0; offset < 5000; offset += 1000) {
+  for (let offset = 0; offset < 50000; offset += 1000) {
     const url = new URL(BASE + "/" + layer + "/query");
     url.searchParams.set("where", "1=1");
+    url.searchParams.set("orderByFields", "EventLastUpdatedUTC DESC");
     url.searchParams.set("outFields", layer === 1 ? pointFields : lineFields);
     url.searchParams.set("returnGeometry", "true");
     url.searchParams.set("outSR", "4326");
@@ -64,17 +65,21 @@ function dateMs(value) {
   const parsed = Date.parse(String(value));
   return Number.isFinite(parsed) ? parsed : 0;
 }
-function isCurrent(a) {
+function isCurrent(a, kind) {
   const status = String(a.EventStatus ?? "").trim().toLowerCase();
   if (/cancel|complete|closed|expired|inactive|deleted|resolved/.test(status)) return false;
   const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC);
   const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC);
-  const updated = dateMs(a.EventLastUpdatedUTC || a.EventCreatedOnUTC);
+  const updated = dateMs(a.EventLastUpdatedUTC || a.service_last_updated || a.EventCreatedOnUTC);
   if (start && start > now + 6 * 60 * 60 * 1000) return false;
   if (end && end < now - 60 * 60 * 1000) return false;
-  // Some DOTD records have no planned end date. Expire those if the source
-  // has not updated them for 14 days, preventing old confirmed records lingering.
-  if (!end && updated && updated < now - 14 * 24 * 60 * 60 * 1000) return false;
+
+  // Old confirmed records with distant/missing end dates caused stale markers.
+  // Require a recent source update; incidents have a tighter freshness window.
+  const freshnessMs = kind === "incident" ? 72 * 60 * 60 * 1000 : 14 * 24 * 60 * 60 * 1000;
+  if (updated && updated < now - freshnessMs) return false;
+  if (!updated && start && start < now - (kind === "incident" ? 72 : 30) * 60 * 60 * 1000) return false;
+  if (!updated && !start) return false;
   return true;
 }
 function centerOf(geometry) {
@@ -110,7 +115,9 @@ function popup(a, kind) {
     a.LanesClosed != null ? "Lanes closed: " + a.LanesClosed : "",
     a.LanesOpen != null ? "Lanes open: " + a.LanesOpen : "",
     a.EventStatus ? "Status: " + a.EventStatus : "",
-    a.EventEndDateUTC ? "Expected end: " + new Date(a.EventEndDateUTC).toLocaleString("en-US",{timeZone:"America/Chicago"}) : ""
+    dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC) ? "Expected end: " + new Date(dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC)).toLocaleString("en-US",{timeZone:"America/Chicago"}) : "",
+    a.ReportAgency ? "Reporting agency: " + a.ReportAgency : "",
+    a.EventSource ? "Source: " + a.EventSource : ""
   ].filter(Boolean);
   return parts.map(clean).filter(Boolean).join("\\n");
 }
@@ -120,9 +127,8 @@ const byId = new Map();
 for (const [items, source] of [[points,"point"],[lines,"line"]]) {
   for (const feature of items) {
     const a = feature.attributes || {};
-    if (!isCurrent(a)) continue;
     const kind = classify(a);
-    if (!kind) continue;
+    if (!kind || !isCurrent(a, kind)) continue;
     const position = centerOf(feature.geometry);
     if (!position || !Number.isFinite(position[0]) || !Number.isFinite(position[1])) continue;
     // Match the same event's point and line representations by type, road, and location.
@@ -138,7 +144,8 @@ if (!events.length) console.log("DOTD returned no current closure, construction,
 await mkdir(OUT, { recursive: true });
 const out = [
   "; Louisiana DOTD / 511 traffic events - separate additive layer",
-  "; Source: DOTD 511 Road Closures FeatureServer",
+  "; Source: DOTD 511 Road Closures FeatureServer (point + line layers)",
+  "; Freshness: incidents updated within 72 hours; closures/construction within 14 days.",
   "; Generated independently of the TomTom speed traffic placefile.",
   "; Updated: " + new Date().toISOString(),
   "Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS",
