@@ -1,269 +1,1241 @@
 ; Louisiana DOTD / 511 traffic events - separate additive layer
 ; Source: DOTD 511 Road Closures FeatureServer
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-16T23:35:50.845Z
+; Updated: 2026-11-16T23:36:26.277Z
 Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
 IconFile: 2, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-construction.png"
 IconFile: 3, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-incident.png"
-Object: 30.215449,-93.388391
+Object: 30.439247,-91.190957
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nEastBOUND/nCrash/nCrash on I-10 Eastbound Near Ruth St (MM 20). 1 Left lane blocked./nCalcasieu/nSeverity: Minor/nLanes closed: 1/nLanes open: 2/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nUNNAMED RD 2\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound Near Mississippi River (MM 155). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
 End:
-Object: 32.499928,-92.092016
+Object: 30.409099,-91.476698
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-20/nEastBOUND/nStalled Semi/nStalled Semi on I-20 Eastbound near Texas Ave MM (118). 1 Lane Blocked./nOuachita/nSeverity: Minor/nLanes closed: 1/nLanes open: 2/nStatus: Confirmed"
-End:
-Object: 30.438155,-91.178446
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nSouthBOUND/nAccident/nAccident on I-110 Southbound near I-10 Westbound MM (1). Ramp Blocked./nEast Baton Rouge/nSeverity: Minor/nLanes closed: 1/nStatus: Confirmed"
-End:
-Object: 30.439748,-91.202133
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nEastBOUND/nStalled Semi/nStalled Semi on I-10 Eastbound Near LA 1 (MM 154). 1 Right lane blocked./nWest Baton Rouge/nSeverity: Minor/nLanes closed: 1/nLanes open: 2/nStatus: Confirmed"
-End:
-Object: 30.299192,-89.659650
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nEastBOUND/nCrash/nCrash on I-10 Eastbound near Pearl River MM (273). 1 Left lane blocked./nSt. Tammany/nSeverity: Minor/nLanes closed: 1/nLanes open: 1/nStatus: Confirmed"
-End:
-Object: 32.458806,-93.684645
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nLA 511/nBothBOUND/nBridge Construction/nBridge Construction on LA 511 Both Directions near Clyde Fant Pkwy. Lane Shift Right. Starting 4/27/2026 12:00 AM/nCaddo/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
-End:
-Object: 32.343000,-92.175675
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nCHARLES RAWLS RD/nBothBOUND/nBridge Closure/nBridge Closure on Charles Rawls Rd Both Directions near Redcut Loop Rd. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 3/9/2026 12:00 AM/nOuachita/nSeverity: None/nLanes closed: 1/nStatus: Confirmed"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nCrash\nCrash on I-10 Westbound near LA 3000 Northbound MM (137). All lanes blocked.\nIberville\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
 End:
 Object: 29.598755,-90.716231
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 182/nEastBOUND/nBridge Closure/nBridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM/nTerrebonne/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 182\nEast\nBridge Closure\nBridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
 End:
-Object: 29.743260,-90.767112
+Object: 30.028255,-89.998339
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLEFORT BYPASS RD/nUnknownBOUND/nBridge Closure/nBridge Closure on Lefort Bypass Rd Near Blackhead Ln. All lanes closed. Starting 3/17/2025 3:00 PM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound near Crowder Blvd MM (244). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
 End:
-Object: 30.424325,-91.152881
+Object: 29.647178,-90.536656
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nEastBOUND/nIncident/nIncident on I-10 Eastbound Near LA 427 (MM 158). 2 Right Lanes Blocked./nEast Baton Rouge/nSeverity: Moderate/nLanes closed: 3/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 655\nBoth Directions\nTruck Restrictions\nTruck Restrictions on LA 655 Both Directions At Rita Bridge. Lane Affected. Weight Restriction: 30000lbs Additional Restrictions: No Oversized Loads\nLafourche\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
 End:
-Object: 32.343000,-92.175675
+Object: 30.423082,-91.076520
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nCHARLES RAWLS RD/nBothBOUND/nBridge Closure/nBridge Closure on Charles Rawls Rd Both Directions Near Redcut Loop Rd. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 3/9/2026 12:00 AM/nOuachita/nSeverity: None/nLanes closed: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nCrash\nCrash on I-12 Eastbound Near US 61 Southbound (MM 3). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
 End:
-Object: 29.599195,-90.745766
+Object: 30.457571,-91.175702
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nLA 3040/nWestBOUND/nAccident/nAccident on LA 3040 Westbound near Corporate Dr. 1 Right lane blocked./nTerrebonne/nSeverity: Moderate/nLanes closed: 1/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nCrash\nCrash on I-110 Southbound Near Capitol Access Rd (MM 1). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
 End:
-Object: 30.457730,-91.169868
+Object: 30.526662,-91.164473
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-110/nNorthBOUND/nStalled Vehicle/nStalled Vehicle on I-110 Northbound near Fuqua St MM (2). 1 Right lane blocked./nEast Baton Rouge/nSeverity: Minor/nLanes closed: 1/nLanes open: 2/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nStalled Vehicle\nStalled Vehicle on I-110 Northbound Near Harding Blvd (MM 7). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
 End:
-Object: 30.440151,-91.209103
+Object: 29.964208,-90.103125
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nEastBOUND/nStalled Vehicle/nStalled Vehicle on I-10 Eastbound near LA 1 Northbound MM (154). 1 Right lane blocked./nWest Baton Rouge/nSeverity: Minor/nLanes closed: 1/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nEmergency Maintenance\nEmergency Maintenance on I-10 Westbound near US 61 Northbound MM (234). Ramp Blocked. Starting 5/19/2025 1:47 PM\nOrleans\nSeverity: Moderate\nLanes closed: 1\nStatus: Confirmed"
 End:
-Object: 33.002992,-93.907484
+Object: 30.001131,-90.040023
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nI-49/nSouthBOUND/nCrash/nCrash on I-49 Southbound Near LA 168 Eastbound (MM 246). All lanes blocked./nCaddo/nSeverity: Moderate/nLanes closed: 4/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound Near Old Gentilly Rd (MM 239).\nOrleans\nSeverity: Minor\nLanes open: 4\nStatus: Confirmed"
 End:
-Object: 30.441365,-91.007545
+Object: 30.439782,-91.202740
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-12/nSouthBOUND/nCrash/nCrash on LA 3245 Southbound near Nehru Ave. 1 Right lane blocked./nEast Baton Rouge/nSeverity: Minor/nLanes closed: 2/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Semi\nStalled Semi on I-10 Eastbound near LA 1 MM (154). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
 End:
-Object: 30.237140,-93.244198
+Object: 30.476461,-91.112632
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nWestBOUND/nCrash/nCrash on I-10 Westbound near Calcasieu River MM (29). 1 Right lane blocked./nCalcasieu/nSeverity: Minor/nLanes closed: 1/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nUS 61\nNorth\nCrash\nCrash on US 61 Northbound Near LA 37. 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.991400,-90.300238
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-310\nSouth\nStalled Vehicle\nStalled Vehicle on I-310 Southbound near I-10 Eastbound MM (1). 1 Right lane blocked.\nSt. Charles\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.324889,-91.787903
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near Lake Bigeaux MM (117.4). 1 Right lane blocked.\nSt. Martin\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.990822,-90.070314
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-610\nWest\nRoad Maintenance Operations\nRoad Maintenance Operations on I-610 Westbound Near Paris Ave (MM 3). 2 Right Lanes Blocked. Starting 8/31/2026 8:24 PM\nOrleans\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439143,-91.183613
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nDisabled Semi\nDisabled Semi on I-10 Westbound near Mississippi River MM (155). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.962333,-90.074997
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Semi\nStalled Semi on I-10 Westbound Near Orleans Ave (MM 236). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.481171,-90.490852
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-55\nSouth\nDisabled Semi\nDisabled Semi on I-55 Southbound near I-12 Westbound MM (30). 1 Right lane blocked.\nTangipahoa\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.439016,-91.184071
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Semi\nStalled Semi on I-10 Eastbound Near Nicholson Dr (MM 155). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.008023,-90.014749
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near US 90 Eastbound (MM 241). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.124116,-90.767593
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nUS 61\nSouth\nCrash\nCrash on US 61 Southbound Near I-10 Eastbound. All lanes blocked.\nSt. James\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.947144,-90.082073
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nStalled Vehicle\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2"
+End:
+Object: 29.886335,-91.525026
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 324\nBoth Directions\nBridge Closure\nBridge Closure on Convent St Both Directions near Navarro St. All lanes closed. Starting 9/20/2021 1:48 PM\nSt. Mary\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
+End:
+Object: 30.081888,-89.918185
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound Near Michoud Blvd (MM 249). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.446200,-91.179859
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nCrash\nCrash on I-110 Southbound Near Government St (MM 1). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
 End:
 Object: 29.998163,-90.043639
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nI-10/nEastBOUND/nBridge Maintenance Operations/nBridge Maintenance Operations on I-10 Eastbound near Almonaster Ave MM (239). 1 Right lane blocked. Starting 3/17/2026 10:25 PM/nOrleans/nSeverity: Minor/nLanes closed: 2/nLanes open: 3/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nEast\nBridge Maintenance Operations\nBridge Maintenance Operations on I-10 Eastbound near Almonaster Ave MM (239). 1 Right lane blocked. Starting 3/17/2026 10:25 PM\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 3\nStatus: Confirmed"
 End:
-Object: 30.425601,-91.163353
+Object: 30.425051,-91.158391
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nWestBOUND/nCrash/nCrash on I-10 Westbound near Dalrymple Dr MM (156). 2 Right Lanes Blocked./nEast Baton Rouge/nSeverity: Moderate/nLanes closed: 2/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near Perkins Rd (MM 158). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
 End:
-Object: 29.938681,-90.042822
+Object: 30.018226,-90.316220
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nUS 90-BR/nEastBOUND/nStalled Vehicle/nOrleans/nSeverity: Major/nLanes closed: 1/nLanes open: 3/nExpected end: 10/21/2029, 9:40:00 AM"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near I-310 Southbound MM (219). 1 Right Shoulder Blocked.\nSt. Charles\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
 End:
-Object: 32.447087,-93.981654
+Object: 30.089391,-90.445152
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-20/nEastBOUND/nIncident/nIncident on I-20 Eastbound near LA 169 MM (4). 1 Left lane blocked./nCaddo/nSeverity: Minor/nLanes closed: 2/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near US 51 Northbound (MM 209). 1 Right lane blocked.\nSt. John the Baptist\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439633,-91.199841
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near LA 1 (MM 154). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.116700,-90.605750
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near LA 641 (MM 200). All lanes blocked.\nSt. John the Baptist\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.994675,-90.107374
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-610\nEast\nAccident\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nExpected end: 10/22/2029, 5:51:00 PM"
+End:
+Object: 30.439219,-91.181319
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near I-110 Northbound (MM 155). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.439044,-91.187704
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on LA 30 Westbound near Mayflower St MM (1). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.297610,-89.701454
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nCrash\nCrash on I-10 Eastbound near Pearl River MM (271). All lanes blocked.\nSt. Tammany\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.644529,-90.761459
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 24\nWest\nAccident\nAccident on LA 24 Westbound near Oakshire St. 1 Right lane blocked.\nTerrebonne\nSeverity: Moderate\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.471198,-91.166793
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nStalled Vehicle\nStalled Vehicle on I-110 Northbound Near Chippewa St (MM 3). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.439171,-91.189829
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound near Mississippi River MM (155). 1 Lane Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.567921,-90.720479
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 315\nNorth\nIncident\nTerrebonne\nSeverity: Moderate\nLanes closed: 1"
+End:
+Object: 30.446403,-91.179940
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-110\nSouth\nCrash\nCrash on I-110 Southbound Near Government St (MM 1). All lanes blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed"
+End:
+Object: 30.441365,-91.007545
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nSouth\nCrash\nCrash on LA 3245 Southbound near Nehru Ave. 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.053263,-89.950180
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nWest\nRoad Maintenance Operations\nRoad Maintenance Operations on I-10 Westbound near I-510 Southbound MM (246). 2 Left Lanes Blocked. Starting 5/17/2026 9:53 PM\nOrleans\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439049,-91.182822
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near Nicholson Dr (MM 155). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.941449,-90.072008
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nAccident\nAccident on US 90-BR Westbound near Earhart Blvd. 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 3\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.005421,-89.939093
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 47\nSouth\nCrash\nCrash on LA 47 Southbound Near Intracoastal Waterway (MM 3). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.478879,-90.487702
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nAccident\nAccident on I-12 Eastbound near I-55 Southbound MM (38). 1 Right Shoulder Blocked.\nTangipahoa\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.992714,-90.076850
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-610\nEast\nCrash\nCrash on I-610 Eastbound near Saint Bernard Ave MM (3). 2 Right Lanes Blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.444076,-91.178968
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nAccident\nAccident on I-110 Southbound near Government St MM (1). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.952381,-90.086475
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nDisabled Semi\nDisabled Semi on US 90-BR Westbound near US 90 Eastbound MM (234). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.422276,-91.131646
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near College Dr (MM 159). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 29.954322,-90.089301
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nEast\nAccident\nAccident on US 90-BR Eastbound near I-10 Eastbound MM (234). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.978282,-90.112537
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near Metairie Rd MM (232). Ramp Blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 4\nStatus: Confirmed"
+End:
+Object: 30.026828,-90.007420
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near Morrison Rd MM (241). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.466394,-90.892381
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nCrash\nCrash on I-12 Eastbound Near Juban Rd (MM 14). 1 Right lane blocked.\nLivingston\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.435584,-91.177440
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Semi\nStalled Semi on I-10 Westbound Near I-110 Northbound (MM 156). 1 Right Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 4\nStatus: Confirmed"
+End:
+Object: 29.965861,-90.071724
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nIncident\nIncident on I-10 Eastbound Near Orleans Ave (MM 236). Ramp Blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.534831,-91.172971
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nDisabled Semi\nDisabled Semi on I-110 Southbound near Scotland Ave MM (8). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.004850,-90.026342
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nDisabled Semi\nDisabled Semi on I-10 Westbound near Inner Harbor Navigation Canal MM (240). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.638681,-90.751465
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nBAYOU GARDENS BLVD\nSouth\nRoad Construction\nRoad Construction on Bayou Garden Blvd Southbound Near Bois St. 1 Left lane blocked. Starting 9/28/2026 9:29 AM\nTerrebonne\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.319467,-91.003276
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near Highland Rd MM (169). 1 Right lane blocked.\nAscension\nSeverity: Minor\nLanes closed: 3\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.492572,-91.163305
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-110\nNorth\nAccident\nAccident on I-110 Northbound near Evangeline St MM (4). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 29.899052,-90.077467
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nStalled Vehicle\nStalled Vehicle on US 90-BR Westbound near Peters Road. 1 Right lane blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.937751,-90.057309
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-910\nWest\nAccident\nAccident on US 90-BR Westbound near Mississippi River MM (234). All lanes blocked.\nJefferson\nSeverity: Moderate\nLanes closed: 6\nStatus: Confirmed"
+End:
+Object: 30.052765,-89.950565
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nEast\nRoad Maintenance Operations\nRoad Maintenance Operations on I-10 Eastbound near Bullard Ave MM (246). 2 Left Lanes Blocked. Starting 5/4/2026 10:08 PM\nOrleans\nSeverity: Minor\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.899337,-90.076250
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-910\nWest\nEmergency Maintenance\nEmergency Maintenance on US 90-BR Westbound Near Peters Road. 1 Right lane blocked. Starting 7/9/2026 9:49 AM\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.333492,-90.099387
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLake Pontchartrain Cswy\nSouth\nCrash\nCrash on Lake Pontchartrain Cswy Southbound Near Jefferson St Tammany Parish Line. All lanes blocked.\nSt. Tammany\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.996270,-90.129976
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near I-610 Eastbound (MM 230). 2 Right Lanes Blocked.\nJefferson\nSeverity: Minor\nLanes closed: 3\nLanes open: 4\nStatus: Confirmed"
 End:
 Object: 30.440143,-91.207216
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nWestBOUND/nVehicle on Fire/nVehicle on Fire on I-10 Westbound near LA 1 Southbound MM (154). Lane Blocked./nWest Baton Rouge/nSeverity: Minor/nLanes closed: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nVehicle on Fire\nVehicle on Fire on I-10 Westbound near LA 1 Southbound MM (154). Lane Blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
 End:
-Object: 29.990976,-90.066669
+Object: 30.438293,-91.178180
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-610/nWestBOUND/nStalled Semi/nStalled Semi on I-610 Westbound Near US 90 Westbound (MM 4). 1 Right lane blocked./nOrleans/nSeverity: Minor/nLanes closed: 2/nLanes open: 3/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near I-110 Northbound (MM 156). 1 Lane Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.439193,-91.192191
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near Nicholson Dr MM (155). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.424499,-91.216978
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 1\nNorth\nStalled Semi\nStalled Semi on LA 1 Northbound Near Phillips Ln (MM 1). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.453139,-91.268863
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Semi\nStalled Semi on I-10 Eastbound Near Lobdell Ext S (MM 150). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.897513,-90.081418
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nEast\nIncident\nIncident on US 90-BR Eastbound near Intracoastal Waterway. 1 Right lane blocked.\nJefferson\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.416855,-91.094614
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nAccident\nAccident on I-12 Eastbound near Essen Lane MM (2). 1 Lane Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.377729,-91.591494
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near LA 975 (MM 130). 1 Right lane blocked.\nIberville\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.471198,-91.166793
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nCrash\nCrash on I-110 Northbound Near Chippewa St (MM 3). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.004985,-90.025228
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nCrash Involving Hazardous Materials\nCrash Involving Hazardous Materials on I-10 Eastbound At Highrise Bridge . 1 Left lane closed.\nOrleans\nSeverity: None\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.005947,-90.021653
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound Near Downman Rd (MM 240).\nOrleans\nSeverity: Minor\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.443643,-91.007536
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nONEAL LN\nSouth\nCrash\nCrash on LA 3245 Southbound near Commercial Ave. 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439944,-91.205286
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nDebris on Roadway\nDebris on Roadway on I-10 Eastbound Near LA 1 (MM 154). 1 Left lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.433729,-90.101807
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nCrash\nCrash on I-12 Eastbound Near US 190 Westbound (MM 62). 2 Right Lanes Blocked.\nSt. Tammany\nSeverity: Moderate\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.599195,-90.745766
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 3040\nWest\nAccident\nAccident on LA 3040 Westbound near Corporate Dr. 1 Right lane blocked.\nTerrebonne\nSeverity: Moderate\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.008566,-90.230094
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nIncident\nIncident on I-10 Eastbound Near Power Blvd (MM 224). 1 Right lane blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.452309,-91.293047
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nDebris on Roadway\nDebris on Roadway on I-10 Eastbound Near Lobdell Ext S (MM 149). All lanes blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 2\nStatus: Confirmed"
 End:
 Object: 30.206002,-90.943812
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-10/nEastBOUND/nCrash/nCrash on I-10 Eastbound near LA 30 MM (178). 1 Left lane blocked./nAscension/nSeverity: Minor/nLanes closed: 1/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound near LA 30 MM (178). 1 Left lane blocked.\nAscension\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439060,-91.182257
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Ramp to I-110 Northbound (MM 155). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.268343,-89.844360
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 433\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 433 Both Directions Near Liberty Bayou Bridge. Lane Intermittent. Starting 9/2/2026 12:00 AM\nSt. Tammany\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.425356,-91.161166
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near City Park Lake MM (157.0). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.321821,-91.800691
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near LA 347 (MM 117). 2 Right Lanes Blocked.\nSt. Martin\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.426271,-91.166785
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near Dalrymple Dr (MM 156). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.434061,-91.210223
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 1\nSouth\nStalled Vehicle\nStalled Vehicle on LA 1 Southbound Near Sun Plus Pkwy (MM 1). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Moderate\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.583356,-90.696099
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 57\nSouth\nAccident\nAccident on LA 57 Southbound near Glynn Ave. 2 Left Lanes Blocked.\nTerrebonne\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.938828,-90.048152
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-910\nEast\nBridge Maintenance Operations\nBridge Maintenance Operations on US 90-BR Eastbound near LA 428 Eastbound MM (234). 1 Right lane blocked. Starting 6/10/2025 10:45 AM\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.457750,-91.170711
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nStalled Vehicle\nStalled Vehicle on I-110 Southbound near LA 3164 MM (2). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.255257,-92.014544
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nNorth\nConstruction Work\nConstruction Work on US 167 Northbound Near I-10 Eastbound (MM 1). 1 Left lane blocked. Starting 10/20/2026 10:16 PM\nLafayette\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.436430,-90.108961
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWest\nCrash\nCrash on I-12 Westbound Near Covington (MM 62).\nSt. Tammany\nSeverity: Minor\nLanes open: 4\nStatus: Confirmed"
+End:
+Object: 30.002891,-90.035116
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near Almonaster Ave (MM 240). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.442131,-91.008105
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nCrash\nCrash on I-12 Eastbound Near O'Neal Lane (MM 7). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.374617,-91.604624
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near LA 975 MM (129). 1 Right lane blocked.\nIberville\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.453709,-91.273493
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near Lobdell Ext S MM (150). 1 Left lane blocked.\nWest Baton Rouge\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.307770,-91.871222
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near Anse Broussard Hwy (MM 113). 1 Right lane blocked.\nSt. Martin\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.043221,-89.965699
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nEast\nRoad Maintenance Operations\nRoad Maintenance Operations on I-10 Eastbound near Bullard Ave MM (245). 1 Left lane blocked. Starting 5/17/2026 9:46 PM\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.994775,-90.104047
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-610\nEast\nRoad Construction\nRoad Construction on I-610 Eastbound near Canal Blvd MM (1). 2 Left Lanes Blocked. Starting 6/1/2026 10:04 PM\nOrleans\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.353631,-91.035355
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near Highland Rd MM (166). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.375782,-91.056098
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound near Siegen Lane (LA 3246) MM (165). 2 Left Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.269856,-90.110213
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLAKE PONTCHARTRAIN CSWY\nSouth\nRoad Maintenance Operations\nRoad Maintenance Operations on Lake Pontchartrain Cswy Southbound near N Causeway Blvd. 1 Right lane blocked. Starting 6/10/2026 11:30 AM\nSt. Tammany\nSeverity: Moderate\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.005305,-90.024364
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound Near Downman Rd (MM 240). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.423933,-91.147585
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound near LA 427 MM (158). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.438990,-91.184863
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound near Nicholson Dr MM (155). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.073646,-90.398912
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nSpilled Load\nSpilled Load on I-10 Eastbound Near Bayou la Branch (MM 212). 1 Left lane blocked.\nSt. Charles\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.407199,-91.102245
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 3064\nWest\nAccident\nAccident on LA 3064 Westbound near I-10 Westbound. 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.258487,-92.018011
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near US 167 Southbound (MM 103). 1 Right lane blocked.\nLafayette\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.348133,-91.702416
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near Atchafalaya Basin Main Channel MM (123). 1 Right lane blocked.\nSt. Martin\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.310238,-89.760079
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWest\nStalled Vehicle\nSt. Tammany\nSeverity: Minor\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.758683,-90.816954
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 3185\nBoth Directions\nPaving Operations\nPaving Operations on LA 3185 Both Directions At LA 20 Eastbound. Lanes Alternating. Starting 4/22/2026 7:30 AM\nTerrebonne\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.004335,-90.028549
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near Inner Harbor Navigation Canal (MM 240). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.240607,-90.407983
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-55\nSouth\nCrash\nCrash on I-55 Southbound near St John the Baptist Tangipahoa Parish Line MM (11). 1 Right lane blocked.\nSt. John the Baptist\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.436804,-91.178276
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound near I-110 Northbound MM (156). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
 End:
 Object: 30.466996,-90.885669
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-12/nEastBOUND/nTraffic Congestion/nTraffic Congestion on I-12 Eastbound near Walker South Rd MM (15). 2 Left Lanes Blocked./nLivingston/nSeverity: Moderate/nLanes closed: 2/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nTraffic Congestion\nTraffic Congestion on I-12 Eastbound near Walker South Rd MM (15). 2 Left Lanes Blocked.\nLivingston\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.254368,-92.028140
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound near LA 182 Northbound MM (102). 1 Left lane blocked.\nLafayette\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.426275,-91.166797
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near Dalrymple Dr (MM 156). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.429829,-91.173134
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near Washington St (MM 156). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.247338,-92.107119
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near Coulee Mine (MM 98). 1 Left lane blocked.\nLafayette\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.053735,-89.949441
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near I-510 Southbound MM (246). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.938928,-90.051174
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nEast\nCrash\nCrash on US 90-BR Eastbound Near LA 428 Eastbound (MM 234). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 29.955345,-90.081068
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound near US 90 Eastbound MM (235). 1 Ramp Blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.453601,-90.164124
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nDisabled Semi\nDisabled Semi on I-12 Eastbound near Highway 21 MM (58). 1 Left lane blocked.\nSt. Tammany\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.072518,-90.145196
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLAKE PONTCHARTRAIN CSWY\nSouth\nStalled Vehicle\nStalled Vehicle on Lake Pontchartrain Cswy Southbound Near Lake Pontchartrain. 1 Right lane blocked.\nJefferson\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.941522,-90.071895
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nEast\nAccident\nAccident on US 90-BR Eastbound at O'Keefe Ave MM (234). 2 Right Lanes Blocked.\nOrleans\nSeverity: None\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.472891,-91.166892
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nCrash\nCrash on I-110 Northbound Near Chippewa St (MM 3). 1 Lane Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.018258,-90.013536
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nEast\nEmergency Maintenance\nEmergency Maintenance on I-10 Eastbound Near Morrison Rd (MM 241). 1 Left lane blocked. Starting 8/30/2026 8:49 PM\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.432317,-91.387946
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near Iberville West Baton Rouge Parish Line MM (143). All lanes blocked.\nWest Baton Rouge\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.996224,-90.129102
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Semi\nStalled Semi on I-10 Eastbound near I-610 Eastbound MM (230). 2 Right Lanes Blocked.\nJefferson\nSeverity: Minor\nLanes closed: 2\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.478110,-90.576549
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-12\nWest\nCrash\nCrash on I-12 Westbound Near LA 43 (MM 33). All lanes blocked.\nLivingston\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.968890,-90.069012
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound near Esplanade Ave MM (236). Ramp Blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 29.953175,-90.087565
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nEast\nCrash\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2"
+End:
+Object: 30.247305,-92.140606
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near LA 93 MM (96). All lanes blocked.\nLafayette\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.910811,-90.054487
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nStalled Vehicle\nStalled Vehicle on US 90-BR Westbound near LA 18 W. 1 Left lane blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.003163,-90.033690
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near Almonaster Ave (MM 240). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.444962,-90.996662
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nAccident\nAccident on I-12 Eastbound near Amite River MM (8). 2 Left Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.937795,-90.064504
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nStalled Vehicle\nStalled Vehicle on US 90-BR Westbound near Annunciation St MM (234). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.391661,-90.005807
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 1088\nWest\nStalled Semi\nStalled Semi on LA 1088 Westbound Near I-12 Eastbound. 2 Left Lanes Blocked.\nSt. Tammany\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.422848,-91.137359
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Semi\nStalled Semi on I-10 Westbound near College Dr MM (158). 1 Lane Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.446535,-90.139873
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nAccident\nAccident on I-12 Eastbound near LA 21 Northbound MM (60). 1 Left lane blocked.\nSt. Tammany\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.418076,-91.105459
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWest\nCrash\nCrash on I-12 Westbound Near Essen Ln (MM 1). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 3\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.084421,-90.427834
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nEast\nRoad Maintenance Operations\nRoad Maintenance Operations on I-10 Eastbound near Bayou la Branch MM (211). 1 Right lane blocked. Starting 5/17/2026 10:01 PM\nSt. John the Baptist\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.350610,-89.917093
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWest\nAccident\nAccident on I-12 Westbound near LA 434 MM (75). 1 Right Ramp Blocked.\nSt. Tammany\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.975353,-90.111391
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nOverturned Semi-Trailer\nOverturned Semi-Trailer on I-10 Westbound near US 61 Northbound MM (232). Ramp Blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.319467,-91.003276
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near Highland Rd MM (169). All lanes blocked.\nAscension\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.774695,-90.802046
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 648\nBoth Directions\nRoad Construction\nRoad Construction on North and South Acadia Road Both Directions At LA 648 Percy Brown Road. 1 Left lane closed. Starting 10/15/2026 9:55 AM\nLafourche\nSeverity: None\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.009279,-90.241112
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near Williams Blvd MM (223). 1 Left lane blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.439109,-91.188286
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nDisabled Semi\nDisabled Semi on I-10 Westbound near Mississippi River MM (155). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.440745,-91.215779
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nVehicle on Fire\nVehicle on Fire on I-10 Westbound near LA 1 Northbound MM (153). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.418203,-91.106639
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWest\nCrash\nCrash on I-12 Westbound Near Essen Ln (MM 1). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 29.996641,-90.137800
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near Bonnabel Blvd MM (230). 1 Lane Blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 4\nStatus: Confirmed"
+End:
+Object: 30.438930,-91.178814
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near I-110 Northbound MM (156). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.003275,-90.033646
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nAccident\nAccident on I-10 Westbound near Louisa St MM (240). All lanes blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed"
+End:
+Object: 30.006674,-90.281166
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near I-310 Southbound MM (220). 1 Left lane blocked.\nSt. Charles\nSeverity: Minor\nLanes closed: 2\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.458835,-91.166493
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nCrash\nCrash on I-110 Northbound Near LA 67 (MM 2). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.898347,-90.080224
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nAccident\nAccident on US 90-BR Westbound near Westbank Expy. 1 Right lane blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.439889,-91.204504
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near LA 1 (MM 154). 1 Left lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.196294,-89.808937
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near Lake Pontchartrain MM (259). All lanes blocked.\nSt. Tammany\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 30.299192,-89.659650
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound near Pearl River MM (273). 1 Left lane blocked.\nSt. Tammany\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.447619,-91.245951
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near Lobdell Ext S (MM 151). All lanes blocked.\nWest Baton Rouge\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 30.448023,-91.210299
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 1\nSouth\nStalled Semi\nStalled Semi on LA 1 Southbound near Avenue D. 1 Left lane blocked.\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.004983,-90.025746
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nOrleans\nSeverity: Minor\nLanes open: 3"
+End:
+Object: 30.247376,-92.112094
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near Acadia Lafayette Parish Line (MM 97). 1 Right lane blocked.\nLafayette\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.440566,-91.213926
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near LA 1 Northbound MM (153). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.352413,-91.034358
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nIncident\nIncident on I-10 Westbound near Highland Rd MM (166). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.596347,-90.675311
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nINDUSTRIAL PARK DR\nNorth\nStalled Vehicle\nStalled Vehicle on LA 3087 Northbound near Lorraine Park St. 1 Left lane blocked.\nTerrebonne\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439579,-91.198971
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near LA 1 (MM 154). 1 Lane Blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.458626,-91.167214
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nDisabled Semi\nDisabled Semi on I-110 Southbound near Scenic Hwy MM (2). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.373691,-90.262016
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 3235\nSouth\nConstruction Work\nConstruction Work on LA 3235 Southbound At Texas Rd. All Lanes Intermittent. Starting 6/11/2026 11:00 AM\nLafourche\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.384705,-90.730316
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nFALGOUT CANAL RD\nBoth Directions\nBridge Closure\nBridge Closure on Falgout Rd Both Directions near Shrimpers Row. All lanes closed. Starting 5/10/2025 12:21 PM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
+End:
+Object: 30.474869,-90.638102
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-12\nWest\nOverturned Semi-Trailer\nOverturned Semi-Trailer on I-12 Westbound near LA 441 MM (29). All lanes blocked.\nLivingston\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 30.439113,-91.185077
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Semi\nStalled Semi on I-10 Westbound near LA 30 MM (155). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.007167,-90.274580
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nDebris on Roadway\nDebris on Roadway on I-10 Westbound near Loyola Drive MM (222). 2 Left Lanes Blocked.\nJefferson\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.437518,-90.112814
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nDebris on Roadway\nDebris on Roadway on I-12 Eastbound near Covington MM (61). 1 Right lane blocked.\nSt. Tammany\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.367784,-91.629702
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near LA 975 (MM 128). 1 Left lane blocked.\nIberville\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.425658,-91.164424
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near Dalrymple Dr MM (156.7). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.230729,-90.963384
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nIncident\nIncident on I-10 Westbound near LA 30 MM (176). All lanes blocked.\nAscension\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.567675,-90.716676
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 315\nSouth\nCrash\nCrash on LA 315 Southbound Near Houma Canal. 1 Left lane blocked.\nTerrebonne\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439166,-91.182957
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near I-110 Southbound MM (155). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.942875,-90.074715
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nCrash\nCrash on US 90-BR Westbound near St Charles Ave MM (234). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.947777,-90.082233
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nUS 90 BUS\nEast\nCrash\nCrash on US 90-BR Eastbound near Mississippi River. 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.447529,-91.179902
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nCrash\nCrash on I-110 Northbound Near Convention St (MM 1). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 4\nStatus: Confirmed"
+End:
+Object: 30.023590,-90.325023
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound near I-310 Southbound MM (218). 1 Left lane blocked.\nSt. Charles\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.410316,-90.035546
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nEast\nAccident\nAccident on I-12 Eastbound near LA 59 MM (66). 1 Left lane blocked.\nSt. Tammany\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.423266,-91.141274
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound Near College Dr (MM 158). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 3\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.458953,-91.166584
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-110\nSouth\nDisabled Semi\nDisabled Semi on I-110 Southbound near Plank Rd MM (2). All lanes blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed"
+End:
+Object: 30.443151,-91.178359
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nStalled Vehicle\nStalled Vehicle on I-110 Northbound Near Government St (MM 1). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.990976,-90.066669
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-610\nWest\nStalled Semi\nStalled Semi on I-610 Westbound Near US 90 Westbound (MM 4). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.447527,-91.245572
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near Lobdell Ext S (MM 151). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.458456,-91.167742
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nDisabled Semi\nDisabled Semi on I-110 Southbound near Scenic Hwy MM (2). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.355944,-91.671879
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near LA 975 (MM 125). 1 Right lane blocked.\nSt. Martin\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.423905,-91.147295
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near LA 427 (MM 158). All lanes blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 6\nStatus: Confirmed"
+End:
+Object: 29.946931,-90.081757
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nCrash\nCrash on US 90-BR Westbound Near I-10 Westbound (MM 234). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.962333,-90.074997
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nStalled Semi\nStalled Semi on I-10 Westbound Near Orleans Ave (MM 236). All lanes blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed"
+End:
+Object: 29.930465,-90.038436
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nStalled Vehicle\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 1"
+End:
+Object: 30.108598,-90.514690
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nDebris on Roadway\nDebris on Roadway on I-10 Eastbound near Belle Terre Blvd MM (205). 1 Left lane blocked.\nSt. John the Baptist\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.404465,-91.493918
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near LA 3000 Northbound MM (136). 1 Right lane blocked.\nIberville\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.426405,-91.167160
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Semi\nStalled Semi on I-10 Eastbound Near Dalrymple Dr (MM 156). 1 Lane Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.955332,-90.090409
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near Airline Hwy MM (235). 1 Right lane blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.991775,-90.053356
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-610\nWest\nCrash\nCrash on I-610 Westbound Near I-10 Westbound (MM 4). 2 Right Lanes Blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.429220,-91.059879
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-12\nEast\nCrash\nCrash on I-12 Eastbound Near Sherwood Forest Boulevard (MM 4). All lanes blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed"
+End:
+Object: 30.272699,-91.977814
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nLafayette\nSeverity: Moderate\nLanes closed: 1\nLanes open: 1\nExpected end: 10/4/2029, 12:56:00 PM"
+End:
+Object: 30.261446,-90.111693
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLAKE PONTCHARTRAIN CSWY\nNorth\nBridge Maintenance Operations\nBridge Maintenance Operations on Lake Pontchartrain Cswy Northbound near N Causeway Blvd. 1 Left lane blocked. Starting 3/21/2026 7:30 AM\nSt. Tammany\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439263,-91.191254
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near Mississippi River MM (155). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.395743,-90.429294
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-55\nNorth\nAccident\nTangipahoa\nSeverity: Moderate\nLanes closed: 1\nLanes open: 1\nExpected end: 5/6/2030, 9:05:00 PM"
+End:
+Object: 30.019464,-90.013965
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near Morrison Rd (MM 241). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.965237,-90.071910
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nOrleans\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nExpected end: 2/21/2030, 9:44:00 PM"
+End:
+Object: 30.475841,-90.702486
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-12\nWest\nOverturned Semi-Trailer\nOverturned Semi-Trailer on I-12 Westbound near Holden MM (26). All lanes blocked.\nLivingston\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 30.425240,-91.160004
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near Perkins Rd (MM 158). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.935619,-90.037617
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nEast\nStalled Vehicle\nOrleans\nSeverity: Minor\nLanes closed: 1\nLanes open: 3"
+End:
+Object: 30.365308,-91.638401
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near LA 975 MM (127). 1 Right lane blocked.\nIberville\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.937717,-90.060725
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-910\nWest\nStalled Vehicle\nStalled Vehicle on US 90-BR Westbound near Mississippi River MM (234). All lanes blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 6\nStatus: Confirmed"
+End:
+Object: 29.958129,-90.078792
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near Cleveland Ave MM (235). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.606693,-90.742938
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nHOLLYWOOD ROAD BRG\nWest\nCrash\nCrash on LA 24 Westbound near Monarch Dr. 2 Left Lanes Blocked.\nTerrebonne\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.459853,-90.937435
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWest\nDebris on Roadway\nDebris on Roadway on I-12 Westbound Near Juban Rd (MM 11). 1 Right lane blocked.\nLivingston\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.999891,-90.195380
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound near Clearview Pkwy MM (226). 1 Left lane blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
 End:
 Object: 29.949951,-90.084808
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-910/nEastBOUND/nCrash/nCrash on US 90-BR Eastbound Near US 90 Eastbound (MM 234). 1 Right lane blocked./nOrleans/nSeverity: Minor/nLanes closed: 2/nLanes open: 2/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nEast\nCrash\nCrash on US 90-BR Eastbound Near US 90 Eastbound (MM 234). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.553845,-91.519950
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nUS 190\nWest\nIncident\nIncident on US 190 Westbound near Reliable Ln. 1 Right lane blocked.\nPointe Coupee\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.435026,-91.177065
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound near I-110 Northbound MM (155.7). 1 Left lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.036071,-89.978309
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nCrash\nCrash on I-10 Eastbound Near Read Blvd (MM 244). 2 Right Lanes Blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.008566,-90.230094
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near Power Blvd (MM 224). 1 Right lane blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.933714,-90.037269
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nEast\nCrash\nCrash on US 90-BR Eastbound Near LA 428 Eastbound. 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.462977,-91.166261
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nAccident\nAccident on I-110 Southbound near Plank Rd MM (2). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.991381,-90.072620
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-610\nWest\nCrash\nCrash on I-610 Westbound near Paris Ave MM (3).\nOrleans\nSeverity: Minor\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 29.983440,-90.054100
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nEast\nVehicle on Fire\nVehicle on Fire on I-10 Eastbound near Elysian Fields Ave MM (238). All lanes blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed"
+End:
+Object: 30.439175,-91.182070
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nWest\nDisabled Semi\nDisabled Semi on I-10 Westbound near Mississippi River MM (155). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 4\nStatus: Confirmed"
+End:
+Object: 29.963340,-90.074108
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near Orleans Ave (MM 236). 1 Right lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.048840,-89.956834
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nEast\nRoad Maintenance Operations\nRoad Maintenance Operations on I-10 Eastbound near Bullard Ave MM (246). 2 Left Lanes Blocked. Starting 5/4/2026 3:27 AM\nOrleans\nSeverity: Minor\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.973899,-90.111082
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound Near US 61 Northbound (MM 232). 1 Left lane blocked.\nOrleans\nSeverity: Minor\nLanes closed: 2\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.473667,-91.166940
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nStalled Vehicle\nStalled Vehicle on I-110 Northbound Near Chippewa St (MM 3). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.051484,-90.365310
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near Bayou la Branch (MM 215). 1 Right lane blocked.\nSt. Charles\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.085914,-90.431998
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-55\nWest\nStalled Vehicle\nStalled Vehicle on I-10 Westbound near I-55 Northbound MM (210). 1 Left lane blocked.\nSt. John the Baptist\nSeverity: Minor\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.417287,-91.098098
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWest\nStalled Semi\nStalled Semi on I-12 Westbound near Essen Ln MM (1). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.440151,-91.209103
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Vehicle\nStalled Vehicle on I-10 Eastbound near LA 1 Northbound MM (154). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.574669,-90.727102
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 182\nWest\nConstruction Work\nConstruction Work on LA 182 Westbound near Civic Center Dr. Lane Blocked. Starting 6/9/2026 8:41 AM\nSeverity: Moderate\nLanes closed: 2\nStatus: Confirmed"
+End:
+Object: 30.399055,-91.054450
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nUS 61\nSouth\nCrash\nCrash on US 61 Southbound near Siegen Ln. All lanes blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 30.006560,-90.282682
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near I-310 Southbound (MM 220). 1 Left lane blocked.\nSt. Charles\nSeverity: Minor\nLanes closed: 2\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.119694,-90.639147
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound Near LA 641 (MM 198). 1 Right lane blocked.\nSt. John the Baptist\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.424325,-91.152881
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nIncident\nIncident on I-10 Eastbound Near LA 427 (MM 158). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.439748,-91.202133
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nStalled Semi\nStalled Semi on I-10 Eastbound Near LA 1 (MM 154). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.329269,-90.983064
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nUS 61\nNorth\nAccident\nAccident on US 61 Northbound near Commerce Ln. 2 Left Lanes Blocked.\nAscension\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.598579,-90.716192
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 24\nBoth Directions\nBridge Maintenance Operations\nBridge Maintenance Operations on LA 24 Both Directions At E Main St. Lanes Alternating. Starting 4/21/2026 7:00 AM\nTerrebonne\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.003275,-90.033646
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near Louisa St MM (240). 2 Left Lanes Blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 4\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.425154,-91.159246
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nAccident\nAccident on I-10 Westbound near City Park Lake MM (157.0). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.422837,-91.137254
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nDisabled Semi\nDisabled Semi on I-10 Westbound near College Dr MM (158). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.425601,-91.163353
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nWest\nCrash\nCrash on I-10 Westbound near Dalrymple Dr MM (156). 2 Right Lanes Blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 2\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.938627,-90.066046
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nUS 90 BUS\nEast\nAccident\nOrleans\nSeverity: Moderate\nLanes closed: 3\nLanes open: 1\nExpected end: 8/20/2030, 6:20:00 PM"
+End:
+Object: 30.457730,-91.169868
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nStalled Vehicle\nStalled Vehicle on I-110 Northbound near Fuqua St MM (2). 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.938681,-90.042822
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nUS 90-BR\nEast\nStalled Vehicle\nOrleans\nSeverity: Major\nLanes closed: 1\nLanes open: 3\nExpected end: 10/21/2029, 9:40:00 AM"
+End:
+Object: 30.439583,-91.199037
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nAccident\nAccident on I-10 Eastbound near LA 1 Northbound MM (154). 1 Right lane blocked.\nWest Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.743260,-90.767112
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLEFORT BYPASS RD\nUnknown\nBridge Closure\nBridge Closure on Lefort Bypass Rd Near Blackhead Ln. All lanes closed. Starting 3/17/2025 3:00 PM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
+End:
+Object: 30.438155,-91.178446
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nSouth\nAccident\nAccident on I-110 Southbound near I-10 Westbound MM (1). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
 End:
 Object: 30.777266,-90.502463
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nLA 10/nBothBOUND/nRoad Maintenance Operations/nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd MM (51) to US 51 MM (51). Lane Alternating. Starting 10/25/2025 8:00 AM/nTangipahoa/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
-End:
-Object: 30.242069,-92.261125
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 35/nBothBOUND/nRoad Construction/nRoad Construction on LA 98 Both Directions from LA 35 to Llama Rd. All Lanes Intermittently Closed. Starting 10/16/2023 7:00 AM/nAcadia/nSeverity: None/nLanes open: 2/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd MM (51) to US 51 MM (51). Lane Alternating. Starting 10/25/2025 8:00 AM\nTangipahoa\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
 End:
 Object: 29.592160,-90.467453
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nLA 10/nBothBOUND/nRoad Maintenance Operations/nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM/nTangipahoa/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
-End:
-Object: 30.777266,-90.502463
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nLA 10/nBothBOUND/nRoad Maintenance Operations/nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM/nTangipahoa/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 308\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
 End:
 Object: 29.382768,-90.714738
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 57/nBothBOUND/nBridge Closure/nBridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM/nTerrebonne/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 57\nBoth Directions\nBridge Closure\nBridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM\nTerrebonne\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
 End:
-Object: 30.777266,-90.502463
+Object: 31.165020,-92.092607
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nLA 10/nBothBOUND/nRoad Maintenance Operations/nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM/nTangipahoa/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 107\nBoth Directions\nRoad Marking Operations\nRoad Marking Operations on LA 107 Both Directions from Red River to E Mark St . All Lanes Intermittent. Starting 8/10/2026 12:00 AM\nAvoyelles\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
 End:
-Object: 29.592160,-90.467453
+Object: 30.508974,-90.936500
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 1026\nUnknown\nRoad Construction\nLivingston\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
 End:
-Object: 29.592160,-90.467453
+Object: 30.417670,-91.101701
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-12\nWest\nBridge Construction\nEast Baton Rouge\nSeverity: None\nLanes open: 3\nStatus: Confirmed"
 End:
-Object: 30.777266,-90.502463
+Object: 30.428389,-91.443348
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nLA 10/nBothBOUND/nRoad Maintenance Operations/nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM/nTangipahoa/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 32.187473,-93.246057
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 514/nBothBOUND/nBridge Construction/nBridge Construction on LA 514 Both Directions from Braswell Rd to Parish Road 307. All lanes closed. Starting 10/21/2024 12:00 AM/nRed River/nSeverity: None/nLanes closed: 1/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 32.516008,-92.176216
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nUS 80/nBothBOUND/nRoad Construction/nRoad Construction on US 80 Both Directions from Defreese Rd to Circle Dr. Lanes Alternating. Starting 9/22/2024 10:00 AM/nOuachita/nSeverity: None/nLanes open: 2/nStatus: Confirmed"
-End:
-Object: 32.475274,-92.156120
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nKINGS LAKE RD/nBothBOUND/nRoad Marking Operations/nRoad Marking Operations on LA 34 Both Directions from Kings Lake Rd to Tim St. Lane Rolling. Starting 4/21/2025 7:00 AM/nOuachita/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
-End:
-Object: 32.516008,-92.176216
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nUS 80/nBothBOUND/nRoad Construction/nRoad Construction on US 80 Both Directions from Defreese Rd to Circle Dr. Lanes Alternating. Starting 9/22/2024 10:00 AM/nOuachita/nSeverity: None/nLanes open: 2/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 32.486250,-92.095693
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nUS 165/nUnknownBOUND/nPaving Operations/nPaving Operations on LA 15 from US 165 to Ouachita Ave . Lane Affected. Starting 1/20/2026 12:00 AM/nOuachita/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nBoth Directions\nRoad Maintenance Operations\nIberville\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
 End:
 Object: 30.444706,-91.179216
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT/nI-110/nSouthBOUND/nCrash/nCrash on ramp Southbound from I-110 Southbound to LA 73 Westbound MM (1). Ramp Blocked./nEast Baton Rouge/nSeverity: Minor/nLanes closed: 1/nLanes open: 3/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nCrash\nCrash on ramp Southbound from I-110 Southbound to LA 73 Westbound MM (1). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
 End:
-Object: 30.777266,-90.502463
+Object: 30.477056,-92.076436
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nLA 10/nBothBOUND/nRoad Maintenance Operations/nRoad Maintenance Operations on LA 10 Both Directions from E Russell Town Rd (MM 51) to US 51 (MM 51) . Lane Alternating. Starting 10/25/2025 8:00 AM/nTangipahoa/nSeverity: None/nLanes open: 1/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 29.382768,-90.714738
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 57/nBothBOUND/nBridge Closure/nBridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM/nTerrebonne/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
-End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-49\nNorth\nUtility Work\nUtility Work on I-49 Northbound from LA 3233 (MM 15) to Duffy Ave (MM 17) . All Lanes Intermittent. Starting 10/19/2026 7:00 AM\nSt. Landry\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
 End:
 Object: 29.894065,-90.109040
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nUS 90 BUS/nEastBOUND/nRoad Construction/nRoad Construction on US 90-BR Eastbound from Westwood to Westbank Expy. 1 Right lane blocked. Starting 4/15/2024 8:26 PM/nJefferson/nSeverity: None/nLanes closed: 1/nLanes open: 1/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUS 90 BUS\nEast\nRoad Construction\nRoad Construction on US 90-BR Eastbound from Westwood to Westbank Expy. 1 Right lane blocked. Starting 4/15/2024 8:26 PM\nJefferson\nSeverity: None\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
 End:
-Object: 32.529474,-93.672382
+Object: 30.412470,-91.099890
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nI-20/nUnknownBOUND/nRoad Construction/nRoad Construction on ramp from I-20 Westbound to LA 782-2. All lanes closed. Starting 8/19/2024 12:00 AM/nBossier/nSeverity: None/nLanes closed: 1/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 3064\nWest\nRoad Construction\nEast Baton Rouge\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.125834,-90.874357
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 22\nBoth Directions\nRoad Construction\nRoad Construction on LA 70 Both Directions from LA 22 to LA 44. Lanes Shift. Width Restriction: 12ft Starting 6/16/2025 8:00 PM\nAscension\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
 End:
 Object: 29.592160,-90.467453
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nValentine\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
 End:
-Object: 29.382768,-90.714738
+Object: 30.518675,-91.161087
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 57/nBothBOUND/nBridge Closure/nBridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM/nTerrebonne/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nEast\nCrash\nCrash on ramp from LA 408 Eastbound ramp to I-110 Southbound to I-110 Southbound (MM 6) . Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
 End:
-Object: 29.592160,-90.467453
+Object: 30.418495,-91.115357
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nUnknown\nBridge Construction\nEast Baton Rouge\nSeverity: None\nLanes open: 3\nStatus: Confirmed"
 End:
-Object: 32.516008,-92.176216
+Object: 29.755522,-90.713956
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nUS 80/nBothBOUND/nRoad Construction/nRoad Construction on US 80 Both Directions from Defreese Rd to Circle Dr. Lanes Alternating. Starting 9/22/2024 10:00 AM/nOuachita/nSeverity: None/nLanes open: 2/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 1\nBoth Directions\nPaving Operations\nPaving Operations on LA 1 Both Directions from St Patrick Brg to LA 182 . Lanes Alternating. Starting 9/28/2026 7:30 AM and Ending 3/26/2027 5:00 PM.\nLafourche\nSeverity: None\nLanes open: 2\nStatus: Confirmed\nExpected end: 3/26/2027, 5:00:00 PM"
 End:
-Object: 29.592160,-90.467453
+Object: 29.978637,-90.330765
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE/nLA 308/nAllBOUND/nBridge Closure/nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM/nLafourche/nSeverity: None/nLanes closed: 2/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUS 61\nBoth Directions\nPaving Operations\nPaving Operations on US 61 Both Directions from Ormond Blvd to LA 50. Lanes Alternating. Starting 2/23/2026 11:47 AM\nSt. Charles\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
 End:
-Object: 32.516008,-92.176216
+Object: 29.386309,-90.587834
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK/nUS 80/nBothBOUND/nRoad Construction/nRoad Construction on US 80 Both Directions from Defreese Rd to Circle Dr. Lanes Alternating. Starting 9/22/2024 10:00 AM/nOuachita/nSeverity: None/nLanes open: 2/nStatus: Confirmed"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 55\nBoth Directions\nOther\nOther on LA 55 Both Directions from Bud Man Ct to Madison Canal . Weight Restriction: 11023.113lbs Starting 9/12/2025 2:00 PM\nTerrebonne\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
 End:
-; Current events displayed: 64
-; Closures: 29
-; Construction: 15
-; Incidents: 20
+Object: 30.424099,-91.156008
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nWest\nStalled Vehicle\nStalled Vehicle on ramp Westbound from Perkins Rd ramp to I-10 Westbound to I-10 Westbound MM (158). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.456979,-91.179741
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nLA 3045\nSouth\nStalled Vehicle\nStalled Vehicle on ramp Southbound from Capitol Access Rd ramp to I-110 Southbound to I-110 Southbound MM (1). 1 Right Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.509307,-91.149384
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUS 61\nWest\nBridge Construction\nEast Baton Rouge\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.692788,-91.777049
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 10\nBoth Directions\nBridge Maintenance Operations\nBridge Maintenance Operations on LA 10 Both Directions from Bayou Ha Ha to Frame St . All lanes closed. Starting 11/26/2025 7:00 AM and Ending 4/28/2028 5:00 PM.\nSt. Landry\nSeverity: None\nLanes closed: 1\nStatus: Confirmed\nExpected end: 4/28/2028, 5:00:00 PM"
+End:
+Object: 30.310647,-89.899834
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUS 190\nBoth Directions\nRoad Construction\nRoad Construction on US 190 Both Directions from LA 434 to LA 433 . All Lanes Intermittent. Starting 6/29/2026 12:00 AM\nSt. Tammany\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.422333,-91.131833
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-10\nUnknown\nCrash\nCrash on ramp from I-10 Westbound to College Dr. All Ramps Closed.\nEast Baton Rouge\nSeverity: Major\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.969102,-91.479961
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 66\nWest\nBridge Maintenance Operations\nWest Feliciana\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 29.424388,-90.292244
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 1\nBoth Directions\nConstruction Work\nConstruction Work on LA 1 Both Directions from W 186th St to W 191st St . All Lanes Intermittent. Starting 11/20/2024 12:45 PM\nLafourche\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.000297,-90.156977
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nNorth\nVehicle on Fire\nVehicle on Fire on ramp from N Causeway Blvd ramp to I-10 Westbound to I-10 Westbound (MM 228) . All Ramps Blocked.\nJefferson\nSeverity: Minor\nLanes closed: 2\nStatus: Confirmed"
+End:
+Object: 29.872373,-90.010275
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 23\nSouth\nWinter Weather\nWinter Weather on LA 23 Southbound from Mildred St to Intracoastal Waterway. Left Lane Closed.\nPlaquemines\nSeverity: None\nLanes closed: 1\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.125834,-90.874357
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 22\nBoth Directions\nRoad Construction\nRoad Construction on LA 70 Both Directions from LA 22 to LA 44. All lanes closed. Width Restriction: 12ft Starting 6/16/2025 8:00 PM\nAscension\nSeverity: None\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.692788,-91.777049
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 10\nBoth Directions\nBridge Maintenance Operations\nBridge Maintenance Operations on LA 10 Both Directions from Bayou Ha Ha to Frame St . Lane Affected. Starting 11/26/2025 7:00 AM and Ending 4/28/2028 5:00 PM.\nSt. Landry\nSeverity: None\nLanes open: 1\nStatus: Confirmed\nExpected end: 4/28/2028, 5:00:00 PM"
+End:
+Object: 29.700777,-91.200006
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nUS 90\nUnknown\nClosure\nUS 90 West down-ramp extension is closed between LA 70 and LA 182. Starting 8/28/2026 11:06 AM\nSt. Mary\nSeverity: None\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 29.787179,-90.822742
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUNNAMED RD\nBoth Directions\nRoad Construction\nRoad Construction on LA 20 Both Directions from E 12th St to LA 648. Lanes Alternating. Starting 2/26/2024 12:00 PM\nLafourche\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.914423,-91.724241
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUS 90\nEast\nRoad Construction\nRoad Construction on US 90 Eastbound from Highway 14 to LA 83 . Lanes Alternating. Width Restriction: 10ft Starting 11/4/2022 7:00 AM\nIberia\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.584086,-90.669881
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 24\nBoth Directions\nPaving Operations\nPaving Operations on LA 24 Both Directions from LA 661 to Presque Isle Dr . Lanes Alternating. Starting 9/8/2025 8:00 AM\nTerrebonne\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.933147,-90.039027
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-910\nWest\nIncident\nIncident on ramp Westbound from US 90-BR Westbound to LA 428 Westbound. 1 Right lane blocked.\nOrleans\nSeverity: Moderate\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 29.593810,-90.726274
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 3040\nBoth Directions\nPaving Operations\nPaving Operations on LA 3040 Both Directions from S Hollywood Rd to LA 661 . Lanes Alternating. Starting 4/7/2026 8:00 AM\nTerrebonne\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.764217,-90.840664
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 3185\nBoth Directions\nEmergency Maintenance\nEmergency Maintenance on LA 3185 Both Directions from Tiger Dr to Ridgefield Rd. All lanes closed. Starting 10/17/2024 2:00 PM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
+End:
+Object: 30.425726,-91.073773
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-12\nWest\nCrash\nCrash on ramp Westbound from I-12 Westbound ramp to US 61 Northbound to US 61 Northbound. 1 Right lane blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 4\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.296778,-91.833229
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 347\nBoth Directions\nRoad Construction\nRoad Construction on LA 349 Both Directions from LA 347 to LA 352 . Lane Intermittent. Starting 7/23/2026 7:00 AM\nSt. Martin\nSeverity: None\nLanes open: 1\nStatus: Confirmed"
+End:
+Object: 30.067709,-89.804402
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nUS 90\nBoth Directions\nBridge Closure\nBridge Closure on US 90 Both Directions from Chef Menteur Pass Bridge to Chef Menteur Pass Bridge. All lanes closed. Starting 3/6/2026 10:05 AM\nOrleans\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
+End:
+Object: 30.522985,-91.163360
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nSpilled Load\nSpilled Load on ramp Southbound from I-110 Southbound ramp to LA 408 Westbound to LA 408 Westbound. Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.457233,-91.177179
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nStalled Vehicle\nStalled Vehicle on ramp from Capitol Access Rd ramp to I-110 Northbound to I-110 Northbound (MM 1) . Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.192558,-90.922127
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-10\nEast\nVehicle on Fire\nVehicle on Fire on ramp Eastbound from I-10 Eastbound ramp to LA 44 Southbound to LA 44 Southbound. Ramp Blocked.\nAscension\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.463649,-91.166600
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouth\nCrash\nCrash on ramp from I-110 Southbound ramp to LA 67 Southbound to LA 67 Southbound . Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+Object: 30.008474,-90.238083
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nAirport Access Rd\nEast\nCrash\nCrash on ramp from Airport Access Rd ramp to I-10 Eastbound to I-10 Eastbound (MM 224) . Ramp Blocked.\nJefferson\nSeverity: Minor\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.361394,-92.047852
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-49\nUnknown\nEmergency Maintenance\nEmergency Maintenance on ramp from LA 182 Northbound to I-49 Southbound. All Ramps Closed. Starting 5/11/2026 8:32 AM\nLafayette\nSeverity: Moderate\nLanes closed: 1\nStatus: Confirmed"
+End:
+Object: 30.058214,-89.937891
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nI-510\nNorth\nRoad Maintenance Operations\nRoad Maintenance Operations on ramp Northbound from I-510 Northbound to I-10 Eastbound MM (247). All lanes blocked. Starting 4/23/2026 9:02 PM\nOrleans\nSeverity: Moderate\nLanes closed: 4\nStatus: Confirmed"
+End:
+Object: 29.924496,-90.720800
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 20\nBoth Directions\nBridge Construction\nBridge Construction on LA 20 Both Directions from LA 307 to LA 643. All Lanes Intermittent. Width Restriction: 12ft Starting 3/27/2024 9:00 AM\nLafourche\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 29.787300,-90.822226
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nGERALD T PELTIER DR\nBoth Directions\nConstruction Work\nConstruction Work on Gerald T Peltier Dr Both Directions from President St to LA 20 Eastbound. All lanes closed. Starting 5/23/2023 6:00 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed"
+End:
+Object: 30.451444,-91.230327
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 415\nBoth Directions\nRoad Construction\nRoad Construction on Court St Both Directions from LA 415 to LA 1. Lanes Alternating. Starting 6/2/2025 9:00 AM\nWest Baton Rouge\nSeverity: None\nLanes open: 2\nStatus: Confirmed"
+End:
+Object: 30.445544,-91.179117
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nNorth\nStalled Vehicle\nStalled Vehicle on ramp Northbound from Government St to I-110 Northbound MM (1). Ramp Blocked.\nEast Baton Rouge\nSeverity: Minor\nLanes closed: 1\nLanes open: 3\nStatus: Confirmed"
+End:
+; Current events displayed: 307
+; Closures: 50
+; Construction: 44
+; Incidents: 213
