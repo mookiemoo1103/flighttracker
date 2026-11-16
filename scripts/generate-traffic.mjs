@@ -139,7 +139,7 @@ for (const segment of usable) {
   const [red, green, blue] = status.color;
   classCounts[status.className]++;
   const hex = "#" + [red, green, blue].map(v => v.toString(16).padStart(2, "0")).join("");
-  const offsetMeters = roadType === 0 ? 45 : 50;
+  const offsetMeters = roadType === 0 ? 45 : 42;
   const displayWidth = roadType === 0 ? 5 : 3;
   const coordinates = offsetPath(segment.path, offsetMeters).map(([lat, lon]) => [lon, lat]);
   const closed = isRoadClosed(segment.properties);
