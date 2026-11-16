@@ -166,7 +166,7 @@ function buildPlacefile(updatedAt, origin, stale = false) {
   const lines = [
     "; Live traffic flow from TomTom pre-colored raster flow tiles",
     "; Coverage: Pearl River, Slidell, Northshore, New Orleans, Baton Rouge and surrounding Southeast Louisiana",
-    "; Native TomTom relative0 colors show congestion directly in transparent PNG tiles.",
+    "; TomTom relative-flow colors show congestion directly in transparent PNG tiles.",
     "; Traffic data © TomTom",
     "; Updated: " + new Date(updatedAt).toISOString() + (stale ? " (STALE CACHE)" : ""),
     "Title: SOUTHEAST LOUISIANA LIVE TRAFFIC",
@@ -196,8 +196,12 @@ function buildPlacefile(updatedAt, origin, stale = false) {
 }
 
 async function fetchRasterTile(x, y, apiKey) {
-  const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative0/" + ZOOM + "/" + x + "/" + y + ".png");
+  const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative/" + ZOOM + "/" + x + "/" + y + ".png");
   url.searchParams.set("key", apiKey);
+  // TomTom only supports thickness on the relative/absolute styles;
+  // relative0 ignores/rejects this parameter. Use the maximum documented
+  // width so traffic routes are clearly visible over the base map.
+  url.searchParams.set("thickness", "20");
   url.searchParams.set("tileSize", String(TILE_SIZE));
   const response = await fetch(url.toString(), {
     headers: { "Accept": "image/png, application/json" },
