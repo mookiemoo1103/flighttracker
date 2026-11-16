@@ -283,27 +283,38 @@ async function fetchRasterTile(x, y, apiKey) {
 }
 async function fetchTrafficSegments(apiKey) {
   const cache = caches.default;
-  const results = await Promise.allSettled(TILES.map(async ([x, y]) => {
-    const cacheKey = new Request("https://traffic-tile-cache.invalid/" + ZOOM + "/" + x + "/" + y + ".pbf");
-    let cached = await cache.match(cacheKey);
-    if (!cached) {
-    const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative/" + ZOOM + "/" + x + "/" + y + ".pbf");
-    url.searchParams.set("key", apiKey);
-    // Explicitly request all supported road classes and the speed/closure
-    // attributes; without these tags some tile responses contain geometry
-    // without the properties needed to color the placefile.
-    url.searchParams.set("roadTypes", "[0,1,2,3]");
-    url.searchParams.set("tags", "[road_type,traffic_level,traffic_road_coverage,left_hand_traffic,road_closure]");
-    const response = await fetch(url.toString(), {
-      headers: { "Accept": "application/x-protobuf" },
-      signal: AbortSignal.timeout(12000)
-    });
-    if (!response.ok) throw new Error("TomTom tile " + x + "/" + y + " HTTP " + response.status);
-    cached = new Response(await response.arrayBuffer(), { headers: { "cache-control": "public, max-age=180" } });
-    await cache.put(cacheKey, cached.clone());
+  // Keep upstream concurrency bounded. A burst of 80 simultaneous requests
+  // can trigger TomTom throttling and cause the placefile endpoint to return 502.
+  const results = new Array(TILES.length);
+  let next = 0;
+  const worker = async () => {
+    while (true) {
+      const index = next++;
+      if (index >= TILES.length) return;
+      const [x, y] = TILES[index];
+      try {
+        const cacheKey = new Request("https://traffic-tile-cache.invalid/" + ZOOM + "/" + x + "/" + y + ".pbf");
+        let cached = await cache.match(cacheKey);
+        if (!cached) {
+          const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative/" + ZOOM + "/" + x + "/" + y + ".pbf");
+          url.searchParams.set("key", apiKey);
+          url.searchParams.set("roadTypes", "[0,1,2,3]");
+          url.searchParams.set("tags", "[road_type,traffic_level,traffic_road_coverage,left_hand_traffic,road_closure]");
+          const response = await fetch(url.toString(), {
+            headers: { "Accept": "application/x-protobuf" },
+            signal: AbortSignal.timeout(12000)
+          });
+          if (!response.ok) throw new Error("TomTom tile " + x + "/" + y + " HTTP " + response.status);
+          cached = new Response(await response.arrayBuffer(), { headers: { "cache-control": "public, max-age=180" } });
+          await cache.put(cacheKey, cached.clone());
+        }
+        results[index] = { status: "fulfilled", value: decodeTrafficTile(await cached.arrayBuffer(), x, y, ZOOM) };
+      } catch (error) {
+        results[index] = { status: "rejected", reason: error };
+      }
     }
-    return decodeTrafficTile(await cached.arrayBuffer(), x, y, ZOOM);
-  }));
+  };
+  await Promise.all(Array.from({ length: 8 }, () => worker()));
   const segments = [];
   const errors = [];
   for (let i = 0; i < results.length; i++) {
