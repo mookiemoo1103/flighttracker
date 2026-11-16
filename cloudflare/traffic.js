@@ -162,37 +162,48 @@ function tileBounds(x, y, zoom) {
   return { north: lat(y), south: lat(y + 1), west: lon(x), east: lon(x + 1) };
 }
 
-function buildPlacefile(updatedAt, origin, stale = false) {
+function roadThreshold(roadType) {
+  // Placefile thresholds are nautical miles across the view.
+  // Interstates (TomTom road type 0) remain visible at every zoom.
+  // Other highway classes appear once the view is about halfway zoomed in.
+  const type = Number(roadType);
+  if (type === 0) return 999;
+  if (type >= 1 && type <= 3) return 80;
+  return null;
+}
+
+function buildPlacefile(segments, updatedAt, stale = false) {
   const lines = [
-    "; Live traffic flow from TomTom pre-colored raster flow tiles",
-    "; Coverage: Pearl River, Slidell, Northshore, New Orleans, Baton Rouge and surrounding Southeast Louisiana",
-    "; TomTom relative-flow colors show congestion directly in transparent PNG tiles.",
+    "; Live traffic flow from TomTom vector traffic tiles",
+    "; Interstates remain visible at all zoom levels.",
+    "; U.S. highways, major roads and state highways appear at 80 nautical miles view width.",
     "; Traffic data © TomTom",
     "; Updated: " + new Date(updatedAt).toISOString() + (stale ? " (STALE CACHE)" : ""),
     "Title: SOUTHEAST LOUISIANA LIVE TRAFFIC",
-    "Refresh: 5",
-    "Threshold: 999"
+    "Refresh: 1"
   ];
-  for (const [x, y] of TILES) {
-    const b = tileBounds(x, y, ZOOM);
-    const imageUrl = origin + "/traffic.txt?tile=" + x + "/" + y;
-    lines.push("Image: " + imageUrl);
-    // Placefile Image objects are textured triangles, not four-corner
-    // image quads. Emit two triangles (six vertices) for the full tile.
-    const nw = b.north.toFixed(6) + ", " + b.west.toFixed(6);
-    const ne = b.north.toFixed(6) + ", " + b.east.toFixed(6);
-    const se = b.south.toFixed(6) + ", " + b.east.toFixed(6);
-    const sw = b.south.toFixed(6) + ", " + b.west.toFixed(6);
-    lines.push(nw + ", 0, 0");
-    lines.push(ne + ", 1, 0");
-    lines.push(se + ", 1, 1");
-    lines.push(nw + ", 0, 0");
-    lines.push(se + ", 1, 1");
-    lines.push(sw + ", 0, 1");
+  let interstateCount = 0, highwayCount = 0;
+  for (const segment of segments) {
+    const roadType = Number(segment.properties?.road_type);
+    const threshold = roadThreshold(roadType);
+    if (threshold === null) continue;
+    const points = segment.path || [];
+    if (points.length < 2) continue;
+    const status = statusFor(segment.properties || {});
+    const [red, green, blue] = status.color;
+    const width = roadType === 0 ? 4 : 3;
+    lines.push("Threshold: " + threshold);
+    lines.push("Color: " + red + " " + green + " " + blue);
+    const label = clean(status.label + (segment.properties?.road_closure === true ? " - ROAD CLOSED" : ""));
+    lines.push('Line: ' + width + ', 0, "' + label + '"');
+    for (const [lat, lon] of points) lines.push(lat.toFixed(6) + ", " + lon.toFixed(6));
     lines.push("End:");
+    if (roadType === 0) interstateCount++;
+    else highwayCount++;
   }
-  lines.push("; Raster traffic tiles: " + TILES.length);
-  return lines.join("\n") + "\n";
+  lines.push("; Interstate segments: " + interstateCount);
+  lines.push("; Highway and major-road segments (80 NM threshold): " + highwayCount);
+  return lines.join("\\n") + "\\n";
 }
 
 async function fetchRasterTile(x, y, apiKey) {
@@ -283,5 +294,16 @@ export async function handleTrafficRequest(request, env) {
       ""
     ].join("\n"), { status: 200, headers });
   }
-  return new Response(buildPlacefile(Date.now(), url.origin), { headers });
+  try {
+    const data = await fetchTrafficSegments(env.TOMTOM_API_KEY);
+    const body = buildPlacefile(data.segments, Date.now());
+    return new Response(body, {
+      headers: { ...headers, "x-traffic-segments": String(data.segments.length) }
+    });
+  } catch (error) {
+    return new Response("; Traffic feed temporarily unavailable: " + clean(error?.message || error) + "\\nTitle: SOUTHEAST LOUISIANA LIVE TRAFFIC\\nRefresh: 1\\n", {
+      status: 502,
+      headers
+    });
+  }
 }
