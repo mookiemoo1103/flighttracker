@@ -169,6 +169,12 @@ jobs:
           line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
           echo "Traffic placefile Color directives: $color_count"
           echo "Traffic placefile Line objects: $line_count"
+          echo "Traffic color distribution (RGB: segment count):"
+          grep '^Color:' /tmp/traffic.txt | sort | uniq -c | sort -nr | head -10 || true
+          echo "Traffic line widths:"
+          grep '^Line:' /tmp/traffic.txt | sed -E 's/^Line: ([^,]+).*/\\1/' | sort | uniq -c | sort -nr || true
+          echo "First traffic drawing commands:"
+          grep -A3 -m3 '^Color:' /tmp/traffic.txt || true
           grep -E '^(; TomTom|; Updated:|; Unique traffic segments rendered:|; TomTom traffic refresh failed:|; Live traffic placefile|Title:|Refresh:)' /tmp/traffic.txt | head -20 || true
           if [ "$line_count" -gt 0 ] && [ "$color_count" -eq "$line_count" ]; then
             echo "Traffic output contains matching color and line directives."
