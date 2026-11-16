@@ -12,7 +12,7 @@ const pointFields = [
   "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
   "Severity","EventStatus","Description","ClosureExists","LanesOpen","LanesClosed",
   "LaneStatus","ParishName","EventStartDateUTC","EventEndDateUTC",
-  "EventClosureStartDateUTC","EventClosureEndDateUTC","EventName","FromCrossStreet"
+  "EventClosureStartDateUTC","EventClosureEndDateUTC","EventCreatedOnUTC","EventLastUpdatedUTC","EventName","FromCrossStreet"
 ].join(",");
 const lineFields = [
   "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
@@ -56,13 +56,25 @@ function classify(a) {
   if (/accident|incident/.test(type) || /crash|collision|disabled vehicle|vehicle fire|debris|hazard/.test(sub + " " + desc)) return "incident";
   return null;
 }
+function dateMs(value) {
+  if (value == null || value === "") return 0;
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  const numeric = Number(value);
+  if (Number.isFinite(numeric) && numeric > 0) return numeric;
+  const parsed = Date.parse(String(value));
+  return Number.isFinite(parsed) ? parsed : 0;
+}
 function isCurrent(a) {
-  const status = String(a.EventStatus ?? "").toLowerCase();
-  if (/cancel|complete|closed|expired|inactive|deleted/.test(status)) return false;
-  const start = Number(a.EventStartDateUTC || a.EventClosureStartDateUTC || 0);
-  const end = Number(a.EventEndDateUTC || a.EventClosureEndDateUTC || 0);
+  const status = String(a.EventStatus ?? "").trim().toLowerCase();
+  if (/cancel|complete|closed|expired|inactive|deleted|resolved/.test(status)) return false;
+  const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC);
+  const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC);
+  const updated = dateMs(a.EventLastUpdatedUTC || a.EventCreatedOnUTC);
   if (start && start > now + 6 * 60 * 60 * 1000) return false;
   if (end && end < now - 60 * 60 * 1000) return false;
+  // Some DOTD records have no planned end date. Expire those if the source
+  // has not updated them for 14 days, preventing old confirmed records lingering.
+  if (!end && updated && updated < now - 14 * 24 * 60 * 60 * 1000) return false;
   return true;
 }
 function centerOf(geometry) {
@@ -73,7 +85,10 @@ function centerOf(geometry) {
   return [pts.reduce((s,p)=>s+p[1],0)/pts.length, pts.reduce((s,p)=>s+p[0],0)/pts.length];
 }
 function eventKey(a, kind, position) {
-  // Normalize point/line duplicates and repeated DOTD event records.
+  // DOTD publishes the same event as a point and a roadway line.
+  // Prefer a stable event identifier so those representations are not doubled.
+  const id = a.EventUID || a.EventID;
+  if (id != null && String(id).trim()) return kind + "|" + String(id).trim();
   return [
     kind,
     String(a.RoadName || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
