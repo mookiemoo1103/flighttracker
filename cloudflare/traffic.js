@@ -5,17 +5,14 @@
 // McComb/Franklinton south through New Orleans and Houma.
 const ZOOM = 10;
 const TILE_SIZE = 512;
-// 80 vector tiles at z10 cover the same regional footprint as the former
-// 320 raster/vector tiles at z11. Vector geometry stays crisp at display zoom.
+// 40 vector tiles cover the core Southeast Louisiana / Mississippi Gulf Coast
+// corridor while staying below Cloudflare's per-invocation subrequest limit.
 const TILES = [
-  [250,418],[251,418],[252,418],[253,418],[254,418],[255,418],[256,418],[257,418],[258,418],[259,418],
-  [250,419],[251,419],[252,419],[253,419],[254,419],[255,419],[256,419],[257,419],[258,419],[259,419],
-  [250,420],[251,420],[252,420],[253,420],[254,420],[255,420],[256,420],[257,420],[258,420],[259,420],
-  [250,421],[251,421],[252,421],[253,421],[254,421],[255,421],[256,421],[257,421],[258,421],[259,421],
-  [250,422],[251,422],[252,422],[253,422],[254,422],[255,422],[256,422],[257,422],[258,422],[259,422],
-  [250,423],[251,423],[252,423],[253,423],[254,423],[255,423],[256,423],[257,423],[258,423],[259,423],
-  [250,424],[251,424],[252,424],[253,424],[254,424],[255,424],[256,424],[257,424],[258,424],[259,424],
-  [250,425],[251,425],[252,425],[253,425],[254,425],[255,425],[256,425],[257,425],[258,425],[259,425]
+  [252,421],[253,421],[254,421],[255,421],[256,421],[257,421],[258,421],[259,421],
+  [252,422],[253,422],[254,422],[255,422],[256,422],[257,422],[258,422],[259,422],
+  [252,423],[253,423],[254,423],[255,423],[256,423],[257,423],[258,423],[259,423],
+  [252,424],[253,424],[254,424],[255,424],[256,424],[257,424],[258,424],[259,424],
+  [252,425],[253,425],[254,425],[255,425],[256,425],[257,425],[258,425],[259,425]
 ];
 const CACHE_ID = 1;
 const CACHE_MS = 290 * 1000;
@@ -293,22 +290,16 @@ async function fetchTrafficSegments(apiKey) {
       if (index >= TILES.length) return;
       const [x, y] = TILES[index];
       try {
-        const cacheKey = new Request("https://traffic-tile-cache.invalid/" + ZOOM + "/" + x + "/" + y + ".pbf");
-        let cached = await cache.match(cacheKey);
-        if (!cached) {
-          const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative/" + ZOOM + "/" + x + "/" + y + ".pbf");
-          url.searchParams.set("key", apiKey);
-          url.searchParams.set("roadTypes", "[0,1,2,3]");
-          url.searchParams.set("tags", "[road_type,traffic_level,traffic_road_coverage,left_hand_traffic,road_closure]");
-          const response = await fetch(url.toString(), {
-            headers: { "Accept": "application/x-protobuf" },
-            signal: AbortSignal.timeout(12000)
-          });
-          if (!response.ok) throw new Error("TomTom tile " + x + "/" + y + " HTTP " + response.status);
-          cached = new Response(await response.arrayBuffer(), { headers: { "cache-control": "public, max-age=180" } });
-          await cache.put(cacheKey, cached.clone());
-        }
-        results[index] = { status: "fulfilled", value: decodeTrafficTile(await cached.arrayBuffer(), x, y, ZOOM) };
+        const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative/" + ZOOM + "/" + x + "/" + y + ".pbf");
+        url.searchParams.set("key", apiKey);
+        url.searchParams.set("roadTypes", "[0,1,2,3]");
+        url.searchParams.set("tags", "[road_type,traffic_level,traffic_road_coverage,left_hand_traffic,road_closure]");
+        const response = await fetch(url.toString(), {
+          headers: { "Accept": "application/x-protobuf" },
+          signal: AbortSignal.timeout(12000)
+        });
+        if (!response.ok) throw new Error("TomTom tile " + x + "/" + y + " HTTP " + response.status);
+        results[index] = { status: "fulfilled", value: decodeTrafficTile(await response.arrayBuffer(), x, y, ZOOM) };
       } catch (error) {
         results[index] = { status: "rejected", reason: error };
       }
@@ -390,11 +381,11 @@ export async function handleTrafficRequest(request, env) {
   const cache = caches.default;
   const cacheKey = new Request("https://traffic-placefile-cache.invalid/combined-z" + ZOOM + ".txt");
   const cached = await cache.match(cacheKey);
-  if (cached) return new Response(cached.body, { headers: { ...headers, "cache-control": "public, max-age=30", "x-traffic-cache": "HIT" } });
+  if (cached) return new Response(cached.body, { headers: { ...headers, "cache-control": "public, max-age=120", "x-traffic-cache": "HIT" } });
   try {
     const data = await fetchTrafficSegments(env.TOMTOM_API_KEY);
     const body = buildCombinedVectorPlacefile(data.segments, Date.now());
-    const response = new Response(body, { headers: { ...headers, "cache-control": "public, max-age=30", "x-traffic-cache": "MISS" } });
+    const response = new Response(body, { headers: { ...headers, "cache-control": "public, max-age=120", "x-traffic-cache": "MISS" } });
     await cache.put(cacheKey, new Response(body, { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=30" } }));
     return response;
   } catch (error) {
