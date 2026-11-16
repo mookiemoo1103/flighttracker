@@ -27,7 +27,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Generate separate DOTD events placefile
+      - name: Generate separate 511LA and DOTD events placefile
+        env:
+          LOUISIANA_511_API_KEY: ${{ secrets.LOUISIANA_511_API_KEY }}
         run: node scripts/generate-traffic-events.mjs
       - name: Validate event placefile and icons
         run: |
