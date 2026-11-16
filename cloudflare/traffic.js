@@ -1,13 +1,15 @@
 // Regional Southeast Louisiana live traffic-speed placefile.
-// Source: TomTom Traffic Flow Vector Tiles (free monthly developer quota).
-// Uses relative speed (current speed / free-flow speed) for the requested colors.
-// z8 coverage provides detailed road segments across Baton Rouge,
-// Pearl River/Slidell, New Orleans, Houma, Biloxi and western Mobile.
-const ZOOM = 8;
+// Source: TomTom Traffic Raster Flow Tiles, relative0 style.
+// z9 with 512px tiles exposes more road classes than the previous z8 overview.
+// Coverage: Baton Rouge/Livingston to Pearl River/Slidell and Gulfport,
+// McComb/Franklinton south through New Orleans and Houma.
+const ZOOM = 9;
+const TILE_SIZE = 512;
 const TILES = [
-  [62,104],[63,104],[64,104],[65,104],
-  [62,105],[63,105],[64,105],[65,105],
-  [62,106],[63,106],[64,106],[65,106]
+  [125,209],[126,209],[127,209],[128,209],[129,209],
+  [125,210],[126,210],[127,210],[128,210],[129,210],
+  [125,211],[126,211],[127,211],[128,211],[129,211],
+  [125,212],[126,212],[127,212],[128,212],[129,212]
 ];
 const CACHE_ID = 1;
 const CACHE_MS = 290 * 1000;
@@ -196,7 +198,7 @@ function buildPlacefile(updatedAt, origin, stale = false) {
 async function fetchRasterTile(x, y, apiKey) {
   const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative0/" + ZOOM + "/" + x + "/" + y + ".png");
   url.searchParams.set("key", apiKey);
-  url.searchParams.set("tileSize", "256");
+  url.searchParams.set("tileSize", String(TILE_SIZE));
   const response = await fetch(url.toString(), {
     headers: { "Accept": "image/png, application/json" },
     signal: AbortSignal.timeout(15000)
