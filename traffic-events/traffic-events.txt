@@ -2,7 +2,7 @@
 ; Source: DOTD 511 Road Closures FeatureServer (point + line layers)
 ; Freshness: incidents updated within 72 hours; closures/construction within 14 days.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-16T23:56:07.616Z
+; Updated: 2026-11-16T23:56:41.113Z
 Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
@@ -30,21 +30,25 @@ Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 182\nEastbound\nBridge Closure\nBridge Closu
 End:
 Object: 30.463649,-91.166600
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouthbound\nCrash\nCrash on ramp from I-110 Southbound ramp to LA 67 Southbound to LA 67 Southbound . All lanes blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\nI-110\nSouthbound\nCrash\nCrash on ramp from I-110 Southbound ramp to LA 67 Southbound to LA 67 Southbound . All lanes blocked.\nEast Baton Rouge\nSeverity: Moderate\nLanes closed: 5\nStatus: Confirmed\nReporting agency: DOTD\nSource: Other - External"
 End:
 Object: 30.440283,-91.179212
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nUnknown\nRoad Construction\nRoad Construction on ramp from I-10 Eastbound to I-110 Northbound . All Ramps Closed. Starting 11/16/2026 10:00 PM and Ending 11/20/2026 5:00 AM.\nEast Baton Rouge\nSeverity: Major\nLanes closed: 1\nStatus: Confirmed\nExpected end: 11/20/2026, 5:00:00 AM"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nUnknown\nRoad Construction\nRoad Construction on ramp from I-10 Eastbound to I-110 Northbound . All Ramps Closed. Starting 11/16/2026 10:00 PM and Ending 11/20/2026 5:00 AM.\nEast Baton Rouge\nSeverity: Major\nLanes closed: 1\nStatus: Confirmed\nExpected end: 11/20/2026, 5:00:00 AM\nReporting agency: TMC\nSource: Statewide TMC"
 End:
-Object: 30.549767,-91.948113
+Object: 30.000931,-90.037247
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nLA 741\nBoth Directions\nRoad Maintenance Operations\nRoad Maintenance Operations on LA 741 Both Directions from US 190 Westbound to Bear St . All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 11/16/2026 7:00 AM and Ending 11/22/2026 5:00 PM.\nSt. Landry\nSeverity: None\nLanes closed: 1\nStatus: Confirmed\nExpected end: 11/22/2026, 5:00:00 PM"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nI-10\nUnknown\nRoad Construction\nRoad Construction on ramp from I-10 Eastbound to Louisa St . All Ramps Closed. Starting 11/9/2026 10:00 PM\nOrleans\nSeverity: None\nLanes closed: 1\nStatus: Reported\nReporting agency: TMC\nSource: New Orleans TMC"
 End:
-Object: 30.505890,-90.453653
+Object: 30.486594,-90.955425
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\nUS 51 BUS\nBoth Directions\nRoad Marking Operations\nRoad Marking Operations on US 190 Both Directions from NW Railroad Ave to LA 443 . All lanes closed. Width Restriction: 12ft Starting 11/15/2026 6:00 PM and Ending 11/19/2026 6:00 AM.\nTangipahoa\nSeverity: None\nLanes closed: 2\nStatus: Confirmed\nExpected end: 11/19/2026, 6:00:00 AM"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nLA 16\nNorthbound\nClosure\nClosure on LA 16 Northbound from Centerville St NE to Centerville St NE . All lanes closed. Starting 11/9/2026 7:00 AM and Ending 1/9/2027 5:00 PM.\nLivingston\nSeverity: None\nLanes closed: 2\nStatus: Confirmed\nExpected end: 1/9/2027, 5:00:00 PM\nReporting agency: TMC\nSource: New Orleans TMC"
 End:
-; Current events displayed: 9
-; Closures: 2
-; Construction: 5
+Object: 29.592160,-90.467453
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\nValentine\nAll Directions\nBridge Closure\nBridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\nLafourche\nSeverity: None\nLanes closed: 2\nStatus: Confirmed\nReporting agency: DOTD\nSource: Houma TMC"
+End:
+; Current events displayed: 10
+; Closures: 4
+; Construction: 4
 ; Incidents: 2
