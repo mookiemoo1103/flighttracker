@@ -15,6 +15,16 @@ AquaCeroWx / GRLevelX live aircraft placefiles served by the Cloudflare Worker a
 - To enable updates, add a GitHub Actions repository secret named `TOMTOM_API_KEY` with a TomTom Traffic Flow Vector Tiles API key. The scheduled workflow runs every five minutes and can also be started manually from GitHub Actions.
 - GitHub Actions publishes the generated `traffic.txt` directly to the repository. If a TomTom request fails, the workflow does not overwrite the last successfully generated placefile.
 
+## Separate Louisiana road-event placefile
+
+- **Event placefile:** `https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/traffic-events.txt`
+- This is an additive overlay. It does not replace or modify the existing TomTom traffic-speed placefile.
+- Source: Louisiana DOTD 511 Road Closures FeatureServer, using its event point and roadway-line layers.
+- Separate icons: red road-closure sign, orange construction worker, and purple traffic-incident symbol. PNG assets are stored in `traffic-events/assets/`.
+- The event placefile refreshes every five minutes and includes roadway, direction, event subtype, description, parish, severity, lane impacts, status, and expected end time when DOTD supplies them.
+- Duplicate point/line representations are consolidated by DOTD event ID. Records with an expired end time or stale no-end-date updates are filtered out.
+- GitHub Actions publishes only `traffic-events/traffic-events.txt`; the existing TomTom traffic files and aircraft feeds remain separate and unchanged.
+
 ## Compare individual data sources
 
 - FlyItalyADSB only: `https://flighttracker.mitchellgeissler.workers.dev/flyitaly-test.txt`
