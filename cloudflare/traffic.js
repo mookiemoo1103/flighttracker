@@ -175,10 +175,18 @@ function buildPlacefile(updatedAt, origin, stale = false) {
     const b = tileBounds(x, y, ZOOM);
     const imageUrl = origin + "/traffic.txt?tile=" + x + "/" + y;
     lines.push("Image: " + imageUrl);
-    lines.push(b.north.toFixed(6) + ", " + b.west.toFixed(6) + ", 0, 0");
-    lines.push(b.north.toFixed(6) + ", " + b.east.toFixed(6) + ", 1, 0");
-    lines.push(b.south.toFixed(6) + ", " + b.east.toFixed(6) + ", 1, 1");
-    lines.push(b.south.toFixed(6) + ", " + b.west.toFixed(6) + ", 0, 1");
+    // Placefile Image objects are textured triangles, not four-corner
+    // image quads. Emit two triangles (six vertices) for the full tile.
+    const nw = b.north.toFixed(6) + ", " + b.west.toFixed(6);
+    const ne = b.north.toFixed(6) + ", " + b.east.toFixed(6);
+    const se = b.south.toFixed(6) + ", " + b.east.toFixed(6);
+    const sw = b.south.toFixed(6) + ", " + b.west.toFixed(6);
+    lines.push(nw + ", 0, 0");
+    lines.push(ne + ", 1, 0");
+    lines.push(se + ", 1, 1");
+    lines.push(nw + ", 0, 0");
+    lines.push(se + ", 1, 1");
+    lines.push(sw + ", 0, 1");
     lines.push("End:");
   }
   lines.push("; Raster traffic tiles: " + TILES.length);
@@ -188,7 +196,6 @@ function buildPlacefile(updatedAt, origin, stale = false) {
 async function fetchRasterTile(x, y, apiKey) {
   const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative0/" + ZOOM + "/" + x + "/" + y + ".png");
   url.searchParams.set("key", apiKey);
-  url.searchParams.set("thickness", "3");
   url.searchParams.set("tileSize", "256");
   const response = await fetch(url.toString(), {
     headers: { "Accept": "image/png, application/json" },
