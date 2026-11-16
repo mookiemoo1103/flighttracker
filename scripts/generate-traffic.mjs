@@ -16,6 +16,35 @@ const clean = value => String(value ?? "")
   .replaceAll('"', "'").replaceAll("\\", "/")
   .replace(/[\r\n\t]/g, " ").replace(/\s+/g, " ").trim();
 
+function offsetPath(path, offsetMeters) {
+  if (path.length < 2 || offsetMeters === 0) return path;
+  const normals = [];
+  for (let i = 0; i < path.length - 1; i++) {
+    const [lat1, lon1] = path[i], [lat2, lon2] = path[i + 1];
+    const meanLat = (lat1 + lat2) / 2 * Math.PI / 180;
+    const east = (lon2 - lon1) * 111320 * Math.cos(meanLat);
+    const north = (lat2 - lat1) * 111320;
+    const length = Math.hypot(east, north) || 1;
+    // Right-hand offset relative to the direction the road geometry is drawn.
+    normals.push([north / length, -east / length]);
+  }
+  return path.map(([lat, lon], i) => {
+    let eastNormal, northNormal;
+    if (i === 0) [eastNormal, northNormal] = normals[0];
+    else if (i === path.length - 1) [eastNormal, northNormal] = normals[normals.length - 1];
+    else {
+      eastNormal = normals[i - 1][0] + normals[i][0];
+      northNormal = normals[i - 1][1] + normals[i][1];
+      const length = Math.hypot(eastNormal, northNormal) || 1;
+      eastNormal /= length;
+      northNormal /= length;
+    }
+    const latOffset = northNormal * offsetMeters / 111320;
+    const lonOffset = eastNormal * offsetMeters / (111320 * Math.cos(lat * Math.PI / 180));
+    return [lat + latOffset, lon + lonOffset];
+  });
+}
+
 function statusFor(properties) {
   const relative = Number(properties.traffic_level);
   const closed = properties.road_closure === true;
@@ -76,7 +105,7 @@ const lines = [
   "; Southeast Louisiana live traffic - GitHub Actions generated static placefile",
   "; Source: TomTom Traffic Flow Vector Tiles",
   "; Vector road geometry remains sharp at close zoom levels.",
-  "; Interstates are slightly thicker than highways.",
+  "; Interstates: 8px; other included roads: 5px. Direction-aware offsets separate opposing carriageways.",
   "; Coverage: Baton Rouge/Livingston, Northshore, Pearl River, Slidell, New Orleans and Mississippi Gulf Coast",
   "; Traffic data © TomTom",
   "; Updated: " + new Date().toISOString(),
@@ -86,7 +115,7 @@ const lines = [
 
 let drawn = 0;
 const geoFeatures = [];
-const classCounts = { red: 0, orange: 0, yellow: 0, green: 0 };
+const classCounts = { closed: 0, red: 0, orange: 0, yellow: 0, green: 0 };
 for (const segment of usable) {
   const roadType = roadTypeNumber(segment.properties.road_type);
   const status = statusFor(segment.properties);
@@ -97,7 +126,7 @@ for (const segment of usable) {
     type: "Feature",
     properties: {
       stroke: hex,
-      "stroke-width": roadType === 0 ? 8 : 6,
+      "stroke-width": roadType === 0 ? 8 : 5,
       "stroke-opacity": 1,
       traffic_status: status.label,
       road_type: segment.properties.road_type,
@@ -106,7 +135,7 @@ for (const segment of usable) {
     },
     geometry: {
       type: "LineString",
-      coordinates: segment.path.map(([lat, lon]) => [lon, lat])
+      coordinates: offsetPath(segment.path, roadType === 0 ? 6 : 11).map(([lat, lon]) => [lon, lat])
     }
   });
   lines.push(`Color: ${red} ${green} ${blue}`);
@@ -118,7 +147,7 @@ for (const segment of usable) {
 }
 lines.push("; Vector road segments: " + drawn);
 lines.push("; Interstate road type: 0; highway road types: 1, 2, 3, 4, 5 (including connecting roads/ramps and major local roads; excludes local/minor residential streets)");
-lines.push("; Traffic color classes (red/orange/yellow/green): " + Object.values(classCounts).join("/"));
+lines.push("; Traffic color classes (closed/red/orange/yellow/green): " + Object.values(classCounts).join("/"));
 console.log("Traffic color class counts:", JSON.stringify(classCounts));
 if (drawn !== lines.filter(line => line.startsWith("Line:")).length || drawn !== lines.filter(line => line.startsWith("Color:")).length) {
   throw new Error("Placefile validation failed: each road must have exactly one RGB color and one Line command.");
