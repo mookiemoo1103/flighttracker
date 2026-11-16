@@ -53,6 +53,8 @@ async function worker() {
 await Promise.all(Array.from({ length: 8 }, () => worker()));
 
 const segments = results.flat();
+console.log("Decoded segments:", segments.length);
+console.log("Sample decoded feature:", JSON.stringify(segments[0] || null).slice(0, 1200));
 const usable = segments.filter(s =>
   [0, 1, 2, 3].includes(Number(s.properties?.road_type)) &&
   (Number.isFinite(Number(s.properties?.traffic_level)) || s.properties?.road_closure === true) &&
