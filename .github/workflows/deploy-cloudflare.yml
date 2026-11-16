@@ -154,3 +154,26 @@ jobs:
           test "$helicopter_count" -gt 0
           grep -q '^; Business jets rendered:' /tmp/flighttracker.txt
           grep -q '^; General aviation rendered:' /tmp/flighttracker.txt
+      - name: Diagnose separate traffic placefile output
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -u
+          BASE="https://flighttracker.mitchellgeissler.workers.dev"
+          curl --retry 2 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 25 "$BASE/traffic.txt" -o /tmp/traffic.txt || {
+            echo "Traffic endpoint request failed"
+            exit 0
+          }
+          color_count=$(grep -c '^Color:' /tmp/traffic.txt || true)
+          line_count=$(grep -c '^Line:' /tmp/traffic.txt || true)
+          echo "Traffic placefile Color directives: $color_count"
+          echo "Traffic placefile Line objects: $line_count"
+          grep -E '^(; TomTom|; Updated:|; Unique traffic segments rendered:|; TomTom traffic refresh failed:|; Live traffic placefile|Title:|Refresh:)' /tmp/traffic.txt | head -20 || true
+          if [ "$line_count" -gt 0 ] && [ "$color_count" -eq "$line_count" ]; then
+            echo "Traffic output contains matching color and line directives."
+          else
+            echo "Traffic output does not contain valid colored road-line objects."
+            head -35 /tmp/traffic.txt
+          fi
+
