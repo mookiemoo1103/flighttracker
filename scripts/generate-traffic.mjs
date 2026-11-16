@@ -48,9 +48,9 @@ function offsetPath(path, offsetMeters) {
 function statusFor(properties) {
   const relative = Number(properties.traffic_level);
   const closed = properties.road_closure === true || properties.road_closure === 1 || String(properties.road_closure).toLowerCase() === "true";
-  if (closed) return { color: [84, 84, 84], label: "CLOSED", className: "closed" };
+  if (closed) return { color: [255, 0, 255], label: "CLOSED", className: "magenta" };
   if (!Number.isFinite(relative) || relative < 0.45)
-    return { color: [255, 0, 0], label: "STOPPED / VERY SLOW", className: "red" };
+    return { color: [255, 0, 255], label: "STOPPED / VERY SLOW", className: "magenta" };
   if (relative < 0.65) return { color: [255, 128, 0], label: "SLOW", className: "orange" };
   if (relative < 0.85) return { color: [255, 220, 0], label: "MODERATE", className: "yellow" };
   return { color: [0, 220, 0], label: "FAST", className: "green" };
@@ -116,7 +116,7 @@ const lines = [
 
 let drawn = 0;
 const geoFeatures = [];
-const classCounts = { closed: 0, red: 0, orange: 0, yellow: 0, green: 0 };
+const classCounts = { magenta: 0, orange: 0, yellow: 0, green: 0 };
 for (const segment of usable) {
   const roadType = roadTypeNumber(segment.properties.road_type);
   const status = statusFor(segment.properties);
@@ -159,7 +159,7 @@ for (const segment of usable) {
 }
 lines.push("; Vector road segments: " + drawn);
 lines.push("; Interstate road type: 0; highway road types: 1, 2, 3, 4, 5 (including connecting roads/ramps and major local roads; excludes local/minor residential streets)");
-lines.push("; Traffic color classes (closed/red/orange/yellow/green): " + Object.values(classCounts).join("/"));
+lines.push("; Traffic color classes (magenta/orange/yellow/green): " + Object.values(classCounts).join("/"));
 console.log("Traffic color class counts:", JSON.stringify(classCounts));
 if (drawn * 2 !== lines.filter(line => line.startsWith("Line:")).length || drawn * 2 !== lines.filter(line => line.startsWith("Color:")).length) {
   throw new Error("Placefile validation failed: each road outline and traffic line must have matching RGB color and Line commands.");
