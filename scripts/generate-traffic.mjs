@@ -48,7 +48,7 @@ function offsetPath(path, offsetMeters) {
 function statusFor(properties) {
   const relative = Number(properties.traffic_level);
   const closed = properties.road_closure === true || properties.road_closure === 1 || String(properties.road_closure).toLowerCase() === "true";
-  if (closed) return { color: [72, 76, 82], label: "CLOSED", className: "closed" };
+  if (closed) return { color: [84, 84, 84], label: "CLOSED", className: "closed" };
   if (!Number.isFinite(relative) || relative < 0.45)
     return { color: [255, 0, 0], label: "STOPPED / VERY SLOW", className: "red" };
   if (relative < 0.65) return { color: [255, 128, 0], label: "SLOW", className: "orange" };
@@ -136,7 +136,7 @@ for (const segment of usable) {
     },
     geometry: {
       type: "LineString",
-      coordinates: offsetPath(segment.path, roadType === 0 ? 25 : 35).map(([lat, lon]) => [lon, lat])
+      coordinates: offsetPath(segment.path, roadType === 0 ? 25 : 60).map(([lat, lon]) => [lon, lat])
     }
   });
   lines.push(`Color: ${red} ${green} ${blue}`);
