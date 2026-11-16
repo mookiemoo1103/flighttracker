@@ -182,7 +182,7 @@ function buildPlacefile(updatedAt, origin, stale = false) {
     lines.push("End:");
   }
   lines.push("; Raster traffic tiles: " + TILES.length);
-  return lines.join("\\n") + "\\n";
+  return lines.join("\n") + "\n";
 }
 
 async function fetchRasterTile(x, y, apiKey) {
@@ -233,7 +233,7 @@ async function fetchTrafficSegments(apiKey) {
 
 export async function handleTrafficRequest(request, env) {
   const url = new URL(request.url);
-  const tileMatch = url.searchParams.get("tile")?.match(/^(\\d+)\\/(\\d+)$/);
+  const tileMatch = url.searchParams.get("tile")?.match(/^(\d+)\/(\d+)$/);
   if (tileMatch) {
     const x = Number(tileMatch[1]), y = Number(tileMatch[2]);
     if (!TILES.some(([tx, ty]) => tx === x && ty === y)) {
@@ -268,7 +268,7 @@ export async function handleTrafficRequest(request, env) {
       "Title: SOUTHEAST LOUISIANA LIVE TRAFFIC",
       "Refresh: 5",
       ""
-    ].join("\\n"), { status: 200, headers });
+    ].join("\n"), { status: 200, headers });
   }
   return new Response(buildPlacefile(Date.now(), url.origin), { headers });
 }
