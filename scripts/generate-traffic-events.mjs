@@ -22,6 +22,51 @@ const lineFields = [
   "EventName","FromCrossStreet","ToCrossStreet","ReportAgency","EventSource","OwnerName","RoadClassCodeDesc"
 ].join(",");
 
+async function query511LAEvents() {
+  const key = process.env.LOUISIANA_511_API_KEY;
+  if (!key) throw new Error("Missing GitHub Actions secret LOUISIANA_511_API_KEY.");
+  const url = new URL("https://511la.org/api/v2/get/event");
+  url.searchParams.set("key", key);
+  url.searchParams.set("format", "json");
+  const res = await fetch(url, { headers: { Accept: "application/json" }, signal: AbortSignal.timeout(30000) });
+  if (!res.ok) throw new Error("511LA Events API returned HTTP " + res.status);
+  const data = await res.json();
+  const records = Array.isArray(data) ? data : (data.Events || data.events || data.EventList?.Events || data.EventList?.Event || []);
+  if (!Array.isArray(records)) throw new Error("511LA Events API returned an unrecognized response shape.");
+  return records.map(a => {
+    const seconds = v => {
+      const n = Number(v || 0);
+      return Number.isFinite(n) && n > 0 ? n * 1000 : 0;
+    };
+    return {
+      EventID: "511LA-" + (a.ID ?? a.Id ?? a.SourceId ?? ""),
+      EventUID: "511LA-" + (a.ID ?? a.Id ?? a.SourceId ?? ""),
+      RoadName: a.RoadwayName || "",
+      TravelDirection: a.DirectionOfTravel || "",
+      EventType: a.EventType || "",
+      EventSubType: a.EventSubType || "",
+      Severity: a.Severity || "",
+      EventStatus: "Active",
+      Description: a.Description || a.Details || "",
+      ClosureExists: a.IsFullClosure === true,
+      LanesOpen: "",
+      LanesClosed: a.IsFullClosure ? "All" : "",
+      LaneStatus: a.LanesAffected || "",
+      EventStartDateUTC: seconds(a.StartDate || a.Reported),
+      EventEndDateUTC: seconds(a.PlannedEndDate),
+      EventLastUpdatedUTC: seconds(a.LastUpdated || a.Reported),
+      ParishName: "",
+      ReportAgency: a.Organization || "",
+      EventSource: "511LA",
+      Latitude: Number(a.Latitude),
+      Longitude: Number(a.Longitude),
+      LatitudeSecondary: Number(a.LatitudeSecondary),
+      LongitudeSecondary: Number(a.LongitudeSecondary),
+      _source: "511LA"
+    };
+  });
+}
+
 async function queryLayer(layer) {
   const all = [];
   for (let offset = 0; offset < 50000; offset += 1000) {
@@ -122,30 +167,43 @@ function popup(a, kind) {
   return parts.map(clean).filter(Boolean).join("\\n");
 }
 
-const [points, lines] = await Promise.all([queryLayer(1), queryLayer(2)]);
+const [points, lines, events511] = await Promise.all([queryLayer(1), queryLayer(2), query511LAEvents()]);
 const byId = new Map();
-for (const [items, source] of [[points,"point"],[lines,"line"]]) {
+for (const [items, source] of [[points,"DOTD point"],[lines,"DOTD line"]]) {
   for (const feature of items) {
     const a = feature.attributes || {};
     const kind = classify(a);
     if (!kind || !isCurrent(a, kind)) continue;
     const position = centerOf(feature.geometry);
     if (!position || !Number.isFinite(position[0]) || !Number.isFinite(position[1])) continue;
-    // Match the same event's point and line representations by type, road, and location.
     if (position[0] < 28.85 || position[0] > 31.45 || position[1] < -92.2 || position[1] > -88.5) continue;
     const key = eventKey(a, kind, position);
     const existing = byId.get(key);
-    // Prefer the official event point if DOTD publishes both a point and a line.
-    if (!existing || source === "point") byId.set(key, { a, kind, position, source });
+    if (!existing || source === "DOTD point") byId.set(key, { a, kind, position, source });
   }
 }
+let accepted511 = 0;
+for (const a of events511) {
+  const kind = classify(a);
+  if (!kind || !isCurrent(a, kind)) continue;
+  const position = [a.Latitude, a.Longitude];
+  if (!Number.isFinite(position[0]) || !Number.isFinite(position[1])) continue;
+  if (position[0] < 28.85 || position[0] > 31.45 || position[1] < -92.2 || position[1] > -88.5) continue;
+  const key = eventKey(a, kind, position);
+  const existing = byId.get(key);
+  // Prefer the 511LA event record where both systems report the same event.
+  if (!existing || existing.source !== "511LA") byId.set(key, { a, kind, position, source: "511LA" });
+  accepted511++;
+}
 const events = [...byId.values()];
+console.log("511LA events received:", events511.length, "accepted in coverage/freshness window:", accepted511);
 if (!events.length) console.log("DOTD returned no current closure, construction, or incident events.");
 await mkdir(OUT, { recursive: true });
 const out = [
   "; Louisiana DOTD / 511 traffic events - separate additive layer",
-  "; Source: DOTD 511 Road Closures FeatureServer (point + line layers)",
+  "; Sources: Louisiana 511LA Events API + DOTD 511 Road Closures FeatureServer.",
   "; Freshness: incidents updated within 72 hours; closures/construction within 14 days.",
+  "; 511LA API records are included alongside DOTD ArcGIS records.",
   "; Generated independently of the TomTom speed traffic placefile.",
   "; Updated: " + new Date().toISOString(),
   "Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS",
