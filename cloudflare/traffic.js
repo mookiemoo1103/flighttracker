@@ -1,14 +1,13 @@
 // Regional Southeast Louisiana live traffic-speed placefile.
 // Source: TomTom Traffic Flow Vector Tiles (free monthly developer quota).
 // Uses relative speed (current speed / free-flow speed) for the requested colors.
-// z7 coverage spans Baton Rouge through Pearl River, the Mississippi coast,
-// and the New Orleans/Houma corridor using 12 tile requests per refresh.
-const ZOOM = 7;
+// z8 coverage provides detailed road segments across Baton Rouge,
+// Pearl River/Slidell, New Orleans, Houma, Biloxi and western Mobile.
+const ZOOM = 8;
 const TILES = [
-  [31,50],[32,50],[33,50],
-  [31,51],[32,51],[33,51],
-  [31,52],[32,52],[33,52],
-  [31,53],[32,53],[33,53]
+  [62,104],[63,104],[64,104],[65,104],
+  [62,105],[63,105],[64,105],[65,105],
+  [62,106],[63,106],[64,106],[65,106]
 ];
 const CACHE_ID = 1;
 const CACHE_MS = 290 * 1000;
@@ -199,6 +198,11 @@ async function fetchTrafficSegments(apiKey) {
   const results = await Promise.allSettled(TILES.map(async ([x, y]) => {
     const url = new URL("https://api.tomtom.com/traffic/map/4/tile/flow/relative/" + ZOOM + "/" + x + "/" + y + ".pbf");
     url.searchParams.set("key", apiKey);
+    // Explicitly request all supported road classes and the speed/closure
+    // attributes; without these tags some tile responses contain geometry
+    // without the properties needed to color the placefile.
+    url.searchParams.set("roadTypes", "[0,1,2,3,4,5,6,7,8]");
+    url.searchParams.set("tags", "[road_type,traffic_level,traffic_road_coverage,left_hand_traffic,road_closure]");
     const response = await fetch(url.toString(), {
       headers: { "Accept": "application/x-protobuf" },
       signal: AbortSignal.timeout(15000)
@@ -214,7 +218,9 @@ async function fetchTrafficSegments(apiKey) {
     else errors.push(TILES[i][0] + "/" + TILES[i][1] + ": " + clean(result.reason?.message || result.reason));
   }
   if (!segments.length) throw new Error(errors.slice(0, 3).join("; ") || "TomTom returned no traffic segments");
-  return { segments, errors };
+  const withSpeed = segments.filter(segment => Number.isFinite(Number(segment.properties?.traffic_level))).length;
+  if (!withSpeed) throw new Error("TomTom returned road geometry but no traffic_level speed attributes; refusing to draw uncolored roads");
+  return { segments: segments.filter(segment => Number.isFinite(Number(segment.properties?.traffic_level)) || segment.properties?.road_closure === true), errors };
 }
 
 export async function handleTrafficRequest(request, env) {
