@@ -195,7 +195,7 @@ def main():
         lines.extend([
             f"Object: {lat:.6f},{lon:.6f}",
             "Threshold: 999",
-            f'Icon: 0,0,0,1,1,"{safe_tooltip}"',
+            f'Icon: 1,0,"{safe_tooltip}"',
             "End:",
         ])
 
