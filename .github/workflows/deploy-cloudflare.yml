@@ -49,9 +49,14 @@ jobs:
           FLYITALYADSB_API_KEY: ${{ secrets.FLYITALYADSB_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: "ff9184692bc7005819c0d11e2aa7e1a3"
-      - name: Configure TomTom Traffic API key
-        if: ${{ env.TOMTOM_API_KEY != '' }}
-        run: printf '%s' "$TOMTOM_API_KEY" | npx wrangler@4 secret put TOMTOM_API_KEY
+      - name: Configure TomTom Traffic API key (when supplied)
+        shell: bash
+        run: |
+          if [ -n "$TOMTOM_API_KEY" ]; then
+            printf '%s' "$TOMTOM_API_KEY" | npx wrangler@4 secret put TOMTOM_API_KEY
+          else
+            echo "TOMTOM_API_KEY is not configured; the separate traffic placefile will show setup instructions."
+          fi
         env:
           TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
