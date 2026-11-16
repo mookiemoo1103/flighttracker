@@ -83,12 +83,30 @@ const lines = [
 ];
 
 let drawn = 0;
+const geoFeatures = [];
 const classCounts = { red: 0, orange: 0, yellow: 0, green: 0 };
 for (const segment of usable) {
   const roadType = roadTypeNumber(segment.properties.road_type);
   const status = statusFor(segment.properties);
   const [red, green, blue] = status.color;
   classCounts[status.className]++;
+  const hex = "#" + [red, green, blue].map(v => v.toString(16).padStart(2, "0")).join("");
+  geoFeatures.push({
+    type: "Feature",
+    properties: {
+      stroke: hex,
+      "stroke-width": roadType === 0 ? 2 : 1,
+      "stroke-opacity": 1,
+      traffic_status: status.label,
+      road_type: segment.properties.road_type,
+      traffic_level: Number(segment.properties.traffic_level),
+      road_closure: segment.properties.road_closure === true
+    },
+    geometry: {
+      type: "LineString",
+      coordinates: segment.path.map(([lat, lon]) => [lon, lat])
+    }
+  });
   lines.push(`Color: ${red} ${green} ${blue}`);
   const label = clean(status.label + (segment.properties.road_closure === true ? " - ROAD CLOSED" : ""));
   lines.push(`Line: ${roadType === 0 ? 2 : 1}, 0, "${label}"`);
@@ -105,4 +123,12 @@ if (drawn !== lines.filter(line => line.startsWith("Line:")).length || drawn !==
 }
 
 await writeFile("traffic.txt", lines.join("\n") + "\n", "utf8");
+const geojson = {
+  type: "FeatureCollection",
+  name: "Southeast Louisiana Live Traffic",
+  metadata: { source: "TomTom Traffic Flow Vector Tiles", updated: new Date().toISOString(), segments: geoFeatures.length },
+  features: geoFeatures
+};
+await writeFile("traffic.geojson", JSON.stringify(geojson), "utf8");
+console.log(`Generated traffic.geojson with ${geoFeatures.length} individually colored road features.`);
 console.log(`Generated traffic.txt with ${drawn} colored vector road segments from ${TILES.length} tiles.`);
