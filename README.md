@@ -6,13 +6,14 @@ AquaCeroWx / GRLevelX live aircraft placefiles served by the Cloudflare Worker a
 
 ## Regional Southeast Louisiana live traffic placefile
 
-- Live traffic-speed placefile: `https://flighttracker.mitchellgeissler.workers.dev/traffic.txt`
-- Coverage: Pearl River, Slidell, the Northshore, New Orleans, Baton Rouge and nearby corridors.
-- Source: TomTom Traffic Flow Vector Tiles. The free developer tier includes 200,000 monthly vector-tile requests; this configuration requests 12 regional tiles every 5 minutes (about 103,680 requests per 30 days).
+- **GitHub-hosted placefile:** `https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic.txt`
+- This traffic placefile is generated and hosted directly from this GitHub repository. It does not use the Cloudflare Worker.
+- Coverage: Pearl River, Slidell, the Northshore, New Orleans, Baton Rouge and nearby Mississippi Gulf Coast corridors.
+- Source: TomTom Traffic Flow Vector Tiles. The GitHub Actions workflow requests 80 regional vector tiles every five minutes (about 23,040 tile requests per 30 days), within the published 200,000-request monthly free developer allowance.
 - Speed colors use TomTom's measured speed relative to free-flow speed: green at 85% or faster, yellow at 65–84%, orange at 45–64%, and red below 45% or when a road is marked closed.
-- Popup information reports the road class, relative speed and closure status. TomTom's vector-flow tiles do not provide street names in the default feature attributes.
-- To enable the feed, create a free TomTom developer account, enable Traffic Flow Vector Tiles, then add a GitHub Actions repository secret named `TOMTOM_API_KEY`. The deployment workflow copies it into Cloudflare as a Worker secret.
-- The Worker caches the latest regional snapshot in D1, serves the placefile every five minutes, and can fall back to a recent cached snapshot if TomTom is temporarily unavailable.
+- Roads are published as vector line geometry, not stretched raster images. Interstates are slightly thicker than highways.
+- To enable updates, add a GitHub Actions repository secret named `TOMTOM_API_KEY` with a TomTom Traffic Flow Vector Tiles API key. The scheduled workflow runs every five minutes and can also be started manually from GitHub Actions.
+- GitHub Actions publishes the generated `traffic.txt` directly to the repository. If a TomTom request fails, the workflow does not overwrite the last successfully generated placefile.
 
 ## Compare individual data sources
 
