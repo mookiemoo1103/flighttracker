@@ -14,7 +14,7 @@ for (let y = 418; y <= 425; y++) {
 
 const clean = value => String(value ?? "")
   .replaceAll('"', "'").replaceAll("\\", "/")
-  .replace(/[\\r\\n\\t]/g, " ").replace(/\\s+/g, " ").trim();
+  .replace(/[\r\n\t]/g, " ").replace(/\s+/g, " ").trim();
 
 function statusFor(properties) {
   const relative = Number(properties.traffic_level);
@@ -87,5 +87,5 @@ for (const segment of usable) {
 lines.push("; Vector road segments: " + drawn);
 lines.push("; Interstate road type: 0; highway road types: 1, 2, 3");
 
-await writeFile("traffic.txt", lines.join("\\n") + "\\n", "utf8");
+await writeFile("traffic.txt", lines.join("\n") + "\n", "utf8");
 console.log(`Generated traffic.txt with ${drawn} colored vector road segments from ${TILES.length} tiles.`);
