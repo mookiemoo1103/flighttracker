@@ -4,7 +4,7 @@ Title: WAFFLE HOUSE - UNITED STATES
 Refresh: 1
 Color: 0 0 0
 Font: 1, 10, 1, "Arial"
-IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/wafflehouse/assets/waffle-house.png"
+IconFile: 1, 64, 64, 32, 32, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/wafflehouse/assets/waffle-house-icon.png"
 ; Locations: 2119
 Object: 25.100760,-80.434590
 Threshold: 999
