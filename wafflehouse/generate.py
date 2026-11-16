@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Build the nationwide Waffle House AquaCeroWx / GRLevelX placefile.
-
-Source: Waffle House's official location locator.
-The generator refuses to publish a suspiciously incomplete result.
-"""
+"""Build the nationwide Waffle House AquaCeroWx / GRLevelX placefile."""
 import html
 import json
 import re
@@ -29,14 +25,11 @@ def get(url):
 
 
 def find_locations(obj):
-    """Find the official locator's locations array without assuming its nesting."""
     if isinstance(obj, dict):
         for key, value in obj.items():
             if key == "locations" and isinstance(value, list) and value:
                 sample = value[0]
-                if isinstance(sample, dict) and (
-                    "latitude" in sample or "lat" in sample
-                ):
+                if isinstance(sample, dict) and ("latitude" in sample or "lat" in sample):
                     return value
         for value in obj.values():
             found = find_locations(value)
@@ -51,13 +44,13 @@ def find_locations(obj):
 
 
 def clean(value):
-    return re.sub(r"\\s+", " ", html.unescape(str(value or ""))).strip().replace('"', "'")
+    return re.sub(r"\s+", " ", html.unescape(str(value or ""))).strip().replace('"', "'")
 
 
 def main():
     page = get(LOCATOR_URL).decode("utf-8", errors="replace")
     match = re.search(
-        r'<script[^>]+id=["\\']__NEXT_DATA__["\\'][^>]*>(.*?)</script>',
+        r"<script[^>]+id=['\"]__NEXT_DATA__['\"][^>]*>(.*?)</script>",
         page, re.DOTALL
     )
     if not match:
@@ -92,7 +85,7 @@ def main():
         details = [label, address, ", ".join(x for x in (city, state, postal) if x)]
         if place_url:
             details.append(place_url)
-        records[(round(lat, 6), round(lon, 6))] = (lat, lon, "\\n".join(x for x in details if x))
+        records[(round(lat, 6), round(lon, 6))] = (lat, lon, "\n".join(x for x in details if x))
 
     if len(records) < MIN_EXPECTED_LOCATIONS:
         raise RuntimeError(
@@ -102,7 +95,7 @@ def main():
 
     ASSET_DIR.mkdir(parents=True, exist_ok=True)
     png = get(LOGO_URL)
-    if not png.startswith(b"\\x89PNG\\r\\n\\x1a\\n"):
+    if not png.startswith(b"\x89PNG\r\n\x1a\n"):
         raise RuntimeError("Waffle House logo download was not a valid PNG.")
     LOGO.write_bytes(png)
 
@@ -125,7 +118,7 @@ def main():
             "End:",
         ])
 
-    OUT.write_text("\\n".join(lines) + "\\n", encoding="utf-8")
+    OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"Generated {OUT} with {len(records)} Waffle House locations.")
 
 
