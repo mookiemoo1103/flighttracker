@@ -203,7 +203,7 @@ function buildPlacefile(segments, updatedAt, stale = false) {
   }
   lines.push("; Interstate segments: " + interstateCount);
   lines.push("; Highway and major-road segments (80 NM threshold): " + highwayCount);
-  return lines.join("\\n") + "\\n";
+  return lines.join("\n") + "\n";
 }
 
 async function fetchRasterTile(x, y, apiKey) {
@@ -301,7 +301,7 @@ export async function handleTrafficRequest(request, env) {
       headers: { ...headers, "x-traffic-segments": String(data.segments.length) }
     });
   } catch (error) {
-    return new Response("; Traffic feed temporarily unavailable: " + clean(error?.message || error) + "\\nTitle: SOUTHEAST LOUISIANA LIVE TRAFFIC\\nRefresh: 1\\n", {
+    return new Response("; Traffic feed temporarily unavailable: " + clean(error?.message || error) + "\nTitle: SOUTHEAST LOUISIANA LIVE TRAFFIC\nRefresh: 1\n", {
       status: 502,
       headers
     });
