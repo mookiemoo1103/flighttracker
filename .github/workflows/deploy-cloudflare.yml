@@ -166,10 +166,10 @@ jobs:
             exit 0
           }
           image_count=$(grep -c '^Image:' /tmp/traffic.txt || true)
-          echo "Traffic raster image overlays: $image_count"
-          test "$image_count" -eq 12
+          echo "Traffic raster image overlays (zoom 9, 512px): $image_count"
+          test "$image_count" -eq 20
           # Test a tile centered on Pearl River / Slidell rather than an outer edge tile.
-          tile_url=$(grep '^Image:' /tmp/traffic.txt | sed -n '7p' | cut -d' ' -f2-)
+          tile_url=$(grep '^Image:' /tmp/traffic.txt | sed -n '14p' | cut -d' ' -f2-)
           curl --retry 3 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$tile_url" -o /tmp/traffic-tile.png
           file /tmp/traffic-tile.png
           python - <<'PY'
@@ -183,6 +183,7 @@ jobs:
               if typ==b"IHDR": width,height,bit_depth,color_type,_=struct.unpack(">IIBBBBB",chunk)
               elif typ==b"IDAT": compressed += chunk
               elif typ==b"IEND": break
+          assert width==512 and height==512, f"Expected 512x512 detailed tile, got {width}x{height}"
           assert bit_depth==8 and color_type in (2,6), f"Unsupported PNG format: depth={bit_depth}, type={color_type}"
           bpp=4 if color_type==6 else 3
           raw=zlib.decompress(compressed); stride=width*bpp; rows=[]; prev=bytearray(stride); off=0
