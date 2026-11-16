@@ -166,10 +166,10 @@ jobs:
             exit 0
           }
           image_count=$(grep -c '^Image:' /tmp/traffic.txt || true)
-          echo "Traffic raster image overlays (zoom 9, 512px): $image_count"
-          test "$image_count" -eq 20
+          echo "Traffic raster image overlays (zoom 11, 512px): $image_count"
+          test "$image_count" -eq 320
           # Test a tile centered on Pearl River / Slidell rather than an outer edge tile.
-          tile_url=$(grep '^Image:' /tmp/traffic.txt | sed -n '14p' | cut -d' ' -f2-)
+          tile_url=$(grep '^Image:' /tmp/traffic.txt | sed -n '86p' | cut -d' ' -f2-)
           curl --retry 3 --retry-all-errors --retry-delay 2 --fail --silent --show-error --max-time 20 "$tile_url" -o /tmp/traffic-tile.png
           file /tmp/traffic-tile.png
           python - <<'PY'
