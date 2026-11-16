@@ -8,12 +8,18 @@ const ICONS = {
   incident: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-incident.png"
 };
 const clean = v => String(v ?? "").replaceAll('"', "'").replaceAll("\\", "/").replace(/[\r\n\t]/g, " ").replace(/\s+/g, " ").trim();
-const fields = [
+const pointFields = [
   "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
   "Severity","EventStatus","Description","ClosureExists","LanesOpen","LanesClosed",
-  "LaneStatus","ParishName","ParishName1","ParishName2","ParishName3",
-  "EventStartDateUTC","EventEndDateUTC","EventClosureStartDateUTC","EventClosureEndDateUTC",
-  "Latitude","Longitude","EventName","FromCrossStreet","ToCrossStreet"
+  "LaneStatus","ParishName","EventStartDateUTC","EventEndDateUTC",
+  "EventClosureStartDateUTC","EventClosureEndDateUTC","EventName","FromCrossStreet"
+].join(",");
+const lineFields = [
+  "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
+  "Severity","EventStatus","Description","ClosureExists","LanesOpen","LanesClosed",
+  "LaneStatus","ParishName1","ParishName2","ParishName3","EventStartDateUTC",
+  "EventEndDateUTC","EventClosureStartDateUTC","EventClosureEndDateUTC",
+  "EventName","FromCrossStreet","ToCrossStreet"
 ].join(",");
 
 async function queryLayer(layer) {
@@ -21,7 +27,7 @@ async function queryLayer(layer) {
   for (let offset = 0; offset < 5000; offset += 1000) {
     const url = new URL(BASE + "/" + layer + "/query");
     url.searchParams.set("where", "1=1");
-    url.searchParams.set("outFields", fields);
+    url.searchParams.set("outFields", layer === 1 ? pointFields : lineFields);
     url.searchParams.set("returnGeometry", "true");
     url.searchParams.set("outSR", "4326");
     url.searchParams.set("f", "json");
@@ -112,9 +118,9 @@ const out = [
   "; Updated: " + new Date().toISOString(),
   "Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS",
   "Refresh: 5",
-  'IconFile: 1, 64, 64, 32, 32, "' + ICONS.closure + '"',
-  'IconFile: 2, 64, 64, 32, 32, "' + ICONS.construction + '"',
-  'IconFile: 3, 64, 64, 32, 32, "' + ICONS.incident + '"'
+  'IconFile: 1, 32, 32, 16, 16, "' + ICONS.closure + '"',
+  'IconFile: 2, 32, 32, 16, 16, "' + ICONS.construction + '"',
+  'IconFile: 3, 32, 32, 16, 16, "' + ICONS.incident + '"'
 ];
 const iconNumber = { closure: 1, construction: 2, incident: 3 };
 for (const event of events) {
