@@ -29,7 +29,7 @@ function statusFor(properties) {
 async function fetchTile(x, y) {
   const url = new URL(`https://api.tomtom.com/traffic/map/4/tile/flow/relative/${ZOOM}/${x}/${y}.pbf`);
   url.searchParams.set("key", API_KEY);
-  url.searchParams.set("roadTypes", "[0,1,2,3,4]");
+  url.searchParams.set("roadTypes", "[0,1,2,3,4,5]");
   url.searchParams.set("tags", "[road_type,traffic_level,traffic_road_coverage,left_hand_traffic,road_closure]");
   const response = await fetch(url, {
     headers: { Accept: "application/x-protobuf" },
@@ -62,6 +62,7 @@ const roadTypeNumber = value => {
   if (name === "major road") return 2;
   if (name === "secondary road") return 3;
   if (name === "connecting road") return 4;
+  if (name === "major local road") return 5;
   return -1;
 };
 const usable = segments.filter(s =>
@@ -96,7 +97,7 @@ for (const segment of usable) {
     type: "Feature",
     properties: {
       stroke: hex,
-      "stroke-width": roadType === 0 ? 10 : 8,
+      "stroke-width": roadType === 0 ? 8 : 6,
       "stroke-opacity": 1,
       traffic_status: status.label,
       road_type: segment.properties.road_type,
@@ -110,13 +111,13 @@ for (const segment of usable) {
   });
   lines.push(`Color: ${red} ${green} ${blue}`);
   const label = clean(status.label + (segment.properties.road_closure === true ? " - ROAD CLOSED" : ""));
-  lines.push(`Line: ${roadType === 0 ? 10 : 8}, 0, "${label}"`);
+  lines.push(`Line: ${roadType === 0 ? 8 : 6}, 0, "${label}"`);
   for (const [lat, lon] of segment.path) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
   lines.push("End:");
   drawn++;
 }
 lines.push("; Vector road segments: " + drawn);
-lines.push("; Interstate road type: 0; highway road types: 1, 2, 3, 4 (including connecting roads/ramps)");
+lines.push("; Interstate road type: 0; highway road types: 1, 2, 3, 4, 5 (including connecting roads/ramps and major local roads; excludes local/minor residential streets)");
 lines.push("; Traffic color classes (red/orange/yellow/green): " + Object.values(classCounts).join("/"));
 console.log("Traffic color class counts:", JSON.stringify(classCounts));
 if (drawn !== lines.filter(line => line.startsWith("Line:")).length || drawn !== lines.filter(line => line.startsWith("Color:")).length) {
