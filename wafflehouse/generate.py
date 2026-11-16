@@ -7,6 +7,7 @@ import re
 import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from PIL import Image
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent
@@ -17,7 +18,8 @@ LOGO = ASSET_DIR / "waffle-house.png"
 LOCATOR_URL = "https://locations.wafflehouse.com/"
 SITEMAP_URL = "https://locations.wafflehouse.com/sitemap.xml"
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/f/fd/Waffle_House_Logo_%28Alternate%29.png"
-ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/wafflehouse/assets/waffle-house.png"
+ICON = ASSET_DIR / "waffle-house-icon.png"
+ICON_URL = "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/wafflehouse/assets/waffle-house-icon.png"
 USER_AGENT = "AquaCeroWx-WaffleHouse-Placefile/1.0 (GitHub Actions)"
 MIN_EXPECTED_LOCATIONS = 1000
 
@@ -179,6 +181,11 @@ def main():
     if not png.startswith(b"\x89PNG\r\n\x1a\n"):
         raise RuntimeError("Waffle House logo download was not a valid PNG.")
     LOGO.write_bytes(png)
+    with Image.open(LOGO).convert("RGBA") as source:
+        source.thumbnail((60, 60), Image.Resampling.LANCZOS)
+        canvas = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
+        canvas.alpha_composite(source, ((64 - source.width) // 2, (64 - source.height) // 2))
+        canvas.save(ICON, format="PNG", optimize=True)
 
     lines = [
         "; Waffle House locations from the official Waffle House locator",
@@ -187,7 +194,7 @@ def main():
         "Refresh: 1",
         "Color: 0 0 0",
         'Font: 1, 10, 1, "Arial"',
-        f'IconFile: 1, 32, 32, 16, 16, "{ICON_URL}"',
+        f'IconFile: 1, 64, 64, 32, 32, "{ICON_URL}"',
         f"; Locations: {len(records)}",
     ]
     for lat, lon, tooltip in sorted(records.values(), key=lambda row: (row[0], row[1])):
