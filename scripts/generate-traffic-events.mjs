@@ -72,14 +72,22 @@ function centerOf(geometry) {
   if (!pts.length) return null;
   return [pts.reduce((s,p)=>s+p[1],0)/pts.length, pts.reduce((s,p)=>s+p[0],0)/pts.length];
 }
-function eventKey(a) {
-  return String(a.EventUID || a.EventID || a.OBJECTID || "");
+function eventKey(a, kind, position) {
+  // Normalize point/line duplicates and repeated DOTD event records.
+  return [
+    kind,
+    String(a.RoadName || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+    String(a.EventSubType || a.EventType || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
+    position[0].toFixed(3),
+    position[1].toFixed(3)
+  ].join("|");
 }
 function popup(a, kind) {
+  const direction = ({N:"Northbound",NB:"Northbound",S:"Southbound",SB:"Southbound",E:"Eastbound",EB:"Eastbound",W:"Westbound",WB:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || "").toUpperCase()] || a.TravelDirection || "";
   const parts = [
     kind === "closure" ? "ROAD CLOSURE" : kind === "construction" ? "CONSTRUCTION / ROADWORK" : "TRAFFIC INCIDENT",
     a.RoadName,
-    a.TravelDirection ? a.TravelDirection + "BOUND" : "",
+    direction,
     a.EventSubType,
     a.Description,
     a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3,
@@ -89,7 +97,7 @@ function popup(a, kind) {
     a.EventStatus ? "Status: " + a.EventStatus : "",
     a.EventEndDateUTC ? "Expected end: " + new Date(a.EventEndDateUTC).toLocaleString("en-US",{timeZone:"America/Chicago"}) : ""
   ].filter(Boolean);
-  return clean(parts.join("\\n"));
+  return parts.map(clean).filter(Boolean).join("\\n");
 }
 
 const [points, lines] = await Promise.all([queryLayer(1), queryLayer(2)]);
@@ -102,7 +110,9 @@ for (const [items, source] of [[points,"point"],[lines,"line"]]) {
     if (!kind) continue;
     const position = centerOf(feature.geometry);
     if (!position || !Number.isFinite(position[0]) || !Number.isFinite(position[1])) continue;
-    const key = eventKey(a);
+    // Match the same event's point and line representations by type, road, and location.
+    if (position[0] < 28.85 || position[0] > 31.45 || position[1] < -92.2 || position[1] > -88.5) continue;
+    const key = eventKey(a, kind, position);
     const existing = byId.get(key);
     // Prefer the official event point if DOTD publishes both a point and a line.
     if (!existing || source === "point") byId.set(key, { a, kind, position, source });
