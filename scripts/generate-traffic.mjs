@@ -106,7 +106,7 @@ const lines = [
   "; Southeast Louisiana live traffic - GitHub Actions generated static placefile",
   "; Source: TomTom Traffic Flow Vector Tiles",
   "; Vector road geometry remains sharp at close zoom levels.",
-  "; Interstates: 6px; other included roads: 5px. Wider direction-aware offsets separate opposing carriageways.",
+  "; Interstates: 6px; other included roads: 5px. Direction-aware offsets separate opposing carriageways; highway offset 50m.",
   "; Coverage: Baton Rouge/Livingston, Northshore, Pearl River, Slidell, New Orleans and Mississippi Gulf Coast",
   "; Traffic data © TomTom",
   "; Updated: " + new Date().toISOString(),
@@ -127,7 +127,7 @@ for (const segment of usable) {
     type: "Feature",
     properties: {
       stroke: hex,
-      "stroke-width": roadType === 0 ? 6 : 5,
+      "stroke-width": roadType === 0 ? 6 : 4,
       "stroke-opacity": 1,
       traffic_status: status.label,
       road_type: segment.properties.road_type,
@@ -136,12 +136,12 @@ for (const segment of usable) {
     },
     geometry: {
       type: "LineString",
-      coordinates: offsetPath(segment.path, roadType === 0 ? 25 : 60).map(([lat, lon]) => [lon, lat])
+      coordinates: offsetPath(segment.path, roadType === 0 ? 25 : 50).map(([lat, lon]) => [lon, lat])
     }
   });
   lines.push(`Color: ${red} ${green} ${blue}`);
   const label = clean(status.label + ((segment.properties.road_closure === true || segment.properties.road_closure === 1 || String(segment.properties.road_closure).toLowerCase() === "true") ? " - ROAD CLOSED" : ""));
-  lines.push(`Line: ${roadType === 0 ? 6 : 5}, 0, "${label}"`);
+  lines.push(`Line: ${roadType === 0 ? 6 : 4}, 0, "${label}"`);
   for (const [lat, lon] of offsetPath(segment.path, roadType === 0 ? 25 : 35)) lines.push(`${lat.toFixed(6)}, ${lon.toFixed(6)}`);
   lines.push("End:");
   drawn++;
