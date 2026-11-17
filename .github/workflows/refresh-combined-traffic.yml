@@ -60,6 +60,7 @@ jobs:
             if(roads.features.some(f=>f.properties?.source || f.properties?.layer==="511la-dotd-events")) throw Error("Non-TomTom event data found in TomTom GeoJSON");
             if(roads.features.some(f=>f.geometry?.type!=="LineString")) throw Error("Unexpected geometry in TomTom GeoJSON");
             if(events.features.some(f=>!["Point","MultiLineString"].includes(f.geometry?.type))) throw Error("Unexpected geometry in event GeoJSON");
+            if(events.features.some(f=>f.geometry?.type==="MultiLineString" && (!Array.isArray(f.geometry.coordinates) || !f.geometry.coordinates.some(line=>Array.isArray(line) && line.length>=2)))) throw Error("Invalid roadway line geometry in event GeoJSON");
             if(events.features.some(f=>!f.properties?.source || !(f.properties?.source_event_type || f.properties?.subtype))) throw Error("Event source/type attribution missing");
             const roadTxt=await readFile("traffic.txt","utf8");
             const eventTxt=await readFile("traffic-events/traffic-events.txt","utf8");
