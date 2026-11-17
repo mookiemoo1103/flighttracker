@@ -224,7 +224,8 @@ for (const a of events511) {
 }
 const events = [...byId.values()];
 const generatedAt = new Date().toISOString();
-console.log("511LA events received:", events511.length, "accepted after status/age/coverage checks:", accepted511);\nconsole.log("Removed stale active source records:", JSON.stringify(staleCounts));
+console.log("511LA events received:", events511.length, "accepted after status/age/coverage checks:", accepted511);
+console.log("Removed stale active source records:", JSON.stringify(staleCounts));
 if (!events.length) console.log("DOTD returned no current closure, construction, or incident events.");
 await mkdir(OUT, { recursive: true });
 const out = [
