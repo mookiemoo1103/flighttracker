@@ -149,22 +149,29 @@ function eventKey(a, kind, position) {
 }
 function popup(a, kind) {
   const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || "").toUpperCase()] || a.TravelDirection || "";
-  const parts = [
-    kind === "closure" ? "ROAD CLOSURE" : kind === "construction" ? "CONSTRUCTION / ROADWORK" : "TRAFFIC INCIDENT",
-    a.RoadName,
-    direction,
-    a.EventSubType,
-    a.Description,
-    a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3,
+  const heading = kind === "closure" ? "ROAD CLOSURE" : kind === "construction" ? "CONSTRUCTION / ROADWORK" : "TRAFFIC INCIDENT";
+  const lines = [
+    heading,
+    a.RoadName ? "Road: " + a.RoadName : "",
+    direction ? "Direction: " + direction : "",
+    a.EventSubType ? "Type: " + a.EventSubType : "",
+    a.Description ? "Details: " + a.Description : "",
+    a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3
+      ? "Parish: " + (a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3) : "",
     a.Severity ? "Severity: " + a.Severity : "",
-    a.LanesClosed != null ? "Lanes closed: " + a.LanesClosed : "",
-    a.LanesOpen != null ? "Lanes open: " + a.LanesOpen : "",
+    a.LanesClosed != null && a.LanesClosed !== "" ? "Lanes closed: " + a.LanesClosed : "",
+    a.LanesOpen != null && a.LanesOpen !== "" ? "Lanes open: " + a.LanesOpen : "",
+    a.LaneStatus ? "Lane impact: " + a.LaneStatus : "",
     a.EventStatus ? "Status: " + a.EventStatus : "",
-    dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC) ? "Expected end: " + new Date(dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC)).toLocaleString("en-US",{timeZone:"America/Chicago"}) : "",
+    dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC)
+      ? "Reported/start: " + new Date(dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC)).toLocaleString("en-US",{timeZone:"America/Chicago"}) : "",
+    dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC)
+      ? "Expected end: " + new Date(dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC)).toLocaleString("en-US",{timeZone:"America/Chicago"}) : "",
     a.ReportAgency ? "Reporting agency: " + a.ReportAgency : "",
     a.EventSource ? "Source: " + a.EventSource : ""
-  ].filter(Boolean);
-  return parts.map(clean).filter(Boolean).join("\\n");
+  ].filter(Boolean).map(clean);
+  // AquaCeroWX/GR placefile popup line-break escape; each attribute is its own row.
+  return lines.join("\\n");
 }
 
 const [points, lines, events511] = await Promise.all([queryLayer(1), queryLayer(2), query511LAEvents()]);
