@@ -1,0 +1,85 @@
+name: Refresh Combined TomTom and Louisiana 511 Traffic Feeds
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/generate-traffic.mjs"
+      - "scripts/generate-traffic-events.mjs"
+      - "scripts/combine-traffic-feeds.mjs"
+      - ".github/workflows/refresh-combined-traffic.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: combined-traffic-feeds
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Generate TomTom traffic speeds
+        env:
+          TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
+        run: node scripts/generate-traffic.mjs
+      - name: Generate 511LA and DOTD traffic events
+        env:
+          LOUISIANA_511_API_KEY: ${{ secrets.LOUISIANA_511_API_KEY }}
+        run: node scripts/generate-traffic-events.mjs
+      - name: Combine both sources into root TXT and GeoJSON feeds
+        run: node scripts/combine-traffic-feeds.mjs
+      - name: Validate combined feeds and source separation
+        run: |
+          set -euo pipefail
+          test -s traffic.txt
+          test -s traffic.geojson
+          grep -q 'BEGIN SEPARATE 511LA / DOTD EVENT LAYER' traffic.txt
+          grep -q 'Source: TomTom' traffic.txt
+          grep -q '^Refresh: 5$' traffic.txt
+          node --input-type=module -e '
+            import { readFile } from "node:fs/promises";
+            const j=JSON.parse(await readFile("traffic.geojson","utf8"));
+            if(j.type!=="FeatureCollection" || !Array.isArray(j.features)) throw Error("Invalid combined GeoJSON");
+            const speeds=j.features.filter(f=>f.properties?.layer==="tomtom-traffic-speeds");
+            const events=j.features.filter(f=>f.properties?.layer==="511la-dotd-events");
+            if(!speeds.length) throw Error("TomTom features missing");
+            if(!j.metadata?.sources?.tomtom || !j.metadata?.sources?.events) throw Error("Source metadata missing");
+            if(speeds.some(f=>f.geometry?.type!=="LineString")) throw Error("Invalid TomTom geometry");
+            if(events.some(f=>f.geometry?.type!=="Point")) throw Error("Invalid event geometry");
+            for(const f of speeds){const p=f.properties;if(p.traffic_status==="STOPPED / VERY SLOW" && p.stroke?.toLowerCase()!=="#ff0000") throw Error("Stopped traffic color incorrect");if(p.traffic_status==="CLOSED" && p.stroke?.toLowerCase()!=="#ff00ff") throw Error("Closure color incorrect");}
+            console.log("Validated",speeds.length,"TomTom roads and",events.length,"511LA/DOTD events in one GeoJSON.");
+          '
+          test -s traffic-events/traffic-events.txt
+          test -s traffic-events/traffic-events.geojson
+          test -s traffic-events/assets/road-closure.png
+          test -s traffic-events/assets/road-construction.png
+          test -s traffic-events/assets/road-incident.png
+      - name: Publish combined feeds and separate source feeds
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic.txt traffic.geojson traffic-events/traffic-events.txt traffic-events/traffic-events.geojson
+          if git diff --cached --quiet; then
+            echo "All traffic feeds unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh combined TomTom and 511LA DOTD traffic feeds"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then exit 0; fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish combined traffic feeds."
+          exit 1
