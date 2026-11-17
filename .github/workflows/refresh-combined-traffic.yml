@@ -70,13 +70,13 @@ jobs:
             const roadTxtCount=(roadTxt.match(/^Line:/gm)||[]).length;
             const eventTxtCount=(eventTxt.match(/^Object:/gm)||[]).length;
             if(roadTxtCount!==roads.features.length) throw Error("TomTom TXT/GeoJSON feature counts differ");
-            if(eventTxtCount!==events.features.length) throw Error("511LA/DOTD TXT/GeoJSON event counts differ");
+            if(eventTxtCount!==events.features.length) throw Error("511LA TXT/GeoJSON event counts differ");
             if(!eventTxt.includes("IconFile: 1,") || !eventTxt.includes("IconFile: 2,") || !eventTxt.includes("IconFile: 3,")) throw Error("Event icon references missing");
             for(const category of ["ROAD CLOSURE","CONSTRUCTION / ROADWORK","CONSTRUCTION / WORKERS PRESENT","TRAFFIC INCIDENT","WEATHER INCIDENT","WEATHER CLOSURE","SPECIAL EVENT","OTHER 511LA EVENT"]){if(events.features.some(f=>f.properties.event_type===({ "ROAD CLOSURE":"closure","CONSTRUCTION / ROADWORK":"construction","CONSTRUCTION / WORKERS PRESENT":"workers","TRAFFIC INCIDENT":"incident","WEATHER INCIDENT":"weather_incident","WEATHER CLOSURE":"weather_closure","SPECIAL EVENT":"special","OTHER 511LA EVENT":"other"})[category]) && !eventTxt.includes(category)) throw Error("Placefile category label missing: "+category);}
             if(Number(events.metadata?.eventCount)!==events.features.length) throw Error("Event metadata count does not match features");
             if(!events.metadata?.generatedAt || !roads.metadata?.updated) throw Error("Missing source refresh timestamps");
             for(const f of roads.features){const p=f.properties;if(p.traffic_status==="STOPPED / VERY SLOW" && p.stroke?.toLowerCase()!=="#ff0000") throw Error("Stopped traffic color incorrect");if(p.traffic_status==="CLOSED" && p.stroke?.toLowerCase()!=="#ff00ff") throw Error("Closure color incorrect");}
-            console.log("Validated separately refreshed feeds:",roads.features.length,"TomTom roads and",events.features.length,"511LA/DOTD events; TXT and GeoJSON counts match.");
+            console.log("Validated separately refreshed feeds:",roads.features.length,"TomTom roads and",events.features.length,"511LA events; TXT and GeoJSON counts match.");
           '
       - name: Publish all four separate source files
         run: |
@@ -87,7 +87,7 @@ jobs:
             echo "All separate traffic source feeds unchanged."
             exit 0
           fi
-          git commit -m "Refresh separate TomTom and 511LA DOTD traffic feeds"
+          git commit -m "Refresh separate TomTom and 511LA traffic feeds"
           for attempt in 1 2 3; do
             git pull --rebase origin main
             if git push; then exit 0; fi
