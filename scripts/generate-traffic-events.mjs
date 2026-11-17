@@ -28,7 +28,7 @@ async function query511LAEvents() {
   const url = new URL("https://511la.org/api/v2/get/event");
   url.searchParams.set("key", key);
   url.searchParams.set("format", "json");
-  const res = await fetch(url, { headers: { Accept: "application/json" }, signal: AbortSignal.timeout(30000) });
+  const res = await fetch(url, { headers: { Accept: "application/json", "Cache-Control": "no-cache", Pragma: "no-cache" }, signal: AbortSignal.timeout(30000) });
   if (!res.ok) throw new Error("511LA Events API returned HTTP " + res.status);
   const data = await res.json();
   const records = Array.isArray(data) ? data : (data.Events || data.events || data.EventList?.Events || data.EventList?.Event || []);
@@ -82,7 +82,7 @@ async function queryLayer(layer) {
     url.searchParams.set("f", "json");
     url.searchParams.set("resultOffset", String(offset));
     url.searchParams.set("resultRecordCount", "1000");
-    const res = await fetch(url, { signal: AbortSignal.timeout(25000) });
+    const res = await fetch(url, { headers: { "Cache-Control": "no-cache", Pragma: "no-cache" }, signal: AbortSignal.timeout(25000) });
     if (!res.ok) throw new Error("DOTD layer " + layer + " returned HTTP " + res.status);
     const data = await res.json();
     if (data.error) throw new Error("DOTD layer " + layer + ": " + JSON.stringify(data.error));
@@ -207,6 +207,7 @@ for (const a of events511) {
   accepted511++;
 }
 const events = [...byId.values()];
+const generatedAt = new Date().toISOString();
 console.log("511LA events received:", events511.length, "accepted in coverage/freshness window:", accepted511);
 if (!events.length) console.log("DOTD returned no current closure, construction, or incident events.");
 await mkdir(OUT, { recursive: true });
@@ -216,7 +217,7 @@ const out = [
   "; Active source records remain displayed until source status ends or their event end time expires.",
   "; 511LA API records are included alongside DOTD ArcGIS records.",
   "; Generated independently of the TomTom speed traffic placefile.",
-  "; Updated: " + new Date().toISOString(),
+  "; Updated: " + generatedAt,
   "Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS",
   "Refresh: 5",
   'IconFile: 1, 32, 32, 16, 16, "' + ICONS.closure + '"',
@@ -236,6 +237,36 @@ out.push("; Closures: " + events.filter(e=>e.kind==="closure").length);
 out.push("; Construction: " + events.filter(e=>e.kind==="construction").length);
 out.push("; Incidents: " + events.filter(e=>e.kind==="incident").length);
 await writeFile(OUT + "/traffic-events.txt", out.join("\n") + "\n", "utf8");
+const geoEvents = {
+  type: "FeatureCollection",
+  name: "Louisiana 511 / DOTD Traffic Events",
+  metadata: { generatedAt, sources: ["511LA Events API", "Louisiana DOTD 511 Road Closures FeatureServer"], eventCount: events.length },
+  features: events.map(event => ({
+    type: "Feature",
+    properties: {
+      event_type: event.kind,
+      source: event.source,
+      event_id: event.a.EventUID || event.a.EventID || null,
+      road: event.a.RoadName || null,
+      direction: event.a.TravelDirection || null,
+      subtype: event.a.EventSubType || event.a.EventType || null,
+      description: event.a.Description || null,
+      parish: event.a.ParishName || event.a.ParishName1 || event.a.ParishName2 || event.a.ParishName3 || null,
+      severity: event.a.Severity || null,
+      status: event.a.EventStatus || null,
+      lanes_closed: event.a.LanesClosed ?? null,
+      lanes_open: event.a.LanesOpen ?? null,
+      lane_impact: event.a.LaneStatus || null,
+      reported_at: event.a.EventStartDateUTC || event.a.EventClosureStartDateUTC || null,
+      updated_at: event.a.EventLastUpdatedUTC || event.a.service_last_updated || event.a.EventCreatedOnUTC || null,
+      expected_end: event.a.EventEndDateUTC || event.a.EventClosureEndDateUTC || null,
+      reporting_agency: event.a.ReportAgency || null
+    },
+    geometry: { type: "Point", coordinates: [event.position[1], event.position[0]] }
+  }))
+};
+await writeFile(OUT + "/traffic-events.geojson", JSON.stringify(geoEvents), "utf8");
+console.log("Generated traffic-events.geojson:", geoEvents.features.length, "features.");
 console.log("Generated separate DOTD events placefile:", events.length, JSON.stringify({
   closures: events.filter(e=>e.kind==="closure").length,
   construction: events.filter(e=>e.kind==="construction").length,
