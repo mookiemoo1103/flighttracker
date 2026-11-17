@@ -42,7 +42,6 @@ async function query511LAEvents() {
     EventStatus: a.EventStatus || a.Status || (a.IsActive === false ? "Inactive" : a.IsActive === true ? "Active" : ""),
     ClosureExists: a.IsFullClosure === true || a.ClosureExists === 1 || a.ClosureExists === true,
     Description: a.Description || a.Details || "",
-    ClosureExists: a.IsFullClosure === true,
     LanesClosed: a.IsFullClosure ? "All" : "",
     LaneStatus: a.LanesAffected || "",
     EventStartDateUTC: timestamp(a.StartDate || a.Reported),
@@ -130,24 +129,41 @@ function classify(a) {
 function isCurrent(a, source) {
   const now = Date.now();
   const status = String(a.EventStatus ?? a.EventStatusText ?? a.Status ?? "").trim().toLowerCase();
-  // Explicit provider signals that an event is no longer active.
-  // "Closed" is not a blanket rejection: a road closure may remain confirmed
-  // until DOTD clears/removes it.
   if (/cancel|complete|expired|inactive|deleted|resolved|archived|ended|cleared|removed|rejected/.test(status)) return false;
+
   const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported || a.EventCreatedOnUTC);
   const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC || a.PlannedEndDate || a.EndDate);
+  const updated = dateMs(a.EventLastUpdatedUTC || a.LastUpdated || a.EventCreatedOnUTC || a.service_last_updated);
   if (end && end < now - 60 * 1000) return false;
-  const scheduled = /scheduled|planned/.test(status);
-  if (start && start > now + 6 * 60 * 60 * 1000 && !scheduled) return false;
 
-  // DOTD GIS layers include historical rows: require an affirmative active
-  // status unless a blank-status row has a valid future end date.
-  // 511LA /event is the current event collection, so its membership is also
-  // authoritative when the provider omits a status value.
+  // This layer is intended to show what is happening now, not future work.
+  // Do not plot events before their authoritative start time.
+  if (start && start > now + 5 * 60 * 1000) return false;
+
   const activeStatuses = /^(active|confirmed|open|in progress|in-progress|scheduled|planned)$/;
-  if (status) return activeStatuses.test(status);
-  if (end && end > now) return true;
-  return source === "511LA";
+  if (status && !activeStatuses.test(status)) return false;
+  if (!status && source === "DOTD" && !(end && end > now)) return false;
+
+  const kind = classify(a);
+  const freshness = updated || start;
+  const age = freshness ? now - freshness : Infinity;
+
+  // Incidents are transient. If DOTD has not updated/re-reported one recently,
+  // it is not safe to keep displaying it as an active crash or disabled vehicle.
+  if (kind === "incident" || kind === "weather_incident") return age <= 3 * 60 * 60 * 1000;
+  if (kind === "other" || kind === "special") return (end && end > now) || age <= 12 * 60 * 60 * 1000;
+
+  // Construction with a declared end date remains visible only until that end.
+  // Without an end date, require a recent source update; do not keep stale
+  // work-zone records on the map indefinitely.
+  if (kind === "construction" || kind === "workers" || kind === "weather_closure") {
+    return end ? end > now : age <= 24 * 60 * 60 * 1000;
+  }
+
+  // A closure explicitly still confirmed by DOTD remains visible, including
+  // long-term bridge closures with no end date, until DOTD clears/removes it.
+  if (kind === "closure") return true;
+  return age <= 3 * 60 * 60 * 1000;
 }
 function decodePolyline(encoded) {
   if (!encoded || typeof encoded !== "string") return [];
@@ -191,15 +207,19 @@ function withinCoverage(p) {
 }
 function normalizeKey(v) { return String(v ?? "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
 function eventKey(a, kind, position, source) {
-  // EventID is shared by the public 511LA API and DOTD GIS layers. Prefer it
-  // over layer-specific EventUID/ObjectIDs so matching source records merge.
+  // GIS point/line layer IDs are layer-specific. Build a stable event
+  // fingerprint first so the same DOTD event is not plotted twice.
+  const road = normalizeKey(a.RoadName || a.RoadwayName || a.Roadway);
+  const subtype = normalizeKey(a.EventSubType || a.EventType);
+  const description = normalizeKey(a.Description || a.Details);
+  const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported);
+  const roundedStart = start ? Math.floor(start / (15 * 60 * 1000)) : 0;
+  const fingerprint = [kind,road,subtype,description,roundedStart].join("|");
+  if (road && (subtype || description)) return "EVENT|" + fingerprint;
   const sharedId = a.EventID ?? a.ID ?? a.Id;
   const identity = normalizeKey(sharedId);
   if (identity && identity !== "0") return "EVENT|" + identity;
-  // If no shared ID exists, match across providers by event details and location.
-  const signature=[a.RoadName||a.RoadwayName,a.EventSubType||a.EventType,a.Description,
-    a.EventStartDateUTC||a.EventClosureStartDateUTC||a.StartDate||a.Reported].map(normalizeKey).join("|");
-  return ["EVENT",kind,signature,position[0].toFixed(3),position[1].toFixed(3)].join("|");
+  return ["EVENT",kind,position[0].toFixed(3),position[1].toFixed(3)].join("|");
 }
 function popup(a, kind) {
   const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || a.DirectionOfTravel || "").toUpperCase()] || a.TravelDirection || a.DirectionOfTravel || "";
