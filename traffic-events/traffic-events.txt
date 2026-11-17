@@ -3,7 +3,7 @@
 ; Only events returned by 511LA are considered; future-start and expired events are excluded.
 ; Icons are assigned from the official EventType and EventSubType fields.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-17T05:39:42.974Z
+; Updated: 2026-11-17T05:39:58.534Z
 Title: LOUISIANA ROAD EVENTS - 511LA
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
