@@ -257,7 +257,7 @@ if (!events.length) throw new Error("No current 511LA/DOTD events were generated
 await mkdir(OUT,{recursive:true});
 const out = [
   "; Louisiana DOTD / 511 traffic events - separate additive layer",
-  "; Sources: official 511LA Events API + DOTD 511 Road Closures FeatureServer point and line layers.",
+  "; Sources: Louisiana 511LA Events API + DOTD 511 Road Closures FeatureServer.",
   "; Source status and planned end dates determine currency. LastUpdated alone is not used as an expiration timer.",
   "; Original event type/subtype, event geometry and source attribution are retained.",
   "; Generated independently of the TomTom speed traffic placefile.",
