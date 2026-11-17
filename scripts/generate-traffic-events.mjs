@@ -216,7 +216,8 @@ function makeRecord(a, source, geometryPaths = []) {
   const id = a.EventUID || a.SourceId || a.EventID || a.ID || a.OBJECTID || a.ObjectId || null;
   return { a, source, kind, id, position, paths, key: eventKey(a,kind,position,source) };
 }
-const [centroidFeatures, lineFeatures, events511] = await Promise.all([queryLayer(0), queryLayer(2), query511LAEvents()]);\nconst pointFeatures = [];
+const [centroidFeatures, lineFeatures, events511] = await Promise.all([queryLayer(0), queryLayer(2), query511LAEvents()]);
+const pointFeatures = [];
 const byId = new Map();
 const add = record => {
   if (!record) return;
