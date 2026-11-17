@@ -3,19 +3,19 @@
 ; Active source records remain displayed until source status ends or their event end time expires.
 ; 511LA API records are included alongside DOTD ArcGIS records.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-17T00:25:46.502Z
+; Updated: 2026-11-17T04:36:57.496Z
 Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
 IconFile: 2, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-construction.png"
 IconFile: 3, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-incident.png"
-Object: 29.598755,-90.716231
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 182\n\nDirection: Eastbound\n\nDescription: Bridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/4/2026, 12:00:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
 Object: 29.647178,-90.536656
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Truck Restrictions\n\nRoad: LA 655\n\nDirection: Both Directions\n\nDescription: Truck Restrictions on LA 655 Both Directions At Rita Bridge. Lane Affected. Weight Restriction: 30000lbs Additional Restrictions: No Oversized Loads\n\nParish: Lafourche\n\nSeverity: None\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/11/2026, 9:08:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
+End:
+Object: 29.598755,-90.716231
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 182\n\nDirection: Eastbound\n\nDescription: Bridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/4/2026, 12:00:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
 End:
 Object: 30.295109,-90.106139
 Threshold: 999
@@ -45,25 +45,25 @@ Object: 30.463330,-91.029404
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Crash\n\nRoad: US 190\n\nDirection: Eastbound\n\nDescription: Crash on US 190 Eastbound Near S Flannery Rd. All lanes blocked.\n\nParish: East Baton Rouge\n\nSeverity: Moderate\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/7/2026, 7:21:00 AM\n\nReporting agency: DOTD\n\nSource: Statewide TMC"
 End:
-Object: 30.478813,-90.397350
+Object: 30.004626,-90.027304
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-12\n\nDirection: Eastbound\n\nDescription: Crash on I-12 Eastbound Near Tangipahoa River (MM 44). 1 Left lane blocked.\n\nParish: Tangipahoa\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/18/2026, 11:32:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Stalled Vehicle on I-10 Eastbound Near Downman Rd (MM 240). 1 Right lane blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/18/2026, 3:43:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
 End:
-Object: 30.124116,-90.767593
+Object: 29.957453,-90.093923
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Crash\n\nRoad: US 61\n\nDirection: Southbound\n\nDescription: Crash on US 61 Southbound Near I-10 Eastbound. All lanes blocked.\n\nParish: St. James\n\nSeverity: Moderate\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/18/2026, 12:35:00 PM\n\nReporting agency: DOTD\n\nSource: Statewide TMC"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Stalled Vehicle on I-10 Eastbound Near S Claiborne Ave (MM 234). All lanes blocked.\n\nParish: Orleans\n\nSeverity: Moderate\n\nLanes closed: 7\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/18/2026, 3:55:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
 End:
 Object: 29.956886,-90.093387
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Maintenance Operations\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Road Maintenance Operations on I-10 Eastbound Near S Claiborne Ave (MM 234). 1 Left lane blocked. Starting 9/19/2026 8:28 AM and Ending 9/19/2026 9:28 AM.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Reported\n\nReported/start: 9/19/2026, 8:28:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
-Object: 30.463649,-91.166600
+Object: 29.931336,-90.037432
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Crash\n\nRoad: I-110\n\nDirection: Southbound\n\nDescription: Crash on ramp from I-110 Southbound ramp to LA 67 Southbound to LA 67 Southbound . All lanes blocked.\n\nParish: East Baton Rouge\n\nSeverity: Moderate\n\nLanes closed: 5\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/15/2026, 7:08:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-910\n\nDirection: Westbound\n\nDescription: Stalled Vehicle on ramp from US 90-BR Westbound ramp to LA 428 Eastbound to LA 428 Eastbound . 1 Right Ramp Blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/16/2026, 3:28:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
 End:
-Object: 30.459545,-91.165669
+Object: 30.011410,-90.013919
 Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-110\n\nDirection: Northbound\n\nDescription: Stalled Vehicle on ramp from Fuqua St to I-110 Northbound (MM 2) . Ramp Blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/15/2026, 10:02:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Stalled Vehicle on ramp from US 90 Westbound ramp to I-10 Westbound to I-10 Westbound (MM 241) . Ramp Blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/16/2026, 7:30:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
 End:
 Object: 30.531306,-91.401256
 Threshold: 999
@@ -621,13 +621,13 @@ Object: 30.528815,-91.394856
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: LA-1\n\nDirection: Eastbound\n\nDescription: Road Construction on LA-1 Eastbound from Poydras Bayou Road to Airline Park Dr . 1 Right Lane Intermittent. Starting 11/16/2026 7:00 AM and Ending 11/22/2026 7:00 PM.\n\nSeverity: None\n\nLane impact: 1 Right Lane Intermittent\n\nStatus: Active\n\nReported/start: 11/16/2026, 7:00:00 AM\n\nExpected end: 11/22/2026, 7:00:00 PM\n\nReporting agency: ERS\n\nSource: 511LA"
 End:
-Object: 31.357717,-92.165018
+Object: 30.210550,-90.959150
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadwork\n\nRoad: LA 115 — LA 115: LA 1207 - LA 28\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nStatus: Active\n\nReported/start: 11/16/2026, 6:10:12 PM\n\nExpected end: 11/16/2026, 8:10:12 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadwork\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nStatus: Active\n\nReported/start: 11/16/2026, 10:22:14 PM\n\nExpected end: 11/17/2026, 12:22:14 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
-Object: 30.974983,-91.797926
+Object: 30.216824,-90.952873
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadwork\n\nRoad: LA 1 — LA 1:ATCHAFALAYA RIVER-ROSEWOOD CROSSING\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nStatus: Active\n\nReported/start: 11/16/2026, 6:10:43 PM\n\nExpected end: 11/16/2026, 8:10:43 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadwork\n\nRoad: I-10\n\nDirection: Southbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nStatus: Active\n\nReported/start: 11/16/2026, 10:22:14 PM\n\nExpected end: 11/17/2026, 12:22:14 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 ; Current events displayed: 155
 ; Closures: 48
