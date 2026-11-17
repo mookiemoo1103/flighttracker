@@ -155,10 +155,10 @@ function popup(a, kind) {
   const heading = kind === "closure" ? "ROAD CLOSURE" : kind === "construction" ? "CONSTRUCTION / ROADWORK" : "TRAFFIC INCIDENT";
   const lines = [
     heading,
+    a.EventType || a.EventSubType ? "Event type: " + (a.EventSubType || a.EventType) : "",
     a.RoadName ? "Road: " + a.RoadName : "",
     direction ? "Direction: " + direction : "",
-    a.EventSubType ? "Type: " + a.EventSubType : "",
-    a.Description ? "Details: " + a.Description : "",
+    a.Description ? "Description: " + a.Description : "",
     a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3
       ? "Parish: " + (a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3) : "",
     a.Severity ? "Severity: " + a.Severity : "",
@@ -173,8 +173,9 @@ function popup(a, kind) {
     a.ReportAgency ? "Reporting agency: " + a.ReportAgency : "",
     a.EventSource ? "Source: " + a.EventSource : ""
   ].filter(Boolean).map(clean);
-  // AquaCeroWX/GR placefile popup line-break escape; each attribute is its own row.
-  return lines.join("\\n");
+  // GRLevelX-style placefiles encode popup line breaks as literal backslash-n.
+  // Use a blank line after the heading and between each field for clear stacking.
+  return lines.length ? lines[0] + "\\n\\n" + lines.slice(1).join("\\n\\n") : heading;
 }
 
 const [points, lines, events511] = await Promise.all([queryLayer(1), queryLayer(2), query511LAEvents()]);
