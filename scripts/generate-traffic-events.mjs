@@ -122,14 +122,26 @@ function classify(a) {
   return null;
 }
 function isCurrent(a) {
+  const now = Date.now();
   const status = String(a.EventStatus ?? a.EventStatusText ?? "").trim().toLowerCase();
-  if (/cancel|complete|closed|expired|inactive|deleted|resolved|archived/.test(status)) return false;
-  const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported);
+  if (/cancel|complete|closed|expired|inactive|deleted|resolved|archived|ended/.test(status)) return false;
+  const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported || a.EventCreatedOnUTC);
   const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC || a.PlannedEndDate || a.EndDate);
-  // LastUpdated is a content-edit timestamp, not an active/inactive flag.
-  // Do not expire an otherwise active event just because it has not changed.
-  if (start && start > Date.now() + 6 * 60 * 60 * 1000) return false;
-  if (end && end < Date.now() - 60 * 1000) return false;
+  const updated = dateMs(a.EventLastUpdatedUTC || a.LastUpdated || a.EventCreatedOnUTC || a.service_last_updated);
+  if (start && start > now + 6 * 60 * 60 * 1000) return false;
+  if (end && end < now - 60 * 1000) return false;
+  // An authoritative future end date keeps a genuinely scheduled/ongoing
+  // closure or work zone alive. Without one, use a category-aware freshness
+  // window so stale DOTD records with blank status/end fields do not live forever.
+  if (!end) {
+    const kind = classify(a);
+    const maxAge = kind === "construction" || kind === "workers" || kind === "closure"
+      ? 14 * 24 * 60 * 60 * 1000
+      : kind === "special" ? 48 * 60 * 60 * 1000
+      : 24 * 60 * 60 * 1000;
+    const reference = updated || start;
+    if (!reference || reference < now - maxAge) return false;
+  }
   return true;
 }
 function decodePolyline(encoded) {
@@ -174,12 +186,15 @@ function withinCoverage(p) {
 }
 function normalizeKey(v) { return String(v ?? "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
 function eventKey(a, kind, position, source) {
-  const id=a.EventUID||a.SourceId||a.EventID||a.ID||a.OBJECTID||a.ObjectId;
+  // EventUID/EventID identify the incident, not an individual roadway segment.
+  // DOTD centroid and line layers can have different OBJECTIDs for the same event.
+  const id=a.EventUID||a.SourceId||a.EventID||a.ID;
   const identity=normalizeKey(id);
   const family=source==="511LA"?"511LA":"DOTD";
-  const signature=[a.RoadName||a.RoadwayName,a.EventSubType||a.EventType,a.Description].map(normalizeKey).join("|");
-  if(identity) return family+"|"+identity+"|"+signature;
-  return [family,kind,signature,position[0].toFixed(4),position[1].toFixed(4)].join("|");
+  if(identity) return family+"|"+identity;
+  const signature=[a.RoadName||a.RoadwayName,a.EventSubType||a.EventType,a.Description,
+    a.EventStartDateUTC||a.EventClosureStartDateUTC||a.StartDate||a.Reported].map(normalizeKey).join("|");
+  return [family,kind,signature,position[0].toFixed(3),position[1].toFixed(3)].join("|");
 }
 function popup(a, kind) {
   const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || a.DirectionOfTravel || "").toUpperCase()] || a.TravelDirection || a.DirectionOfTravel || "";
