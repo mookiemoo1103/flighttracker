@@ -60,8 +60,16 @@ jobs:
             if(roads.features.some(f=>f.properties?.source || f.properties?.layer==="511la-dotd-events")) throw Error("Non-TomTom event data found in TomTom GeoJSON");
             if(roads.features.some(f=>f.geometry?.type!=="LineString")) throw Error("Unexpected geometry in TomTom GeoJSON");
             if(events.features.some(f=>f.geometry?.type!=="Point")) throw Error("Unexpected geometry in event GeoJSON");
+            const roadTxt=await readFile("traffic.txt","utf8");
+            const eventTxt=await readFile("traffic-events/traffic-events.txt","utf8");
+            const roadTxtCount=(roadTxt.match(/^Line:/gm)||[]).length;
+            const eventTxtCount=(eventTxt.match(/^Object:/gm)||[]).length;
+            if(roadTxtCount!==roads.features.length) throw Error("TomTom TXT/GeoJSON feature counts differ");
+            if(eventTxtCount!==events.features.length) throw Error("511LA/DOTD TXT/GeoJSON event counts differ");
+            if(Number(events.metadata?.eventCount)!==events.features.length) throw Error("Event metadata count does not match features");
+            if(!events.metadata?.generatedAt || !roads.metadata?.updated) throw Error("Missing source refresh timestamps");
             for(const f of roads.features){const p=f.properties;if(p.traffic_status==="STOPPED / VERY SLOW" && p.stroke?.toLowerCase()!=="#ff0000") throw Error("Stopped traffic color incorrect");if(p.traffic_status==="CLOSED" && p.stroke?.toLowerCase()!=="#ff00ff") throw Error("Closure color incorrect");}
-            console.log("Validated separate feeds:",roads.features.length,"TomTom roads and",events.features.length,"511LA/DOTD events.");
+            console.log("Validated separately refreshed feeds:",roads.features.length,"TomTom roads and",events.features.length,"511LA/DOTD events; TXT and GeoJSON counts match.");
           '
       - name: Publish all four separate source files
         run: |
