@@ -17,7 +17,7 @@ const timestamp = v => {
   return Number.isFinite(parsed) ? parsed : 0;
 };
 const dateMs = timestamp;
-const eventFields = ["OBJECTID","GlobalID","EventID","EventUID","EventCreatedOnUTC","EventLastUpdatedUTC","EventStartDateUTC","EventEndDateUTC","EventClosureStartDateUTC","EventClosureEndDateUTC","RoadName","TravelDirection","FromCrossStreet","ToCrossStreet","RoadClassCodeDesc","RoadCategory","EventType","EventSubType","Severity","EventStatus","Description","ClosureExists","OwnerName","ReportAgency","EventSource","LanesOpen","LanesClosed","LaneStatus","ParishName1","ParishName2","ParishName3","ParishNameList","LatitudeBegin","LongitudeBegin","LatitudeEnd","LongitudeEnd","SegmentLengthMile","EventName","service_last_updated"].join(",");
+const eventFields = "*";
 
 async function query511LAEvents() {
   const key = process.env.LOUISIANA_511_API_KEY;
@@ -59,7 +59,7 @@ async function queryLayer(layer) {
   const all = [];
   // Exclude only records explicitly marked inactive/resolved/cancelled.
   // Old edit timestamps do not expire live events.
-  const where = "(EventStatus IS NULL OR EventStatus NOT IN ('Inactive','Cancelled','Resolved','Closed','Complete','Expired')) AND (EventEndDateUTC >= CURRENT_TIMESTAMP OR EventClosureEndDateUTC >= CURRENT_TIMESTAMP OR (EventEndDateUTC IS NULL AND EventClosureEndDateUTC IS NULL))";
+  const where = "EventStatus = 'Active'";
   for (let offset = 0; offset < 50000; offset += 1000) {
     const url = new URL(BASE + "/" + layer + "/query");
     url.searchParams.set("where", where);
