@@ -101,13 +101,13 @@ function localClock(now) {
 }
 function scheduleDateKey(value) {
   if (!value) return 0;
-  const m = String(value).match(/^(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})/);
+  const m = String(value).match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
   if (!m) return 0;
   return Number(m[3])*10000 + Number(m[1])*100 + Number(m[2]);
 }
 function scheduleSeconds(value) {
   if (!value) return null;
-  const m = String(value).match(/^(\\d{1,2}):(\\d{2})(?::(\\d{2}))?/);
+  const m = String(value).match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?/);
   if (!m) return null;
   return Number(m[1])*3600 + Number(m[2])*60 + Number(m[3]||0);
 }
