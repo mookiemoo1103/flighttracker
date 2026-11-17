@@ -19,12 +19,12 @@ AquaCeroWx / GRLevelX live aircraft placefiles served by the Cloudflare Worker a
 
 - **Event placefile:** `https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/traffic-events.txt`
 - This is an additive overlay. It does not replace or modify the existing TomTom traffic-speed placefile.
-- Sources: official 511LA Events API plus the DOTD 511 Road Closures FeatureServer point and roadway-line layers. Each record retains its source and original event type/subtype.
-- Same-theme icons: red road-closure sign, orange construction worker, and purple traffic-incident symbol. PNG assets are stored in `traffic-events/assets/` and referenced directly by the placefile.
+- Sources: official 511LA Events API plus all three DOTD 511 Road Closures FeatureServer layers (event centroids, event points, and roadway lines). DOTD point/line representations are merged by provider event identity while preserving roadway geometry. Each record retains its source and original event type/subtype.
+- Same-theme icons: red road-closure sign, orange construction worker, and purple traffic-incident symbol. Weather and other provider event families retain distinct labels and line colors while reusing the closest matching existing icon family, avoiding broken or missing assets. PNG assets are stored in `traffic-events/assets/` and referenced directly by the placefile.
 - The event placefile refreshes every five minutes and includes roadway, direction, subtype, description/details, parish, severity, lane impacts, status, schedule, detour instructions, and expected end time when supplied.
-- Roadway polylines from 511LA and DOTD are retained as line geometry instead of being reduced to a single averaged point. Event pins remain visible with the matching themed icon.
+- Roadway polylines from 511LA and DOTD are retained as line geometry instead of being reduced to a single averaged point. Event pins remain visible with the matching themed icon. Supported categories remain distinct: closures, construction, incidents, weather impacts, special events, and other provider-defined event types.
 - Duplicate source identifiers are qualified with a roadway/description signature to prevent unrelated records with reused IDs from being collapsed. Explicit inactive/cancelled/resolved statuses and passed planned end times are filtered; an old `LastUpdated` value alone no longer expires an otherwise active event.
-- GitHub Actions publishes only `traffic-events/traffic-events.txt`; the existing TomTom traffic files and aircraft feeds remain separate and unchanged.
+- GitHub Actions validates matching TXT/GeoJSON event counts, source attribution, event categories, icon assets, and point/line coordinates before publishing both `traffic-events/traffic-events.txt` and `traffic-events/traffic-events.geojson`. The existing TomTom speed feed and aircraft feeds remain separate and unchanged. Failed source requests or validation do not overwrite the last published files.
 
 ## Compare individual data sources
 
