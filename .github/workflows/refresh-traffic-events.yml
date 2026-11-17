@@ -1,25 +1,14 @@
-name: Refresh Louisiana traffic events placefile
+name: Refresh Louisiana traffic events source feed (manual)
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
   workflow_dispatch:
-  push:
-    paths:
-      - "scripts/generate-traffic-events.mjs"
-      - ".github/workflows/refresh-traffic-events.yml"
 
 permissions:
   contents: write
 
-concurrency:
-  group: github-traffic-events
-  cancel-in-progress: false
-
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,39 +16,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Generate separate 511LA and DOTD events placefile
+      - name: Generate 511LA and DOTD source files only
         env:
           LOUISIANA_511_API_KEY: ${{ secrets.LOUISIANA_511_API_KEY }}
         run: node scripts/generate-traffic-events.mjs
-      - name: Validate event placefile and icons
-        run: |
-          set -euo pipefail
-          test -s traffic-events/traffic-events.txt
-          test -s traffic-events/traffic-events.geojson
-          node -e 'const j=JSON.parse(require("fs").readFileSync("traffic-events/traffic-events.geojson","utf8")); if(j.type!=="FeatureCollection" || !Array.isArray(j.features) || !j.metadata.generatedAt) throw Error("Invalid current event GeoJSON"); console.log("Validated",j.features.length,"event features generated at",j.metadata.generatedAt);'
-          test -s traffic-events/assets/road-closure.png
-          test -s traffic-events/assets/road-construction.png
-          test -s traffic-events/assets/road-incident.png
-          grep -q '^IconFile: 1,' traffic-events/traffic-events.txt
-          grep -q '^IconFile: 2,' traffic-events/traffic-events.txt
-          grep -q '^IconFile: 3,' traffic-events/traffic-events.txt
-          grep -q '^Refresh: 5$' traffic-events/traffic-events.txt
-          echo "Validated separate event placefile and all three icon assets."
-      - name: Publish event layer only
+      - name: Publish event source files only
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add traffic-events/traffic-events.txt traffic-events/traffic-events.geojson
-          if git diff --cached --quiet; then
-            echo "Event placefile unchanged."
-            exit 0
-          fi
-          git commit -m "Refresh Louisiana traffic events placefile"
-          for attempt in 1 2 3; do
-            git pull --rebase origin main
-            if git push; then exit 0; fi
-            echo "Push attempt $attempt failed; retrying."
-            sleep 3
-          done
-          echo "Unable to publish event placefile."
-          exit 1
+          git commit -m "Refresh 511LA DOTD source traffic files" || exit 0
+          git push
