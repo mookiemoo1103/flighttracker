@@ -61,7 +61,7 @@ jobs:
             if(roads.features.some(f=>f.geometry?.type!=="LineString")) throw Error("Unexpected geometry in TomTom GeoJSON");
             if(events.features.some(f=>!["Point","MultiLineString"].includes(f.geometry?.type))) throw Error("Unexpected geometry in event GeoJSON");
             if(events.features.some(f=>f.geometry?.type==="MultiLineString" && (!Array.isArray(f.geometry.coordinates) || !f.geometry.coordinates.some(line=>Array.isArray(line) && line.length>=2)))) throw Error("Invalid roadway line geometry in event GeoJSON");
-            if(events.features.some(f=>!f.properties?.source || !f.properties?.source_event_type)) throw Error("Event source/type attribution missing");
+            if(events.features.some(f=>!f.properties?.source || !(f.properties?.source_event_type || f.properties?.event_subtype))) throw Error("Event source/type attribution missing");
             const eventTypes=new Set(["closure","construction","incident","weather","special","other"]);
             if(events.features.some(f=>!eventTypes.has(f.properties?.event_type))) throw Error("Unknown normalized event category");
             for(const f of events.features){if(f.geometry.type==="Point" && (!Number.isFinite(f.geometry.coordinates?.[0]) || !Number.isFinite(f.geometry.coordinates?.[1]))) throw Error("Invalid event point coordinates");if(f.geometry.type==="MultiLineString" && f.geometry.coordinates.some(line=>line.some(p=>!Number.isFinite(p[0])||!Number.isFinite(p[1])))) throw Error("Invalid event line coordinates");}
