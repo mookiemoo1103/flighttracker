@@ -3,7 +3,7 @@
 ; Source status and planned end dates determine currency. LastUpdated alone is not used as an expiration timer.
 ; Original event type/subtype, event geometry and source attribution are retained.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-17T05:06:45.516Z
+; Updated: 2026-11-17T05:07:38.265Z
 Title: LOUISIANA ROAD EVENTS - 511LA / DOTD
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
@@ -2821,13 +2821,13 @@ Object: 29.937372,-90.040489
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Vehicle on Fire\n\nRoad: I-910\n\nDirection: Westbound\n\nDescription: Vehicle on Fire on US 90-BR Westbound Near Frontage Rd. 2 Right Lanes Blocked.\n\nParish: Orleans\n\nSeverity: Moderate\n\nLanes closed: 3\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/8/2026, 1:24:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
 End:
-Object: 29.992939,-90.077950
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-610\n\nDirection: Westbound\n\nDescription: Crash on I-610 Westbound Near Saint Bernard Ave (MM 3). 2 Lanes Blocked.\n\nParish: Orleans\n\nSeverity: Moderate\n\nLanes closed: 3\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/8/2026, 2:57:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
 Object: 30.404431,-91.097696
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Crash on I-10 Eastbound Near Essen Lane (MM 161). 1 Lane Blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 2\n\nLanes open: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/8/2026, 2:54:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
+End:
+Object: 29.992939,-90.077950
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-610\n\nDirection: Westbound\n\nDescription: Crash on I-610 Westbound Near Saint Bernard Ave (MM 3). 2 Lanes Blocked.\n\nParish: Orleans\n\nSeverity: Moderate\n\nLanes closed: 3\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/8/2026, 2:57:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
 End:
 Object: 29.937372,-90.040489
 Threshold: 999
@@ -3499,32 +3499,32 @@ Line: 3, 0, "Valentine"
 End:
 Object: 29.592191,-90.467447
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Closure\n\nRoad: LA 308\n\nDirection: All Directions\n\nDescription: Bridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/5/2017, 9:34:00 AM\n\nReporting agency: DOTD\n\nSource: Houma TMC"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA 308"
-29.592745, -90.467316
-29.592465, -90.467386
-29.591795, -90.467536
-29.591635, -90.467576
-End:
-Object: 29.592191,-90.467447
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Closure\n\nRoad: LA 308\n\nDirection: All Directions\n\nDescription: Bridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/5/2017, 9:34:00 AM\n\nReporting agency: DOTD\n\nSource: Houma TMC"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA 308"
-29.592745, -90.467316
-29.592465, -90.467386
-29.591795, -90.467536
-29.591635, -90.467576
-End:
-Object: 29.592191,-90.467447
-Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Closure\n\nRoad: Valentine\n\nDirection: All Directions\n\nDescription: Bridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/5/2017, 9:34:00 AM\n\nReporting agency: DOTD\n\nSource: Houma TMC"
 End:
 Color: 245 145 35
 Line: 3, 0, "Valentine"
+29.592745, -90.467316
+29.592465, -90.467386
+29.591795, -90.467536
+29.591635, -90.467576
+End:
+Object: 29.592191,-90.467447
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Closure\n\nRoad: LA 308\n\nDirection: All Directions\n\nDescription: Bridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/5/2017, 9:34:00 AM\n\nReporting agency: DOTD\n\nSource: Houma TMC"
+End:
+Color: 245 145 35
+Line: 3, 0, "LA 308"
+29.592745, -90.467316
+29.592465, -90.467386
+29.591795, -90.467536
+29.591635, -90.467576
+End:
+Object: 29.592191,-90.467447
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Closure\n\nRoad: LA 308\n\nDirection: All Directions\n\nDescription: Bridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl . All lanes closed. Starting 1/5/2017 9:34 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/5/2017, 9:34:00 AM\n\nReporting agency: DOTD\n\nSource: Houma TMC"
+End:
+Color: 245 145 35
+Line: 3, 0, "LA 308"
 29.592745, -90.467316
 29.592465, -90.467386
 29.591795, -90.467536
@@ -8669,13 +8669,13 @@ Line: 3, 0, "I-610"
 29.995895, -90.045736
 29.996625, -90.045156
 End:
-Object: 30.003670,-90.031045
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Stalled Vehicle on I-10 Eastbound Near Almonaster Ave (MM 240). 1 Right lane blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/26/2026, 10:04:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
 Object: 30.096504,-90.438834
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-55\n\nDirection: Northbound\n\nDescription: Crash on I-55 Northbound Near US 51 Southbound (MM 1). 1 Left lane blocked.\n\nParish: St. John the Baptist\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/26/2026, 9:20:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
+End:
+Object: 30.003670,-90.031045
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Stalled Vehicle on I-10 Eastbound Near Almonaster Ave (MM 240). 1 Right lane blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/26/2026, 10:04:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
 End:
 Object: 30.439832,-91.203615
 Threshold: 999
@@ -9260,13 +9260,13 @@ Object: 30.447619,-91.245951
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Crash on I-10 Eastbound Near Lobdell Ext S (MM 151). All lanes blocked.\n\nParish: West Baton Rouge\n\nSeverity: Moderate\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/24/2026, 7:30:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
 End:
-Object: 30.439183,-91.181975
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-110\n\nDirection: Westbound\n\nDescription: Crash on I-10 Westbound Near I-110 Southbound (MM 155). All lanes blocked.\n\nParish: East Baton Rouge\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/24/2026, 2:04:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
 Object: 30.006702,-90.211174
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Crash on I-10 Eastbound Near Veterans Memorial Blvd (MM 225). 1 Right lane blocked.\n\nParish: Jefferson\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/24/2026, 3:15:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
+End:
+Object: 30.439183,-91.181975
+Threshold: 999
+Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-110\n\nDirection: Westbound\n\nDescription: Crash on I-10 Westbound Near I-110 Southbound (MM 155). All lanes blocked.\n\nParish: East Baton Rouge\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/24/2026, 2:04:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
 End:
 Object: 29.993278,-90.087836
 Threshold: 999
