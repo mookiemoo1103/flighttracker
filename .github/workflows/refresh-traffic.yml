@@ -42,8 +42,55 @@ jobs:
           lines=$(grep -c '^Line:' traffic.txt)
           test "$lines" -gt 100
           test "$colors" -eq "$lines"
-          valid_colors=$(grep -Ec '^Color: (0 220 0|255 220 0|255 128 0|255 0 255)$' traffic.txt)
+          valid_colors=$(grep -Ec '^Color: (0 220 0|255 220 0|255 128 0|255 0 0|255 0 255)$' traffic.txt)
           test "$valid_colors" -eq "$colors"
+          grep -q '^Color: 255 0 0
+          grep '^Color:' traffic.txt | sort | uniq -c | sort -nr
+      - name: Publish updated placefile to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic.txt traffic.geojson
+          if git diff --cached --quiet; then
+            echo "Traffic placefile unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh Southeast Louisiana traffic placefile"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish traffic placefile after three attempts."
+          exit 1
+ traffic.txt
+          grep -q '^Color: 255 0 255
+          grep '^Color:' traffic.txt | sort | uniq -c | sort -nr
+      - name: Publish updated placefile to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic.txt traffic.geojson
+          if git diff --cached --quiet; then
+            echo "Traffic placefile unchanged."
+            exit 0
+          fi
+          git commit -m "Refresh Southeast Louisiana traffic placefile"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying."
+            sleep 3
+          done
+          echo "Unable to publish traffic placefile after three attempts."
+          exit 1
+ traffic.txt
+          node -e 'const j=JSON.parse(require("fs").readFileSync("traffic.geojson","utf8")); for (const f of j.features) { const p=f.properties; if (p.traffic_status==="STOPPED / VERY SLOW" && p.stroke.toLowerCase()!=="#ff0000") throw Error("Stopped/very slow must be red"); if (p.traffic_status==="CLOSED" && p.stroke.toLowerCase()!=="#ff00ff") throw Error("Closed roads must be magenta"); if (p.traffic_status!=="CLOSED" && p.stroke.toLowerCase()==="#ff00ff") throw Error("Magenta is reserved for closed roads"); } console.log("Verified red stopped traffic and magenta closures in GeoJSON.");'
           echo "Validated $lines traffic line commands with matching RGB color directives."
           echo "Published color distribution:"
           grep '^Color:' traffic.txt | sort | uniq -c | sort -nr
