@@ -59,11 +59,11 @@ async function queryLayer(layer) {
   const all = [];
   // Exclude only records explicitly marked inactive/resolved/cancelled.
   // Old edit timestamps do not expire live events.
-  const where = "EventStatus = 'Active'";
+  const where = "1=1";
   for (let offset = 0; offset < 50000; offset += 1000) {
     const url = new URL(BASE + "/" + layer + "/query");
     url.searchParams.set("where", where);
-    url.searchParams.set("orderByFields", "OBJECTID ASC");
+    url.searchParams.set("orderByFields", "EventLastUpdatedUTC DESC");
     url.searchParams.set("outFields", eventFields);
     url.searchParams.set("returnGeometry", "true");
     url.searchParams.set("outSR", "4326");
