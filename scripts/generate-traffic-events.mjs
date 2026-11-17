@@ -91,15 +91,60 @@ function classify(a) {
   // Skipping unknown types is safer than showing a misleading symbol.
   return null;
 }
+function localClock(now) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone:"America/Chicago", weekday:"long", hour:"2-digit",
+    minute:"2-digit", second:"2-digit", hourCycle:"h23",
+    year:"numeric", month:"2-digit", day:"2-digit"
+  }).formatToParts(now);
+  return Object.fromEntries(parts.map(p=>[p.type,p.value]));
+}
+function scheduleDateKey(value) {
+  if (!value) return 0;
+  const m = String(value).match(/^(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})/);
+  if (!m) return 0;
+  return Number(m[3])*10000 + Number(m[1])*100 + Number(m[2]);
+}
+function scheduleSeconds(value) {
+  if (!value) return null;
+  const m = String(value).match(/^(\\d{1,2}):(\\d{2})(?::(\\d{2}))?/);
+  if (!m) return null;
+  return Number(m[1])*3600 + Number(m[2])*60 + Number(m[3]||0);
+}
+function isScheduleActive(schedules, now) {
+  if (!Array.isArray(schedules) || !schedules.length) return true;
+  const clock = localClock(now);
+  const today = Number(clock.year)*10000 + Number(clock.month)*100 + Number(clock.day);
+  const weekday = clock.weekday;
+  const seconds = Number(clock.hour)*3600 + Number(clock.minute)*60 + Number(clock.second);
+  return schedules.some(schedule => {
+    const startDay = scheduleDateKey(schedule.StartDate);
+    const endDay = scheduleDateKey(schedule.EndDate);
+    if (startDay && today < startDay) return false;
+    if (endDay && today > endDay) return false;
+    const days = Array.isArray(schedule.DaysOfWeek) ? schedule.DaysOfWeek : [];
+    if (days.length && !days.some(d=>String(d).toLowerCase()===weekday.toLowerCase())) return false;
+    const times = Array.isArray(schedule.Times) ? schedule.Times : [];
+    if (!times.length) return true;
+    return times.some(window => {
+      const start = scheduleSeconds(window.StartTime);
+      const end = scheduleSeconds(window.EndTime);
+      if (start == null || end == null) return false;
+      if (end >= start) return seconds >= start && seconds <= end;
+      // Overnight window, e.g. 7 PM to 6 AM.
+      return seconds >= start || seconds <= end;
+    });
+  });
+}
 function isCurrent(a) {
   const now = Date.now();
   const start = dateMs(a.StartDate || a.Reported);
   const end = dateMs(a.PlannedEndDate);
-  // The 511LA Events API is the sole source of truth. Its returned collection
-  // defines which events 511LA is currently publishing. Only reject events
-  // that are explicitly outside their effective time window.
+  // The 511LA Events API is the sole source of truth. The record must also
+  // be within its actual start/end and recurrence window right now.
   if (start && start > now + 60 * 1000) return false;
   if (end && end < now - 60 * 1000) return false;
+  if (!isScheduleActive(a.RecurrenceSchedules, now)) return false;
   return true;
 }
 function decodePolyline(encoded) {
