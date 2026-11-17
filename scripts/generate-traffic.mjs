@@ -67,7 +67,7 @@ async function fetchTile(x, y) {
   url.searchParams.set("roadTypes", "[0,1,2,3,4,5]");
   url.searchParams.set("tags", "[road_type,traffic_level,traffic_road_coverage,left_hand_traffic,road_closure]");
   const response = await fetch(url, {
-    headers: { Accept: "application/x-protobuf" },
+    headers: { Accept: "application/x-protobuf", "Cache-Control": "no-cache", Pragma: "no-cache" },
     signal: AbortSignal.timeout(20000)
   });
   if (!response.ok) throw new Error(`TomTom tile ${x}/${y} returned HTTP ${response.status}`);
