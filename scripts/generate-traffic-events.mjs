@@ -161,7 +161,7 @@ function eventKey(a, kind, position, source) {
   const identity = normalizeKey(id);
   // Include roadway and descriptive signature because some DOTD feature layers
   // reuse EventUID/EventID values for unrelated records.
-  const signature = [a.RoadName || a.RoadwayName, a.EventSubType || a.EventType, a.Description].map(normalizeKey).join("|");
+  const signature = [a.RoadName || a.RoadwayName, a.EventSubType || a.EventType, a.Description, position[0].toFixed(4), position[1].toFixed(4)].map(normalizeKey).join("|");
   if (identity) return source + "|" + identity + "|" + signature;
   return [source, kind, signature, position[0].toFixed(4), position[1].toFixed(4)].join("|");
 }
@@ -200,7 +200,7 @@ function makeRecord(a, source, geometryPaths = []) {
   const encoded = decodePolyline(a.EncodedPolyline || a.MapEncodedPolyline || "");
   const secondary = [Number(a.LatitudeSecondary), Number(a.LongitudeSecondary)];
   const primary = [Number(a.Latitude ?? a.latitude), Number(a.Longitude ?? a.longitude)];
-  const paths = geometryPaths.length ? geometryPaths : encoded.length >= 2 ? [encoded] : validPoint(primary) ? [[primary]] : validPoint(secondary) ? [[secondary]] : [];
+  const paths = geometryPaths.length ? geometryPaths : encoded.length >= 2 ? [encoded] : validPoint(primary) && validPoint(secondary) && (primary[0] !== secondary[0] || primary[1] !== secondary[1]) ? [[primary, secondary]] : validPoint(primary) ? [[primary]] : validPoint(secondary) ? [[secondary]] : [];
   const position = centerOf(paths, primary);
   if (!position || !withinCoverage(position)) return null;
   const id = a.EventUID || a.SourceId || a.EventID || a.ID || a.OBJECTID || a.ObjectId || null;
@@ -272,7 +272,7 @@ for (const event of events) {
   const props = {
     event_type: event.kind,
     source: event.source,
-    source_event_type: event.a.EventType || null,
+    source_event_type: event.a.EventType || event.a.EventSubType || null,
     event_subtype: event.a.EventSubType || null,
     event_id: event.id == null ? null : String(event.id),
     road: event.a.RoadName || event.a.RoadwayName || null,
