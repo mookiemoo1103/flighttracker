@@ -87,7 +87,8 @@ function classify(a) {
   if(type==="roadwork" || /roadwork|construction|workzone|maintenance|utilitywork|roadmarking|paving/.test(type+sub) ||
      /construction|road work|work zone|maintenance|utility work|road marking|paving/.test(desc)) return "construction";
 
-  if(type || sub) return "other";
+  // Do not guess an icon for an event subtype we do not recognize.
+  // Skipping unknown types is safer than showing a misleading symbol.
   return null;
 }
 function isCurrent(a) {
@@ -156,7 +157,7 @@ function eventKey(a, kind, position) {
 function popup(a, kind) {
   const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || a.DirectionOfTravel || "").toUpperCase()] || a.TravelDirection || a.DirectionOfTravel || "";
   const rawType = a.EventSubType || a.EventType || "Traffic event";
-  const heading=({closure:"ROAD CLOSURE",construction:"CONSTRUCTION / ROADWORK",workers:"CONSTRUCTION / WORKERS PRESENT",incident:"TRAFFIC INCIDENT",weather_incident:"WEATHER INCIDENT",weather_closure:"WEATHER CLOSURE",special:"SPECIAL EVENT",other:"OTHER 511LA / DOTD EVENT"})[kind]||"TRAFFIC EVENT";
+  const heading=({closure:"ROAD CLOSURE",construction:"CONSTRUCTION / ROADWORK",workers:"CONSTRUCTION / WORKERS PRESENT",incident:"TRAFFIC INCIDENT",weather_incident:"WEATHER INCIDENT",weather_closure:"WEATHER CLOSURE",special:"SPECIAL EVENT",other:"OTHER 511LA EVENT"})[kind]||"TRAFFIC EVENT";
   const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported);
   const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC || a.PlannedEndDate || a.EndDate);
   const lines = [
@@ -205,7 +206,6 @@ const events = [...byId.values()];
 const generatedAt = new Date().toISOString();
 const counts=Object.fromEntries(["closure","construction","workers","incident","weather_incident","weather_closure","special","other"].map(kind=>[kind,events.filter(e=>e.kind===kind).length]));
 console.log("511LA events received:",events511.length,"currently effective and mapped:",events.length);
-if (!events.length) throw new Error("No current 511LA/DOTD events were generated; refusing to publish an empty event feed.");
 await mkdir(OUT,{recursive:true});
 const out = [
   "; Louisiana 511LA current traffic events - separate additive layer",
@@ -214,7 +214,7 @@ const out = [
   "; Icons are assigned from the official EventType and EventSubType fields.",
   "; Generated independently of the TomTom speed traffic placefile.",
   "; Updated: " + generatedAt,
-  "Title: LOUISIANA ROAD EVENTS - 511LA / DOTD",
+  "Title: LOUISIANA ROAD EVENTS - 511LA",
   "Refresh: 5",
   'IconFile: 1, 32, 32, 16, 16, "' + ICONS.closure + '"',
   'IconFile: 2, 32, 32, 16, 16, "' + ICONS.construction + '"',
