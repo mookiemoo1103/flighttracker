@@ -19,10 +19,11 @@ AquaCeroWx / GRLevelX live aircraft placefiles served by the Cloudflare Worker a
 
 - **Event placefile:** `https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/traffic-events.txt`
 - This is an additive overlay. It does not replace or modify the existing TomTom traffic-speed placefile.
-- Source: Louisiana DOTD 511 Road Closures FeatureServer, using its event point and roadway-line layers.
-- Separate icons: red road-closure sign, orange construction worker, and purple traffic-incident symbol. PNG assets are stored in `traffic-events/assets/`.
-- The event placefile refreshes every five minutes and includes roadway, direction, event subtype, description, parish, severity, lane impacts, status, and expected end time when DOTD supplies them.
-- Duplicate point/line representations are consolidated by DOTD event ID. Records with an expired end time or stale no-end-date updates are filtered out.
+- Sources: official 511LA Events API plus the DOTD 511 Road Closures FeatureServer point and roadway-line layers. Each record retains its source and original event type/subtype.
+- Same-theme icons: red road-closure sign, orange construction worker, and purple traffic-incident symbol. PNG assets are stored in `traffic-events/assets/` and referenced directly by the placefile.
+- The event placefile refreshes every five minutes and includes roadway, direction, subtype, description/details, parish, severity, lane impacts, status, schedule, detour instructions, and expected end time when supplied.
+- Roadway polylines from 511LA and DOTD are retained as line geometry instead of being reduced to a single averaged point. Event pins remain visible with the matching themed icon.
+- Duplicate source identifiers are qualified with a roadway/description signature to prevent unrelated records with reused IDs from being collapsed. Explicit inactive/cancelled/resolved statuses and passed planned end times are filtered; an old `LastUpdated` value alone no longer expires an otherwise active event.
 - GitHub Actions publishes only `traffic-events/traffic-events.txt`; the existing TomTom traffic files and aircraft feeds remain separate and unchanged.
 
 ## Compare individual data sources
