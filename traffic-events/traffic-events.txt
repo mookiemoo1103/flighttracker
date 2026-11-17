@@ -3,7 +3,7 @@
 ; Active source records remain displayed until source status ends or their event end time expires.
 ; 511LA API records are included alongside DOTD ArcGIS records.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-17T00:12:48.545Z
+; Updated: 2026-11-17T00:15:39.852Z
 Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
@@ -623,11 +623,11 @@ Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRo
 End:
 Object: 31.357717,-92.165018
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadwork\n\nRoad: LA 115 — LA 115: LA 1207 - LA 28\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nStatus: Active\n\nReported/start: 11/16/2026, 6:01:59 PM\n\nExpected end: 11/16/2026, 8:01:59 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadwork\n\nRoad: LA 115 — LA 115: LA 1207 - LA 28\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nStatus: Active\n\nReported/start: 11/16/2026, 6:10:12 PM\n\nExpected end: 11/16/2026, 8:10:12 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Object: 30.974983,-91.797926
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadwork\n\nRoad: LA 1 — LA 1:ATCHAFALAYA RIVER-ROSEWOOD CROSSING\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nStatus: Active\n\nReported/start: 11/16/2026, 6:01:59 PM\n\nExpected end: 11/16/2026, 8:01:59 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadwork\n\nRoad: LA 1 — LA 1:ATCHAFALAYA RIVER-ROSEWOOD CROSSING\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nStatus: Active\n\nReported/start: 11/16/2026, 6:10:43 PM\n\nExpected end: 11/16/2026, 8:10:43 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 ; Current events displayed: 155
 ; Closures: 48
