@@ -8,19 +8,17 @@ const ICONS = {
   incident: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-incident.png"
 };
 const clean = v => String(v ?? "").replaceAll('"', "'").replaceAll("\\", "/").replace(/[\r\n\t]/g, " ").replace(/\s+/g, " ").trim();
-const pointFields = [
-  "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
-  "Severity","EventStatus","Description","ClosureExists","LanesOpen","LanesClosed",
-  "LaneStatus","ParishName","EventStartDateUTC","EventEndDateUTC",
-  "EventClosureStartDateUTC","EventClosureEndDateUTC","EventCreatedOnUTC","EventLastUpdatedUTC","service_last_updated","EventName","FromCrossStreet","ReportAgency","EventSource","OwnerName","RoadClassCodeDesc"
-].join(",");
-const lineFields = [
-  "EventID","EventUID","RoadName","TravelDirection","EventType","EventSubType",
-  "Severity","EventStatus","Description","ClosureExists","LanesOpen","LanesClosed",
-  "LaneStatus","ParishName1","ParishName2","ParishName3","EventStartDateUTC",
-  "EventEndDateUTC","EventClosureStartDateUTC","EventClosureEndDateUTC","EventCreatedOnUTC","EventLastUpdatedUTC","service_last_updated",
-  "EventName","FromCrossStreet","ToCrossStreet","ReportAgency","EventSource","OwnerName","RoadClassCodeDesc"
-].join(",");
+const validPoint = p => Array.isArray(p) && Number.isFinite(p[0]) && Number.isFinite(p[1]) && Math.abs(p[0]) <= 90 && Math.abs(p[1]) <= 180;
+const timestamp = v => {
+  if (v == null || v === "") return 0;
+  const n = Number(v);
+  if (Number.isFinite(n) && n > 0) return n < 1e12 ? n * 1000 : n;
+  const parsed = Date.parse(String(v));
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+const dateMs = timestamp;
+const pointFields = "*";
+const lineFields = "*";
 
 async function query511LAEvents() {
   const key = process.env.LOUISIANA_511_API_KEY;
@@ -33,41 +31,29 @@ async function query511LAEvents() {
   const data = await res.json();
   const records = Array.isArray(data) ? data : (data.Events || data.events || data.EventList?.Events || data.EventList?.Event || []);
   if (!Array.isArray(records)) throw new Error("511LA Events API returned an unrecognized response shape.");
-  return records.map(a => {
-    const timestamp = v => {
-      if (v == null || v === "") return 0;
-      const n = Number(v);
-      if (Number.isFinite(n) && n > 0) return n < 1e12 ? n * 1000 : n;
-      const parsed = Date.parse(String(v));
-      return Number.isFinite(parsed) ? parsed : 0;
-    };
-    return {
-      EventID: "511LA-" + (a.ID ?? a.Id ?? a.SourceId ?? ""),
-      EventUID: "511LA-" + (a.ID ?? a.Id ?? a.SourceId ?? ""),
-      RoadName: a.RoadwayName || "",
-      TravelDirection: a.DirectionOfTravel || "",
-      EventType: a.EventType || "",
-      EventSubType: a.EventSubType || "",
-      Severity: a.Severity || "",
-      EventStatus: a.EventStatus || a.Status || (a.IsActive === false ? "Inactive" : "Active"),
-      Description: a.Description || a.Details || "",
-      ClosureExists: a.IsFullClosure === true,
-      LanesOpen: "",
-      LanesClosed: a.IsFullClosure ? "All" : "",
-      LaneStatus: a.LanesAffected || "",
-      EventStartDateUTC: timestamp(a.StartDate || a.Reported || a.StartTime),
-      EventEndDateUTC: timestamp(a.PlannedEndDate || a.EndDate || a.ExpectedEndTime),
-      EventLastUpdatedUTC: timestamp(a.LastUpdated || a.Updated || a.Reported),
-      ParishName: "",
-      ReportAgency: a.Organization || "",
-      EventSource: "511LA",
-      Latitude: Number(a.Latitude),
-      Longitude: Number(a.Longitude),
-      LatitudeSecondary: Number(a.LatitudeSecondary),
-      LongitudeSecondary: Number(a.LongitudeSecondary),
-      _source: "511LA"
-    };
-  });
+  return records.map(a => ({
+    ...a,
+    EventID: a.ID ?? a.Id ?? "",
+    EventUID: a.SourceId ?? "",
+    RoadName: a.RoadwayName || "",
+    TravelDirection: a.DirectionOfTravel || "",
+    EventType: a.EventType || "",
+    EventSubType: a.EventSubType || "",
+    Severity: a.Severity || "",
+    EventStatus: a.EventStatus || a.Status || (a.IsActive === false ? "Inactive" : "Active"),
+    Description: a.Description || a.Details || "",
+    ClosureExists: a.IsFullClosure === true,
+    LanesClosed: a.IsFullClosure ? "All" : "",
+    LaneStatus: a.LanesAffected || "",
+    EventStartDateUTC: timestamp(a.StartDate || a.Reported),
+    EventEndDateUTC: timestamp(a.PlannedEndDate || a.EndDate),
+    EventLastUpdatedUTC: timestamp(a.LastUpdated || a.Reported),
+    Latitude: Number(a.Latitude),
+    Longitude: Number(a.Longitude),
+    LatitudeSecondary: Number(a.LatitudeSecondary),
+    LongitudeSecondary: Number(a.LongitudeSecondary),
+    _source: "511LA"
+  }));
 }
 
 async function queryLayer(layer) {
@@ -75,7 +61,7 @@ async function queryLayer(layer) {
   for (let offset = 0; offset < 50000; offset += 1000) {
     const url = new URL(BASE + "/" + layer + "/query");
     url.searchParams.set("where", "1=1");
-    url.searchParams.set("orderByFields", "EventLastUpdatedUTC DESC");
+    url.searchParams.set("orderByFields", "OBJECTID ASC");
     url.searchParams.set("outFields", layer === 1 ? pointFields : lineFields);
     url.searchParams.set("returnGeometry", "true");
     url.searchParams.set("outSR", "4326");
@@ -94,198 +80,236 @@ async function queryLayer(layer) {
   return all;
 }
 
-const now = Date.now();
-const normalizeType = a => String(a.EventType ?? "").toLowerCase().replace(/[^a-z]/g, "");
+function normalizeType(a) {
+  return String(a.EventType ?? "").toLowerCase().replace(/[^a-z]/g, "");
+}
 function classify(a) {
   const type = normalizeType(a);
-  const sub = String(a.EventSubType ?? "").toLowerCase();
+  const sub = String(a.EventSubType ?? "").toLowerCase().replace(/[^a-z]/g, "");
   const desc = String(a.Description ?? "").toLowerCase();
-  const closureFlag = [a.ClosureExists, a.IsFullClosure, a.RoadClosed, a.IsClosed].some(v =>
-    v === true || v === 1 || ["true","1","yes","closed"].includes(String(v ?? "").trim().toLowerCase())
-  );
-  if (closureFlag || /closure|closed/.test(type) || /closure|closed/.test(sub)) return "closure";
-  if (/roadwork|construction|workzone|maintenance/.test(type) || /construction|road work|work zone|maintenance|utility work/.test(sub + " " + desc)) return "construction";
-  if (/accident|incident|crash|disabledvehicle|hazard/.test(type) || /crash|collision|disabled vehicle|vehicle fire|debris|hazard|stalled vehicle|overturned/.test(sub + " " + desc)) return "incident";
+  // Respect the provider's primary event type. A blocked ramp or lane does
+  // not turn an accident into a planned road closure.
+  if (["accidentsandincidents", "incident", "trafficincident"].includes(type)) return "incident";
+  if (["closures", "closure", "roadclosure"].includes(type)) return "closure";
+  if (["roadwork", "construction", "workzone"].includes(type)) {
+    if (/utilitywork|roadmaintenance|maintenance/.test(sub)) return "construction";
+    return "construction";
+  }
+  // DOTD ArcGIS subtype values are not identical to the 511LA API enums.
+  if (/accident|incident|crash|disabledvehicle|hazard|weathercondition|specialevent/.test(type + sub)) return "incident";
+  if (/closure|closed/.test(type + sub)) return "closure";
+  if (/roadwork|construction|workzone|maintenance|utilitywork/.test(type + sub)) return "construction";
+  if (/closure|closed/.test(desc) && !/crash|collision|accident|stalled vehicle/.test(desc)) return "closure";
+  if (/crash|collision|accident|disabled vehicle|vehicle fire|debris|hazard|stalled vehicle|overturned/.test(desc)) return "incident";
+  if (/construction|road work|work zone|maintenance|utility work/.test(desc)) return "construction";
   return null;
 }
-function dateMs(value) {
-  if (value == null || value === "") return 0;
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  const numeric = Number(value);
-  if (Number.isFinite(numeric) && numeric > 0) return numeric;
-  const parsed = Date.parse(String(value));
-  return Number.isFinite(parsed) ? parsed : 0;
-}
-// Drop source records that remain marked active but have stopped receiving
-// updates. This prevents stale incidents/closures from lingering indefinitely
-// when a provider fails to clear its status. Longer allowance for construction.
-const STALE_AFTER_MS = {
-  incident: 12 * 60 * 60 * 1000,
-  closure: 48 * 60 * 60 * 1000,
-  construction: 7 * 24 * 60 * 60 * 1000
-};
-const staleCounts = { incident: 0, closure: 0, construction: 0, missingTimestamp: 0 };
-function isCurrent(a, kind) {
-  const status = String(a.EventStatus ?? "").trim().toLowerCase();
-  if (/cancel|complete|closed|expired|inactive|deleted|resolved/.test(status)) return false;
-  const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC);
-  const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC);
-  const updated = dateMs(a.EventLastUpdatedUTC || a.service_last_updated || a.EventCreatedOnUTC || a.EventStartDateUTC || a.EventClosureStartDateUTC);
-  if (start && start > now + 6 * 60 * 60 * 1000) return false;
-  if (end && end < now - 60 * 60 * 1000) return false;
-  if (updated) {
-    if (now - updated > STALE_AFTER_MS[kind]) {
-      staleCounts[kind]++;
-      return false;
-    }
-  } else {
-    // Without any usable source timestamp, do not display an unverifiable
-    // record indefinitely. Allow a short grace period from the current run.
-    staleCounts.missingTimestamp++;
-    return false;
-  }
+function isCurrent(a) {
+  const status = String(a.EventStatus ?? a.EventStatusText ?? "").trim().toLowerCase();
+  if (/cancel|complete|closed|expired|inactive|deleted|resolved|archived/.test(status)) return false;
+  const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported);
+  const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC || a.PlannedEndDate || a.EndDate);
+  // LastUpdated is a content-edit timestamp, not an active/inactive flag.
+  // Do not expire an otherwise active event just because it has not changed.
+  if (start && start > Date.now() + 6 * 60 * 60 * 1000) return false;
+  if (end && end < Date.now() - 60 * 1000) return false;
   return true;
 }
-function centerOf(geometry) {
-  if (geometry?.x != null && geometry?.y != null) return [geometry.y, geometry.x];
-  const paths = geometry?.paths || [];
-  const pts = paths.flat();
-  if (!pts.length) return null;
-  return [pts.reduce((s,p)=>s+p[1],0)/pts.length, pts.reduce((s,p)=>s+p[0],0)/pts.length];
+function decodePolyline(encoded) {
+  if (!encoded || typeof encoded !== "string") return [];
+  let index = 0, lat = 0, lon = 0;
+  const points = [];
+  const read = () => {
+    let result = 0, shift = 0, byte;
+    do {
+      if (index >= encoded.length) return null;
+      byte = encoded.charCodeAt(index++) - 63;
+      result |= (byte & 0x1f) << shift;
+      shift += 5;
+    } while (byte >= 0x20);
+    return (result & 1) ? ~(result >> 1) : (result >> 1);
+  };
+  while (index < encoded.length) {
+    const dLat = read();
+    const dLon = read();
+    if (dLat == null || dLon == null) break;
+    lat += dLat;
+    lon += dLon;
+    const p = [lat / 1e5, lon / 1e5];
+    if (validPoint(p)) points.push(p);
+  }
+  return points;
 }
-function eventKey(a, kind, position) {
-  // DOTD publishes the same event as a point and a roadway line.
-  // Prefer a stable event identifier so those representations are not doubled.
-  const id = a.EventUID || a.EventID;
-  if (id != null && String(id).trim()) return kind + "|" + String(id).trim();
-  return [
-    kind,
-    String(a.RoadName || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
-    String(a.EventSubType || a.EventType || "").toLowerCase().replace(/[^a-z0-9]/g, ""),
-    position[0].toFixed(3),
-    position[1].toFixed(3)
-  ].join("|");
+function featurePaths(geometry) {
+  if (!geometry) return [];
+  if (Array.isArray(geometry.paths)) return geometry.paths.map(path => path.map(([lon,lat]) => [lat,lon]).filter(validPoint)).filter(p => p.length >= 2);
+  if (Array.isArray(geometry.rings)) return geometry.rings.map(path => path.map(([lon,lat]) => [lat,lon]).filter(validPoint)).filter(p => p.length >= 2);
+  if (geometry.x != null && geometry.y != null) return [[[Number(geometry.y), Number(geometry.x)]]].filter(path => validPoint(path[0]));
+  return [];
+}
+function centerOf(paths, fallback) {
+  const all = paths.flat();
+  if (all.length) return [all.reduce((s,p)=>s+p[0],0)/all.length, all.reduce((s,p)=>s+p[1],0)/all.length];
+  return validPoint(fallback) ? fallback : null;
+}
+function withinCoverage(p) {
+  return validPoint(p) && p[0] >= 28.85 && p[0] <= 31.45 && p[1] >= -92.2 && p[1] <= -88.5;
+}
+function normalizeKey(v) { return String(v ?? "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+function eventKey(a, kind, position, source) {
+  const id = a.EventUID || a.SourceId || a.EventID || a.ID || a.OBJECTID || a.ObjectId;
+  const identity = normalizeKey(id);
+  // Include roadway and descriptive signature because some DOTD feature layers
+  // reuse EventUID/EventID values for unrelated records.
+  const signature = [a.RoadName || a.RoadwayName, a.EventSubType || a.EventType, a.Description].map(normalizeKey).join("|");
+  if (identity) return source + "|" + identity + "|" + signature;
+  return [source, kind, signature, position[0].toFixed(4), position[1].toFixed(4)].join("|");
 }
 function popup(a, kind) {
-  const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || "").toUpperCase()] || a.TravelDirection || "";
-  const heading = kind === "closure" ? "ROAD CLOSURE" : kind === "construction" ? "CONSTRUCTION / ROADWORK" : "TRAFFIC INCIDENT";
+  const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || a.DirectionOfTravel || "").toUpperCase()] || a.TravelDirection || a.DirectionOfTravel || "";
+  const rawType = a.EventSubType || a.EventType || "Traffic event";
+  const heading = kind === "closure" ? "ROAD CLOSURE" : kind === "construction" ? "CONSTRUCTION / ROADWORK" : /weather/i.test(String(a.EventType)) ? "WEATHER IMPACT" : /special/i.test(String(a.EventType)) ? "SPECIAL EVENT" : "TRAFFIC INCIDENT";
+  const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported);
+  const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC || a.PlannedEndDate || a.EndDate);
   const lines = [
     heading,
-    a.EventType || a.EventSubType ? "Event type: " + (a.EventSubType || a.EventType) : "",
-    a.RoadName ? "Road: " + a.RoadName : "",
+    "Event type: " + rawType,
+    a.RoadName || a.RoadwayName ? "Road: " + (a.RoadName || a.RoadwayName) : "",
     direction ? "Direction: " + direction : "",
     a.Description ? "Description: " + a.Description : "",
-    a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3
-      ? "Parish: " + (a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3) : "",
+    a.Details ? "Details: " + a.Details : "",
+    a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3 ? "Parish: " + (a.ParishName || a.ParishName1 || a.ParishName2 || a.ParishName3) : "",
     a.Severity ? "Severity: " + a.Severity : "",
     a.LanesClosed != null && a.LanesClosed !== "" ? "Lanes closed: " + a.LanesClosed : "",
     a.LanesOpen != null && a.LanesOpen !== "" ? "Lanes open: " + a.LanesOpen : "",
-    a.LaneStatus ? "Lane impact: " + a.LaneStatus : "",
-    a.EventStatus ? "Status: " + a.EventStatus : "",
-    dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC)
-      ? "Reported/start: " + new Date(dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC)).toLocaleString("en-US",{timeZone:"America/Chicago"}) : "",
-    dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC)
-      ? "Expected end: " + new Date(dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC)).toLocaleString("en-US",{timeZone:"America/Chicago"}) : "",
-    a.ReportAgency ? "Reporting agency: " + a.ReportAgency : "",
-    a.EventSource ? "Source: " + a.EventSource : ""
+    a.LaneStatus || a.LanesAffected ? "Lane impact: " + (a.LaneStatus || a.LanesAffected) : "",
+    a.EventStatus || a.EventStatusText ? "Status: " + (a.EventStatus || a.EventStatusText) : "",
+    start ? "Reported/start: " + new Date(start).toLocaleString("en-US",{timeZone:"America/Chicago"}) : "",
+    end ? "Expected end: " + new Date(end).toLocaleString("en-US",{timeZone:"America/Chicago"}) : "",
+    a.Recurrence ? "Schedule: " + a.Recurrence : "",
+    a.RecurrenceSchedules ? "Schedule details: " + a.RecurrenceSchedules : "",
+    a.DetourInstructions ? "Detour: " + (Array.isArray(a.DetourInstructions) ? a.DetourInstructions.join("; ") : a.DetourInstructions) : "",
+    a.ReportAgency || a.Organization ? "Reporting agency: " + (a.ReportAgency || a.Organization) : "",
+    a.EventSource ? "Source: " + a.EventSource : a._source ? "Source: " + a._source : ""
   ].filter(Boolean).map(clean);
-  // GRLevelX-style placefiles encode popup line breaks as literal backslash-n.
-  // Use a blank line after the heading and between each field for clear stacking.
   return lines.length ? lines[0] + "\\n\\n" + lines.slice(1).join("\\n\\n") : heading;
 }
-
-const [points, lines, events511] = await Promise.all([queryLayer(1), queryLayer(2), query511LAEvents()]);
+function makeRecord(a, source, geometryPaths = []) {
+  const kind = classify(a);
+  if (!kind || !isCurrent(a)) return null;
+  const encoded = decodePolyline(a.EncodedPolyline || a.MapEncodedPolyline || "");
+  const secondary = [Number(a.LatitudeSecondary), Number(a.LongitudeSecondary)];
+  const primary = [Number(a.Latitude ?? a.latitude), Number(a.Longitude ?? a.longitude)];
+  const paths = geometryPaths.length ? geometryPaths : encoded.length >= 2 ? [encoded] : validPoint(primary) ? [[primary]] : validPoint(secondary) ? [[secondary]] : [];
+  const position = centerOf(paths, primary);
+  if (!position || !withinCoverage(position)) return null;
+  const id = a.EventUID || a.SourceId || a.EventID || a.ID || a.OBJECTID || a.ObjectId || null;
+  return { a, source, kind, id, position, paths, key: eventKey(a,kind,position,source) };
+}
+const [pointFeatures, lineFeatures, events511] = await Promise.all([queryLayer(1), queryLayer(2), query511LAEvents()]);
 const byId = new Map();
-for (const [items, source] of [[points,"DOTD point"],[lines,"DOTD line"]]) {
+const add = record => {
+  if (!record) return;
+  const old = byId.get(record.key);
+  // Prefer the point feature for its precise map pin, but keep roadway line
+  // geometry when that is the only representation available.
+  if (!old || (record.source === "DOTD point" && old.source === "DOTD line")) byId.set(record.key, record);
+};
+for (const [items, source] of [[pointFeatures,"DOTD point"],[lineFeatures,"DOTD line"]]) {
   for (const feature of items) {
     const a = feature.attributes || {};
-    const kind = classify(a);
-    if (!kind || !isCurrent(a, kind)) continue;
-    const position = centerOf(feature.geometry);
-    if (!position || !Number.isFinite(position[0]) || !Number.isFinite(position[1])) continue;
-    if (position[0] < 28.85 || position[0] > 31.45 || position[1] < -92.2 || position[1] > -88.5) continue;
-    const key = eventKey(a, kind, position);
-    const existing = byId.get(key);
-    if (!existing || source === "DOTD point") byId.set(key, { a, kind, position, source });
+    const paths = featurePaths(feature.geometry);
+    add(makeRecord(a,source,paths));
   }
 }
 let accepted511 = 0;
 for (const a of events511) {
-  const kind = classify(a);
-  if (!kind || !isCurrent(a, kind)) continue;
-  const position = [a.Latitude, a.Longitude];
-  if (!Number.isFinite(position[0]) || !Number.isFinite(position[1])) continue;
-  if (position[0] < 28.85 || position[0] > 31.45 || position[1] < -92.2 || position[1] > -88.5) continue;
-  const key = eventKey(a, kind, position);
-  const existing = byId.get(key);
-  // Prefer the 511LA event record where both systems report the same event.
-  if (!existing || existing.source !== "511LA") byId.set(key, { a, kind, position, source: "511LA" });
-  accepted511++;
+  const record = makeRecord(a,"511LA");
+  if (record) { add(record); accepted511++; }
 }
 const events = [...byId.values()];
 const generatedAt = new Date().toISOString();
-console.log("511LA events received:", events511.length, "accepted after status/age/coverage checks:", accepted511);
-console.log("Removed stale active source records:", JSON.stringify(staleCounts));
-if (!events.length) console.log("DOTD returned no current closure, construction, or incident events.");
-await mkdir(OUT, { recursive: true });
+const counts = {
+  closure: events.filter(e=>e.kind==="closure").length,
+  construction: events.filter(e=>e.kind==="construction").length,
+  incident: events.filter(e=>e.kind==="incident").length
+};
+console.log("511LA events received:",events511.length,"accepted:",accepted511);
+console.log("DOTD source records:",pointFeatures.length,"point /",lineFeatures.length,"line; current retained:",events.length);
+if (!events.length) throw new Error("No current 511LA/DOTD events were generated; refusing to publish an empty event feed.");
+await mkdir(OUT,{recursive:true});
 const out = [
   "; Louisiana DOTD / 511 traffic events - separate additive layer",
-  "; Sources: Louisiana 511LA Events API + DOTD 511 Road Closures FeatureServer.",
-  "; Stale active records are removed after 12h incidents / 48h closures / 7d construction without source updates.",
-  "; 511LA API records are included alongside DOTD ArcGIS records.",
+  "; Sources: official 511LA Events API + DOTD 511 Road Closures FeatureServer point and line layers.",
+  "; Source status and planned end dates determine currency. LastUpdated alone is not used as an expiration timer.",
+  "; Original event type/subtype, event geometry and source attribution are retained.",
   "; Generated independently of the TomTom speed traffic placefile.",
   "; Updated: " + generatedAt,
-  "Title: LOUISIANA ROAD CLOSURES / CONSTRUCTION / INCIDENTS",
+  "Title: LOUISIANA ROAD EVENTS - 511LA / DOTD",
   "Refresh: 5",
   'IconFile: 1, 32, 32, 16, 16, "' + ICONS.closure + '"',
   'IconFile: 2, 32, 32, 16, 16, "' + ICONS.construction + '"',
   'IconFile: 3, 32, 32, 16, 16, "' + ICONS.incident + '"'
 ];
-const iconNumber = { closure: 1, construction: 2, incident: 3 };
+const iconNumber = {closure:1,construction:2,incident:3};
+const geoFeatures = [];
 for (const event of events) {
-  const [lat, lon] = event.position;
+  const [lat,lon] = event.position;
+  const detail = popup(event.a,event.kind);
+  // Keep a themed symbol for quick identification and draw the real roadway
+  // geometry where the provider supplies it.
   out.push("Object: " + lat.toFixed(6) + "," + lon.toFixed(6));
   out.push("Threshold: 999");
-  out.push('Icon: 0,0,0,' + iconNumber[event.kind] + ',1,1,"' + popup(event.a,event.kind) + '"');
+  out.push('Icon: 0,0,0,' + iconNumber[event.kind] + ',1,1,"' + detail + '"');
   out.push("End:");
+  const linePaths = event.paths.filter(path=>path.length>=2);
+  for (const path of linePaths) {
+    out.push("Color: " + (event.kind==="closure" ? "220 35 45" : event.kind==="construction" ? "245 145 35" : "150 75 190"));
+    out.push("Line: " + (event.kind==="closure" ? "4" : "3") + ', 0, "' + clean(event.a.RoadName || event.a.RoadwayName || "Affected roadway") + '"');
+    for (const [pLat,pLon] of path) out.push(pLat.toFixed(6) + ", " + pLon.toFixed(6));
+    out.push("End:");
+  }
+  const props = {
+    event_type: event.kind,
+    source: event.source,
+    source_event_type: event.a.EventType || null,
+    event_subtype: event.a.EventSubType || null,
+    event_id: event.id == null ? null : String(event.id),
+    road: event.a.RoadName || event.a.RoadwayName || null,
+    direction: event.a.TravelDirection || event.a.DirectionOfTravel || null,
+    description: event.a.Description || null,
+    details: event.a.Details || null,
+    parish: event.a.ParishName || event.a.ParishName1 || event.a.ParishName2 || event.a.ParishName3 || null,
+    severity: event.a.Severity || null,
+    status: event.a.EventStatus || event.a.EventStatusText || null,
+    lanes_closed: event.a.LanesClosed ?? null,
+    lanes_open: event.a.LanesOpen ?? null,
+    lane_impact: event.a.LaneStatus || event.a.LanesAffected || null,
+    reported_at: dateMs(event.a.EventStartDateUTC || event.a.EventClosureStartDateUTC || event.a.StartDate || event.a.Reported) || null,
+    updated_at: dateMs(event.a.EventLastUpdatedUTC || event.a.LastUpdated || event.a.service_last_updated) || null,
+    expected_end: dateMs(event.a.EventEndDateUTC || event.a.EventClosureEndDateUTC || event.a.PlannedEndDate || event.a.EndDate) || null,
+    recurrence: event.a.Recurrence || null,
+    recurrence_schedules: event.a.RecurrenceSchedules || null,
+    detour_instructions: event.a.DetourInstructions || null,
+    reporting_agency: event.a.ReportAgency || event.a.Organization || null
+  };
+  const geometry = event.paths.some(p=>p.length>=2)
+    ? {type:"MultiLineString",coordinates:event.paths.filter(p=>p.length>=2).map(p=>p.map(([pLat,pLon])=>[pLon,pLat]))}
+    : {type:"Point",coordinates:[lon,lat]};
+  geoFeatures.push({type:"Feature",properties:props,geometry});
 }
 out.push("; Current events displayed: " + events.length);
-out.push("; Closures: " + events.filter(e=>e.kind==="closure").length);
-out.push("; Construction: " + events.filter(e=>e.kind==="construction").length);
-out.push("; Incidents: " + events.filter(e=>e.kind==="incident").length);
-await writeFile(OUT + "/traffic-events.txt", out.join("\n") + "\n", "utf8");
-const geoEvents = {
-  type: "FeatureCollection",
-  name: "Louisiana 511 / DOTD Traffic Events",
-  metadata: { generatedAt, sources: ["511LA Events API", "Louisiana DOTD 511 Road Closures FeatureServer"], eventCount: events.length, stalePolicyHours: { incident: 12, closure: 48, construction: 168 } },
-  features: events.map(event => ({
-    type: "Feature",
-    properties: {
-      event_type: event.kind,
-      source: event.source,
-      event_id: event.a.EventUID || event.a.EventID || null,
-      road: event.a.RoadName || null,
-      direction: event.a.TravelDirection || null,
-      subtype: event.a.EventSubType || event.a.EventType || null,
-      description: event.a.Description || null,
-      parish: event.a.ParishName || event.a.ParishName1 || event.a.ParishName2 || event.a.ParishName3 || null,
-      severity: event.a.Severity || null,
-      status: event.a.EventStatus || null,
-      lanes_closed: event.a.LanesClosed ?? null,
-      lanes_open: event.a.LanesOpen ?? null,
-      lane_impact: event.a.LaneStatus || null,
-      reported_at: event.a.EventStartDateUTC || event.a.EventClosureStartDateUTC || null,
-      updated_at: event.a.EventLastUpdatedUTC || event.a.service_last_updated || event.a.EventCreatedOnUTC || null,
-      expected_end: event.a.EventEndDateUTC || event.a.EventClosureEndDateUTC || null,
-      reporting_agency: event.a.ReportAgency || null
-    },
-    geometry: { type: "Point", coordinates: [event.position[1], event.position[0]] }
-  }))
+out.push("; Closures: " + counts.closure);
+out.push("; Construction / roadwork: " + counts.construction);
+out.push("; Incidents / weather / special events: " + counts.incident);
+const geojson = {
+  type:"FeatureCollection",
+  name:"Louisiana 511LA / DOTD Traffic Events",
+  metadata:{generatedAt,sources:["511LA Events API","Louisiana DOTD 511 Road Closures FeatureServer"],eventCount:geoFeatures.length,counts},
+  features:geoFeatures
 };
-await writeFile(OUT + "/traffic-events.geojson", JSON.stringify(geoEvents), "utf8");
-console.log("Generated traffic-events.geojson:", geoEvents.features.length, "features.");
-console.log("Generated separate DOTD events placefile:", events.length, JSON.stringify({
-  closures: events.filter(e=>e.kind==="closure").length,
-  construction: events.filter(e=>e.kind==="construction").length,
-  incidents: events.filter(e=>e.kind==="incident").length
-}));
+if (out.filter(line=>line.startsWith("Object:")).length!==geoFeatures.length) throw new Error("Placefile/GeoJSON event count mismatch.");
+if (geoFeatures.some(f=>!f.geometry || !f.properties.source || !f.properties.source_event_type)) throw new Error("Event output is missing source attribution, original type, or geometry.");
+await writeFile(OUT + "/traffic-events.txt",out.join("\n")+"\n","utf8");
+await writeFile(OUT + "/traffic-events.geojson",JSON.stringify(geojson),"utf8");
+console.log("Generated separate 511LA/DOTD event outputs:",geoFeatures.length,JSON.stringify(counts));
