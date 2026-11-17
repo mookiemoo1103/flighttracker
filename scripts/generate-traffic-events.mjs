@@ -78,8 +78,11 @@ function classify(a) {
   if(/specialevent|parade|sportingevent|festival/.test(combined) ||
      /parade|festival|special event|sporting event/.test(desc)) return "special";
 
-  if(type==="closures" || /closure|closed/.test(type+sub) ||
-     /road closed|bridge closed|all lanes closed|floodgate closure/.test(desc)) return "closure";
+  const fullClosure = a.IsFullClosure === true || a.IsFullClosure === 1 ||
+    String(a.IsFullClosure ?? "").toLowerCase() === "true";
+  if(type==="closures" || fullClosure || /closure|closed/.test(type+sub) ||
+     /road closed|bridge closed|all lanes closed|floodgate closure|road closure:/.test(desc) ||
+     /all lanes closed|road closed|bridge closed/.test(String(a.LanesAffected ?? "").toLowerCase())) return "closure";
 
   if(/workerspresent|workerpresent|workersonsite/.test(sub) ||
      /workers present|workers on site/.test(desc)) return "workers";
