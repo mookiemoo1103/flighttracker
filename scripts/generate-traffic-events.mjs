@@ -99,31 +99,39 @@ function normalizeType(a) {
 function classify(a) {
   const type=normalizeType(a);
   const sub=String(a.EventSubType??"").toLowerCase().replace(/[^a-z]/g,"");
-  const desc=String(a.Description??"").toLowerCase();
+  const desc=String(a.Description??a.Details??"").toLowerCase();
   const combined=type+sub;
-  // A provider-designated closure always receives the closure symbol, even
-  // when its parent EventType is Roadwork or Construction.
+
+  // Classify the actual event first. DOTD's ClosureExists/IsFullClosure
+  // fields can describe lane impact for a crash; they must not turn every
+  // crash or stalled vehicle into a road-closure event.
+  if(/crash|collision|accident|stalledvehicle|disabledvehicle|vehiclefire|debris|hazard|overturned|incident/.test(sub) ||
+     /crash|collision|accident|stalled vehicle|disabled vehicle|vehicle fire|debris|hazard|overturned/.test(desc)) return "incident";
+
+  if(/weather|flood|fog|ice|snow|wind|visibility|water|smoke/.test(combined) ||
+     /flood|fog|ice|snow|wind|weather|water over road|smoke/.test(desc)) {
+    if(/closure|closed/.test(sub) || /road closed|bridge closed|all lanes closed/.test(desc)) return "weather_closure";
+    return "weather_incident";
+  }
+  if(/specialevent|parade|sportingevent|festival/.test(combined) ||
+     /parade|festival|special event|sporting event/.test(desc)) return "special";
+
+  // Explicit closure event types/subtypes receive the road-closure icon.
+  if(/closure|closed/.test(sub) || /bridgeclosure|roadclosure|fullclosure/.test(combined) ||
+     /road closed|bridge closed|all lanes closed/.test(desc) && !/roadconstruction|roadmaintenance|utilitywork/.test(sub)) return "closure";
+
+  if(/workerspresent|workerpresent|workersonsite/.test(sub)) return "workers";
+  if(/roadwork|construction|workzone|maintenance|utilitywork|roadmarking|paving/.test(type+sub) ||
+     /construction|road work|work zone|maintenance|utility work|road marking|paving/.test(desc)) return "construction";
+
+  // Only use explicit full-closure flags when no more specific event class
+  // has been identified.
   const closureFlag = a.ClosureExists === true || a.ClosureExists === 1 ||
-    String(a.ClosureExists ?? "").toLowerCase() === "true";
-  if (closureFlag || /closure|closed/.test(sub) || /bridgeclosure|roadclosure|fullclosure/.test(combined)) return "closure";
-  // Keep weather reports separate from ordinary incidents and closures.
-  if(/weather/.test(type)||/weather|flood|fog|ice|snow|wind|visibility|water|smoke/.test(combined)) {
-    return /closure|closed/.test(combined) ? "weather_closure" : "weather_incident";
-  }
-  if(/specialevent/.test(type)||/specialevent|parade|sportingevent|festival/.test(combined)) return "special";
-  if(/roadwork|construction|workzone/.test(type)||/roadwork|construction|workzone|maintenance|utilitywork/.test(sub)) {
-    if(/workerspresent|workerpresent|workersonsite/.test(sub)) return "workers";
-    return "construction";
-  }
-  if(/closure/.test(type)||/closure|closed/.test(sub)) return "closure";
-  if(/accident|incident|crash|disabledvehicle|hazard/.test(combined)) return "incident";
-  // Preserve provider-specific/new event types instead of silently dropping them.
+    String(a.ClosureExists ?? "").toLowerCase() === "true" ||
+    a.IsFullClosure === true || a.IsFullClosure === 1;
+  if (closureFlag) return "closure";
+
   if(type||sub) return "other";
-  if(/flood|fog|ice|snow|wind|weather|water over road/.test(desc)) return "weather_incident";
-  if(/parade|festival|special event|sporting event/.test(desc)) return "special";
-  if(/crash|collision|accident|disabled vehicle|vehicle fire|debris|hazard|stalled vehicle|overturned/.test(desc)) return "incident";
-  if(/closure|closed/.test(desc)) return "closure";
-  if(/construction|road work|work zone|maintenance|utility work/.test(desc)) return "construction";
   return null;
 }
 function isCurrent(a, source) {
@@ -207,19 +215,21 @@ function withinCoverage(p) {
 }
 function normalizeKey(v) { return String(v ?? "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
 function eventKey(a, kind, position, source) {
-  // GIS point/line layer IDs are layer-specific. Build a stable event
-  // fingerprint first so the same DOTD event is not plotted twice.
+  // EventID is the incident identifier shared by DOTD centroid and line
+  // layers. Prefer it so multiple geometries/subtype rows become one marker.
+  const sharedId = a.EventID ?? a.ID ?? a.Id;
+  const identity = normalizeKey(sharedId);
+  if (identity && identity !== "0") return "EVENT|" + identity;
+
+  // Fall back to a source-independent fingerprint only when no event ID exists.
   const road = normalizeKey(a.RoadName || a.RoadwayName || a.Roadway);
   const subtype = normalizeKey(a.EventSubType || a.EventType);
   const description = normalizeKey(a.Description || a.Details);
   const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported);
   const roundedStart = start ? Math.floor(start / (15 * 60 * 1000)) : 0;
-  const fingerprint = [kind,road,subtype,description,roundedStart].join("|");
+  const fingerprint = [road,subtype,description,roundedStart].join("|");
   if (road && (subtype || description)) return "EVENT|" + fingerprint;
-  const sharedId = a.EventID ?? a.ID ?? a.Id;
-  const identity = normalizeKey(sharedId);
-  if (identity && identity !== "0") return "EVENT|" + identity;
-  return ["EVENT",kind,position[0].toFixed(3),position[1].toFixed(3)].join("|");
+  return ["EVENT",position[0].toFixed(3),position[1].toFixed(3)].join("|");
 }
 function popup(a, kind) {
   const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || a.DirectionOfTravel || "").toUpperCase()] || a.TravelDirection || a.DirectionOfTravel || "";
