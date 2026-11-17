@@ -166,6 +166,10 @@ lines.push("; Vector road segments: " + drawn);
 lines.push("; Interstate road type: 0; highway road types: 1, 2, 3, 4, 5 (including connecting roads/ramps and major local roads; excludes local/minor residential streets)");
 lines.push("; Traffic color classes (magenta closed / red stopped-very slow / orange / yellow / green): " + Object.values(classCounts).join("/"));
 console.log("Traffic color class counts:", JSON.stringify(classCounts));
+if (usable.some(s => { const q=statusFor(s.properties); return q.label==="STOPPED / VERY SLOW" && q.color.join(",")!=="255,0,0"; }) ||
+    usable.some(s => { const q=statusFor(s.properties); return q.label==="CLOSED" && q.color.join(",")!=="255,0,255"; })) {
+  throw new Error("Color rule failed: stopped/very slow must be red; only closed roads may be magenta.");
+}
 if (drawn !== lines.filter(line => line.startsWith("Line:")).length || drawn !== lines.filter(line => line.startsWith("Color:")).length) {
   throw new Error("Placefile validation failed: each road must have exactly one RGB color and one Line command.");
 }
