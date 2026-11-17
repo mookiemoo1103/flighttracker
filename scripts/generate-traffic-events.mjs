@@ -116,18 +116,34 @@ function dateMs(value) {
   const parsed = Date.parse(String(value));
   return Number.isFinite(parsed) ? parsed : 0;
 }
+// Drop source records that remain marked active but have stopped receiving
+// updates. This prevents stale incidents/closures from lingering indefinitely
+// when a provider fails to clear its status. Longer allowance for construction.
+const STALE_AFTER_MS = {
+  incident: 12 * 60 * 60 * 1000,
+  closure: 48 * 60 * 60 * 1000,
+  construction: 7 * 24 * 60 * 60 * 1000
+};
+const staleCounts = { incident: 0, closure: 0, construction: 0, missingTimestamp: 0 };
 function isCurrent(a, kind) {
   const status = String(a.EventStatus ?? "").trim().toLowerCase();
   if (/cancel|complete|closed|expired|inactive|deleted|resolved/.test(status)) return false;
   const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC);
   const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC);
-  const updated = dateMs(a.EventLastUpdatedUTC || a.service_last_updated || a.EventCreatedOnUTC);
+  const updated = dateMs(a.EventLastUpdatedUTC || a.service_last_updated || a.EventCreatedOnUTC || a.EventStartDateUTC || a.EventClosureStartDateUTC);
   if (start && start > now + 6 * 60 * 60 * 1000) return false;
   if (end && end < now - 60 * 60 * 1000) return false;
-
-  // Source-active records remain visible regardless of age while the source
-  // still reports them active and their explicit end time has not passed.
-  // This avoids hiding long-running construction, closures, and incidents.
+  if (updated) {
+    if (now - updated > STALE_AFTER_MS[kind]) {
+      staleCounts[kind]++;
+      return false;
+    }
+  } else {
+    // Without any usable source timestamp, do not display an unverifiable
+    // record indefinitely. Allow a short grace period from the current run.
+    staleCounts.missingTimestamp++;
+    return false;
+  }
   return true;
 }
 function centerOf(geometry) {
@@ -208,13 +224,13 @@ for (const a of events511) {
 }
 const events = [...byId.values()];
 const generatedAt = new Date().toISOString();
-console.log("511LA events received:", events511.length, "accepted in coverage/freshness window:", accepted511);
+console.log("511LA events received:", events511.length, "accepted after status/age/coverage checks:", accepted511);\nconsole.log("Removed stale active source records:", JSON.stringify(staleCounts));
 if (!events.length) console.log("DOTD returned no current closure, construction, or incident events.");
 await mkdir(OUT, { recursive: true });
 const out = [
   "; Louisiana DOTD / 511 traffic events - separate additive layer",
   "; Sources: Louisiana 511LA Events API + DOTD 511 Road Closures FeatureServer.",
-  "; Active source records remain displayed until source status ends or their event end time expires.",
+  "; Stale active records are removed after 12h incidents / 48h closures / 7d construction without source updates.",
   "; 511LA API records are included alongside DOTD ArcGIS records.",
   "; Generated independently of the TomTom speed traffic placefile.",
   "; Updated: " + generatedAt,
@@ -240,7 +256,7 @@ await writeFile(OUT + "/traffic-events.txt", out.join("\n") + "\n", "utf8");
 const geoEvents = {
   type: "FeatureCollection",
   name: "Louisiana 511 / DOTD Traffic Events",
-  metadata: { generatedAt, sources: ["511LA Events API", "Louisiana DOTD 511 Road Closures FeatureServer"], eventCount: events.length },
+  metadata: { generatedAt, sources: ["511LA Events API", "Louisiana DOTD 511 Road Closures FeatureServer"], eventCount: events.length, stalePolicyHours: { incident: 12, closure: 48, construction: 168 } },
   features: events.map(event => ({
     type: "Feature",
     properties: {
