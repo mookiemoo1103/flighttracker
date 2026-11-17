@@ -34,9 +34,12 @@ async function query511LAEvents() {
   const records = Array.isArray(data) ? data : (data.Events || data.events || data.EventList?.Events || data.EventList?.Event || []);
   if (!Array.isArray(records)) throw new Error("511LA Events API returned an unrecognized response shape.");
   return records.map(a => {
-    const seconds = v => {
-      const n = Number(v || 0);
-      return Number.isFinite(n) && n > 0 ? n * 1000 : 0;
+    const timestamp = v => {
+      if (v == null || v === "") return 0;
+      const n = Number(v);
+      if (Number.isFinite(n) && n > 0) return n < 1e12 ? n * 1000 : n;
+      const parsed = Date.parse(String(v));
+      return Number.isFinite(parsed) ? parsed : 0;
     };
     return {
       EventID: "511LA-" + (a.ID ?? a.Id ?? a.SourceId ?? ""),
@@ -46,15 +49,15 @@ async function query511LAEvents() {
       EventType: a.EventType || "",
       EventSubType: a.EventSubType || "",
       Severity: a.Severity || "",
-      EventStatus: "Active",
+      EventStatus: a.EventStatus || a.Status || (a.IsActive === false ? "Inactive" : "Active"),
       Description: a.Description || a.Details || "",
       ClosureExists: a.IsFullClosure === true,
       LanesOpen: "",
       LanesClosed: a.IsFullClosure ? "All" : "",
       LaneStatus: a.LanesAffected || "",
-      EventStartDateUTC: seconds(a.StartDate || a.Reported),
-      EventEndDateUTC: seconds(a.PlannedEndDate),
-      EventLastUpdatedUTC: seconds(a.LastUpdated || a.Reported),
+      EventStartDateUTC: timestamp(a.StartDate || a.Reported || a.StartTime),
+      EventEndDateUTC: timestamp(a.PlannedEndDate || a.EndDate || a.ExpectedEndTime),
+      EventLastUpdatedUTC: timestamp(a.LastUpdated || a.Updated || a.Reported),
       ParishName: "",
       ReportAgency: a.Organization || "",
       EventSource: "511LA",
@@ -97,9 +100,12 @@ function classify(a) {
   const type = normalizeType(a);
   const sub = String(a.EventSubType ?? "").toLowerCase();
   const desc = String(a.Description ?? "").toLowerCase();
-  if (/closure|closed/.test(type) || /closure|closed/.test(sub)) return "closure";
-  if (/roadwork|construction|workzone/.test(type) || /construction|road work|work zone|maintenance/.test(sub + " " + desc)) return "construction";
-  if (/accident|incident/.test(type) || /crash|collision|disabled vehicle|vehicle fire|debris|hazard/.test(sub + " " + desc)) return "incident";
+  const closureFlag = [a.ClosureExists, a.IsFullClosure, a.RoadClosed, a.IsClosed].some(v =>
+    v === true || v === 1 || ["true","1","yes","closed"].includes(String(v ?? "").trim().toLowerCase())
+  );
+  if (closureFlag || /closure|closed/.test(type) || /closure|closed/.test(sub)) return "closure";
+  if (/roadwork|construction|workzone|maintenance/.test(type) || /construction|road work|work zone|maintenance|utility work/.test(sub + " " + desc)) return "construction";
+  if (/accident|incident|crash|disabledvehicle|hazard/.test(type) || /crash|collision|disabled vehicle|vehicle fire|debris|hazard|stalled vehicle|overturned/.test(sub + " " + desc)) return "incident";
   return null;
 }
 function dateMs(value) {
@@ -119,12 +125,9 @@ function isCurrent(a, kind) {
   if (start && start > now + 6 * 60 * 60 * 1000) return false;
   if (end && end < now - 60 * 60 * 1000) return false;
 
-  // Old confirmed records with distant/missing end dates caused stale markers.
-  // Require a recent source update; incidents have a tighter freshness window.
-  const freshnessMs = kind === "incident" ? 72 * 60 * 60 * 1000 : 14 * 24 * 60 * 60 * 1000;
-  if (updated && updated < now - freshnessMs) return false;
-  if (!updated && start && start < now - (kind === "incident" ? 72 : 30) * 60 * 60 * 1000) return false;
-  if (!updated && !start) return false;
+  // Source-active records remain visible regardless of age while the source
+  // still reports them active and their explicit end time has not passed.
+  // This avoids hiding long-running construction, closures, and incidents.
   return true;
 }
 function centerOf(geometry) {
@@ -209,7 +212,7 @@ await mkdir(OUT, { recursive: true });
 const out = [
   "; Louisiana DOTD / 511 traffic events - separate additive layer",
   "; Sources: Louisiana 511LA Events API + DOTD 511 Road Closures FeatureServer.",
-  "; Freshness: incidents updated within 72 hours; closures/construction within 14 days.",
+  "; Active source records remain displayed until source status ends or their event end time expires.",
   "; 511LA API records are included alongside DOTD ArcGIS records.",
   "; Generated independently of the TomTom speed traffic placefile.",
   "; Updated: " + new Date().toISOString(),
