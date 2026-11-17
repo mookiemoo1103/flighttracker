@@ -62,6 +62,8 @@ function classify(a) {
   const sub=String(a.EventSubType??"").toLowerCase().replace(/[^a-z]/g,"");
   const desc=String(a.Description??a.Details??"").toLowerCase();
   const combined=type+sub;
+  const fullClosure = a.IsFullClosure === true || a.IsFullClosure === 1 ||
+    String(a.IsFullClosure ?? "").toLowerCase() === "true";
 
   // The API's event type/subtype describe the event itself. Never infer a
   // road closure solely from IsFullClosure: crashes can block all lanes too.
@@ -71,15 +73,13 @@ function classify(a) {
 
   if(type==="weatherconditions" || /weather|flood|fog|ice|snow|wind|visibility|water|smoke/.test(combined) ||
      /flood|fog|ice|snow|wind|weather|water over road|smoke/.test(desc)) {
-    if(/closure|closed/.test(sub) || /road closed|bridge closed|all lanes closed/.test(desc)) return "weather_closure";
+    if(fullClosure || /closure|closed/.test(sub) || /road closed|bridge closed|all lanes closed/.test(desc)) return "weather_closure";
     return "weather_incident";
   }
 
   if(/specialevent|parade|sportingevent|festival/.test(combined) ||
      /parade|festival|special event|sporting event/.test(desc)) return "special";
 
-  const fullClosure = a.IsFullClosure === true || a.IsFullClosure === 1 ||
-    String(a.IsFullClosure ?? "").toLowerCase() === "true";
   if(type==="closures" || fullClosure || /closure|closed/.test(type+sub) ||
      /road closed|bridge closed|all lanes closed|floodgate closure|road closure:/.test(desc) ||
      /all lanes closed|road closed|bridge closed/.test(String(a.LanesAffected ?? "").toLowerCase())) return "closure";
