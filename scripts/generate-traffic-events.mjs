@@ -59,7 +59,7 @@ async function queryLayer(layer) {
   const all = [];
   // Exclude only records explicitly marked inactive/resolved/cancelled.
   // Old edit timestamps do not expire live events.
-  const where = "1=1";
+  const where = "EventStatus IS NOT NULL";
   for (let offset = 0; offset < 50000; offset += 1000) {
     const url = new URL(BASE + "/" + layer + "/query");
     url.searchParams.set("where", where);
