@@ -101,14 +101,20 @@ function classify(a) {
   const sub=String(a.EventSubType??"").toLowerCase().replace(/[^a-z]/g,"");
   const desc=String(a.Description??"").toLowerCase();
   const combined=type+sub;
-  if(/closure/.test(type)||/closure|closed/.test(sub)) return "closure";
-  if(/roadwork|construction|workzone/.test(type)||/roadwork|construction|workzone|maintenance|utilitywork/.test(sub)) return "construction";
-  if(/weather/.test(type)||/flood|fog|ice|snow|wind|weather|visibility|water|smoke/.test(combined)) return "weather";
+  // Keep weather reports separate from ordinary incidents and closures.
+  if(/weather/.test(type)||/weather|flood|fog|ice|snow|wind|visibility|water|smoke/.test(combined)) {
+    return /closure|closed/.test(combined) ? "weather_closure" : "weather_incident";
+  }
   if(/specialevent/.test(type)||/specialevent|parade|sportingevent|festival/.test(combined)) return "special";
+  if(/roadwork|construction|workzone/.test(type)||/roadwork|construction|workzone|maintenance|utilitywork/.test(sub)) {
+    if(/workerspresent|workerpresent|workersonsite/.test(sub)) return "workers";
+    return "construction";
+  }
+  if(/closure/.test(type)||/closure|closed/.test(sub)) return "closure";
   if(/accident|incident|crash|disabledvehicle|hazard/.test(combined)) return "incident";
   // Preserve provider-specific/new event types instead of silently dropping them.
   if(type||sub) return "other";
-  if(/flood|fog|ice|snow|wind|weather|water over road/.test(desc)) return "weather";
+  if(/flood|fog|ice|snow|wind|weather|water over road/.test(desc)) return "weather_incident";
   if(/parade|festival|special event|sporting event/.test(desc)) return "special";
   if(/crash|collision|accident|disabled vehicle|vehicle fire|debris|hazard|stalled vehicle|overturned/.test(desc)) return "incident";
   if(/closure|closed/.test(desc)) return "closure";
@@ -178,7 +184,7 @@ function eventKey(a, kind, position, source) {
 function popup(a, kind) {
   const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || a.DirectionOfTravel || "").toUpperCase()] || a.TravelDirection || a.DirectionOfTravel || "";
   const rawType = a.EventSubType || a.EventType || "Traffic event";
-  const heading=({closure:"ROAD CLOSURE",construction:"CONSTRUCTION / ROADWORK",incident:"TRAFFIC INCIDENT",weather:"WEATHER IMPACT",special:"SPECIAL EVENT",other:"OTHER 511LA / DOTD EVENT"})[kind]||"TRAFFIC EVENT";
+  const heading=({closure:"ROAD CLOSURE",construction:"CONSTRUCTION / ROADWORK",workers:"CONSTRUCTION / WORKERS PRESENT",incident:"TRAFFIC INCIDENT",weather_incident:"WEATHER INCIDENT",weather_closure:"WEATHER CLOSURE",special:"SPECIAL EVENT",other:"OTHER 511LA / DOTD EVENT"})[kind]||"TRAFFIC EVENT";
   const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported);
   const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC || a.PlannedEndDate || a.EndDate);
   const lines = [
@@ -244,7 +250,7 @@ for (const a of events511) {
 }
 const events = [...byId.values()];
 const generatedAt = new Date().toISOString();
-const counts=Object.fromEntries(["closure","construction","incident","weather","special","other"].map(kind=>[kind,events.filter(e=>e.kind===kind).length]));
+const counts=Object.fromEntries(["closure","construction","workers","incident","weather_incident","weather_closure","special","other"].map(kind=>[kind,events.filter(e=>e.kind===kind).length]));
 console.log("511LA events received:",events511.length,"accepted:",accepted511);
 console.log("DOTD source records:",centroidFeatures.length,"centroid /",pointFeatures.length,"point /",lineFeatures.length,"line; current retained:",events.length);
 if (!events.length) throw new Error("No current 511LA/DOTD events were generated; refusing to publish an empty event feed.");
@@ -262,8 +268,8 @@ const out = [
   'IconFile: 2, 32, 32, 16, 16, "' + ICONS.construction + '"',
   'IconFile: 3, 32, 32, 16, 16, "' + ICONS.incident + '"'
 ];
-const iconNumber={closure:1,construction:2,incident:3,weather:3,special:2,other:3};
-const lineColor={closure:"220 35 45",construction:"245 145 35",incident:"150 75 190",weather:"55 145 210",special:"220 145 45",other:"125 125 145"};
+const iconNumber={closure:1,construction:2,workers:2,incident:3,weather_incident:3,weather_closure:1,special:2,other:3};
+const lineColor={closure:"220 35 45",construction:"245 145 35",workers:"255 175 45",incident:"150 75 190",weather_incident:"55 145 210",weather_closure:"40 125 205",special:"220 145 45",other:"125 125 145"};
 const geoFeatures = [];
 for (const event of events) {
   const [lat,lon] = event.position;
@@ -314,7 +320,9 @@ out.push("; Current events displayed: " + events.length);
 out.push("; Closures: " + counts.closure);
 out.push("; Construction / roadwork: " + counts.construction);
 out.push("; Incidents: "+counts.incident);
-out.push("; Weather impacts: "+counts.weather);
+out.push("; Construction with workers present: "+counts.workers);
+out.push("; Weather incidents: "+counts.weather_incident);
+out.push("; Weather closures: "+counts.weather_closure);
 out.push("; Special events: "+counts.special);
 out.push("; Other official event types: "+counts.other);
 const geojson = {
