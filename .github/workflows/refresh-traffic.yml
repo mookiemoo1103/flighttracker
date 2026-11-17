@@ -1,25 +1,14 @@
-name: Refresh Southeast Louisiana traffic placefile
+name: Refresh TomTom traffic source feed (manual)
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
   workflow_dispatch:
-  push:
-    paths:
-      - "scripts/generate-traffic.mjs"
-      - ".github/workflows/refresh-traffic.yml"
 
 permissions:
   contents: write
 
-concurrency:
-  group: github-traffic-placefile
-  cancel-in-progress: false
-
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,43 +16,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Generate live vector traffic placefile
+      - name: Generate TomTom source files only
         env:
           TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
         run: node scripts/generate-traffic.mjs
-      - name: Validate colored traffic placefile
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -s traffic.txt
-          test -s traffic.geojson
-          node -e 'const j=JSON.parse(require("fs").readFileSync("traffic.geojson","utf8")); if(j.type!=="FeatureCollection" || !Array.isArray(j.features) || j.features.length<100 || !j.features.every(f=>f.geometry?.type==="LineString" && /^#[0-9a-f]{6}$/i.test(f.properties?.stroke) && f.properties?.["stroke-opacity"]===1 && f.properties?.layer!=="road-outline")) process.exit(1); for (const f of j.features) { const p=f.properties; if (p.traffic_status==="STOPPED / VERY SLOW" && p.stroke.toLowerCase()!=="#ff0000") throw Error("Stopped/very slow must be red"); if (p.traffic_status==="CLOSED" && p.stroke.toLowerCase()!=="#ff00ff") throw Error("Closed roads must be magenta"); if (p.traffic_status!=="CLOSED" && p.stroke.toLowerCase()==="#ff00ff") throw Error("Magenta is reserved for closed roads"); } console.log("Validated",j.features.length,"GeoJSON road features and traffic color rules.");'
-          colors=$(grep -c '^Color:' traffic.txt)
-          lines=$(grep -c '^Line:' traffic.txt)
-          test "$lines" -gt 100
-          test "$colors" -eq "$lines"
-          valid_colors=$(grep -Ec '^Color: (0 220 0|255 220 0|255 128 0|255 0 0|255 0 255)$' traffic.txt)
-          test "$valid_colors" -eq "$colors"
-          echo "Validated $lines traffic lines and matching RGB directives."
-          echo "Published color distribution:"
-          grep '^Color:' traffic.txt | sort | uniq -c | sort -nr
-      - name: Publish updated placefile to GitHub
+      - name: Publish TomTom source files only
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add traffic.txt traffic.geojson
-          if git diff --cached --quiet; then
-            echo "Traffic placefile unchanged."
-            exit 0
-          fi
-          git commit -m "Refresh Southeast Louisiana traffic placefile"
-          for attempt in 1 2 3; do
-            git pull --rebase origin main
-            if git push; then
-              exit 0
-            fi
-            echo "Push attempt $attempt failed; retrying."
-            sleep 3
-          done
-          echo "Unable to publish traffic placefile after three attempts."
-          exit 1
+          git commit -m "Refresh TomTom source traffic files" || exit 0
+          git push
