@@ -3,7 +3,7 @@
 ; Only events returned by 511LA are considered; future-start and expired events are excluded.
 ; Icons are assigned from the official EventType and EventSubType fields.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-18T14:15:22.910Z
+; Updated: 2026-11-18T21:58:01.698Z
 Title: LOUISIANA ROAD EVENTS - 511LA
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
@@ -2188,6 +2188,40 @@ Line: 3, 0, "LA-365"
 30.342130, -92.175390
 30.342150, -92.175460
 End:
+Object: 29.587083,-90.720937
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: pavingoperations\n\nRoad: LA-182\n\nDirection: Both Directions\n\nDescription: Paving Operations on LA-182 Both Directions from LA 24 East (West Main Street) to LA 311 (Little Bayou Black Drive) . Lanes Alternating. Starting 4/7/2026 8:30 AM\n\nDetails: Expect alternating and temporary full lane closures on LA 182 in both directions (Barrow Street) between LA 24 East (West Main Street) and LA 311 (Little Bayou Black Drive) from approximately 8:30 AM to 4 PM weekdays until further notice. Expect flaggers, traffic cones and prepare to stop. Weather permitting.\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 4/7/2026, 8:30:00 AM\n\nSchedule: <b>Tue, Wed, Thu, Fri, Mon:</b><br/>8:30 AM - 4:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 245 145 35
+Line: 3, 0, "LA-182"
+29.598190, -90.718990
+29.596470, -90.719270
+29.595810, -90.719370
+29.594970, -90.719500
+29.594170, -90.719640
+29.593380, -90.719770
+29.592560, -90.719910
+29.591780, -90.720030
+29.591040, -90.720140
+29.590240, -90.720280
+29.588210, -90.720640
+29.587500, -90.720750
+29.587060, -90.720820
+29.585860, -90.721020
+29.584560, -90.721240
+29.583640, -90.721390
+29.582650, -90.721560
+29.582520, -90.721580
+29.582160, -90.721660
+29.581750, -90.721790
+29.581630, -90.721840
+29.581330, -90.721960
+29.581250, -90.722000
+29.581170, -90.722070
+29.580890, -90.722290
+29.580440, -90.722710
+29.580020, -90.723090
+End:
 Object: 29.593805,-90.726268
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: pavingoperations\n\nRoad: LA-3040\n\nDirection: Both Directions\n\nDescription: Paving Operations on LA-3040 Both Directions from S Hollywood Rd to LA-661 . Lanes Alternating. Starting 4/7/2026 8:00 AM\n\nDetails: Expect alternating lane closures on LA 3040 in both directions (West Tunnel Boulevard/Bond Street/Honduras Street/East Tunnel Boulevard) from approximately 8 AM to 5 PM weekdays. Expect traffic cones, flaggers and prepare to stop. Expect turning lanes on cross streets to be blocked. Weather permitting.\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 4/7/2026, 8:00:00 AM\n\nSchedule: <b>Tue, Wed, Thu, Fri, Mon:</b><br/>8:00 AM - 5:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
@@ -2545,67 +2579,6 @@ Line: 3, 0, "LA-353"
 30.142620, -91.827000
 30.142550, -91.826790
 30.141620, -91.824130
-End:
-Object: 30.450499,-91.149857
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: utilitywork\n\nRoad: US-190-BR\n\nDirection: Eastbound\n\nDescription: Utility Work on US-190-BR Eastbound from LA-37 to LA-67. 1 Right lane closed. Starting 5/11/2026 7:00 AM and Ending 12/5/2026 3:00 PM.\n\nDetails: These closures are necessary for the installation of drainpipes and catch basins.\n\nSeverity: None\n\nLane impact: 1 Right lane closed\n\nReported/start: 5/11/2026, 7:00:00 AM\n\nExpected end: 12/5/2026, 3:00:00 PM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>7:00 AM - 3:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "US-190-BR"
-30.450830, -91.138880
-30.450860, -91.138970
-30.450850, -91.139260
-30.450830, -91.139680
-30.450820, -91.139850
-30.450820, -91.139910
-30.450810, -91.140030
-30.450810, -91.140150
-30.450800, -91.140380
-30.450800, -91.140450
-30.450790, -91.140600
-30.450780, -91.140790
-30.450780, -91.140970
-30.450770, -91.141410
-30.450770, -91.141520
-30.450760, -91.141830
-30.450740, -91.142230
-30.450720, -91.142840
-30.450710, -91.143030
-30.450700, -91.143420
-30.450690, -91.143710
-30.450670, -91.144100
-30.450640, -91.145120
-30.450600, -91.146350
-30.450580, -91.147400
-30.450520, -91.149630
-30.450500, -91.150180
-30.450490, -91.150370
-30.450480, -91.150610
-30.450480, -91.150670
-30.450470, -91.150830
-30.450460, -91.151300
-30.450460, -91.151390
-30.450420, -91.152410
-30.450390, -91.153230
-30.450380, -91.153860
-30.450370, -91.154270
-30.450360, -91.154410
-30.450350, -91.154720
-30.450330, -91.155080
-30.450300, -91.155880
-30.450260, -91.157260
-30.450230, -91.158200
-30.450140, -91.160910
-30.450120, -91.161400
-30.450110, -91.161830
-30.450100, -91.162030
-30.450080, -91.162700
-30.450080, -91.162760
-30.450050, -91.163620
-30.450030, -91.164410
-30.450030, -91.164570
-30.450010, -91.165070
-30.449990, -91.165780
 End:
 Object: 30.363821,-92.048189
 Threshold: 999
@@ -3775,6 +3748,22 @@ Line: 3, 0, "US-190"
 30.547130, -91.940790
 30.547140, -91.938130
 30.547140, -91.935510
+End:
+Object: 29.592720,-90.677539
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: LA-3087\n\nDirection: Both Directions\n\nDescription: Road Construction on LA-3087 Both Directions from Hayes St to LA 24 (East Main Street) . Lanes Alternating. Starting 9/10/2026 4:00 PM\n\nDetails: Expect alternating lane closures on LA 3087 in both directions (Prospect Boulevard) between Hayes Street and LA 24 (East Main Street) from approximately 12 AM to 7:30 AM, 8:30 AM to 4:30 PM and 5:30 PM to 12 AM everyday beginning 9/10 until further notice due to road construction. Expect traffic cones, lane status signage, police and prepare to stop. Expect turning lanes on cross streets to be blocked. Weather permitting.\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 9/10/2026, 4:00:00 PM\n\nSchedule: <b>Thu, Fri, Sat, Sun, Mon, Tue, Wed:</b><br/>12:00 AM - 7:30 AM<br/>8:30 AM - 4:30 PM<br/>5:30 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 245 145 35
+Line: 3, 0, "LA-3087"
+29.594120, -90.676620
+29.593980, -90.676710
+29.593850, -90.676790
+29.593050, -90.677300
+29.592870, -90.677410
+29.592670, -90.677600
+29.591560, -90.678310
+29.591270, -90.678500
+29.591110, -90.678610
 End:
 Object: 30.084812,-90.665389
 Threshold: 999
@@ -5430,32 +5419,83 @@ Line: 3, 0, "US-90"
 29.919650, -91.728800
 29.919630, -91.728770
 End:
-Object: 30.534662,-92.060685
+Object: 30.410854,-91.074585
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: bridgemaintenanceoperations\n\nRoad: US-190\n\nDirection: Westbound\n\nDescription: Bridge Maintenance Operations on US-190 Westbound from Fort Hamilton Dr to I-49 Southbound . 1 Right lane closed. Starting 11/4/2026 2:47 PM\n\nDetails: Effective immediately, the outside westbound lane of U.S. 190 at the MOPAC Bridge, just east of the I-49 interchange, is closed to traffic. This closure is necessary to allow crews to make repairs to the deck.\n\nSeverity: None\n\nLane impact: 1 Right lane closed\n\nReported/start: 11/4/2026, 2:47:00 PM\n\nSchedule: <b>Wed, Thu, Fri, Sat, Sun, Mon, Tue:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: LA-73\n\nDirection: Both Directions\n\nDescription: Road Construction on LA-73 Both Directions from Drusilla Ln to US-61 Northbound . All Lanes Intermittent. Starting 11/15/2026 9:00 AM and Ending 1/1/2027 4:00 PM.\n\nDetails: This closure is required to install an asphalt wearing course.\n\nSeverity: None\n\nLane impact: All Lanes Intermittent\n\nReported/start: 11/15/2026, 9:00:00 AM\n\nExpected end: 1/1/2027, 4:00:00 PM\n\nSchedule: <b>Sun, Mon, Tue, Wed, Thu, Fri, Sat:</b><br/>9:00 AM - 4:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
 End:
 Color: 245 145 35
-Line: 3, 0, "US-190"
-30.536820, -92.057170
-30.536730, -92.057360
-30.536610, -92.057580
-30.536470, -92.057820
-30.536280, -92.058130
-30.536140, -92.058330
-30.535920, -92.058670
-30.535670, -92.059080
-30.535570, -92.059230
-30.535510, -92.059330
-30.535360, -92.059550
-30.534900, -92.060260
-30.533800, -92.061950
-30.533460, -92.062480
-30.532690, -92.063730
-30.532600, -92.063900
-30.532370, -92.064360
-30.532180, -92.064760
-30.532120, -92.064900
-30.532040, -92.065100
+Line: 3, 0, "LA-73"
+30.417200, -91.089860
+30.417050, -91.089580
+30.416900, -91.089290
+30.416730, -91.088980
+30.416420, -91.088440
+30.416050, -91.087740
+30.415930, -91.087510
+30.415720, -91.087120
+30.415680, -91.087050
+30.414990, -91.085740
+30.414950, -91.085670
+30.414630, -91.085060
+30.414100, -91.084070
+30.413840, -91.083580
+30.413420, -91.082770
+30.412920, -91.081840
+30.412540, -91.081100
+30.412410, -91.080860
+30.412310, -91.080680
+30.412150, -91.080380
+30.411850, -91.079840
+30.411590, -91.079350
+30.411460, -91.079090
+30.411420, -91.079000
+30.411390, -91.078940
+30.411250, -91.078590
+30.411190, -91.078430
+30.411080, -91.078120
+30.411000, -91.077870
+30.410950, -91.077720
+30.410900, -91.077520
+30.410830, -91.077280
+30.410750, -91.076970
+30.410470, -91.075940
+30.410330, -91.075470
+30.410230, -91.075080
+30.410100, -91.074620
+30.410020, -91.074300
+30.409940, -91.073900
+30.409880, -91.073540
+30.409840, -91.073220
+30.409830, -91.073100
+30.409520, -91.070580
+30.409470, -91.070210
+30.409440, -91.070000
+30.409320, -91.069090
+30.409280, -91.068860
+30.409240, -91.068700
+30.409220, -91.068600
+30.409170, -91.068410
+30.409090, -91.068150
+30.408620, -91.066980
+30.408440, -91.066500
+30.408340, -91.066240
+30.408110, -91.065660
+30.408050, -91.065500
+30.407930, -91.065060
+30.407840, -91.064750
+30.407810, -91.064640
+30.407770, -91.064410
+30.407690, -91.064020
+30.407660, -91.063800
+30.407600, -91.063180
+30.407570, -91.062810
+30.407530, -91.062600
+30.407490, -91.062410
+30.407430, -91.062230
+30.407360, -91.062050
+30.407290, -91.061890
+30.407150, -91.061660
+30.406950, -91.061370
 End:
 Object: 30.235257,-90.907347
 Threshold: 999
@@ -5602,6 +5642,35 @@ Line: 3, 0, "US-90"
 29.919650, -91.728800
 29.919600, -91.728720
 29.919560, -91.728660
+End:
+Object: 29.589383,-90.712455
+Threshold: 999
+Icon: 0,0,0,1,1,1,"WEATHER CLOSURE\n\nEvent type: utilitywork\n\nRoad: LA-3040\n\nDirection: Both Directions\n\nDescription: Utility Work on LA-3040 Both Directions from Beatrice St to Division Ave . All lanes closed. Starting 11/18/2026 9:00 AM and Ending 11/19/2026 4:00 PM.\n\nDetails: The LA 3040 Tunnel will be closed between Division Avenue and Beatrice Street from approximately 9 AM to 4 PM 11/18 and 11/19 due to utility work. Detour: the LA 24 Twinspan Bridges (1 mile north of closure) or the LA 315 Bayou Dularge Bridge (1.5 miles south of closure). Weather permitting.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 11/18/2026, 9:00:00 AM\n\nExpected end: 11/19/2026, 4:00:00 PM\n\nSchedule: <b>Wed, Thu:</b><br/>9:00 AM - 4:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 40 125 205
+Line: 3, 0, "LA-3040"
+29.587950, -90.707280
+29.588310, -90.708520
+29.588330, -90.708600
+29.588350, -90.708700
+29.588360, -90.708830
+29.588720, -90.710030
+29.588950, -90.710790
+29.589000, -90.710970
+29.589130, -90.711480
+29.589380, -90.712430
+29.589510, -90.712830
+29.589570, -90.713040
+29.589670, -90.713400
+29.589690, -90.713480
+29.589750, -90.713690
+29.589960, -90.714450
+29.590080, -90.715080
+29.590220, -90.715700
+29.590290, -90.715960
+29.590320, -90.716050
+29.590410, -90.716260
+29.590480, -90.716430
 End:
 Object: 29.863700,-90.838142
 Threshold: 999
@@ -5801,7 +5870,7 @@ Line: 3, 0, "LA-1"
 End:
 Object: 30.349249,-90.844229
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 16\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 16\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:42:09 PM\n\nExpected end: 11/18/2026, 5:42:09 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 16"
@@ -5839,7 +5908,7 @@ Line: 3, 0, "LA 16"
 End:
 Object: 31.054937,-91.603032
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 15\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 15\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:42:09 PM\n\nExpected end: 11/18/2026, 5:42:09 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 15"
@@ -6340,7 +6409,7 @@ Line: 3, 0, "LA 15"
 End:
 Object: 31.054760,-91.603095
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 15 — LA 15: W. FELICIANA P/L - L.M. 10.530\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 15 — LA 15: W. FELICIANA P/L - L.M. 10.530\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:42:09 PM\n\nExpected end: 11/18/2026, 5:42:09 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 15 — LA 15: W. FELICIANA P/L - L.M. 10.530"
@@ -6841,7 +6910,7 @@ Line: 3, 0, "LA 15 — LA 15: W. FELICIANA P/L - L.M. 10.530"
 End:
 Object: 31.399488,-92.164512
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 115 — LA 115: LA 1207 - LA 28\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 115 — LA 115: LA 1207 - LA 28\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:42:09 PM\n\nExpected end: 11/18/2026, 5:42:09 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 115 — LA 115: LA 1207 - LA 28"
@@ -6959,7 +7028,7 @@ Line: 3, 0, "LA 115 — LA 115: LA 1207 - LA 28"
 End:
 Object: 30.018185,-91.902393
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: US 90\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:10:27 AM\n\nExpected end: 11/18/2026, 10:10:27 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: US 90\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:19:25 PM\n\nExpected end: 11/18/2026, 5:19:25 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "US 90"
@@ -7115,7 +7184,7 @@ Line: 3, 0, "US 90"
 End:
 Object: 30.166434,-91.861050
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 353\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 7:58:55 AM\n\nExpected end: 11/18/2026, 9:58:55 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 353\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 2:07:02 PM\n\nExpected end: 11/18/2026, 4:07:02 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 353"
@@ -7328,7 +7397,7 @@ Line: 3, 0, "LA 353"
 End:
 Object: 30.099762,-90.732782
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: US 61\n\nDirection: Northbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: US 61\n\nDirection: Northbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:40:26 PM\n\nExpected end: 11/18/2026, 5:40:26 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "US 61"
@@ -7382,129 +7451,9 @@ Line: 3, 0, "US 61"
 30.073880, -90.669430
 30.073840, -90.664240
 End:
-Object: 30.041154,-89.984466
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: MORRISON RD\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:08:18 AM\n\nExpected end: 11/18/2026, 10:08:18 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "MORRISON RD"
-30.032400, -90.004590
-30.032810, -90.003490
-30.033410, -90.001890
-30.033760, -90.000990
-30.034240, -89.999700
-30.034570, -89.998770
-30.034940, -89.997850
-30.035390, -89.996770
-30.035450, -89.996620
-30.035500, -89.996510
-30.036350, -89.994550
-30.037200, -89.992520
-30.038460, -89.989640
-30.038750, -89.988980
-30.038890, -89.988640
-30.039060, -89.988230
-30.039090, -89.988150
-30.039110, -89.988070
-30.039130, -89.988030
-30.039170, -89.987910
-30.039200, -89.987830
-30.039280, -89.987640
-30.039330, -89.987530
-30.040710, -89.984690
-30.040780, -89.984550
-30.041570, -89.982890
-30.042930, -89.980110
-30.043010, -89.979950
-30.043050, -89.979890
-30.043090, -89.979810
-30.044860, -89.976210
-30.044900, -89.976110
-30.044940, -89.976040
-30.046100, -89.973700
-30.046830, -89.972380
-30.046950, -89.972150
-30.048020, -89.970270
-30.048450, -89.969500
-30.048890, -89.968740
-30.049210, -89.968240
-30.049280, -89.968130
-30.050120, -89.966810
-30.050660, -89.965960
-30.050950, -89.965490
-End:
-Object: 30.780473,-91.064110
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 955\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:10:57 AM\n\nExpected end: 11/18/2026, 10:10:57 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 955"
-30.780000, -91.064360
-30.780510, -91.064090
-30.780910, -91.063880
-End:
-Object: 30.805090,-91.053095
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 955\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:10:57 AM\n\nExpected end: 11/18/2026, 10:10:57 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 955"
-30.804880, -91.053120
-30.805300, -91.053070
-End:
-Object: 30.820228,-91.052945
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 955\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:10:57 AM\n\nExpected end: 11/18/2026, 10:10:57 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 955"
-30.819790, -91.053170
-30.820140, -91.052990
-30.820340, -91.052890
-30.820640, -91.052730
-End:
-Object: 30.411561,-91.075320
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 73\n\nDirection: Eastbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:06:07 AM\n\nExpected end: 11/18/2026, 10:06:07 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 73"
-30.419400, -91.096660
-30.419430, -91.095100
-30.419430, -91.094560
-30.419360, -91.094180
-30.419250, -91.093880
-30.419100, -91.093500
-30.418800, -91.092920
-30.416540, -91.088660
-30.413640, -91.083170
-30.411470, -91.079080
-30.411240, -91.078540
-30.411100, -91.078140
-30.410090, -91.074570
-30.409960, -91.073980
-30.409880, -91.073450
-30.409810, -91.072820
-30.409470, -91.070050
-30.409360, -91.069220
-30.409290, -91.068840
-30.409200, -91.068440
-30.409000, -91.067930
-30.408480, -91.066590
-30.408060, -91.065540
-30.408070, -91.065410
-30.407980, -91.065190
-30.407800, -91.064530
-30.407670, -91.063760
-30.407590, -91.063010
-30.407510, -91.062500
-30.407410, -91.062200
-30.407320, -91.062000
-30.407230, -91.061810
-End:
 Object: 30.450962,-91.134288
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: US 61-X — US 61-X: N. 22ND ST. - US 61\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 7:52:41 AM\n\nExpected end: 11/18/2026, 9:52:41 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: US 61-X — US 61-X: N. 22ND ST. - US 61\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:36:15 PM\n\nExpected end: 11/18/2026, 5:36:15 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "US 61-X — US 61-X: N. 22ND ST. - US 61"
@@ -7581,7 +7530,7 @@ Line: 3, 0, "US 61-X — US 61-X: N. 22ND ST. - US 61"
 End:
 Object: 29.931628,-90.720022
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20\n\nDirection: Southbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20\n\nDirection: Southbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:42:09 PM\n\nExpected end: 11/18/2026, 5:42:09 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 20"
@@ -7598,7 +7547,7 @@ Line: 3, 0, "LA 20"
 End:
 Object: 29.919980,-90.725344
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:42:09 PM\n\nExpected end: 11/18/2026, 5:42:09 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 20"
@@ -7670,157 +7619,9 @@ Line: 3, 0, "LA 20"
 29.938850, -90.714110
 29.938870, -90.713070
 End:
-Object: 29.942139,-91.775408
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: US 90\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:10:14 AM\n\nExpected end: 11/18/2026, 10:10:14 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "US 90"
-29.962900, -91.828300
-29.962700, -91.827810
-29.962400, -91.827130
-29.962150, -91.826420
-29.961930, -91.825840
-29.961800, -91.825500
-29.961190, -91.823870
-29.960980, -91.823300
-29.960640, -91.822380
-29.960360, -91.821630
-29.960200, -91.821220
-29.960110, -91.820960
-29.959980, -91.820620
-29.959770, -91.820040
-29.959630, -91.819690
-29.959350, -91.819010
-29.959260, -91.818780
-29.958960, -91.818100
-29.958820, -91.817780
-29.958460, -91.816980
-29.958270, -91.816530
-29.957720, -91.815240
-29.957630, -91.814990
-29.957570, -91.814800
-29.957250, -91.813990
-29.957040, -91.813390
-29.956880, -91.812950
-29.956670, -91.812380
-29.956290, -91.811340
-29.956190, -91.811100
-29.955640, -91.809600
-29.955210, -91.808440
-29.954650, -91.806940
-29.954480, -91.806480
-29.954220, -91.805790
-29.954040, -91.805320
-29.953360, -91.803470
-29.952500, -91.801180
-29.952410, -91.800930
-29.952150, -91.800240
-29.952060, -91.800010
-29.951970, -91.799750
-29.951880, -91.799520
-29.951590, -91.798740
-29.950640, -91.796190
-29.950420, -91.795600
-29.949770, -91.793850
-29.948950, -91.791650
-29.948620, -91.790750
-29.947910, -91.788860
-29.947790, -91.788530
-29.947490, -91.787710
-29.947320, -91.787260
-29.946750, -91.785750
-29.946660, -91.785510
-29.945560, -91.782560
-29.945500, -91.782380
-29.945120, -91.781380
-29.944310, -91.779190
-29.944100, -91.778630
-29.943840, -91.777890
-29.943690, -91.777510
-29.943630, -91.777360
-29.943330, -91.776400
-29.942760, -91.774620
-29.942570, -91.774030
-29.942410, -91.773560
-29.942290, -91.773190
-29.942090, -91.772610
-29.941840, -91.771900
-29.941750, -91.771680
-29.941690, -91.771500
-29.941670, -91.771440
-29.941620, -91.771310
-29.941450, -91.770850
-29.940760, -91.769010
-29.940210, -91.767560
-29.940120, -91.767300
-29.939970, -91.766910
-29.939720, -91.766280
-29.939550, -91.765850
-29.939200, -91.764900
-29.939120, -91.764700
-29.938760, -91.763690
-29.938590, -91.763230
-29.937640, -91.760680
-29.937340, -91.759870
-29.937290, -91.759750
-29.937210, -91.759510
-29.936820, -91.758470
-29.936650, -91.758020
-29.935780, -91.755690
-29.935560, -91.755100
-29.935280, -91.754350
-29.935220, -91.754180
-29.935000, -91.753600
-29.934830, -91.753150
-29.934450, -91.752230
-29.934300, -91.751890
-29.933940, -91.751110
-29.933740, -91.750670
-29.933520, -91.750230
-29.933220, -91.749630
-29.933080, -91.749370
-29.932860, -91.748960
-29.932670, -91.748630
-29.932490, -91.748300
-29.932310, -91.747990
-29.931940, -91.747370
-29.931690, -91.746970
-29.931550, -91.746760
-29.931090, -91.746050
-29.930020, -91.744450
-29.929820, -91.744140
-29.929760, -91.744040
-29.928500, -91.742140
-29.928340, -91.741900
-29.928100, -91.741540
-29.928040, -91.741440
-29.927300, -91.740330
-29.926700, -91.739430
-29.926300, -91.738830
-29.926170, -91.738630
-29.926100, -91.738520
-29.925700, -91.737920
-29.923770, -91.735020
-29.923640, -91.734810
-29.923240, -91.734210
-29.922910, -91.733710
-29.922780, -91.733520
-29.922630, -91.733320
-29.922490, -91.733130
-29.922350, -91.732950
-29.921800, -91.732110
-29.920500, -91.730080
-29.919610, -91.728710
-29.918850, -91.727560
-29.918130, -91.726490
-29.917590, -91.725660
-29.917150, -91.724990
-29.917020, -91.724810
-End:
 Object: 29.927856,-90.721901
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20 — LA 20 WIDEN: LA 307 - S. VACHERIE\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20 — LA 20 WIDEN: LA 307 - S. VACHERIE\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:42:09 PM\n\nExpected end: 11/18/2026, 5:42:09 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 20 — LA 20 WIDEN: LA 307 - S. VACHERIE"
@@ -7874,25 +7675,9 @@ Line: 3, 0, "LA 20 — LA 20 WIDEN: LA 307 - S. VACHERIE"
 29.938850, -90.714110
 29.938860, -90.713410
 End:
-Object: 29.901779,-90.733330
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20 — LA 20 WIDEN: LA 307 - S. VACHERIE\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 20 — LA 20 WIDEN: LA 307 - S. VACHERIE"
-29.898280, -90.734790
-29.899250, -90.734380
-29.900220, -90.733980
-29.900980, -90.733670
-29.901690, -90.733370
-29.902170, -90.733170
-29.903680, -90.732530
-29.904490, -90.732190
-29.905250, -90.731890
-End:
 Object: 30.987529,-91.831873
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 1 — LA 1:ATCHAFALAYA RIVER-ROSEWOOD CROSSING\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:11:12 AM\n\nExpected end: 11/18/2026, 10:11:12 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 1 — LA 1:ATCHAFALAYA RIVER-ROSEWOOD CROSSING\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:42:09 PM\n\nExpected end: 11/18/2026, 5:42:09 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 1 — LA 1:ATCHAFALAYA RIVER-ROSEWOOD CROSSING"
@@ -7987,12 +7772,469 @@ Line: 3, 0, "LA 1 — LA 1:ATCHAFALAYA RIVER-ROSEWOOD CROSSING"
 30.996750, -91.886690
 30.996880, -91.887690
 End:
-; Current events displayed: 107
+Object: 30.210560,-90.951044
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:23:03 PM\n\nExpected end: 11/18/2026, 5:23:03 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "I-10"
+30.210550, -90.959150
+30.210570, -90.956110
+30.210590, -90.954580
+30.210590, -90.954060
+30.210510, -90.954020
+30.210420, -90.953900
+30.210400, -90.953800
+30.210420, -90.953700
+30.210470, -90.953630
+30.210600, -90.953590
+30.210600, -90.953060
+30.210570, -90.953000
+30.210550, -90.950670
+30.210570, -90.949230
+30.210570, -90.948190
+30.210580, -90.946940
+30.210620, -90.944070
+30.210640, -90.943440
+30.210690, -90.943370
+30.210690, -90.942370
+End:
+Object: 30.211264,-90.948254
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: I-10\n\nDirection: Southbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 3:23:03 PM\n\nExpected end: 11/18/2026, 5:23:03 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "I-10"
+30.216820, -90.952870
+30.213660, -90.950210
+30.211010, -90.948030
+30.207830, -90.945430
+30.207000, -90.944730
+End:
+Object: 30.296254,-91.833138
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 349\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 2:44:03 PM\n\nExpected end: 11/18/2026, 4:44:03 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "LA 349"
+30.300740, -91.849930
+30.300520, -91.849740
+30.300070, -91.849350
+30.299870, -91.849190
+30.299450, -91.848840
+30.298760, -91.848250
+30.298470, -91.848010
+30.298130, -91.847710
+30.296610, -91.846440
+30.296430, -91.846300
+30.296260, -91.846150
+30.296150, -91.846050
+30.296050, -91.845940
+30.296000, -91.845880
+30.295970, -91.845830
+30.295940, -91.845780
+30.295930, -91.845760
+30.295920, -91.845730
+30.295900, -91.845650
+30.295890, -91.845610
+30.295890, -91.845570
+30.295890, -91.845530
+30.295890, -91.845480
+30.295900, -91.845400
+30.295920, -91.845340
+30.295940, -91.845280
+30.295990, -91.845160
+30.296100, -91.844950
+30.296110, -91.844920
+30.296140, -91.844840
+30.296160, -91.844780
+30.296180, -91.844720
+30.296200, -91.844630
+30.296200, -91.844580
+30.296210, -91.844520
+30.296210, -91.844370
+30.296200, -91.844320
+30.296190, -91.844250
+30.296180, -91.844180
+30.296150, -91.844030
+30.296080, -91.843810
+30.295910, -91.843170
+30.295760, -91.842650
+30.295450, -91.841540
+30.295400, -91.841350
+30.295370, -91.841270
+30.295340, -91.841190
+30.295290, -91.841060
+30.295260, -91.840990
+30.295220, -91.840900
+30.295180, -91.840820
+30.295110, -91.840680
+30.295080, -91.840620
+30.295030, -91.840540
+30.294950, -91.840430
+30.294850, -91.840300
+30.294740, -91.840160
+30.294600, -91.840000
+30.294420, -91.839800
+30.293830, -91.839180
+30.293740, -91.839080
+30.293670, -91.839000
+30.293500, -91.838840
+30.293380, -91.838720
+30.293270, -91.838620
+30.293160, -91.838520
+30.293040, -91.838420
+30.292930, -91.838340
+30.292850, -91.838280
+30.292680, -91.838160
+30.292480, -91.838040
+30.292350, -91.837970
+30.292280, -91.837930
+30.292160, -91.837870
+30.292090, -91.837840
+30.291950, -91.837790
+30.291870, -91.837760
+30.291730, -91.837710
+30.291530, -91.837650
+30.291310, -91.837600
+30.290790, -91.837470
+30.290560, -91.837410
+30.290500, -91.837400
+30.290460, -91.837380
+30.290450, -91.837360
+30.290440, -91.837350
+30.290430, -91.837330
+30.290410, -91.837290
+30.290410, -91.837250
+30.290400, -91.837200
+30.290390, -91.837070
+30.290400, -91.835780
+30.290410, -91.835220
+30.290420, -91.833800
+30.290420, -91.833550
+30.290400, -91.833190
+30.290390, -91.833000
+30.290370, -91.832890
+30.290360, -91.832760
+30.290340, -91.832660
+30.290320, -91.832550
+30.290290, -91.832430
+30.290260, -91.832280
+30.290240, -91.832200
+30.290150, -91.831920
+30.290020, -91.831570
+30.289960, -91.831380
+30.289890, -91.831140
+30.289860, -91.831030
+30.289820, -91.830860
+30.289790, -91.830770
+30.289780, -91.830650
+30.289770, -91.830580
+30.289760, -91.830480
+30.289760, -91.830360
+30.289760, -91.830260
+30.289760, -91.830150
+30.289770, -91.830060
+30.289780, -91.829990
+30.289790, -91.829900
+30.289820, -91.829740
+30.289870, -91.829550
+30.289920, -91.829340
+30.289990, -91.829100
+30.290060, -91.828860
+30.290200, -91.828360
+30.290210, -91.828300
+30.290240, -91.828200
+30.290290, -91.828040
+30.290330, -91.827910
+30.290430, -91.827600
+30.290470, -91.827490
+30.290550, -91.827270
+30.290620, -91.827120
+30.290660, -91.827040
+30.290690, -91.826970
+30.290730, -91.826900
+30.290810, -91.826780
+30.291010, -91.826460
+30.291150, -91.826250
+30.291370, -91.825910
+30.291590, -91.825580
+30.291690, -91.825450
+30.291790, -91.825310
+30.291830, -91.825250
+30.291900, -91.825170
+30.292020, -91.825050
+30.292070, -91.825000
+30.292140, -91.824950
+30.292200, -91.824900
+30.292320, -91.824820
+30.292450, -91.824750
+30.292590, -91.824690
+30.292660, -91.824660
+30.292800, -91.824610
+30.292870, -91.824590
+30.293010, -91.824560
+30.293160, -91.824540
+30.293370, -91.824520
+30.293660, -91.824490
+30.294240, -91.824450
+30.295030, -91.824390
+30.296290, -91.824300
+30.296700, -91.824260
+30.296780, -91.824260
+30.298370, -91.824130
+30.299320, -91.824060
+30.299600, -91.824040
+30.299880, -91.824030
+30.300180, -91.824020
+30.301990, -91.824010
+30.302210, -91.824010
+30.303010, -91.824000
+30.303660, -91.824000
+30.304540, -91.824000
+30.305190, -91.823990
+30.305480, -91.823990
+30.305850, -91.823980
+30.306000, -91.823980
+30.306120, -91.823970
+30.306210, -91.823960
+30.306290, -91.823950
+30.306350, -91.823940
+30.306420, -91.823930
+30.306490, -91.823910
+30.306570, -91.823890
+30.306640, -91.823870
+30.306710, -91.823840
+30.306770, -91.823810
+30.306840, -91.823780
+30.306980, -91.823720
+30.307040, -91.823680
+30.307240, -91.823570
+30.307490, -91.823420
+30.307640, -91.823340
+30.307760, -91.823280
+30.307830, -91.823250
+30.307970, -91.823200
+30.308030, -91.823180
+30.308100, -91.823160
+30.308250, -91.823130
+30.308320, -91.823120
+30.308470, -91.823110
+30.308610, -91.823100
+30.308750, -91.823100
+30.309040, -91.823100
+30.309550, -91.823090
+30.309990, -91.823090
+30.311540, -91.823080
+30.312540, -91.823080
+30.312890, -91.823080
+30.313110, -91.823080
+30.313320, -91.823070
+30.313700, -91.823070
+End:
+Object: 30.002125,-91.880663
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 675\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 2:26:47 PM\n\nExpected end: 11/18/2026, 4:26:47 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "LA 675"
+30.002750, -91.886130
+30.002740, -91.885930
+30.002710, -91.885420
+30.002690, -91.885080
+30.002700, -91.884630
+30.002700, -91.883880
+30.002710, -91.883460
+30.002720, -91.883210
+30.002720, -91.882790
+30.002730, -91.881990
+30.002730, -91.881880
+30.002730, -91.881790
+30.002740, -91.881380
+30.002740, -91.881130
+30.002740, -91.881040
+30.002740, -91.880980
+30.002740, -91.880880
+30.002730, -91.880790
+30.002720, -91.880710
+30.002710, -91.880610
+30.002690, -91.880540
+30.002670, -91.880460
+30.002650, -91.880380
+30.002630, -91.880300
+30.002570, -91.880150
+30.002540, -91.880070
+30.002470, -91.879930
+30.002430, -91.879870
+30.002340, -91.879730
+30.002280, -91.879660
+30.002240, -91.879600
+30.002130, -91.879480
+30.002080, -91.879430
+30.002020, -91.879370
+30.001960, -91.879320
+30.001730, -91.879120
+30.001430, -91.878860
+30.001260, -91.878700
+30.001060, -91.878510
+30.000930, -91.878400
+30.000770, -91.878270
+30.000660, -91.878170
+30.000570, -91.878080
+30.000450, -91.877940
+30.000370, -91.877840
+30.000280, -91.877710
+30.000190, -91.877580
+End:
+Object: 30.535923,-92.058645
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: emergencymaintenance\n\nRoad: US-190\n\nDirection: Westbound\n\nDescription: Emergency Maintenance on US-190 Westbound from Acadiana Prep Cir to Acadiana Prep Cir . 1 Right lane closed. Width Restriction: 12ft Starting 11/18/2026 10:22 AM\n\nDetails: Effective immediately, the outside lane of US 190 Westbound Railroad Overpass at Acadiana Prep Circle in Opelousas is closed until further notice. This closure is to allow crews to make emergency repairs.\n\nSeverity: None\n\nLane impact: 1 Right lane closed\n\nReported/start: 11/18/2026, 10:22:00 AM\n\nSchedule: <b>Wed, Thu, Fri, Sat, Sun, Mon, Tue:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 245 145 35
+Line: 3, 0, "US-190"
+30.537020, -92.056780
+30.536920, -92.056980
+30.536730, -92.057360
+30.536610, -92.057580
+30.536470, -92.057820
+30.536280, -92.058130
+30.536140, -92.058330
+30.535920, -92.058670
+30.535670, -92.059080
+30.535570, -92.059230
+30.535510, -92.059330
+30.535360, -92.059550
+30.534900, -92.060260
+30.533820, -92.061930
+End:
+Object: 30.553572,-91.038586
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 408\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 2:20:57 PM\n\nExpected end: 11/18/2026, 4:20:57 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "LA 408"
+30.552010, -91.042270
+30.552470, -91.041180
+30.552720, -91.040570
+30.553430, -91.038900
+30.553920, -91.037780
+30.554190, -91.037120
+30.554290, -91.036900
+30.554400, -91.036670
+30.554720, -91.035880
+End:
+Object: 30.549593,-91.032333
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 3034\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 2:20:57 PM\n\nExpected end: 11/18/2026, 4:20:57 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "LA 3034"
+30.545420, -91.029040
+30.546000, -91.029270
+30.546260, -91.029340
+30.546510, -91.029420
+30.546680, -91.029480
+30.546870, -91.029550
+30.547070, -91.029640
+30.547200, -91.029710
+30.547340, -91.029780
+30.547650, -91.029970
+30.547920, -91.030160
+30.548100, -91.030300
+30.548330, -91.030490
+30.548550, -91.030710
+30.548790, -91.030960
+30.549520, -91.031820
+30.549800, -91.032160
+30.550120, -91.032580
+30.550880, -91.033600
+30.552060, -91.035210
+30.552230, -91.035430
+30.552370, -91.035590
+30.552470, -91.035700
+30.552570, -91.035790
+30.552680, -91.035880
+30.552800, -91.035960
+30.553680, -91.036500
+30.554050, -91.036740
+30.554290, -91.036890
+End:
+Object: 30.554878,-91.037308
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: SULLIVAN RD\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 2:20:57 PM\n\nExpected end: 11/18/2026, 4:20:57 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "SULLIVAN RD"
+30.554300, -91.036900
+30.554630, -91.037120
+30.555140, -91.037500
+30.555440, -91.037710
+End:
+Object: 30.548264,-91.031467
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 3034 — SULLIVAN RD (WAX - HOOPER)\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 2:20:57 PM\n\nExpected end: 11/18/2026, 4:20:57 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "LA 3034 — SULLIVAN RD (WAX - HOOPER)"
+30.554290, -91.036900
+30.554050, -91.036740
+30.553680, -91.036500
+30.552800, -91.035960
+30.552680, -91.035880
+30.552570, -91.035790
+30.552470, -91.035700
+30.552370, -91.035590
+30.552230, -91.035430
+30.552060, -91.035210
+30.550880, -91.033600
+30.550120, -91.032580
+30.549800, -91.032160
+30.549520, -91.031820
+30.548790, -91.030960
+30.548550, -91.030710
+30.548330, -91.030490
+30.548100, -91.030300
+30.547920, -91.030160
+30.547650, -91.029970
+30.547340, -91.029780
+30.547200, -91.029710
+30.547070, -91.029640
+30.546870, -91.029550
+30.546680, -91.029480
+30.546510, -91.029420
+30.546260, -91.029340
+30.546000, -91.029270
+30.545400, -91.029030
+30.545170, -91.029050
+30.545100, -91.029030
+30.545030, -91.029020
+30.544820, -91.028970
+30.544650, -91.028960
+30.544500, -91.028930
+30.544330, -91.028930
+30.544080, -91.028910
+30.543300, -91.028870
+30.543120, -91.028870
+End:
+Object: 30.554173,-91.037177
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 408 — SULLIVAN RD (WAX - HOOPER)\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 2:20:57 PM\n\nExpected end: 11/18/2026, 4:20:57 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+End:
+Color: 255 175 45
+Line: 3, 0, "LA 408 — SULLIVAN RD (WAX - HOOPER)"
+30.553520, -91.038700
+30.553920, -91.037780
+30.554190, -91.037120
+30.554290, -91.036900
+30.554400, -91.036670
+30.554720, -91.035890
+End:
+; Current events displayed: 112
 ; Closures: 27
-; Construction / roadwork: 61
+; Construction / roadwork: 63
 ; Incidents: 0
-; Construction with workers present: 19
+; Construction with workers present: 21
 ; Weather incidents: 0
-; Weather closures: 0
+; Weather closures: 1
 ; Special events: 0
 ; Other official event types: 0
