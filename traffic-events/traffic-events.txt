@@ -3,7 +3,7 @@
 ; Only events returned by 511LA are considered; future-start and expired events are excluded.
 ; Icons are assigned from the official EventType and EventSubType fields.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-19T02:55:02.784Z
+; Updated: 2026-11-19T10:50:05.246Z
 Title: LOUISIANA ROAD EVENTS - 511LA
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
@@ -698,19 +698,6 @@ Line: 3, 0, "LA-347"
 30.300820, -91.849990
 30.300760, -91.850060
 30.300710, -91.850120
-End:
-Object: 30.332212,-90.987032
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: utilitywork\n\nRoad: LA-427\n\nDirection: Both Directions\n\nDescription: Utility Work on LA-427 Both Directions from Magnolia Oaks Dr to LA-42 Eastbound. Lane Alternating. Starting 5/8/2025 8:00 PM\n\nDetails: Construction is underway for State Project H.014088. This is an active safety improvement project to create a new left turn lane from US 61 northbound onto LA 427 westbound, as well as widen a portion of LA 427. LA 427 will continue having alternating lane closures in both directions, continuing from May 8th, between US 61 and Red Oak Dr. Weeknight closures will be from 8:00 PM to 4:00 AM Sundays through Thursdays for the duration of the construction project. Flaggers will be on site to direct traffic through the work zone. One lane of travel will be maintained at all times. Motorists should expect delays when traveling through the work zone. These closures are necessary for installing drainage structures. These closures are subject to change due to adverse weather conditions. DOTD appreciates your patience and reminds you to please drive with caution through the work zone and be on the lookout for work crews and their equipment.\n\nSeverity: None\n\nLane impact: Lane Alternating\n\nReported/start: 5/8/2025, 8:00:00 PM\n\nSchedule: <b>Thu, Mon, Tue, Wed:</b><br/>12:00 AM - 4:00 AM<br/>8:00 PM - 12:00 AM<br/><br/><b>Fri:</b><br/>12:00 AM - 4:00 AM<br/><br/><b>Sun:</b><br/>8:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object],[object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA-427"
-30.331420, -90.988940
-30.331800, -90.988020
-30.332190, -90.987130
-30.332350, -90.986740
-30.332680, -90.985850
-30.332830, -90.985510
 End:
 Object: 30.706566,-89.862265
 Threshold: 999
@@ -1582,6 +1569,42 @@ Line: 4, 0, "Spur Ln"
 30.624070, -91.162280
 30.623970, -91.161440
 30.623920, -91.161080
+End:
+Object: 30.248787,-92.191732
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: roadconstruction\n\nRoad: I-10 Westbound\n\nDirection: Unknown\n\nDescription: Road Construction on ramp from I-10 Westbound to LA-95 . All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 7/23/2026 7:50 AM\n\nDetails: The project is being undertaken to repair deteriorated and broken concrete pavement panels that no longer meet DOTD roadway ride quality specifications. Rehabilitating the ramp will provide motorists with a smoother, safer driving surface, improve ride quality, extend the life of the roadway, and help reduce future maintenance needs.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 7/23/2026, 7:50:00 AM\n\nSchedule: <b>Thu, Fri, Sat, Sun, Mon, Tue, Wed:</b><br/>12:00 AM - 6:00 AM<br/>9:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 220 35 45
+Line: 4, 0, "I-10 Westbound"
+30.247820, -92.189960
+30.247890, -92.190460
+30.247910, -92.190580
+30.247940, -92.190720
+30.247970, -92.190840
+30.248000, -92.190940
+30.248030, -92.191030
+30.248080, -92.191150
+30.248140, -92.191270
+30.248200, -92.191380
+30.248250, -92.191460
+30.248300, -92.191530
+30.248360, -92.191610
+30.248420, -92.191680
+30.248520, -92.191790
+30.248590, -92.191860
+30.248750, -92.192000
+30.248850, -92.192070
+30.248990, -92.192150
+30.249110, -92.192210
+30.249230, -92.192260
+30.249360, -92.192310
+30.249680, -92.192420
+30.249890, -92.192500
+30.250030, -92.192560
+30.250080, -92.192680
+30.250120, -92.192800
+30.250140, -92.192900
+30.250160, -92.193100
 End:
 Object: 29.643094,-90.520201
 Threshold: 999
@@ -2734,45 +2757,6 @@ Line: 3, 0, "I-12"
 30.474510, -90.660780
 30.474510, -90.660160
 30.474520, -90.658050
-End:
-Object: 30.505446,-90.451917
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadmarkingoperations\n\nRoad: US-190\n\nDirection: Both Directions\n\nDescription: Road Marking Operations on US-190 Both Directions from SW Railroad Ave to LA-443 . All Lanes Intermittent. Starting 11/15/2026 12:00 AM and Ending 11/19/2026 12:00 AM.\n\nDetails: This closure is necessary for lane striping. Alternate Route: Motorists traveling east on US 190 may take NW Railroad Ave north to LA 3234 then east on LA 3234 to LA 1065 then north on LA 1065 to LA 1064 then east on LA 1064 to reintersect LA 443. Motorists traveling west on US 190 may take LA 443 north to LA 1064 then west on LA 1064 to LA 1065 then south to LA 3234 then south to reinteresct SW Railroad AVE. UPDATE: US 190 from SW Railroad Ave to LA 443 will be partially closed nightly from 8pm to 6am starting Sunday, November 15, 2026 to Thursday, November 19, 2026 for lane striping. Alternate Route: Motorists traveling east on US 190 may take NW Railroad Ave north to LA 3234 then east on LA 3234 to LA 1065 then north on LA 1065 to LA 1064 then east on LA 1064 to reintersect LA 443. Motorists traveling west on US 190 may take LA 443 north to LA 1064 then west on LA 1064 to LA 1065 then south to LA 3234 then south to reinteresct SW Railroad AVE. Weather Permitting Restrictions: 12' Wide Loads Safety Reminder: DOTD appreciates your patience and reminds you to please drive with caution through the construction site and be on the lookout for work crews and their equipment.\n\nSeverity: None\n\nLane impact: All Lanes Intermittent\n\nReported/start: 11/15/2026, 12:00:00 AM\n\nExpected end: 11/19/2026, 12:00:00 AM\n\nSchedule: <b>Sun, Mon, Tue, Wed, Thu:</b><br/>12:00 AM - 6:00 AM<br/>8:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "US-190"
-30.503080, -90.461130
-30.503110, -90.460970
-30.503150, -90.460730
-30.503170, -90.460620
-30.503210, -90.460440
-30.503230, -90.460360
-30.503340, -90.459890
-30.503460, -90.459410
-30.503700, -90.458310
-30.503960, -90.457180
-30.504450, -90.454990
-30.505200, -90.451610
-30.505440, -90.450520
-30.505600, -90.449820
-30.505710, -90.449310
-30.505820, -90.448830
-30.505920, -90.448360
-30.505980, -90.448150
-30.506040, -90.447990
-30.506060, -90.447950
-30.506140, -90.447820
-30.506210, -90.447720
-30.506330, -90.447600
-30.506420, -90.447520
-30.506540, -90.447440
-30.506810, -90.447310
-30.507160, -90.447150
-30.507490, -90.446930
-30.507660, -90.446760
-30.507840, -90.446500
-30.507940, -90.446260
-30.508100, -90.445770
 End:
 Object: 30.505884,-90.453647
 Threshold: 999
@@ -4073,6 +4057,46 @@ Line: 3, 0, "US-90"
 29.919600, -91.728720
 29.919560, -91.728660
 End:
+Object: 30.440277,-91.179206
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: roadconstruction\n\nRoad: I-10 Eastbound\n\nDirection: Unknown\n\nDescription: Road Construction on ramp from I-10 Eastbound to I-110 Northbound . All Ramps Closed. Starting 11/16/2026 10:00 PM and Ending 11/23/2026 5:00 AM.\n\nDetails: Baton Rouge – The Louisiana Department of Transportation and Development (DOTD) announces lane closures as part of the I-10 Widening Project in East Baton Rouge Parish. These closures, which are necessary for the progression of the project, will affect night traffic patterns. DOTD advises motorists that construction activities are contingent on weather conditions and may be subject to change. Detour: From I-10 East motorist can take LA-415 or LA-1 to US-190\n\nSeverity: Major\n\nLanes closed: All\n\nLane impact: All Ramps Closed\n\nReported/start: 11/16/2026, 10:00:00 PM\n\nExpected end: 11/23/2026, 5:00:00 AM\n\nSchedule: <b>Mon:</b><br/>12:00 AM - 5:00 AM<br/><br/><b>Tue, Wed, Thu:</b><br/>12:00 AM - 5:00 AM<br/>10:00 PM - 12:00 AM<br/><br/><b>Fri:</b><br/>12:00 AM - 5:00 AM<br/>7:00 PM - 12:00 AM<br/><br/><b>Sat, Sun:</b><br/>12:00 AM - 7:00 AM<br/>7:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object],[object Object],[object Object],[object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 220 35 45
+Line: 4, 0, "I-10 Eastbound"
+30.439060, -91.182120
+30.439080, -91.181710
+30.439100, -91.181380
+30.439110, -91.181200
+30.439110, -91.180980
+30.439130, -91.180490
+30.439150, -91.180260
+30.439170, -91.180120
+30.439220, -91.179870
+30.439260, -91.179720
+30.439370, -91.179460
+30.439480, -91.179280
+30.439570, -91.179150
+30.439620, -91.179070
+30.439750, -91.178910
+30.439910, -91.178750
+30.440110, -91.178580
+30.440240, -91.178490
+30.440400, -91.178400
+30.440490, -91.178360
+30.440590, -91.178320
+30.440670, -91.178290
+30.440740, -91.178270
+30.440830, -91.178250
+30.440950, -91.178230
+30.441040, -91.178220
+30.441150, -91.178210
+30.441280, -91.178210
+30.441610, -91.178230
+30.441820, -91.178250
+30.442370, -91.178310
+30.442520, -91.178320
+30.443250, -91.178380
+End:
 Object: 29.950734,-89.976585
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadmaintenanceoperations\n\nRoad: LA-39\n\nDirection: Both Directions\n\nDescription: Road Maintenance Operations on LA-39 Both Directions from Norton Ave to Montesquieu St . Lanes Alternating. Starting 11/16/2026 7:00 PM and Ending 11/22/2026 12:00 PM.\n\nDetails: Southbound & Northbound LA 39 (W Judge Perez Dr), Norton Ave - Montesquieu St, recurring alternating lane closures in the left and right lanes from Monday, Nov 16th - Thursday, Nov 19th, 7 PM - 6 AM each night (ending Friday morning, Nov 20th) and from 7:00 PM Friday night, Nov 20th - 12:00 PM Sunday, November 22nd for sawing and sealing and surface abrasion. Weather Permitting Safety Reminder: DOTD appreciates your patience and reminds you to please drive with caution through the construction site and be on the lookout for work crews and their equipment. Additional Information: Call 511 or visit www.511la.org for additional information. Out-of-state travelers may call 1-888-ROAD-511 (1-888-762-3511). Motorists may also monitor the LA DOTD website at www.dotd.la.gov, by selecting MYDOTD, or by visiting the DOTD Facebook and Twitter pages.\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 11/16/2026, 7:00:00 PM\n\nExpected end: 11/22/2026, 12:00:00 PM\n\nSchedule: <b>Mon:</b><br/>7:00 PM - 12:00 AM<br/><br/><b>Tue, Wed, Thu, Fri:</b><br/>12:00 AM - 6:00 AM<br/>7:00 PM - 12:00 AM<br/><br/><b>Sat:</b><br/>12:00 AM - 12:00 PM<br/>7:00 PM - 12:00 AM<br/><br/><b>Sun:</b><br/>12:00 AM - 12:00 PM<br/><br/>\n\nSchedule details: [object Object],[object Object],[object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
@@ -4256,7 +4280,7 @@ Line: 3, 0, "LA-16"
 End:
 Object: 30.349249,-90.844229
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 16\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:42:15 PM\n\nExpected end: 11/18/2026, 10:42:15 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 16\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/19/2026, 4:32:23 AM\n\nExpected end: 11/19/2026, 6:32:23 AM\n\nReporting agency: WZDx\n\nSource: 511LA"
 End:
 Color: 255 175 45
 Line: 3, 0, "LA 16"
@@ -4292,153 +4316,6 @@ Line: 3, 0, "LA 16"
 30.350900, -90.845230
 30.351450, -90.845500
 End:
-Object: 29.931628,-90.720022
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20\n\nDirection: Southbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:42:15 PM\n\nExpected end: 11/18/2026, 10:42:15 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 20"
-29.938850, -90.713770
-29.938810, -90.715510
-29.938600, -90.716730
-29.938260, -90.717360
-29.937780, -90.718060
-29.937140, -90.718560
-29.936810, -90.718730
-29.930750, -90.721300
-29.922440, -90.724720
-29.896840, -90.735480
-End:
-Object: 29.919980,-90.725344
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:42:15 PM\n\nExpected end: 11/18/2026, 10:42:15 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 20"
-29.896670, -90.735760
-29.896770, -90.735630
-29.896860, -90.735530
-29.896900, -90.735480
-29.896970, -90.735420
-29.897080, -90.735340
-29.897140, -90.735300
-29.897230, -90.735250
-29.897290, -90.735220
-29.897420, -90.735160
-29.897700, -90.735040
-29.898420, -90.734730
-29.899250, -90.734380
-29.900220, -90.733980
-29.900980, -90.733670
-29.901690, -90.733370
-29.902170, -90.733170
-29.903680, -90.732530
-29.904490, -90.732190
-29.905380, -90.731830
-29.906080, -90.731550
-29.907680, -90.730870
-29.910500, -90.729700
-29.910740, -90.729600
-29.911140, -90.729450
-29.911530, -90.729280
-29.911940, -90.729100
-29.913440, -90.728480
-29.915000, -90.727830
-29.915730, -90.727520
-29.916620, -90.727160
-29.917000, -90.727000
-29.918080, -90.726550
-29.918510, -90.726380
-29.921200, -90.725250
-29.923540, -90.724280
-29.925940, -90.723270
-29.927660, -90.722550
-29.928920, -90.722020
-29.930550, -90.721360
-29.930970, -90.721190
-29.933240, -90.720250
-29.934990, -90.719510
-29.936360, -90.718940
-29.936660, -90.718810
-29.936950, -90.718670
-29.937170, -90.718540
-29.937300, -90.718450
-29.937400, -90.718380
-29.937520, -90.718280
-29.937680, -90.718130
-29.937790, -90.718020
-29.937890, -90.717910
-29.938060, -90.717690
-29.938190, -90.717510
-29.938350, -90.717240
-29.938460, -90.717030
-29.938580, -90.716750
-29.938660, -90.716480
-29.938690, -90.716330
-29.938730, -90.716180
-29.938760, -90.715950
-29.938780, -90.715760
-29.938810, -90.715520
-29.938820, -90.715180
-29.938850, -90.714110
-29.938870, -90.713070
-End:
-Object: 29.927856,-90.721901
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 20 — LA 20 WIDEN: LA 307 - S. VACHERIE\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:42:15 PM\n\nExpected end: 11/18/2026, 10:42:15 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 20 — LA 20 WIDEN: LA 307 - S. VACHERIE"
-29.905250, -90.731890
-29.905380, -90.731830
-29.906080, -90.731550
-29.907680, -90.730870
-29.910500, -90.729700
-29.910740, -90.729600
-29.911140, -90.729450
-29.911530, -90.729280
-29.911940, -90.729100
-29.913440, -90.728480
-29.915000, -90.727830
-29.915730, -90.727520
-29.916620, -90.727160
-29.917000, -90.727000
-29.918080, -90.726550
-29.918510, -90.726380
-29.921200, -90.725250
-29.923540, -90.724280
-29.925940, -90.723270
-29.927660, -90.722550
-29.928920, -90.722020
-29.930550, -90.721360
-29.930970, -90.721190
-29.933240, -90.720250
-29.934990, -90.719510
-29.936360, -90.718940
-29.936660, -90.718810
-29.936950, -90.718670
-29.937170, -90.718540
-29.937300, -90.718450
-29.937400, -90.718380
-29.937520, -90.718280
-29.937680, -90.718130
-29.937790, -90.718020
-29.937890, -90.717910
-29.938060, -90.717690
-29.938190, -90.717510
-29.938350, -90.717240
-29.938460, -90.717030
-29.938580, -90.716750
-29.938660, -90.716480
-29.938690, -90.716330
-29.938730, -90.716180
-29.938760, -90.715950
-29.938780, -90.715760
-29.938810, -90.715520
-29.938820, -90.715180
-29.938850, -90.714110
-29.938860, -90.713410
-End:
 Object: 30.535923,-92.058645
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: emergencymaintenance\n\nRoad: US-190\n\nDirection: Westbound\n\nDescription: Emergency Maintenance on US-190 Westbound from Acadiana Prep Cir to Acadiana Prep Cir . 1 Right lane closed. Width Restriction: 12ft Starting 11/18/2026 10:22 AM\n\nDetails: Effective immediately, the outside lane of US 190 Westbound Railroad Overpass at Acadiana Prep Circle in Opelousas is closed until further notice. This closure is to allow crews to make emergency repairs.\n\nSeverity: None\n\nLane impact: 1 Right lane closed\n\nReported/start: 11/18/2026, 10:22:00 AM\n\nSchedule: <b>Wed, Thu, Fri, Sat, Sun, Mon, Tue:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
@@ -4460,229 +4337,11 @@ Line: 3, 0, "US-190"
 30.534900, -92.060260
 30.533820, -92.061930
 End:
-Object: 29.759392,-90.027349
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 23\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 7:59:50 PM\n\nExpected end: 11/18/2026, 9:59:50 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 23"
-29.783800, -90.025330
-29.783080, -90.025670
-29.782670, -90.025870
-29.782370, -90.026010
-29.782030, -90.026180
-29.781850, -90.026260
-29.781760, -90.026300
-29.780460, -90.026920
-29.779750, -90.027260
-29.779440, -90.027400
-29.778930, -90.027640
-29.778730, -90.027740
-29.776700, -90.028700
-29.776090, -90.028980
-29.775680, -90.029170
-29.775370, -90.029290
-29.775170, -90.029370
-29.774960, -90.029440
-29.774850, -90.029470
-29.774630, -90.029540
-29.774420, -90.029580
-29.774210, -90.029630
-29.773990, -90.029670
-29.773660, -90.029720
-29.773450, -90.029740
-29.772990, -90.029790
-29.771690, -90.029910
-29.770160, -90.030050
-29.769850, -90.030080
-29.769620, -90.030090
-29.769400, -90.030110
-29.768190, -90.030230
-29.767860, -90.030250
-29.767320, -90.030310
-29.766880, -90.030340
-29.765270, -90.030490
-29.764670, -90.030540
-29.764240, -90.030580
-29.763900, -90.030610
-29.763710, -90.030630
-29.762120, -90.030780
-29.762000, -90.030790
-29.761830, -90.030810
-29.761590, -90.030830
-29.761450, -90.030840
-29.760900, -90.030890
-29.760560, -90.030910
-29.760250, -90.030920
-29.759970, -90.030920
-29.759790, -90.030920
-29.759570, -90.030910
-29.759440, -90.030900
-29.759210, -90.030890
-29.758910, -90.030860
-29.758690, -90.030840
-29.758450, -90.030800
-29.758050, -90.030730
-29.757560, -90.030630
-29.757270, -90.030560
-29.757040, -90.030490
-29.756780, -90.030420
-29.755920, -90.030170
-29.755500, -90.030040
-29.755230, -90.029960
-29.754620, -90.029790
-29.753530, -90.029460
-29.752750, -90.029230
-29.752620, -90.029190
-29.752400, -90.029130
-29.752170, -90.029050
-29.751890, -90.028940
-29.751500, -90.028770
-29.751330, -90.028690
-29.751030, -90.028540
-29.750820, -90.028410
-29.750600, -90.028270
-29.750350, -90.028100
-29.750060, -90.027880
-29.749850, -90.027720
-29.749540, -90.027440
-29.749290, -90.027200
-29.749120, -90.027020
-29.748990, -90.026870
-29.748800, -90.026660
-29.748770, -90.026610
-29.748580, -90.026380
-29.748520, -90.026290
-29.748440, -90.026190
-29.748310, -90.026000
-29.748130, -90.025740
-29.748040, -90.025590
-29.747930, -90.025400
-29.747740, -90.025040
-29.747630, -90.024810
-29.747530, -90.024600
-29.747430, -90.024380
-29.747240, -90.023940
-29.746910, -90.023150
-29.746490, -90.022150
-29.746180, -90.021440
-29.746040, -90.021140
-29.745980, -90.021030
-29.745860, -90.020810
-29.745730, -90.020580
-29.745530, -90.020250
-29.745420, -90.020070
-29.745340, -90.019970
-29.745130, -90.019680
-29.745050, -90.019570
-29.744960, -90.019460
-29.744890, -90.019370
-29.744760, -90.019220
-29.744720, -90.019170
-29.744620, -90.019060
-29.744510, -90.018940
-29.743920, -90.018340
-End:
-Object: 30.210560,-90.951044
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:42:40 PM\n\nExpected end: 11/18/2026, 10:42:40 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "I-10"
-30.210550, -90.959150
-30.210570, -90.956110
-30.210590, -90.954580
-30.210590, -90.954060
-30.210510, -90.954020
-30.210420, -90.953900
-30.210400, -90.953800
-30.210420, -90.953700
-30.210470, -90.953630
-30.210600, -90.953590
-30.210600, -90.953060
-30.210570, -90.953000
-30.210550, -90.950670
-30.210570, -90.949230
-30.210570, -90.948190
-30.210580, -90.946940
-30.210620, -90.944070
-30.210640, -90.943440
-30.210690, -90.943370
-30.210690, -90.942370
-End:
-Object: 30.211264,-90.948254
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: I-10\n\nDirection: Southbound\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:42:40 PM\n\nExpected end: 11/18/2026, 10:42:40 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "I-10"
-30.216820, -90.952870
-30.213660, -90.950210
-30.211010, -90.948030
-30.207830, -90.945430
-30.207000, -90.944730
-End:
-Object: 30.261175,-92.016045
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: Alignment lines\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:43:48 PM\n\nExpected end: 11/18/2026, 10:43:48 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "Alignment lines"
-30.257950, -92.015300
-30.264400, -92.016790
-End:
-Object: 30.266660,-92.017300
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: Alignment lines\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:43:48 PM\n\nExpected end: 11/18/2026, 10:43:48 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "Alignment lines"
-30.264400, -92.016790
-30.268920, -92.017810
-End:
-Object: 30.275275,-92.019280
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: Alignment lines\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:43:48 PM\n\nExpected end: 11/18/2026, 10:43:48 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "Alignment lines"
-30.268920, -92.017810
-30.281630, -92.020750
-End:
-Object: 30.284235,-92.021455
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: Alignment lines\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:43:48 PM\n\nExpected end: 11/18/2026, 10:43:48 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "Alignment lines"
-30.281630, -92.020750
-30.283370, -92.021180
-30.285110, -92.021670
-30.286830, -92.022220
-End:
-Object: 30.307700,-92.029215
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: Alignment lines\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:43:48 PM\n\nExpected end: 11/18/2026, 10:43:48 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "Alignment lines"
-30.286830, -92.022220
-30.328570, -92.036210
-End:
-Object: 30.356445,-92.045575
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: Alignment lines\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/18/2026, 8:43:48 PM\n\nExpected end: 11/18/2026, 10:43:48 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "Alignment lines"
-30.328570, -92.036210
-30.384320, -92.054940
-End:
-; Current events displayed: 78
-; Closures: 24
-; Construction / roadwork: 41
+; Current events displayed: 66
+; Closures: 26
+; Construction / roadwork: 39
 ; Incidents: 0
-; Construction with workers present: 13
+; Construction with workers present: 1
 ; Weather incidents: 0
 ; Weather closures: 0
 ; Special events: 0
