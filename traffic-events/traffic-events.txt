@@ -3,7 +3,7 @@
 ; Current source records only; future-start, expired, cancelled, cleared and stale status-less events are excluded.
 ; Event icons are assigned from DOTD source, event type, subtype and active dates/status.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-22T16:32:18.775Z
+; Updated: 2026-11-22T16:36:47.925Z
 Title: LOUISIANA ROAD EVENTS - 511LA
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
@@ -13,456 +13,66 @@ IconFile: 4, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/fl
 IconFile: 5, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/special-event.png"
 IconFile: 6, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/weather-report.png"
 IconFile: 7, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/waze-report.png"
-Object: 29.696690,-91.214164
+Object: 30.450499,-91.149857
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgemaintenanceoperations\n\nRoad: LA-182\n\nDirection: Both Directions\n\nDescription: Bridge Maintenance Operations on LA-182 Both Directions from Berwick Bay to Federal Ave. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 5/22/2023 7:00 AM\n\nDetails: ST. MARY PARISH, La. - The Louisiana Department of Transportation and Development (LADOTD) announces that beginning Monday, May 22, work will begin on a $25,969,337.50 rehabilitation project on the La. 182 bridge over the Atchafalaya River in St. Mary Parish. The project will begin at the Berwick side and end at the Morgan City side of the bridge. Work will consist of cleaning, painting, bridge repair, and related work. Work is expected to take place Monday through Friday from 7 a.m. to 5 p.m., weather permitting. Nighttime and weekend work is also expected. The bridge will be closed to traffic beginning May 23. The detour route will consist of U.S. 90. Emergency vehicles will not have access to the area. DOTD appreciates your patience and reminds you to please drive with caution through the construction site and be on the lookout for work crews and their equipment.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 5/22/2023, 7:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri:</b><br/>7:00 AM - 5:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA-182"
-29.695480, -91.217180
-29.695490, -91.217150
-29.695780, -91.216390
-29.696320, -91.215070
-29.697360, -91.212500
-29.697620, -91.211870
-29.697690, -91.211680
-29.697780, -91.211470
-End:
-Object: 30.122157,-91.182173
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeconstruction\n\nRoad: LA-404\n\nDirection: Both Directions\n\nDescription: Bridge Construction on LA-404 Both Directions from LA-3001 to LA-993. All lanes closed. Starting 9/10/2025 7:00 AM\n\nDetails: Construction is underway for State Projects H.013968. This State Project is to replace four bridges along LA 404, between LA 75 and LA 69 in Iberville Parish. LA 404 will have a full closure beginning Wednesday, September 10th, 2025 at 7:00 AM between LA 993 and LA 3001. No thru traffic will be allowed at this time. Motorists can take the following State detour: From LA 404 Eastbound: Motorist traveling LA 404 EB should detour left onto LA 993 NB. Take a right onto LA 1 SB, followed by another right on LA 69 SB. At the intersection of LA 69 and LA 404, take a right onto LA 404 WB to complete the detour. From LA 404 Westbound: On LA 69, bypass LA 404 and travel LA 69 NB towards LA 1. Take a left onto LA 1 NB, followed by another left onto LA 993 SB. At the intersection of LA 993 and LA 404, take a left onto LA 404 to complete the detour. This full closure is to replace a bridge between LA 993 and LA 3001. DOTD appreciates your patience and reminds you to please drive with caution through work zones and be on the lookout for work crews and their equipment.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 9/10/2025, 7:00:00 AM\n\nSchedule: <b>Wed, Thu, Fri, Sat, Sun, Mon, Tue:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA-404"
-30.121810, -91.179450
-30.121790, -91.179480
-30.121950, -91.179690
-30.122030, -91.179940
-30.122410, -91.184360
-30.122520, -91.185950
-30.122590, -91.186340
-End:
-Object: 29.386303,-90.587828
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: other\n\nRoad: LA-55\n\nDirection: Both Directions\n\nDescription: Other on LA-55 Both Directions from Bud Man Ct to Madison Canal . Weight Restriction: 11023.113lbs Starting 9/12/2025 2:00 PM\n\nDetails: Route Name: Madison Canal Bridge, LA 55 Northbound & LA 55 Southbound, Terrebonne Parish, bridge 5 ton weight restriction. Start Date: Friday, September 12, 2025 at 2:00 PM Estimated End: Indefinite Closure Type: Roadwork Closure Reason: Restrictions Closure Category: Other Closure\n\nSeverity: None\n\nLane impact: No Data\n\nReported/start: 9/12/2025, 2:00:00 PM\n\nSchedule: <b>Fri, Sat, Sun, Mon, Tue, Wed, Thu:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: utilitywork\n\nRoad: US-190-BR\n\nDirection: Eastbound\n\nDescription: Utility Work on US-190-BR Eastbound from LA-37 to LA-67. 1 Right lane closed. Starting 5/11/2026 7:00 AM and Ending 12/5/2026 3:00 PM.\n\nDetails: These closures are necessary for the installation of drainpipes and catch basins.\n\nSeverity: None\n\nLane impact: 1 Right lane closed\n\nReported/start: 5/11/2026, 7:00:00 AM\n\nExpected end: 12/5/2026, 3:00:00 PM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>7:00 AM - 3:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
 End:
 Color: 245 145 35
-Line: 3, 0, "LA-55"
-29.385650, -90.588280
-29.385850, -90.588120
-29.386120, -90.587950
-29.386320, -90.587810
-29.386620, -90.587610
-29.387260, -90.587200
-End:
-Object: 30.692782,-91.777043
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgemaintenanceoperations\n\nRoad: LA-10\n\nDirection: Both Directions\n\nDescription: Bridge Maintenance Operations on LA-10 Both Directions from Bayou Ha Ha to Frame St . All lanes closed. Starting 11/26/2025 7:00 AM and Ending 4/28/2028 5:00 PM.\n\nDetails: St. Landry Parish, La. — DOTD announces that beginning Wednesday, November 26, 2025, construction will begin on a $9.2 million project that will include three bridges in a 0.62-mile section of LA 10 near Melville. The project will include clearing and grubbing, removal of precast slab span concrete bridges, grading, treated subgrade layer, class II base course, drainage structures, pavement patching, asphalt concrete pavement, steel sheeting, precast concrete piles, concrete slab span bridges, and related work. The work is estimated to take place Monday through Friday from 7 a.m. to 5 p.m., weather permitting. Bridge closures are expected throughout the project. The Department will publish additional press releases for these planned bridge closures. The project is estimated for completion in spring 2028.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 11/26/2025, 7:00:00 AM\n\nExpected end: 4/28/2028, 5:00:00 PM\n\nSchedule: <b>Wed, Thu, Fri, Mon, Tue:</b><br/>7:00 AM - 5:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA-10"
-30.692700, -91.784220
-30.692730, -91.783970
-30.692730, -91.783940
-30.692800, -91.783510
-30.692820, -91.783250
-30.692820, -91.783180
-30.692850, -91.782740
-30.692850, -91.782140
-30.692840, -91.781210
-30.692830, -91.780070
-30.692820, -91.779300
-30.692770, -91.774180
-30.692760, -91.772930
-30.692720, -91.770210
-30.692750, -91.768770
-30.692760, -91.768150
-30.692760, -91.767670
-30.692770, -91.767390
-30.692780, -91.766980
-End:
-Object: 30.820717,-91.052693
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeconstruction\n\nRoad: LA-955\n\nDirection: Both Directions\n\nDescription: Bridge Construction on LA-955 Both Directions from Battle Rd to Jorroson Ln. All lanes closed. Starting 3/9/2026 8:00 AM\n\nDetails: This will be a complete closure while the bridge is replaced. No traffic will be able to travel through the work site. Please use LA 10, LA 955 E, LA 957, and LA 67 for alternate routes. Project: H.014254\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 3/9/2026, 8:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA-955"
-30.818710, -91.053740
-30.821620, -91.052220
-30.821820, -91.052120
-End:
-Object: 29.593805,-90.726268
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: pavingoperations\n\nRoad: LA-3040\n\nDirection: Both Directions\n\nDescription: Paving Operations on LA-3040 Both Directions from S Hollywood Rd to LA-661 . Lanes Alternating. Starting 4/7/2026 8:00 AM\n\nDetails: Expect alternating lane closures on LA 3040 in both directions (West Tunnel Boulevard/Bond Street/Honduras Street/East Tunnel Boulevard) from approximately 8 AM to 5 PM weekdays. Expect traffic cones, flaggers and prepare to stop. Expect turning lanes on cross streets to be blocked. Weather permitting.\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 4/7/2026, 8:00:00 AM\n\nSchedule: <b>Tue, Wed, Thu, Fri, Mon:</b><br/>8:00 AM - 5:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA-3040"
-29.605450, -90.746180
-29.605390, -90.746140
-29.605340, -90.746110
-29.605300, -90.746090
-29.605240, -90.746070
-29.605140, -90.746050
-29.605030, -90.746040
-29.604900, -90.746040
-29.604770, -90.746050
-29.604700, -90.746060
-29.604590, -90.746080
-29.604440, -90.746120
-29.604270, -90.746170
-29.604050, -90.746240
-29.603850, -90.746290
-29.603440, -90.746370
-29.603010, -90.746430
-29.602640, -90.746450
-29.602580, -90.746450
-29.602290, -90.746440
-29.601940, -90.746390
-29.601610, -90.746330
-29.601060, -90.746200
-29.600650, -90.746110
-29.600540, -90.746090
-29.600280, -90.746030
-29.599670, -90.745810
-29.599550, -90.745770
-29.599030, -90.745550
-29.598780, -90.745430
-29.598370, -90.745210
-29.597870, -90.744910
-29.597720, -90.744800
-29.597620, -90.744730
-29.597350, -90.744520
-29.597020, -90.744210
-29.596960, -90.744150
-29.596490, -90.743670
-29.596260, -90.743420
-29.596030, -90.743110
-29.595770, -90.742770
-29.595340, -90.742090
-29.595180, -90.741720
-29.594930, -90.741250
-29.594760, -90.740830
-29.594630, -90.740490
-29.594490, -90.740130
-29.594210, -90.739430
-29.593820, -90.738430
-29.593480, -90.737550
-29.593350, -90.737230
-29.592840, -90.735930
-29.592650, -90.735470
-29.592270, -90.734580
-29.592000, -90.733920
-29.591780, -90.733430
-29.591550, -90.732980
-29.591300, -90.732500
-29.591170, -90.732260
-29.590920, -90.731750
-29.590810, -90.731410
-29.590730, -90.731070
-29.590680, -90.730590
-29.590670, -90.730170
-29.590700, -90.729920
-29.590870, -90.729270
-29.591060, -90.728450
-29.591190, -90.727920
-29.591520, -90.726550
-29.591590, -90.726220
-29.591640, -90.725880
-29.591660, -90.725780
-29.591670, -90.725720
-29.591670, -90.725340
-29.591620, -90.725080
-29.591560, -90.724510
-29.591530, -90.724200
-29.591420, -90.723310
-29.591340, -90.722710
-29.591230, -90.721810
-29.591170, -90.721350
-29.591120, -90.721010
-29.591040, -90.720140
-29.590900, -90.719210
-29.590770, -90.718280
-29.590690, -90.717550
-29.590640, -90.717170
-29.590600, -90.716850
-29.590510, -90.716520
-29.590410, -90.716260
-29.590320, -90.716050
-29.590290, -90.715960
-29.590220, -90.715700
-29.590080, -90.715080
-29.589960, -90.714450
-29.589750, -90.713690
-29.589690, -90.713480
-29.589670, -90.713400
-29.589570, -90.713040
-29.589510, -90.712830
-29.589380, -90.712430
-29.589130, -90.711480
-29.589000, -90.710970
-29.588950, -90.710790
-29.588720, -90.710030
-29.588360, -90.708830
-29.588260, -90.708660
-29.588230, -90.708550
-29.587850, -90.707260
-29.587500, -90.706050
-29.587390, -90.705600
-29.587310, -90.705140
-29.587310, -90.704650
-29.587320, -90.704450
-29.587380, -90.704010
-29.587450, -90.703700
-29.587530, -90.703420
-29.587700, -90.703010
-29.587900, -90.702650
-29.587930, -90.702600
-29.588040, -90.702430
-29.588270, -90.702140
-29.588370, -90.702030
-29.588640, -90.701750
-29.589210, -90.701190
-29.589540, -90.700830
-29.589590, -90.700780
-29.589770, -90.700570
-29.590130, -90.700090
-29.590270, -90.699870
-29.590530, -90.699430
-29.590740, -90.699010
-29.590790, -90.698890
-29.590980, -90.698410
-29.591090, -90.698120
-29.591210, -90.697700
-End:
-Object: 30.624108,-91.162642
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeconstruction\n\nRoad: Spur Ln\n\nDirection: Both Directions\n\nDescription: Bridge Construction on Spur Ln Both Directions from S Spur Ln to LA-19 Southbound . All lanes closed. Starting 7/13/2026 12:00 AM\n\nDetails: Spur Lane will be closed at LA 19 and detour signage will be installed.\n\nSeverity: Major\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 7/13/2026, 12:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "Spur Ln"
-30.624350, -91.164680
-30.624230, -91.163730
-30.624070, -91.162280
-30.623970, -91.161440
-30.623920, -91.161080
-End:
-Object: 30.248787,-92.191732
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: roadconstruction\n\nRoad: I-10 Westbound\n\nDirection: Unknown\n\nDescription: Road Construction on ramp from I-10 Westbound to LA-95 . All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 7/23/2026 7:50 AM\n\nDetails: The project is being undertaken to repair deteriorated and broken concrete pavement panels that no longer meet DOTD roadway ride quality specifications. Rehabilitating the ramp will provide motorists with a smoother, safer driving surface, improve ride quality, extend the life of the roadway, and help reduce future maintenance needs.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 7/23/2026, 7:50:00 AM\n\nSchedule: <b>Thu, Fri, Sat, Sun, Mon, Tue, Wed:</b><br/>12:00 AM - 6:00 AM<br/>9:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "I-10 Westbound"
-30.247820, -92.189960
-30.247890, -92.190460
-30.247910, -92.190580
-30.247940, -92.190720
-30.247970, -92.190840
-30.248000, -92.190940
-30.248030, -92.191030
-30.248080, -92.191150
-30.248140, -92.191270
-30.248200, -92.191380
-30.248250, -92.191460
-30.248300, -92.191530
-30.248360, -92.191610
-30.248420, -92.191680
-30.248520, -92.191790
-30.248590, -92.191860
-30.248750, -92.192000
-30.248850, -92.192070
-30.248990, -92.192150
-30.249110, -92.192210
-30.249230, -92.192260
-30.249360, -92.192310
-30.249680, -92.192420
-30.249890, -92.192500
-30.250030, -92.192560
-30.250080, -92.192680
-30.250120, -92.192800
-30.250140, -92.192900
-30.250160, -92.193100
-End:
-Object: 29.643094,-90.520201
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeClosure\n\nRoad: LA-308\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA-308 Both Directions from Orka Ln to McCloud Rd . All lanes closed. Starting 7/17/2026 12:15 PM\n\nDetails: DOTD advises motorists that LA 308 is closed just south of McCloud Road near Lockport due to structural issues with a bridge. Traffic is being detoured across Bayou Lafourche to LA 1. Motorists should follow the posted detour route, allow additional travel time and use caution in the area. DOTD crews are evaluating the structure and working to make emergency repairs. Additional information will be provided as it becomes available.\n\nSeverity: Major\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 7/17/2026, 12:15:00 PM\n\nSchedule: <b>Fri, Sat, Sun, Mon, Tue, Wed, Thu:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA-308"
-29.642250, -90.519030
-29.642780, -90.519760
-29.642960, -90.520000
-29.643250, -90.520400
-29.643380, -90.520590
-29.643500, -90.520780
-29.643540, -90.520850
-End:
-Object: 30.521166,-90.690737
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeClosure\n\nRoad: LA-1036\n\nDirection: Unknown\n\nDescription: Bridge Closure on LA-1036 from C Holden Rd to Tickfaw Acres Rd . All lanes closed. Starting 7/22/2026 2:30 PM\n\nDetails: This bridge is being closed due to discovery of extensive pile scour during routine bridge inspection.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 7/22/2026, 2:30:00 PM\n\nSchedule: <b>Wed, Thu, Fri, Sat, Sun, Mon, Tue:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA-1036"
-30.520750, -90.693830
-30.520840, -90.692920
-30.521020, -90.691710
-30.521140, -90.691070
-30.521270, -90.690260
-30.521400, -90.689300
-30.521430, -90.688680
-30.521480, -90.688130
-End:
-Object: 31.165014,-92.092601
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadmarkingoperations\n\nRoad: LA-107\n\nDirection: Both Directions\n\nDescription: Road Marking Operations on LA-107 Both Directions from Red River to E Mark St . All Lanes Intermittent. Starting 8/10/2026 12:00 AM\n\nDetails: The project includes full-depth base repairs, milling to remove the old asphalt, new asphalt paving, new roadway striping, signage, and related work. Motorists should anticipate intermittent lane closures on LA 107 to allow construction activities to proceed safely and efficiently. Drivers are urged to pay close attention to advance warning signage, lowered speed limits, and crews & equipment on site.\n\nSeverity: None\n\nLane impact: All Lanes Intermittent\n\nReported/start: 8/10/2026, 12:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA-107"
-31.204150, -92.147110
-31.203920, -92.146880
-31.202700, -92.145570
-31.201470, -92.144270
-31.199840, -92.142560
-31.199260, -92.141910
-31.198900, -92.141460
-31.198570, -92.140990
-31.198130, -92.140260
-31.197860, -92.139740
-31.197620, -92.139210
-31.197400, -92.138650
-31.197200, -92.138080
-31.197040, -92.137490
-31.196960, -92.137110
-31.196910, -92.136900
-31.196790, -92.136300
-31.196730, -92.135990
-31.196650, -92.135540
-31.196520, -92.134840
-31.196410, -92.134280
-31.195700, -92.130510
-31.195280, -92.128240
-31.194740, -92.125440
-31.194390, -92.123580
-31.194080, -92.121920
-31.193820, -92.120570
-31.193520, -92.118980
-31.193280, -92.117690
-31.192860, -92.115480
-31.192790, -92.115120
-31.192710, -92.114660
-31.192640, -92.114310
-31.192590, -92.114020
-31.192500, -92.113610
-31.192410, -92.113250
-31.192270, -92.112730
-31.192150, -92.112400
-31.192010, -92.112050
-31.191850, -92.111720
-31.191820, -92.111650
-31.191600, -92.111270
-31.191360, -92.110910
-31.191110, -92.110590
-31.190850, -92.110300
-31.190180, -92.109630
-31.189560, -92.109040
-31.189060, -92.108540
-31.188270, -92.107810
-31.187770, -92.107380
-31.187400, -92.107090
-31.187110, -92.106860
-31.187050, -92.106820
-31.186770, -92.106610
-31.186250, -92.106240
-31.183330, -92.104250
-31.182660, -92.103800
-31.180990, -92.102660
-31.178800, -92.101160
-31.178730, -92.101110
-31.177580, -92.100330
-31.175700, -92.099040
-31.171190, -92.095960
-31.168520, -92.094140
-31.165030, -92.091750
-31.164920, -92.091680
-31.163250, -92.090540
-31.162050, -92.089730
-31.161680, -92.089470
-31.161390, -92.089260
-31.161040, -92.088960
-31.160750, -92.088670
-31.160390, -92.088230
-31.160120, -92.087860
-31.159740, -92.087260
-31.159180, -92.086340
-31.158240, -92.084810
-31.157170, -92.083050
-31.155480, -92.080280
-31.155260, -92.079910
-31.155150, -92.079720
-31.154720, -92.079000
-31.154660, -92.078920
-31.154590, -92.078820
-31.154480, -92.078650
-31.153970, -92.077820
-31.153690, -92.077400
-31.153400, -92.076990
-31.153080, -92.076570
-31.152580, -92.075950
-31.152060, -92.075370
-31.151010, -92.074270
-31.149010, -92.072190
-31.148920, -92.072100
-31.148220, -92.071370
-31.148170, -92.071320
-31.147280, -92.070400
-31.146170, -92.069250
-31.144630, -92.067650
-31.144590, -92.067610
-31.144280, -92.067280
-31.143410, -92.066380
-31.143330, -92.066300
-31.142900, -92.065840
-31.142810, -92.065750
-31.141610, -92.064490
-31.141170, -92.064050
-31.140790, -92.063690
-31.140420, -92.063400
-31.140390, -92.063380
-31.139960, -92.063120
-31.139370, -92.062820
-31.139050, -92.062660
-31.138900, -92.062590
-31.138660, -92.062470
-31.138460, -92.062380
-31.138400, -92.062350
-31.138270, -92.062310
-31.138010, -92.062260
-31.137800, -92.062240
-31.137620, -92.062240
-31.136910, -92.062260
-31.136360, -92.062290
-31.135220, -92.062310
-31.134630, -92.062330
-31.134180, -92.062330
-31.133660, -92.062340
-31.133450, -92.062360
-31.133200, -92.062410
-31.132890, -92.062500
-31.132820, -92.062530
-31.132350, -92.062720
-31.131650, -92.062980
-31.130270, -92.063510
-31.130230, -92.063520
-31.129900, -92.063650
-31.129720, -92.063710
-31.129590, -92.063800
-31.129470, -92.063930
-31.129270, -92.064130
-31.128630, -92.064800
-31.128560, -92.064880
-31.128300, -92.065140
-31.127950, -92.065500
-31.127650, -92.065800
-31.127230, -92.066230
+Line: 3, 0, "US-190-BR"
+30.450830, -91.138880
+30.450860, -91.138970
+30.450850, -91.139260
+30.450830, -91.139680
+30.450820, -91.139850
+30.450820, -91.139910
+30.450810, -91.140030
+30.450810, -91.140150
+30.450800, -91.140380
+30.450800, -91.140450
+30.450790, -91.140600
+30.450780, -91.140790
+30.450780, -91.140970
+30.450770, -91.141410
+30.450770, -91.141520
+30.450760, -91.141830
+30.450740, -91.142230
+30.450720, -91.142840
+30.450710, -91.143030
+30.450700, -91.143420
+30.450690, -91.143710
+30.450670, -91.144100
+30.450640, -91.145120
+30.450600, -91.146350
+30.450580, -91.147400
+30.450520, -91.149630
+30.450500, -91.150180
+30.450490, -91.150370
+30.450480, -91.150610
+30.450480, -91.150670
+30.450470, -91.150830
+30.450460, -91.151300
+30.450460, -91.151390
+30.450420, -91.152410
+30.450390, -91.153230
+30.450380, -91.153860
+30.450370, -91.154270
+30.450360, -91.154410
+30.450350, -91.154720
+30.450330, -91.155080
+30.450300, -91.155880
+30.450260, -91.157260
+30.450230, -91.158200
+30.450140, -91.160910
+30.450120, -91.161400
+30.450110, -91.161830
+30.450100, -91.162030
+30.450080, -91.162700
+30.450080, -91.162760
+30.450050, -91.163620
+30.450030, -91.164410
+30.450030, -91.164570
+30.450010, -91.165070
+30.449990, -91.165780
 End:
 Object: 30.780225,-91.064220
 Threshold: 999
@@ -473,39 +83,6 @@ Line: 4, 0, "LA-955"
 30.780690, -91.063950
 30.779760, -91.064490
 End:
-Object: 31.394353,-92.164601
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: LA-115\n\nDirection: Both Directions\n\nDescription: Road Construction on LA-115 Both Directions from LA-1207 to LA-1207 . Lane Intermittent. Width Restriction: 12ft Starting 8/18/2026 12:00 AM\n\nDetails: Work on the project is scheduled to begin on Tuesday, August 18, 2026, and stretches from LA 1207 to LA 28 (5 miles of repairs). All vehicles larger than 12 feet will need to utilize an alternate route. Motorists should anticipate intermittent lane closures on LA 115 to allow construction activities to proceed safely and efficiently. Drivers are urged to pay close attention to advance warning signage, lowered speed limits, and crews & equipment on site.\n\nSeverity: None\n\nLane impact: Lane Intermittent\n\nReported/start: 8/18/2026, 12:00:00 AM\n\nSchedule: <b>Tue, Wed, Thu, Fri, Sat, Sun, Mon:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA-115"
-31.357580, -92.165010
-31.359070, -92.164980
-31.361980, -92.164920
-31.362580, -92.164910
-31.362790, -92.164900
-31.365920, -92.164840
-31.370100, -92.164750
-31.371420, -92.164720
-31.371530, -92.164720
-31.380150, -92.164540
-31.381980, -92.164510
-31.386480, -92.164510
-31.395280, -92.164500
-31.398380, -92.164490
-31.400280, -92.164490
-31.403550, -92.164480
-31.409950, -92.164480
-31.411550, -92.164470
-31.418550, -92.164470
-31.420320, -92.164460
-31.424010, -92.164460
-31.426670, -92.164450
-31.427770, -92.164450
-31.428310, -92.164410
-31.428470, -92.164360
-31.428520, -92.164340
-End:
 Object: 30.159925,-92.034030
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeconstruction\n\nRoad: E Martial Ave\n\nDirection: Unknown\n\nDescription: Bridge Construction on E Martial Ave from Student Dr to Ashland Park Dr . All lanes closed. Starting 8/17/2026 6:00 AM and Ending 5/17/2027 7:00 AM.\n\nDetails: The existing three-span bridge, which is supported by timber piles and includes an offset sidewalk, will be replaced with a new three-span slab bridge supported by concrete piles. The project will also include two sidewalks, asphalt approaches, subsurface drainage and erosion control improvements.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 8/17/2026, 6:00:00 AM\n\nExpected end: 5/17/2027, 7:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
@@ -515,15 +92,83 @@ Line: 4, 0, "E Martial Ave"
 30.159550, -92.033580
 30.160300, -92.034480
 End:
-Object: 31.171743,-92.195677
+Object: 30.002334,-91.881598
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeconstruction\n\nRoad: LA-454\n\nDirection: Both Directions\n\nDescription: Bridge Construction on LA-454 Both Directions from Wiggins Bayou Bridge to Wiggins Bayou Bridge . All lanes closed. Starting 10/28/2024 7:00 AM\n\nDetails: The $11 million project involves replacing the LA-454 bridge over Wiggins Bayou. This 0.178-mile construction project consists of clearing and grubbing, removal of concrete girder bridge, precast pre-stressed girder bridge, permanent sheet pile wall, and related work. Since construction began in late 2024, the contractor has completed removal of the old bridge, conducted earthwork, is performing pile driving operations, and is placing caps and girders. The contractor also addressed erosion and scour issues that impacted the old structure. Permit/Detour section: Eastbound traffic will be detoured south on LA 107 to LA 454 West. Westbound traffic will be detoured north on LA 107 to LA 454 East. The project is expected to be completed by early 2027.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 10/28/2024, 7:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: closure\n\nRoad: LA-675\n\nDirection: Eastbound\n\nDescription: Closure on LA-675 Eastbound from Howard Segura Rd to Pocahontas St . All Lanes Shift Left. Width Restriction: 11ft Starting 8/24/2026 12:00 AM and Ending 12/18/2026 11:59 PM.\n\nDetails: LA 675 EB from 0.08 Miles East of Howard Segura Road to Pochontas Street will be diverted to the inside lane of LA 675 WB. LA 675 EB and LA 675 WB will be reduced to one lane and remain open. The lane closures and diversions are necessary to begin construction of the southern half of the roundabout at LA 675 and US 90 WB Frontage Road.\n\nSeverity: None\n\nLane impact: All Lanes Shift Left\n\nReported/start: 8/24/2026, 12:00:00 AM\n\nExpected end: 12/18/2026, 11:59:00 PM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
 End:
 Color: 220 35 45
-Line: 4, 0, "LA-454"
-31.171270, -92.196510
-31.171940, -92.195320
-31.172020, -92.195200
+Line: 4, 0, "LA-675"
+30.002760, -91.887910
+30.002780, -91.886170
+30.002750, -91.886030
+30.002730, -91.885900
+30.002720, -91.885750
+30.002710, -91.885490
+30.002700, -91.885080
+30.002700, -91.884260
+30.002710, -91.883890
+30.002710, -91.883130
+30.002720, -91.882700
+30.002720, -91.881970
+30.002730, -91.881400
+30.002730, -91.880960
+30.002720, -91.880740
+30.002710, -91.880640
+30.002690, -91.880520
+30.002660, -91.880400
+30.002600, -91.880220
+30.002540, -91.880070
+30.002490, -91.879970
+30.002420, -91.879850
+30.002360, -91.879760
+30.002290, -91.879670
+30.002180, -91.879550
+30.002080, -91.879450
+30.001960, -91.879340
+30.001490, -91.878930
+30.001360, -91.878820
+30.001290, -91.878740
+30.001230, -91.878660
+30.000960, -91.878440
+30.000830, -91.878320
+End:
+Object: 30.002427,-91.881805
+Threshold: 999
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: closure\n\nRoad: LA-675\n\nDirection: Westbound\n\nDescription: Closure on LA-675 Westbound from Pocahontas St to Howard Segura Rd . 1 Left lane closed. Width Restriction: 11ft Starting 8/24/2026 12:00 AM and Ending 12/18/2026 11:59 PM.\n\nDetails: The lane closures and diversions are necessary to begin construction of the southern half of the roundabout at LA 675 and US 90 WB Frontage Road. LA 675 EB from 0.08 Miles East of Howard Segura Road to Pochontas Street will be diverted to the inside lane of LA 675 WB. LA 675 EB and LA 675 WB will be reduced to one lane and remain open. US 90 EB Frontage Road will remain open, and US 90 WB Frontage Road North of LA 675 will remain open. US 90 WB Frontage Road South of LA 675 will be closed and announced in a separate press release.\n\nSeverity: None\n\nLane impact: 1 Left lane closed\n\nReported/start: 8/24/2026, 12:00:00 AM\n\nExpected end: 12/18/2026, 11:59:00 PM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 220 35 45
+Line: 4, 0, "LA-675"
+30.001230, -91.878660
+30.001290, -91.878740
+30.001360, -91.878820
+30.001490, -91.878930
+30.001960, -91.879340
+30.002080, -91.879450
+30.002180, -91.879550
+30.002290, -91.879670
+30.002360, -91.879760
+30.002420, -91.879850
+30.002490, -91.879970
+30.002540, -91.880070
+30.002600, -91.880220
+30.002660, -91.880400
+30.002690, -91.880520
+30.002710, -91.880640
+30.002720, -91.880740
+30.002730, -91.880960
+30.002730, -91.881400
+30.002720, -91.881970
+30.002720, -91.882700
+30.002710, -91.883130
+30.002710, -91.883890
+30.002700, -91.884260
+30.002700, -91.885080
+30.002710, -91.885490
+30.002720, -91.885750
+30.002730, -91.885900
+30.002750, -91.886030
+30.002780, -91.886170
+30.002760, -91.887910
 End:
 Object: 30.957697,-90.269755
 Threshold: 999
@@ -537,19 +182,6 @@ Line: 4, 0, "LA-1055"
 30.957730, -90.269590
 30.957840, -90.269310
 30.957840, -90.269300
-End:
-Object: 29.700772,-91.200000
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: closure\n\nRoad: US-90 West\n\nDirection: Unknown\n\nDescription: US-90 West down-ramp extension is closed between LA-70 and LA-182. Starting 8/28/2026 11:06 AM\n\nDetails: DOTD announces that effective immediately the U.S. 90 westbound down-ramp extension, between La. 70 and La. 182, is closed to traffic in order to allow crews to remove a stalled crane. Motorists are encouraged to use an alternate route. DOTD will notify the public once the road is reopened.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All Ramps Closed\n\nReported/start: 8/28/2026, 11:06:00 AM\n\nSchedule: <b>Fri, Sat, Sun, Mon, Tue, Wed, Thu:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "US-90 West"
-29.700980, -91.199140
-29.700840, -91.199970
-29.700770, -91.200110
-29.700730, -91.200180
-29.700680, -91.200260
-29.700630, -91.200340
 End:
 Object: 30.101901,-91.962385
 Threshold: 999
@@ -579,39 +211,64 @@ Line: 3, 0, "LA-92"
 30.101870, -91.944570
 30.101870, -91.941940
 End:
-Object: 30.546666,-91.949678
+Object: 30.527139,-90.833443
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: US-190\n\nDirection: Both Directions\n\nDescription: Road Construction on US-190 Both Directions from Port Barre to LA-741 . All Lanes Intermittent. Width Restriction: 10ft Starting 9/14/2026 7:00 AM\n\nDetails: DOTD announces that construction will begin Monday, September 14, 2026, on a $5.5 million project to construct an R-Cut on US 190 at the intersection of LA 741 near Port Barre. The project is estimated for completion in spring 2027.\n\nSeverity: None\n\nLane impact: All Lanes Intermittent\n\nReported/start: 9/14/2026, 7:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri:</b><br/>7:00 AM - 5:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: other\n\nRoad: LA-449\n\nDirection: Both Directions\n\nDescription: Other on LA-449 Both Directions from US-190 to LA-1024 . Lanes Alternating. Starting 10/5/2026 6:00 AM and Ending 1/8/2027 6:00 PM.\n\nDetails: There will be alternating lane closures using flagging operations while crews perform ditch cleaning operations. Motorists may use the following routes to avoid the work zone: Motorists traveling LA 449 North may take US 190 East to LA 1024 (Cane Market Rd), then West to re-intersect LA 449. Motorists traveling LA 449 South may take LA 1024 (Cane Market Rd) East to US 190, then West to re-intersect LA 449\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 10/5/2026, 6:00:00 AM\n\nExpected end: 1/8/2027, 6:00:00 PM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>6:00 AM - 6:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
 End:
 Color: 245 145 35
-Line: 3, 0, "US-190"
-30.546040, -91.958590
-30.546040, -91.958540
-30.546040, -91.957480
-30.546080, -91.956540
-30.546110, -91.956050
-30.546150, -91.955570
-30.546160, -91.955500
-30.546250, -91.954620
-30.546360, -91.953600
-30.546450, -91.952660
-30.546540, -91.951790
-30.546600, -91.951230
-30.546660, -91.950610
-30.546770, -91.949510
-30.546860, -91.948700
-30.546940, -91.947890
-30.546960, -91.947720
-30.546960, -91.947680
-30.546970, -91.947620
-30.547090, -91.946440
-30.547130, -91.945610
-30.547140, -91.945330
-30.547140, -91.945040
-30.547130, -91.942560
-30.547130, -91.940790
-30.547140, -91.938130
-30.547140, -91.935510
+Line: 3, 0, "LA-449"
+30.498230, -90.837130
+30.498570, -90.837270
+30.498770, -90.837320
+30.499110, -90.837390
+30.499370, -90.837400
+30.501310, -90.837420
+30.503370, -90.837440
+30.504910, -90.837450
+30.505540, -90.837460
+30.509030, -90.837420
+30.509810, -90.837380
+30.511440, -90.837350
+30.516850, -90.837430
+30.518630, -90.837430
+30.521470, -90.837470
+30.523360, -90.837410
+30.523650, -90.837410
+30.523890, -90.837380
+30.524150, -90.837330
+30.524410, -90.837230
+30.524650, -90.837100
+30.524970, -90.836870
+30.525140, -90.836690
+30.525370, -90.836420
+30.525590, -90.836140
+30.525730, -90.835860
+30.525860, -90.835510
+30.526800, -90.832060
+30.526870, -90.831810
+30.527060, -90.831250
+30.527320, -90.830840
+30.527740, -90.830500
+30.527920, -90.830340
+30.528670, -90.829790
+30.529410, -90.829300
+30.529560, -90.829230
+30.530030, -90.829030
+30.530450, -90.828990
+30.534400, -90.829040
+30.538620, -90.829060
+30.540240, -90.829070
+30.542850, -90.829090
+30.545310, -90.829090
+30.551270, -90.829120
+30.553490, -90.829100
+30.556070, -90.829130
+30.556420, -90.829070
+30.556760, -90.828950
+30.557080, -90.828800
+30.557400, -90.828600
+30.557610, -90.828420
+30.558710, -90.827220
 End:
 Object: 30.186022,-91.027298
 Threshold: 999
@@ -624,50 +281,321 @@ Line: 4, 0, "LA-405"
 30.185720, -91.026910
 30.184790, -91.025960
 End:
-Object: 30.474914,-90.695836
+Object: 30.101045,-92.108287
 Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: I-12\n\nDirection: Eastbound\n\nDescription: Road Construction on I-12 Eastbound from 1.5 Mi East of Livingston (MM 24) to 2.5 Mi West of Holden (MM 28) . Lanes Alternating. Starting 10/12/2026 8:00 PM and Ending 11/24/2026 5:00 AM.\n\nDetails: These lane closures are to allow crews to sawcut the asphalt, build crane access by placing and compacting stone, excavation, set barriers, receive materials on the project and do pipe work. At least one lane will be open in each direction at all times. • Route Name: I-12 Eastbound,I-12 Westbound Start Date: Monday, October 12, 2026 at 8:00 PM End Date: Sunday, November 24, 2026 at 5:00 AM (Weather Permitting) Closure Type: Roadwork Lanes Affected: Partial Closure/ Left Lane Special Notes: This is an Alternating lane closure. Start Cross Street: 1.5 MILES EAST OF LIVINGSTON End Cross Street: 2.5 MILES WEST OF HOLDEN Recurrence: These closures will take place nightly from 8:00 PM to 5:00 AM. Detour/Alternate Route: Westbound motorists I-12 motorists may take I-12 West to LA 441 North to US 190 West to LA 63 South back to I-12 West. Eastbound motorists I-12 motorists may take I-12 East to LA 63 North to US 190 East to LA 441 South back to I-12 East. Safety Reminder DOTD appreciates your patience and reminds you to please drive with caution through the work zone and be on the lookout for work crews and their equipment. Project: H.012622\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 10/12/2026, 8:00:00 PM\n\nExpected end: 11/24/2026, 5:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>12:00 AM - 5:00 AM<br/>8:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: utilitywork\n\nRoad: LA-92\n\nDirection: Both Directions\n\nDescription: Utility Work on LA-92 Both Directions from US-167 to Autumn Park Dr . Lane Intermittent. Starting 10/8/2026 7:00 AM and Ending 1/31/2027 4:30 PM.\n\nDetails: These intermittent lane closures will take place, daily, from 7:00 a.m. to 4:30 p.m., weather permitting. This closure is necessary to allow crews to perform utility installations. No detour is necessary for this closure. Emergency vehicles will have access to the area but may encounter delays.\n\nSeverity: None\n\nLane impact: Lane Intermittent\n\nReported/start: 10/8/2026, 7:00:00 AM\n\nExpected end: 1/31/2027, 4:30:00 PM\n\nSchedule: <b>Thu, Fri, Sat, Sun, Mon, Tue, Wed:</b><br/>7:00 AM - 4:30 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
 End:
 Color: 245 145 35
-Line: 3, 0, "I-12"
-30.474250, -90.735280
-30.474280, -90.732420
-30.474300, -90.731030
-30.474320, -90.729990
-30.474390, -90.728860
-30.474470, -90.727520
-30.474590, -90.725990
-30.474790, -90.723580
-30.475070, -90.720100
-30.475240, -90.717630
-30.475520, -90.714000
-30.475630, -90.712170
-30.475680, -90.710740
-30.475710, -90.709370
-30.475720, -90.707990
-30.475690, -90.705970
-30.475640, -90.704270
-30.475570, -90.701930
-30.475480, -90.698840
-30.475350, -90.695420
-30.475320, -90.693570
-30.475190, -90.689560
-30.475080, -90.685730
-30.474910, -90.680190
-30.474800, -90.676790
-30.474760, -90.675380
-30.474720, -90.674150
-30.474720, -90.674010
-30.474710, -90.673550
-30.474650, -90.671580
-30.474610, -90.670060
-30.474590, -90.669500
-30.474500, -90.666520
-30.474480, -90.664710
-30.474480, -90.664370
-30.474510, -90.660780
-30.474510, -90.660160
-30.474520, -90.658050
+Line: 3, 0, "LA-92"
+30.102560, -92.124400
+30.102560, -92.121850
+30.102570, -92.118870
+30.102570, -92.115100
+30.102580, -92.113790
+30.102580, -92.110380
+30.102570, -92.110110
+30.102460, -92.109600
+30.102400, -92.109390
+30.102360, -92.109240
+30.102250, -92.109030
+30.102140, -92.108810
+30.101750, -92.108270
+30.101390, -92.107790
+30.101300, -92.107660
+30.101200, -92.107540
+30.100750, -92.106950
+30.100390, -92.106490
+30.099980, -92.105960
+30.099700, -92.105610
+30.099580, -92.105390
+30.099480, -92.105150
+30.099390, -92.104920
+30.099280, -92.104420
+30.099230, -92.103910
+30.099240, -92.103510
+30.099320, -92.103090
+30.099690, -92.101480
+30.099740, -92.101250
+30.100350, -92.098640
+End:
+Object: 31.050169,-91.599877
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadmaintenanceoperations\n\nRoad: LA-15\n\nDirection: Both Directions\n\nDescription: Road Maintenance Operations on LA-15 Both Directions from Concordia West Feliciana Parish Line to Pointe Coupee West Feliciana Parish Line . Lane Alternating. Starting 10/5/2026 7:00 AM and Ending 12/15/2026 5:00 PM.\n\nDetails: Permit/Detour: No detour necessary. Alternating lane closures from 7:00 a.m. until 5:00 p.m. (Daytime only) Beginning Monday, October 5, 2026, until approximately Tuesday, December 15, 2026.\n\nSeverity: None\n\nLane impact: Lane Alternating\n\nReported/start: 10/5/2026, 7:00:00 AM\n\nExpected end: 12/15/2026, 5:00:00 PM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>7:00 AM - 5:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 245 145 35
+Line: 3, 0, "LA-15"
+31.009100, -91.654090
+31.008950, -91.648740
+31.008940, -91.647900
+31.008960, -91.647320
+31.009000, -91.646510
+31.009050, -91.646010
+31.009120, -91.645390
+31.009190, -91.644940
+31.009310, -91.644260
+31.009460, -91.643520
+31.009600, -91.642860
+31.009720, -91.642450
+31.010410, -91.640230
+31.012460, -91.633600
+31.013140, -91.631390
+31.014220, -91.627900
+31.015000, -91.625370
+31.015510, -91.623730
+31.015580, -91.623490
+31.016060, -91.621970
+31.016270, -91.621490
+31.016520, -91.621040
+31.017070, -91.620220
+31.017560, -91.619410
+31.018390, -91.617970
+31.019680, -91.615640
+31.020080, -91.614950
+31.020360, -91.614550
+31.020700, -91.614070
+31.021540, -91.612980
+31.021890, -91.612500
+31.022170, -91.612120
+31.022380, -91.611780
+31.022660, -91.611320
+31.027390, -91.603320
+31.028190, -91.601970
+31.028660, -91.601180
+31.028960, -91.600730
+31.029290, -91.600310
+31.029650, -91.599940
+31.030020, -91.599590
+31.031360, -91.598370
+31.031840, -91.597950
+31.032510, -91.597330
+31.033070, -91.596790
+31.033430, -91.596420
+31.033910, -91.595920
+31.034860, -91.594850
+31.035550, -91.594100
+31.036400, -91.593180
+31.037360, -91.592170
+31.037950, -91.591540
+31.038460, -91.590970
+31.038610, -91.590810
+31.039210, -91.590180
+31.039340, -91.590040
+31.040000, -91.589340
+31.040180, -91.589110
+31.040310, -91.588940
+31.040480, -91.588630
+31.040670, -91.588300
+31.040930, -91.587830
+31.041240, -91.587420
+31.041580, -91.587060
+31.041850, -91.586840
+31.042140, -91.586600
+31.042570, -91.586300
+31.043560, -91.585620
+31.043950, -91.585310
+31.044310, -91.584990
+31.044660, -91.584650
+31.045350, -91.583900
+31.045530, -91.583700
+31.045660, -91.583560
+31.048170, -91.580810
+31.049870, -91.578960
+31.050270, -91.578500
+31.050670, -91.578100
+31.050890, -91.577930
+31.051160, -91.577750
+31.051550, -91.577560
+31.051960, -91.577450
+31.052350, -91.577400
+31.052720, -91.577420
+31.053140, -91.577510
+31.053450, -91.577630
+31.053790, -91.577800
+31.054110, -91.578040
+31.054270, -91.578190
+31.054530, -91.578470
+31.054730, -91.578760
+31.054940, -91.579150
+31.055270, -91.579960
+31.057950, -91.586980
+31.058410, -91.588180
+31.058670, -91.588840
+31.058850, -91.589280
+31.059070, -91.589690
+31.059340, -91.590050
+31.059570, -91.590290
+31.059800, -91.590470
+31.060130, -91.590700
+31.060480, -91.590860
+31.060730, -91.590940
+31.060860, -91.590970
+31.061000, -91.591010
+31.061230, -91.591030
+31.061440, -91.591030
+31.061680, -91.591000
+31.061980, -91.590950
+31.062160, -91.590900
+31.062520, -91.590760
+31.062760, -91.590660
+31.062870, -91.590610
+31.063370, -91.590410
+31.064700, -91.589860
+31.065850, -91.589390
+31.066810, -91.589000
+31.067060, -91.588900
+31.067330, -91.588800
+31.067460, -91.588760
+31.067840, -91.588650
+31.068070, -91.588610
+31.068430, -91.588560
+31.068940, -91.588530
+31.069030, -91.588530
+31.069280, -91.588550
+31.069650, -91.588590
+31.070070, -91.588670
+31.070360, -91.588770
+31.070670, -91.588870
+31.071250, -91.589150
+31.071520, -91.589300
+31.071760, -91.589460
+31.072150, -91.589760
+31.072640, -91.590240
+31.073020, -91.590690
+31.073160, -91.590900
+31.073350, -91.591180
+31.073590, -91.591600
+31.073930, -91.592340
+31.074190, -91.592990
+31.074590, -91.594000
+31.074690, -91.594240
+31.075000, -91.595010
+31.075330, -91.595620
+31.075980, -91.596650
+31.076520, -91.597550
+31.077140, -91.598590
+31.077990, -91.600060
+31.078550, -91.600990
+31.078690, -91.601220
+31.079970, -91.603350
+31.082130, -91.606960
+31.084000, -91.610070
+31.084720, -91.611280
+31.085130, -91.611960
+31.085560, -91.612660
+31.085650, -91.612840
+31.085800, -91.613120
+31.085990, -91.613550
+31.086140, -91.613950
+31.086270, -91.614410
+31.086320, -91.614650
+31.086370, -91.614870
+31.086560, -91.615670
+31.086580, -91.615740
+31.086710, -91.616160
+31.087050, -91.617030
+31.087380, -91.617850
+End:
+Object: 30.015144,-91.898727
+Threshold: 999
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: pavingoperations\n\nRoad: US-90\n\nDirection: Westbound\n\nDescription: Paving Operations on US-90 Westbound from Highway 14 to LA-88 . Width Restriction: 10ft Starting 10/12/2026 7:00 AM and Ending 12/18/2026 5:00 PM.\n\nDetails: US 90 Westbound from LA 14 (Center Street) to LA 88 (Coteau Road) will be reduced to one lane beginning Monday, October 12 at 7:00 a.m. until Friday, December 18 at 5:00 p.m., weather permitting. This lane closure is necessary to begin asphalt overlay operations. The road will remain open to regular traffic with a 10-foot lane width restriction on oversized loads passing through the work zone. Emergency vehicles will have access to the area but may encounter delays.\n\nSeverity: None\n\nLane impact: No Data\n\nReported/start: 10/12/2026, 7:00:00 AM\n\nExpected end: 12/18/2026, 5:00:00 PM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 245 145 35
+Line: 3, 0, "US-90"
+29.985430, -91.859550
+29.985840, -91.860100
+29.985890, -91.860170
+29.986730, -91.861300
+29.988160, -91.863210
+29.988590, -91.863810
+29.988640, -91.863870
+29.988860, -91.864180
+29.989210, -91.864650
+29.991700, -91.867980
+29.996560, -91.874470
+29.998870, -91.877550
+29.999460, -91.878340
+29.999680, -91.878650
+30.000090, -91.879200
+30.001110, -91.880550
+30.001260, -91.880750
+30.001600, -91.881210
+30.002190, -91.881990
+30.002720, -91.882700
+30.002900, -91.882930
+30.003990, -91.884410
+30.004540, -91.885170
+30.004690, -91.885370
+30.005000, -91.885800
+30.005350, -91.886280
+30.005620, -91.886700
+30.005970, -91.887270
+30.006210, -91.887670
+30.006390, -91.887960
+30.006860, -91.888840
+30.007160, -91.889420
+30.007510, -91.890080
+30.008350, -91.891680
+30.010270, -91.895310
+30.010460, -91.895660
+30.013970, -91.902280
+30.014020, -91.902380
+30.014090, -91.902500
+30.014430, -91.903140
+30.014840, -91.903920
+30.016220, -91.906520
+30.016570, -91.907170
+30.017000, -91.907900
+30.017180, -91.908180
+30.017750, -91.909060
+30.018220, -91.909730
+30.018720, -91.910370
+30.019230, -91.910990
+30.019830, -91.911660
+30.019900, -91.911730
+30.020550, -91.912410
+30.020830, -91.912690
+30.021220, -91.913030
+30.021790, -91.913540
+30.022390, -91.914040
+30.022810, -91.914350
+30.023140, -91.914590
+30.023450, -91.914810
+30.024350, -91.915390
+30.025260, -91.915910
+30.026210, -91.916400
+30.029140, -91.917870
+30.033110, -91.919890
+30.034500, -91.920590
+30.036440, -91.921580
+30.040900, -91.923860
+30.043260, -91.925050
+30.043430, -91.925130
+30.044630, -91.925740
+30.046390, -91.926620
+30.046540, -91.926700
+30.047220, -91.927040
+30.047780, -91.927330
+30.048840, -91.927860
+30.049640, -91.928270
+30.050740, -91.928820
+30.050830, -91.928860
+End:
+Object: 29.951313,-92.156412
+Threshold: 999
+Icon: 0,0,0,6,1,1,"WEATHER REPORT\n\nEvent type: bridgeClosure\n\nRoad: LA-82\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA-82 Both Directions from Bernard Blvd to Vine St . All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 10/12/2026 12:00 AM and Ending 5/31/2027 12:00 AM.\n\nDetails: The rehabilitation work is necessary to address the bridge’s current condition and extend its service life, improve its overall condition and provide a safer, more reliable crossing for motorists. The temporary closure will allow crews to perform the work more efficiently and safely while minimizing risks to motorists and workers in the construction area. Detour Information During the closure, motorists should follow the posted detour route: LA 3267 to LA 14 to US 167 to LA 335 to LA 694\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 10/12/2026, 12:00:00 AM\n\nExpected end: 5/31/2027, 12:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+End:
+Color: 55 145 210
+Line: 3, 0, "LA-82"
+29.952960, -92.155720
+29.952680, -92.155850
+29.952210, -92.156040
+29.951950, -92.156150
+29.951540, -92.156330
+29.951350, -92.156400
+29.951180, -92.156470
+29.950880, -92.156590
+29.949250, -92.157260
+29.949130, -92.157310
 End:
 Object: 29.835055,-91.790260
 Threshold: 999
@@ -714,323 +642,117 @@ Line: 4, 0, "LA-83"
 29.841610, -91.788990
 29.842210, -91.788910
 End:
-Object: 30.306735,-91.811380
+Object: 30.951570,-90.317611
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeconstruction\n\nRoad: Ches Courville Rd\n\nDirection: Both Directions\n\nDescription: Bridge Construction on Ches Courville Rd Both Directions from Freeman Dr to Dupuis Rd . All lanes closed. Starting 11/2/2026 8:00 AM\n\nDetails: DOTD announces the upcoming replacement of a bridge on Ches Courville Road, 0.10 miles south of LA 352 (Henderson Highway) in St. Martin Parish. The project, part of DOTD’s Off-System Bridge Program, represents an investment of approximately $1.59 million. Construction is scheduled to begin Monday, November 2, 2026. The project includes the removal of the existing timber bridges, installation of a new concrete slab-span bridge, and associated roadway work. The closure is expected to remain in place through Thursday, April 2027, to allow crews to safely remove and replace the existing bridge. No detour route will be posted, and emergency vehicles will not have access through the construction area. Motorists should plan accordingly and seek alternate routes. The project is anticipated to be completed in May 2027, weather permitting.\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 11/2/2026, 8:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "Ches Courville Rd"
-30.306250, -91.811490
-30.306390, -91.811380
-30.306540, -91.811330
-30.307760, -91.811320
-End:
-Object: 30.777801,-92.191355
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: bridgemaintenanceoperations\n\nRoad: LA-29\n\nDirection: Both Directions\n\nDescription: Bridge Maintenance Operations on LA-29 Both Directions from Bayou Cocodrie to I-49 Southbound . Lane Intermittent. Width Restriction: 12ft Starting 10/19/2026 7:00 AM\n\nDetails: DOTD announces that construction recently began on a $430,168.05 scour repair project on LA 29 over Bayou Cocodrie in St. Landry Parish. The project will address a 0.1-mile section of the roadway and bridge area. As part of the project, crews will perform clearing and grubbing, install geotextile fabric and riprap, replace bridge joint material, seal joints, and complete related repairs. By addressing scour and repairing bridge joints, this project will help protect the bridge infrastructure, reduce the potential for further erosion-related damage, and support the long-term reliability of this transportation route. The project is estimated to be completed in winter 2026. Motorists should expect intermittent lane closures on LA 29 over Bayou Cocodrie throughout the project, which may cause delays. The roadway will remain open to regular traffic through the work zone, with a maximum lane restriction of 12 feet for oversized loads traveling through the area. The intermittent closures are necessary to allow crews to complete bridge joint repairs and related work\n\nSeverity: None\n\nLane impact: Lane Intermittent\n\nReported/start: 10/19/2026, 7:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri:</b><br/>7:00 AM - 6:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: LA-38\n\nDirection: Both Directions\n\nDescription: Road Construction on LA-38 Both Directions from Tangipahoa Washington Parish Line to LA-438 . Lanes Alternating. Additional Restrictions: No Oversized Loads Starting 10/26/2026 7:30 AM and Ending 1/31/2027 12:00 AM.\n\nDetails: • Route Name: LA 38 Eastbound,LA 38 Westbound Start Date: Monday, October 26, 2026 at 7:30 AM Estimated End: January 31, 2027 Closure Type: Roadwork Lanes Affected: Partial Closure/ Both Left and Right Lanes Special Notes: This is an Alternating and Intermittent lane closure. Start Cross Street: LA 38 (Tangipahoa Parish Line) Start Mile Post: 0.00 End Cross Street: to LA 438 (Mt. Hermon) End Mile Post: 4.014 Recurrence: Daily while crews are present. Detour/Alternate Route: Motorists wanting to avoid this 4.014 miles of constructions should use alternate routes. Restrictions: One lane will be open at all times. Motorists may encounter slight delays during this time. Emergency vehicles will have access. **Over-size loads are not permitted at this time.** Comments There will be intermittent and alternating lane closures on LA 38 at the Tangipahoa Parish Line to LA 438 (Mt. Hermon), beginning Monday, October 26, 2026, weather permitting. The lane closures are to allow crews to remove and replace pipe across the highway, remove and replace the existing asphalt roadway, place temporary and/or permanent striping, rumble strips, and related work. Safety Reminder DOTD appreciates your patience and reminds you to please drive with caution through the work zone and be on the lookout for work crews and their equipment. Project: H.014786, LA 38: Tangipahoa Parish Line - LA 438\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 10/26/2026, 7:30:00 AM\n\nExpected end: 1/31/2027, 12:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
 End:
 Color: 245 145 35
-Line: 3, 0, "LA-29"
-30.775710, -92.192350
-30.776360, -92.192010
-30.776450, -92.191960
-30.776770, -92.191820
-30.777150, -92.191650
-30.778050, -92.191280
-30.778220, -92.191200
-30.778310, -92.191140
-30.778510, -92.191050
-30.778730, -92.190940
-30.778840, -92.190880
-30.779100, -92.190710
-30.779210, -92.190630
-End:
-Object: 29.673102,-90.729057
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadmarkingoperations\n\nRoad: LA-316\n\nDirection: Both Directions\n\nDescription: Road Marking Operations on LA-316 Both Directions from Blue Ridge Dr to LA-182 . Lanes Alternating. Starting 10/28/2026 10:14 AM\n\nDetails: Expect alternating lane closures on LA 316 (Bayou Blue Road) between Blue Ridge Drive and LA 182 from approximately 7 AM to 5 PM weekdays due to road marking operations. Expect flaggers, moving electronic sign vehicle and prepare to stop. Weather permitting.\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 10/28/2026, 10:14:00 AM\n\nSchedule: <b>Wed, Thu, Fri, Mon, Tue:</b><br/>7:00 AM - 5:00 PM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA-316"
-29.696910, -90.767730
-29.696450, -90.767270
-29.695350, -90.766180
-29.695010, -90.765840
-29.694480, -90.765290
-29.694250, -90.765040
-29.694110, -90.764880
-29.694070, -90.764830
-29.694040, -90.764800
-29.693820, -90.764540
-29.693290, -90.763900
-29.692370, -90.762780
-29.690680, -90.760750
-29.690420, -90.760410
-29.690220, -90.760140
-29.690010, -90.759840
-29.689840, -90.759570
-29.689620, -90.759210
-29.689200, -90.758530
-29.689020, -90.758260
-29.688830, -90.758000
-29.688630, -90.757730
-29.688390, -90.757430
-29.688130, -90.757080
-29.688060, -90.756990
-29.687880, -90.756770
-29.687430, -90.756210
-29.686740, -90.755390
-29.686480, -90.755090
-29.686180, -90.754750
-29.685790, -90.754290
-29.685560, -90.754030
-29.685370, -90.753820
-29.685280, -90.753730
-29.685150, -90.753660
-29.685100, -90.753600
-29.684950, -90.753430
-29.684770, -90.753240
-29.684500, -90.752960
-29.683910, -90.752290
-29.683640, -90.751990
-29.683220, -90.751530
-29.682990, -90.751290
-29.682530, -90.750830
-29.681840, -90.750170
-29.681650, -90.750000
-29.681450, -90.749810
-29.681170, -90.749550
-29.680710, -90.749110
-29.680610, -90.749010
-29.680210, -90.748630
-29.679920, -90.748350
-29.679510, -90.747920
-29.679290, -90.747680
-29.679140, -90.747530
-29.679020, -90.747390
-29.678880, -90.747230
-29.678730, -90.747040
-29.678600, -90.746870
-29.678340, -90.746520
-29.678260, -90.746410
-29.678240, -90.746340
-29.678130, -90.746200
-29.678000, -90.746020
-29.677920, -90.745920
-29.677860, -90.745830
-29.677700, -90.745600
-29.677530, -90.745340
-29.677330, -90.745030
-29.677160, -90.744720
-29.677000, -90.744410
-29.676850, -90.744100
-29.676730, -90.743840
-29.676620, -90.743570
-29.676480, -90.743220
-29.676330, -90.742820
-29.676150, -90.742300
-29.676020, -90.741900
-29.675900, -90.741520
-29.675780, -90.741120
-29.675700, -90.740840
-29.675640, -90.740610
-29.675590, -90.740380
-29.675550, -90.740160
-29.675520, -90.739980
-29.675500, -90.739870
-29.675400, -90.739270
-29.675120, -90.737650
-29.675080, -90.737370
-29.675050, -90.737130
-29.675020, -90.736840
-29.675000, -90.736580
-29.674990, -90.736310
-29.674990, -90.735290
-29.675000, -90.734580
-29.675050, -90.733580
-29.675060, -90.733460
-29.675100, -90.732770
-29.675120, -90.732470
-29.675150, -90.732160
-29.675190, -90.731840
-29.675240, -90.731520
-29.675290, -90.731260
-29.675350, -90.730980
-29.675420, -90.730710
-29.675550, -90.730240
-29.675600, -90.730050
-29.675650, -90.729830
-29.675680, -90.729660
-29.675710, -90.729450
-29.675740, -90.729170
-29.675760, -90.728880
-29.675760, -90.728620
-29.675740, -90.728310
-29.675720, -90.728040
-29.675690, -90.727790
-29.675660, -90.727610
-29.675610, -90.727400
-29.675550, -90.727200
-29.675480, -90.727000
-29.675400, -90.726810
-29.675290, -90.726570
-29.675170, -90.726320
-29.674900, -90.725780
-29.674770, -90.725550
-29.674620, -90.725310
-29.674440, -90.725030
-29.674280, -90.724810
-29.674110, -90.724580
-29.673860, -90.724270
-29.673590, -90.723940
-29.673030, -90.723260
-29.672670, -90.722810
-29.672360, -90.722400
-29.672210, -90.722190
-29.671320, -90.720820
-29.669880, -90.718590
-29.669670, -90.718280
-29.669110, -90.717410
-29.668880, -90.717030
-29.668710, -90.716730
-29.668630, -90.716570
-29.668360, -90.716070
-29.668220, -90.715800
-29.668090, -90.715540
-29.667990, -90.715330
-29.667920, -90.715160
-29.667890, -90.715100
-29.667790, -90.714850
-29.667690, -90.714580
-29.667620, -90.714360
-29.667510, -90.713970
-29.667460, -90.713760
-29.667450, -90.713710
-29.667410, -90.713500
-29.667310, -90.712850
-29.667250, -90.712490
-29.667190, -90.712190
-29.667130, -90.711960
-29.667070, -90.711750
-29.666980, -90.711470
-29.666890, -90.711220
-29.666810, -90.711010
-29.666790, -90.710970
-29.666570, -90.710450
-29.666510, -90.710320
-29.666250, -90.709730
-29.666140, -90.709500
-29.665920, -90.709010
-29.665880, -90.708910
-29.665430, -90.707940
-29.665230, -90.707540
-29.665080, -90.707260
-29.664920, -90.706980
-29.664450, -90.706140
-29.664290, -90.705870
-29.664140, -90.705650
-29.664020, -90.705490
-29.663880, -90.705310
-29.663720, -90.705120
-29.661420, -90.702420
-29.661280, -90.702260
-29.661260, -90.702230
-29.660930, -90.701860
-29.660680, -90.701600
-29.660430, -90.701370
-29.660120, -90.701110
-29.658850, -90.700090
-29.658400, -90.699740
-29.658050, -90.699450
-29.657660, -90.699140
-29.656910, -90.698540
-29.656440, -90.698160
-29.656410, -90.698140
-29.655860, -90.697700
-29.655230, -90.697200
-29.655190, -90.697170
-29.654320, -90.696470
-29.654040, -90.696250
-29.653790, -90.696050
-29.652160, -90.694740
-29.651800, -90.694440
-29.651520, -90.694200
-29.651270, -90.693970
-29.650910, -90.693630
-29.650510, -90.693230
-29.649730, -90.692460
-29.648900, -90.691650
-29.648470, -90.691240
-29.648190, -90.690940
-29.648000, -90.690710
-29.647970, -90.690680
-29.647400, -90.690000
-29.647170, -90.689730
-29.646300, -90.688700
-29.646260, -90.688660
-29.645360, -90.687640
-End:
-Object: 30.988452,-91.835186
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: LA-1\n\nDirection: Both Directions\n\nDescription: Road Construction on LA-1 Both Directions from Rosewood Xing to Atchafalaya River . All Lanes Intermittent. Width Restriction: 16ft Starting 11/2/2026 12:00 AM\n\nDetails: The Louisiana Department of Transportation and Development announces a project to improve and repair a portion of LA 1 in Simmesport, Avoyelles Parish. The project includes full-depth base repairs, milling to remove the old asphalt, new asphalt paving, new roadway striping, and related work. Motorists should anticipate intermittent lane closures on LA 1 to allow construction activities to proceed safely and efficiently. Drivers are urged to pay close attention to advance warning signage, lowered speed limits, and crews & equipment on site. All work on the project is anticipated to be complete in Summer 2027, with progress dependent on weather conditions and other factors that can impact construction timelines. Lane restrictions: DOTD advises motorists that a 16 foot lane width restriction for this project has been implemented. All vehicles larger than 16 feet will need to utilize an alternate route.\n\nSeverity: None\n\nLane impact: All Lanes Intermittent\n\nReported/start: 11/2/2026, 12:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA-1"
-30.996890, -91.887910
-30.996840, -91.887540
-30.996820, -91.887370
-30.996650, -91.886070
-30.996280, -91.883110
-30.995870, -91.879930
-30.995530, -91.877230
-30.995180, -91.874480
-30.995140, -91.874200
-30.994870, -91.872120
-30.994710, -91.870920
-30.993390, -91.860480
-30.991730, -91.847540
-30.991120, -91.842770
-30.990890, -91.840920
-30.990710, -91.839550
-30.990480, -91.837760
-30.990350, -91.836790
-30.990200, -91.835560
-30.989980, -91.833840
-30.989810, -91.832490
-30.989680, -91.831610
-30.989600, -91.831100
-30.989520, -91.830610
-30.989420, -91.830100
-30.989320, -91.829570
-30.989100, -91.828540
-30.988850, -91.827520
-30.988400, -91.825890
-30.988270, -91.825490
-30.987910, -91.824360
-30.987680, -91.823740
-30.987180, -91.822440
-30.987020, -91.822040
-30.986650, -91.821170
-30.986470, -91.820790
-30.986410, -91.820650
-30.986090, -91.819970
-30.985750, -91.819290
-30.985030, -91.817870
-30.984650, -91.817100
-30.984350, -91.816520
-30.984290, -91.816410
-30.983980, -91.815790
-30.983580, -91.814980
-30.983460, -91.814840
-30.983290, -91.814500
-30.982970, -91.813880
-30.981990, -91.811920
-30.981840, -91.811640
-30.981750, -91.811370
-30.981500, -91.810880
-30.981230, -91.810340
-30.981170, -91.810210
-30.980850, -91.809560
-30.980640, -91.809140
+Line: 3, 0, "LA-38"
+30.941930, -90.346750
+30.941890, -90.346450
+30.941560, -90.344550
+30.941330, -90.343150
+30.941270, -90.342840
+30.941240, -90.342430
+30.941260, -90.342090
+30.941310, -90.341730
+30.941320, -90.341680
+30.942720, -90.337030
+30.942860, -90.336570
+30.943020, -90.336030
+30.943120, -90.335710
+30.943130, -90.335640
+30.943190, -90.335270
+30.943210, -90.334860
+30.943160, -90.334350
+30.943070, -90.333820
+30.942820, -90.332530
+30.942690, -90.331890
+30.942540, -90.331210
+30.942410, -90.330810
+30.942330, -90.330520
+30.942110, -90.329700
+30.941940, -90.329120
+30.941870, -90.328710
+30.941860, -90.328260
+30.941930, -90.327790
+30.942040, -90.327390
+30.942350, -90.326230
+30.942910, -90.324170
+30.943240, -90.322930
+30.943300, -90.322730
+30.943510, -90.322270
+30.943640, -90.322090
+30.943770, -90.321890
+30.944070, -90.321550
+30.944370, -90.321170
+30.944540, -90.320990
+30.944700, -90.320830
+30.945410, -90.320100
+30.945920, -90.319610
+30.946670, -90.319000
+30.946930, -90.318800
+30.947050, -90.318710
+30.947720, -90.318160
+30.948350, -90.317660
+30.948570, -90.317490
+30.948740, -90.317410
+30.948920, -90.317320
+30.949100, -90.317270
+30.949280, -90.317230
+30.949540, -90.317210
+30.949870, -90.317200
+30.950710, -90.317210
+30.951260, -90.317220
+30.954310, -90.317320
+30.956410, -90.317350
+30.956600, -90.317360
+30.957560, -90.317390
+30.957940, -90.317400
+30.958540, -90.317410
+30.958780, -90.317400
+30.958990, -90.317340
+30.959180, -90.317290
+30.959290, -90.317290
+30.959380, -90.316160
+30.959410, -90.315710
+30.959510, -90.314480
+30.959590, -90.313240
+30.959620, -90.312450
+30.959630, -90.311400
+30.959650, -90.310070
+30.959660, -90.308530
+30.959680, -90.307600
+30.959720, -90.307170
+30.959760, -90.306780
+30.960090, -90.305240
+30.960220, -90.304530
+30.960250, -90.303970
+30.960220, -90.303210
+30.960240, -90.302090
+30.960220, -90.301320
+30.960220, -90.300840
+30.960230, -90.300610
+30.960280, -90.300220
+30.960340, -90.299980
+30.960420, -90.299810
+30.960560, -90.299490
+30.960910, -90.298800
+30.961100, -90.298410
+30.961290, -90.297990
+30.961380, -90.297810
+30.961430, -90.297630
+30.961440, -90.297610
+30.961440, -90.297390
+30.961400, -90.297230
+30.961350, -90.297110
+30.961290, -90.297000
+30.961240, -90.296920
+30.961150, -90.296860
+30.961110, -90.296830
+30.960890, -90.296690
+30.960730, -90.296570
+30.960670, -90.296530
 End:
 Object: 30.009946,-91.825855
 Threshold: 999
@@ -1241,46 +963,6 @@ Line: 3, 0, "US-90"
 29.919650, -91.728800
 29.919600, -91.728720
 29.919560, -91.728660
-End:
-Object: 30.440277,-91.179206
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: roadconstruction\n\nRoad: I-10 Eastbound\n\nDirection: Unknown\n\nDescription: Road Construction on ramp from I-10 Eastbound to I-110 Northbound . All Ramps Closed. Starting 11/21/2026 10:00 PM and Ending 11/23/2026 5:00 AM.\n\nDetails: These closures are necessary for the progression of the I-10 Widening Project in East Baton Rouge Parish. Detour: Motorists can take I-10 East to LA-415 (Lobdell) or LA-1 Northbound to US-190 East across the Mississippi River Bridge.\n\nSeverity: Major\n\nLanes closed: All\n\nLane impact: All Ramps Closed\n\nReported/start: 11/21/2026, 10:00:00 PM\n\nExpected end: 11/23/2026, 5:00:00 AM\n\nSchedule: <b>Sat:</b><br/>7:00 PM - 12:00 AM<br/><br/><b>Sun:</b><br/>12:00 AM - 7:00 AM<br/>7:00 PM - 12:00 AM<br/><br/><b>Mon:</b><br/>12:00 AM - 5:00 AM<br/>10:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object],[object Object],[object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 220 35 45
-Line: 4, 0, "I-10 Eastbound"
-30.439060, -91.182120
-30.439080, -91.181710
-30.439100, -91.181380
-30.439110, -91.181200
-30.439110, -91.180980
-30.439130, -91.180490
-30.439150, -91.180260
-30.439170, -91.180120
-30.439220, -91.179870
-30.439260, -91.179720
-30.439370, -91.179460
-30.439480, -91.179280
-30.439570, -91.179150
-30.439620, -91.179070
-30.439750, -91.178910
-30.439910, -91.178750
-30.440110, -91.178580
-30.440240, -91.178490
-30.440400, -91.178400
-30.440490, -91.178360
-30.440590, -91.178320
-30.440670, -91.178290
-30.440740, -91.178270
-30.440830, -91.178250
-30.440950, -91.178230
-30.441040, -91.178220
-30.441150, -91.178210
-30.441280, -91.178210
-30.441610, -91.178230
-30.441820, -91.178250
-30.442370, -91.178310
-30.442520, -91.178320
-30.443250, -91.178380
 End:
 Object: 29.863700,-90.838142
 Threshold: 999
@@ -1588,34 +1270,6 @@ Line: 4, 0, "LA-444"
 30.345160, -90.660870
 30.347800, -90.656500
 End:
-Object: 29.592160,-90.467453
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 308\n\nDirection: All Directions\n\nDescription: Bridge Closure on Valentine All Directions from Highway 308 to Wetlands Cultural Trl. All lanes closed. Starting 1/5/2017 9:34 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/5/2017, 9:34:00 AM\n\nReporting agency: DOTD\n\nSource: Houma TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 308"
-29.592745, -90.467316
-29.592465, -90.467386
-29.591795, -90.467536
-29.591635, -90.467576
-End:
-Object: 29.598755,-90.716231
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 182\n\nDirection: Eastbound\n\nDescription: Bridge Closure on LA 182 East (New Orleans Boulevard Bridge) Eastbound At E Main St. All lanes closed. Starting 8/4/2026 12:00 PM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/4/2026, 12:00:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 30.067709,-89.804402
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: US 90\n\nDirection: Both Directions\n\nDescription: Bridge Closure on US 90 Both Directions from Chef Menteur Pass Bridge to Chef Menteur Pass Bridge. All lanes closed. Starting 3/6/2026 10:05 AM\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/6/2026, 10:05:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "US 90"
-30.066245, -89.805786
-30.066435, -89.805606
-30.066745, -89.805316
-30.068565, -89.803596
-30.068925, -89.803246
-30.069335, -89.802866
-End:
 Object: 30.002432,-91.881812
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Closure\n\nRoad: LA 675\n\nDirection: Westbound\n\nParish: Iberia\n\nSeverity: None\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/24/2026, 12:00:00 AM\n\nExpected end: 12/18/2026, 11:59:00 PM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
@@ -1654,354 +1308,9 @@ Line: 4, 0, "LA 675"
 30.002785, -91.886176
 30.002765, -91.887916
 End:
-Object: 31.165020,-92.092607
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Marking Operations\n\nRoad: LA 107\n\nDirection: Both Directions\n\nDescription: Road Marking Operations on LA 107 Both Directions from Red River to E Mark St . All Lanes Intermittent. Starting 8/10/2026 12:00 AM\n\nParish: Avoyelles\n\nSeverity: None\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/10/2026, 12:00:00 AM\n\nReporting agency: TMC\n\nSource: Shreveport TMC"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA 107"
-31.204156, -92.147116
-31.203926, -92.146886
-31.202706, -92.145576
-31.201476, -92.144276
-31.199846, -92.142566
-31.199266, -92.141916
-31.198906, -92.141466
-31.198576, -92.140996
-31.198136, -92.140266
-31.197866, -92.139746
-31.197626, -92.139216
-31.197406, -92.138656
-31.197206, -92.138086
-31.197046, -92.137496
-31.196966, -92.137116
-31.196916, -92.136906
-31.196796, -92.136306
-31.196736, -92.135996
-31.196656, -92.135546
-31.196526, -92.134846
-31.196416, -92.134286
-31.195706, -92.130516
-31.195286, -92.128246
-31.194746, -92.125446
-31.194396, -92.123586
-31.194086, -92.121926
-31.193826, -92.120576
-31.193526, -92.118986
-31.193286, -92.117696
-31.192866, -92.115486
-31.192796, -92.115126
-31.192716, -92.114666
-31.192646, -92.114316
-31.192596, -92.114026
-31.192506, -92.113616
-31.192416, -92.113256
-31.192276, -92.112736
-31.192156, -92.112406
-31.192016, -92.112056
-31.191856, -92.111726
-31.191826, -92.111656
-31.191606, -92.111276
-31.191366, -92.110916
-31.191116, -92.110596
-31.190856, -92.110306
-31.190186, -92.109636
-31.189566, -92.109046
-31.189066, -92.108546
-31.188276, -92.107816
-31.187776, -92.107386
-31.187406, -92.107096
-31.187116, -92.106866
-31.187056, -92.106826
-31.186776, -92.106616
-31.186256, -92.106246
-31.183336, -92.104256
-31.182666, -92.103806
-31.180996, -92.102666
-31.178806, -92.101166
-31.178736, -92.101116
-31.177586, -92.100336
-31.175706, -92.099046
-31.171196, -92.095966
-31.168526, -92.094146
-31.165036, -92.091756
-31.164926, -92.091686
-31.163256, -92.090546
-31.162056, -92.089736
-31.161686, -92.089476
-31.161396, -92.089266
-31.161046, -92.088966
-31.160756, -92.088676
-31.160396, -92.088236
-31.160126, -92.087866
-31.159746, -92.087266
-31.159186, -92.086346
-31.158246, -92.084816
-31.157176, -92.083056
-31.155486, -92.080286
-31.155266, -92.079916
-31.155156, -92.079726
-31.154726, -92.079006
-31.154666, -92.078926
-31.154596, -92.078826
-31.154486, -92.078656
-31.153976, -92.077826
-31.153696, -92.077406
-31.153406, -92.076996
-31.153086, -92.076576
-31.152586, -92.075956
-31.152066, -92.075376
-31.151016, -92.074276
-31.149016, -92.072196
-31.148926, -92.072106
-31.148226, -92.071376
-31.148176, -92.071326
-31.147286, -92.070406
-31.146176, -92.069256
-31.144636, -92.067656
-31.144596, -92.067616
-31.144286, -92.067286
-31.143416, -92.066386
-31.143336, -92.066306
-31.142906, -92.065846
-31.142816, -92.065756
-31.141616, -92.064496
-31.141176, -92.064056
-31.140796, -92.063696
-31.140426, -92.063406
-31.140396, -92.063386
-31.139966, -92.063126
-31.139376, -92.062826
-31.139056, -92.062666
-31.138906, -92.062596
-31.138666, -92.062476
-31.138466, -92.062386
-31.138406, -92.062356
-31.138276, -92.062316
-31.138016, -92.062266
-31.137806, -92.062246
-31.137626, -92.062246
-31.136916, -92.062266
-31.136366, -92.062296
-31.135226, -92.062316
-31.134636, -92.062336
-31.134186, -92.062336
-31.133666, -92.062346
-31.133456, -92.062366
-31.133206, -92.062416
-31.132896, -92.062506
-31.132826, -92.062536
-31.132356, -92.062726
-31.131656, -92.062986
-31.130276, -92.063516
-31.130236, -92.063526
-31.129906, -92.063656
-31.129726, -92.063716
-31.129596, -92.063806
-31.129476, -92.063936
-31.129276, -92.064136
-31.128636, -92.064806
-31.128566, -92.064886
-31.128306, -92.065146
-31.127956, -92.065506
-31.127656, -92.065806
-31.127236, -92.066236
-End:
-Object: 29.386309,-90.587834
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Other\n\nRoad: LA 55\n\nDirection: Both Directions\n\nDescription: Other on LA 55 Both Directions from Bud Man Ct to Madison Canal . Weight Restriction: 11023.113lbs Starting 9/12/2025 2:00 PM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/12/2025, 2:00:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA 55"
-29.385655, -90.588286
-29.385855, -90.588126
-29.386125, -90.587956
-29.386325, -90.587816
-29.386625, -90.587616
-29.387265, -90.587206
-End:
 Object: 30.152140,-90.130896
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Bridge Maintenance Operations on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Left lane blocked. Starting 11/18/2026 8:01 AM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/18/2026, 8:01:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.774695,-90.802046
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: LA 648\n\nDirection: Both Directions\n\nDescription: Road Construction on North and South Acadia Road Both Directions At LA 648 Percy Brown Road. 1 Left lane closed. Starting 10/15/2026 9:55 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/15/2026, 9:55:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 29.382768,-90.714738
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 57\n\nDirection: Both Directions\n\nDescription: Bridge Closure on Falgout Canal Rd Both Directions from Bayou Grand Caillou to Shrimpers Row. All lanes closed. Starting 9/10/2021 10:03 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/10/2021, 10:03:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 57"
-29.382735, -90.713866
-29.382725, -90.713986
-29.382695, -90.714286
-29.382705, -90.714536
-29.382705, -90.714566
-29.382775, -90.715016
-29.382885, -90.715686
-29.382915, -90.715966
-End:
-Object: 29.700777,-91.200006
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Closure\n\nRoad: US 90\n\nDirection: Unknown\n\nDescription: US 90 West down-ramp extension is closed between LA 70 and LA 182. Starting 8/28/2026 11:06 AM\n\nParish: St. Mary\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/28/2026, 11:06:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "US 90"
-29.700985, -91.199146
-29.700845, -91.199976
-29.700775, -91.200116
-29.700735, -91.200186
-29.700685, -91.200266
-29.700635, -91.200346
-End:
-Object: 29.964208,-90.103125
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Emergency Maintenance on I-10 Westbound near US 61 Northbound MM (234). Ramp Blocked. Starting 5/19/2025 1:47 PM\n\nParish: Orleans\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/19/2025, 1:47:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.593810,-90.726274
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Paving Operations\n\nRoad: LA 3040\n\nDirection: Both Directions\n\nDescription: Paving Operations on LA 3040 Both Directions from S Hollywood Rd to LA 661 . Lanes Alternating. Starting 4/7/2026 8:00 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 4/7/2026, 8:00:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Color: 245 145 35
-Line: 3, 0, "LA 3040"
-29.605455, -90.746186
-29.605395, -90.746146
-29.605345, -90.746116
-29.605305, -90.746096
-29.605245, -90.746076
-29.605145, -90.746056
-29.605035, -90.746046
-29.604905, -90.746046
-29.604775, -90.746056
-29.604705, -90.746066
-29.604595, -90.746086
-29.604445, -90.746126
-29.604275, -90.746176
-29.604055, -90.746246
-29.603855, -90.746296
-29.603445, -90.746376
-29.603015, -90.746436
-29.602645, -90.746456
-29.602585, -90.746456
-29.602295, -90.746446
-29.601945, -90.746396
-29.601615, -90.746336
-29.601065, -90.746206
-29.600655, -90.746116
-29.600545, -90.746096
-29.600285, -90.746036
-29.599675, -90.745816
-29.599555, -90.745776
-29.599035, -90.745556
-29.598785, -90.745436
-29.598375, -90.745216
-29.597875, -90.744916
-29.597725, -90.744806
-29.597625, -90.744736
-29.597355, -90.744526
-29.597025, -90.744216
-29.596965, -90.744156
-29.596495, -90.743676
-29.596265, -90.743426
-29.596035, -90.743116
-29.595775, -90.742776
-29.595345, -90.742096
-29.595185, -90.741726
-29.594935, -90.741256
-29.594765, -90.740836
-29.594635, -90.740496
-29.594495, -90.740136
-29.594215, -90.739436
-29.593825, -90.738436
-29.593485, -90.737556
-29.593355, -90.737236
-29.592845, -90.735936
-29.592655, -90.735476
-29.592275, -90.734586
-29.592005, -90.733926
-29.591785, -90.733436
-29.591555, -90.732986
-29.591305, -90.732506
-29.591175, -90.732266
-29.590925, -90.731756
-29.590815, -90.731416
-29.590735, -90.731076
-29.590685, -90.730596
-29.590675, -90.730176
-29.590705, -90.729926
-29.590875, -90.729276
-29.591065, -90.728456
-29.591195, -90.727926
-29.591525, -90.726556
-29.591595, -90.726226
-29.591645, -90.725886
-29.591665, -90.725786
-29.591675, -90.725726
-29.591675, -90.725346
-29.591625, -90.725086
-29.591565, -90.724516
-29.591535, -90.724206
-29.591425, -90.723316
-29.591345, -90.722716
-29.591235, -90.721816
-29.591175, -90.721356
-29.591125, -90.721016
-29.591045, -90.720146
-29.590905, -90.719216
-29.590775, -90.718286
-29.590695, -90.717556
-29.590645, -90.717176
-29.590605, -90.716856
-29.590515, -90.716526
-29.590415, -90.716266
-29.590325, -90.716056
-29.590295, -90.715966
-29.590225, -90.715706
-29.590085, -90.715086
-29.589965, -90.714456
-29.589755, -90.713696
-29.589695, -90.713486
-29.589675, -90.713406
-29.589575, -90.713046
-29.589515, -90.712836
-29.589385, -90.712436
-29.589135, -90.711486
-29.589005, -90.710976
-29.588955, -90.710796
-29.588725, -90.710036
-29.588365, -90.708836
-29.588265, -90.708666
-29.588235, -90.708556
-29.587855, -90.707266
-29.587505, -90.706056
-29.587395, -90.705606
-29.587315, -90.705146
-29.587315, -90.704656
-29.587325, -90.704456
-29.587385, -90.704016
-29.587455, -90.703706
-29.587535, -90.703426
-29.587705, -90.703016
-29.587905, -90.702656
-29.587935, -90.702606
-29.588045, -90.702436
-29.588275, -90.702146
-29.588375, -90.702036
-29.588645, -90.701756
-29.589215, -90.701196
-29.589545, -90.700836
-29.589595, -90.700786
-29.589775, -90.700576
-29.590135, -90.700096
-29.590275, -90.699876
-29.590535, -90.699436
-29.590745, -90.699016
-29.590795, -90.698896
-29.590985, -90.698416
-29.591095, -90.698126
-29.591215, -90.697706
 End:
 Object: 30.450504,-91.149863
 Threshold: 999
@@ -2067,86 +1376,6 @@ End:
 Object: 30.439070,-91.179065
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Road Construction\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Road Construction on I-10 Westbound Near I-110 Northbound (MM 156). All lanes closed. Starting 11/20/2026 10:00 PM and Ending 11/23/2026 5:00 AM.\n\nParish: East Baton Rouge\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 10:00:00 PM\n\nExpected end: 11/23/2026, 5:00:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Object: 29.764217,-90.840664
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: LA 3185\n\nDirection: Both Directions\n\nDescription: Emergency Maintenance on LA 3185 Both Directions from Tiger Dr to Ridgefield Rd. All lanes closed. Starting 10/17/2024 2:00 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/17/2024, 2:00:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 3185"
-29.765825, -90.844686
-29.765785, -90.844546
-29.765735, -90.844396
-29.765675, -90.844226
-29.765605, -90.844056
-29.765545, -90.843866
-29.764945, -90.842186
-29.764755, -90.841716
-29.764575, -90.841356
-29.764355, -90.840976
-29.764225, -90.840766
-29.763955, -90.840346
-29.763895, -90.840256
-29.763705, -90.839926
-29.763485, -90.839486
-29.763385, -90.839216
-29.763285, -90.838966
-29.763205, -90.838636
-29.763155, -90.838416
-29.762775, -90.836586
-29.762735, -90.836376
-29.762155, -90.833616
-End:
-Object: 29.886335,-91.525026
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 324\n\nDirection: Both Directions\n\nDescription: Bridge Closure on Convent St Both Directions near Navarro St. All lanes closed. Starting 9/20/2021 1:48 PM\n\nParish: St. Mary\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/20/2021, 1:48:00 PM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Object: 30.033299,-90.027062
-Threshold: 999
-Icon: 0,0,0,6,1,1,"WEATHER REPORT\n\nEvent type: Floodgate Closure\n\nRoad: DOWNMAN RD\n\nDirection: Both Directions\n\nDescription: Floodgate Closure on Downman Rd Both Directions from Stars and Stripes Blvd to LA 47. All lanes closed.\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/11/2024, 1:35:00 PM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Color: 55 145 210
-Line: 3, 0, "DOWNMAN RD"
-30.033725, -90.027196
-30.033545, -90.027126
-30.033315, -90.027056
-30.033125, -90.027006
-30.032785, -90.026926
-End:
-Object: 29.672634,-90.621692
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 653\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 653 Both Directions Near Du Mar Bayou. All lanes closed. Starting 1/8/2026 3:00 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/8/2026, 3:00:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 30.534667,-92.060691
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: US 190\n\nDirection: Westbound\n\nDescription: Bridge Maintenance Operations on US 190 Westbound from Fort Hamilton Dr to I-49 Southbound . 1 Right lane closed. Starting 11/4/2026 2:47 PM\n\nParish: St. Landry\n\nSeverity: None\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/4/2026, 2:47:00 PM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Color: 245 145 35
-Line: 3, 0, "US 190"
-30.536825, -92.057176
-30.536735, -92.057366
-30.536615, -92.057586
-30.536475, -92.057826
-30.536285, -92.058136
-30.536145, -92.058336
-30.535925, -92.058676
-30.535675, -92.059086
-30.535575, -92.059236
-30.535515, -92.059336
-30.535365, -92.059556
-30.534905, -92.060266
-30.533805, -92.061956
-30.533465, -92.062486
-30.532695, -92.063736
-30.532605, -92.063906
-30.532375, -92.064366
-30.532185, -92.064766
-30.532125, -92.064906
-30.532045, -92.065106
-End:
-Object: 30.231226,-89.668717
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: US 90\n\nDirection: Both Directions\n\nDescription: Bridge Closure on US 90 Both Directions near West Pearl River . All Lanes Closed. Starting 5/24/2022 11:30 AM\n\nParish: St. Tammany\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/24/2022, 11:30:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
 End:
 Object: 31.050174,-91.599884
 Threshold: 999
@@ -2324,10 +1553,6 @@ Line: 3, 0, "LA 15"
 31.086716, -91.616166
 31.087056, -91.617036
 31.087386, -91.617856
-End:
-Object: 29.743260,-90.767112
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LEFORT BYPASS RD\n\nDirection: Unknown\n\nDescription: Bridge Closure on Lefort Bypass Rd near Blackhead Ln. All lanes closed. Starting 3/17/2025 3:00 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/17/2025, 3:00:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
 End:
 Object: 29.755522,-90.713956
 Threshold: 999
@@ -2682,49 +1907,9 @@ Line: 3, 0, "LA 1"
 29.730475, -90.607676
 29.730335, -90.607226
 End:
-Object: 29.942786,-90.074199
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Maintenance Operations\n\nRoad: US 90 BUS\n\nDirection: Eastbound\n\nDescription: Bridge Maintenance Operations on US 90-BR Eastbound near Dryades St MM (234). Ramp Blocked. Starting 3/19/2025 9:46 AM\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/19/2025, 9:46:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.598275,-90.703908
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 57\n\nDirection: Unknown\n\nDescription: Bridge Closure on LA 24 from LA 659 to Bayou Terrebonne. All lanes closed. Starting 2/9/2025 1:00 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 2/9/2025, 1:00:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 57"
-29.598805, -90.703846
-29.598405, -90.703886
-29.598175, -90.703916
-29.598085, -90.703926
-29.597905, -90.703966
-End:
-Object: 29.577690,-90.604711
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 316\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 316 Both Directions from Old Ferry Rd to Romero St . All lanes closed. Starting 9/17/2026 7:40 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/17/2026, 7:40:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 316"
-29.579315, -90.607256
-29.579255, -90.607116
-29.578355, -90.604656
-29.578145, -90.604336
-29.577865, -90.604076
-29.577635, -90.603936
-29.577325, -90.603836
-29.575915, -90.603636
-29.575395, -90.603556
-End:
-Object: 30.412013,-91.080461
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Road Construction\n\nRoad: BLUEBONNET ST\n\nDirection: Both Directions\n\nDescription: Road Construction on Bluebonnet Rd Both Directions Near Jefferson Hwy. All lanes closed. Starting 8/21/2025 10:15 AM\n\nParish: East Baton Rouge\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/21/2025, 10:15:00 AM\n\nReporting agency: TMC\n\nSource: Baton Rouge TMC"
-End:
 Object: 30.363616,-90.094106
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Southbound\n\nDescription: Bridge Maintenance Operations on Lake Pontchartrain Cswy Southbound Near N Causeway Blvd. 1 Right lane blocked. Starting 11/17/2026 1:52 PM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/17/2026, 1:52:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.567203,-90.719095
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: LA 315\n\nDirection: Both Directions\n\nDescription: Emergency Maintenance on LA 315 Bayou Dularge Bridge Both Directions at LA 661 (South Van Avenue). All lanes blocked. Starting 5/26/2026 6:06 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/26/2026, 6:06:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
 Object: 30.692788,-91.777049
 Threshold: 999
@@ -2752,135 +1937,13 @@ Line: 4, 0, "LA 10"
 30.692776, -91.767396
 30.692786, -91.766986
 End:
-Object: 29.389524,-90.264393
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Closure\n\nRoad: LA 308\n\nDirection: Both Directions\n\nDescription: Closure on LA 308 Both Directions near LA 1. All lanes closed. Starting 11/3/2022 4:00 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/3/2022, 4:00:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
 Object: 30.257233,-92.021070
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Crash on I-10 Eastbound Near US 167 Southbound (MM 103). All lanes blocked.\n\nParish: Lafayette\n\nSeverity: Moderate\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 7:03:00 PM\n\nReporting agency: DOTD\n\nSource: Statewide TMC"
 End:
-Object: 30.820722,-91.052699
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Construction\n\nRoad: LA 955\n\nDirection: Both Directions\n\nDescription: Bridge Construction on LA 955 Both Directions from Battle Rd to Jorroson Ln. All lanes closed. Starting 3/9/2026 8:00 AM\n\nParish: East Feliciana\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/9/2026, 8:00:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 955"
-30.818716, -91.053746
-30.821626, -91.052226
-30.821826, -91.052126
-End:
-Object: 29.787300,-90.822226
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Construction Work\n\nRoad: GERALD T PELTIER DR\n\nDirection: Both Directions\n\nDescription: Construction Work on Gerald T Peltier Dr Both Directions from President St to LA 20 Eastbound. All lanes closed. Starting 5/23/2023 6:00 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/23/2023, 6:00:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "GERALD T PELTIER DR"
-29.787115, -90.821676
-29.787485, -90.822776
-End:
 Object: 30.022619,-90.153745
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Left lane blocked. Starting 11/17/2026 10:35 AM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/17/2026, 10:35:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.938617,-90.044653
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Semi\n\nRoad: I-910\n\nDirection: Eastbound\n\nDescription: Stalled Semi on US 90-BR Eastbound Near LA 428 Eastbound (MM 234). 1 Lane Blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 4:56:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
-Object: 29.991480,-90.051585
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-610\n\nDirection: Westbound\n\nDescription: Crash on ramp from I-610 Eastbound ramp to Franklin Ave to Franklin Ave . Ramp Blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 11:18:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
-Object: 30.631269,-92.056285
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Road Maintenance Operations\n\nRoad: LA 745\n\nDirection: Unknown\n\nDescription: Road Maintenance Operations on LA 745 near LA 746. All lanes closed. Starting 9/17/2024 7:55 AM\n\nParish: St. Landry\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/17/2024, 7:55:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Object: 29.568200,-90.719978
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: LA 315\n\nDirection: Both Directions\n\nDescription: Emergency Maintenance on LA 315 Both Directions from Concord Bypass Rd to LA 661 South Van Avenue . All lanes closed. Starting 7/12/2026 8:00 PM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 7/12/2026, 8:00:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 315"
-29.572055, -90.724336
-29.571425, -90.723826
-29.571255, -90.723696
-29.570925, -90.723426
-29.569595, -90.722386
-29.569215, -90.722086
-29.569085, -90.721936
-29.568775, -90.721596
-29.568695, -90.721506
-29.568605, -90.721396
-29.568435, -90.721166
-29.568095, -90.720736
-29.567885, -90.720436
-29.567775, -90.720266
-29.567665, -90.720086
-29.567555, -90.719876
-29.567485, -90.719726
-29.567415, -90.719556
-29.567355, -90.719386
-29.567305, -90.719216
-29.567265, -90.719066
-29.567235, -90.718926
-29.567205, -90.718736
-29.567195, -90.718646
-29.567185, -90.718516
-29.567185, -90.718386
-29.567195, -90.718226
-29.567215, -90.718066
-29.567245, -90.717896
-29.567295, -90.717686
-29.567355, -90.717476
-29.567425, -90.717266
-29.567555, -90.716946
-29.567635, -90.716766
-End:
-Object: 29.991393,-90.071605
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Maintenance Operations\n\nRoad: I-610\n\nDirection: Westbound\n\nDescription: Road Maintenance Operations on ramp from I-610 Westbound to Paris Ave . Ramp Blocked. Starting 10/27/2026 10:46 PM\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/27/2026, 10:46:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Color: 245 145 35
-Line: 3, 0, "I-610"
-29.990795, -90.069886
-29.990825, -90.070066
-29.990845, -90.070166
-29.990865, -90.070266
-29.990905, -90.070456
-29.990945, -90.070636
-29.991015, -90.070916
-29.991095, -90.071186
-29.991235, -90.071536
-29.991395, -90.071856
-29.991545, -90.072126
-29.991725, -90.072416
-29.991895, -90.072696
-29.991945, -90.072796
-29.991985, -90.072876
-29.992005, -90.072936
-29.992015, -90.072996
-29.992025, -90.073076
-End:
-Object: 29.864526,-91.628962
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Road Construction\n\nRoad: US 90\n\nDirection: Unknown\n\nDescription: Road Construction on ramp from US 90 Westbound to LA 318. All lanes closed. Additional Restrictions: No Access for Emergency Vehicles Starting 1/9/2025 7:00 AM\n\nParish: St. Mary\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/9/2025, 7:00:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "US 90"
-29.863245, -91.626656
-29.863315, -91.626686
-29.863355, -91.626706
-29.863425, -91.626836
-29.863565, -91.627086
-29.863735, -91.627416
-29.863955, -91.627816
-29.864455, -91.628786
-29.864595, -91.629016
-29.864935, -91.629696
-29.865385, -91.630576
-29.865845, -91.631496
-29.866745, -91.633286
-29.866805, -91.633416
 End:
 Object: 30.015149,-91.898733
 Threshold: 999
@@ -3028,69 +2091,9 @@ Line: 3, 0, "I-10"
 29.955515, -90.080976
 29.955635, -90.080826
 End:
-Object: 30.110636,-90.537295
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Semi\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Stalled Semi on I-10 Westbound Near Belle Terre Blvd (MM 203). 1 Right lane blocked.\n\nParish: St. John the Baptist\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 11:38:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
-Object: 29.924969,-90.040701
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-910\n\nDirection: Westbound\n\nDescription: Crash on US 90-BR Westbound Near Stumpf Blvd.\n\nParish: Jefferson\n\nSeverity: Minor\n\nLanes open: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 1:45:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
-Object: 29.384705,-90.730316
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: FALGOUT CANAL RD\n\nDirection: Both Directions\n\nDescription: Bridge Closure on Falgout Rd Both Directions near Shrimpers Row. All lanes closed. Starting 5/10/2025 12:21 PM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/10/2025, 12:21:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 29.574669,-90.727102
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Construction Work\n\nRoad: LA 182\n\nDirection: Westbound\n\nDescription: Construction Work on LA 182 Westbound near Civic Center Dr. Lane Blocked. Starting 6/9/2026 8:41 AM\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 6/9/2026, 8:41:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.598579,-90.716192
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LA 24\n\nDirection: Both Directions\n\nDescription: Bridge Maintenance Operations on LA 24 Both Directions At E Main St. Lanes Alternating. Starting 4/21/2026 7:00 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 4/21/2026, 7:00:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 31.175100,-92.121769
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Road Construction\n\nRoad: LA 1193\n\nDirection: All Directions\n\nDescription: Road Construction on LA 1193 All Directions near Dewey Ln. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 6/5/2026 7:50 AM\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 6/5/2026, 7:50:00 AM\n\nReporting agency: TMC\n\nSource: Shreveport TMC"
-End:
-Object: 30.439078,-91.187422
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Semi\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Stalled Semi on I-10 Eastbound Near LA 30 (MM 155). 1 Right lane blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 4:02:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
-Object: 30.208980,-90.121270
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: Lake Pontchartrain Cswy\n\nDirection: Southbound\n\nDescription: Bridge Maintenance Operations on Lake Pontchartrain Cswy Southbound Near Jefferson St Tammany Parish Line. 1 Right lane blocked. Starting 11/13/2026 2:36 AM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/13/2026, 2:36:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.567675,-90.716676
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 315\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 661 Both Directions At Houma Navigation Canal. All lanes closed. Starting 10/20/2026 11:42 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/20/2026, 11:42:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 29.951553,-90.085655
-Threshold: 999
-Icon: 0,0,0,5,1,1,"SPECIAL EVENT\n\nEvent type: Major Event\n\nRoad: I-910\n\nDirection: Eastbound\n\nDescription: Major Event on US 90-BR Eastbound Near US 90 Eastbound (MM 234). 1 Right lane blocked. Starting 11/15/2026 2:15 PM\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/15/2026, 2:15:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.963849,-90.027484
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 46\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 46 Both Directions near Inner Harbor Navigation Canal. All lanes closed. Starting 3/5/2026 11:20 AM\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/5/2026, 11:20:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 29.596152,-90.722248
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Construction Work\n\nRoad: SCHOOL ST\n\nDirection: Both Directions\n\nDescription: Construction Work on School St Both Directions at Goode St. All lanes closed. Starting 5/6/2025 6:11 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/6/2025, 6:11:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 29.553785,-90.605724
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Construction\n\nRoad: LA 24\n\nDirection: Both Directions\n\nDescription: Bridge Construction on LA 24 Both Directions at LA 316. All lanes closed. Starting 4/28/2021 8:00 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 4/28/2021, 8:00:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
 Object: 30.071669,-90.144991
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Left lane blocked. Starting 11/20/2026 10:08 PM\n\nParish: Jefferson\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 10:08:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 30.375489,-91.055645
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Crash on I-10 Eastbound Near Siegen Lane (LA 3246) (MM 165). 1 Right lane blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 5:15:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
-Object: 30.629466,-92.053750
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Closure\n\nRoad: LA 745\n\nDirection: Both Directions\n\nDescription: Closure on LA 745 Both Directions Near LA 182. All lanes closed. Starting 7/25/2025 8:26 AM\n\nParish: St. Landry\n\nSeverity: Major\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 7/25/2025, 8:26:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
 End:
 Object: 30.445452,-91.338519
 Threshold: 999
@@ -3100,49 +2103,13 @@ Object: 30.439896,-91.204607
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Semi\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Stalled Semi on I-10 Eastbound Near LA 1 (MM 154). 1 Lane Blocked.\n\nParish: West Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 11:35:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
 End:
-Object: 30.467526,-90.457381
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: NORTH OAKS DR\n\nDirection: Unknown\n\nDescription: Emergency Maintenance on N Oaks Dr near US 51-BR. All lanes closed. Starting 3/27/2026 11:46 AM\n\nParish: Tangipahoa\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/27/2026, 11:46:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 29.733329,-90.734681
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: SAINT CHARLES BY-PASS RD\n\nDirection: Unknown\n\nDescription: Bridge Closure on St Charles Bypass Rd near Burma Road. All lanes closed. Starting 12/19/2024 3:56 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 12/19/2024, 3:56:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 29.980774,-90.022067
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: FLORIDA AVE\n\nDirection: Both Directions\n\nDescription: Bridge Closure on Florida Ave Both Directions At Florida Avenue Bridge. All lanes closed. Starting 7/21/2026 2:00 PM\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 7/21/2026, 2:00:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 30.420400,-91.427924
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Crash on I-10 Westbound Near Iberville West Baton Rouge Parish Line (MM 140). 1 Right lane blocked.\n\nParish: Iberville\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 6:09:00 PM\n\nReporting agency: DOTD\n\nSource: Statewide TMC"
-End:
-Object: 30.464463,-90.917675
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-12\n\nDirection: Eastbound\n\nDescription: Stalled Vehicle on I-12 Eastbound Near Juban Rd (MM 13). 1 Left lane blocked.\n\nParish: Livingston\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 4:52:00 PM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
 Object: 30.362955,-90.094218
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Southbound\n\nDescription: Bridge Maintenance Operations on Lake Pontchartrain Cswy Southbound Near N Causeway Blvd. 1 Right lane blocked. Starting 11/17/2026 10:06 AM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/17/2026, 10:06:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
-Object: 30.440172,-91.209503
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Stalled Vehicle on I-10 Eastbound Near LA 1 Northbound (MM 154). 1 Right lane blocked.\n\nParish: West Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 1:06:00 PM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
-Object: 30.439110,-91.185294
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Crash on I-10 Westbound Near LA 30 (MM 155). 1 Right lane blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 10:49:00 AM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
-Object: 31.090764,-91.802047
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: MONROE FABRE XING\n\nDirection: Both Directions\n\nDescription: Bridge Closure on Monroe Fabre Xing Both Directions near LA 451. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 3/18/2026 7:00 AM\n\nSeverity: Major\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/18/2026, 7:00:00 AM\n\nReporting agency: TMC\n\nSource: Shreveport TMC"
-End:
 Object: 30.439430,-91.194284
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Crash on I-10 Westbound Near Mississippi River (MM 155). 1 Left lane blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 4:36:00 PM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
-Object: 30.131130,-89.874370
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Crash on I-10 Eastbound Near US 11 (MM 253). 1 Right lane blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 2\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 9:26:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
 End:
 Object: 29.946004,-90.080030
 Threshold: 999
@@ -3152,42 +2119,6 @@ Object: 30.045047,-90.149669
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Bridge Maintenance Operations on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Right lane blocked. Starting 11/19/2026 10:09 AM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/19/2026, 10:09:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
-Object: 30.299065,-90.897106
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Maintenance Operations\n\nRoad: DEVALL RD\n\nDirection: Both Directions\n\nDescription: Bridge Maintenance Operations on Devall Rd Both Directions at Marblestone Ave. All lanes closed. Starting 3/9/2026 5:00 AM\n\nParish: Ascension\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/9/2026, 5:00:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Object: 30.049065,-89.956776
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Crash on I-10 Westbound Near Bullard Ave (MM 246). 1 Left lane blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 3\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 10:10:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
-Object: 29.898354,-90.079383
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Tunnel Closure\n\nRoad: US 90 BUS\n\nDirection: Both Directions\n\nDescription: Tunnel Closure on Harvey Tunnel Both Directions near Intracoastal Waterway. All lanes closed. Starting 6/6/2026 1:58 AM\n\nParish: Jefferson\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 6/6/2026, 1:58:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 30.050933,-90.148633
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Maintenance Operations\n\nRoad: Lake Pontchartrain Cswy\n\nDirection: Northbound\n\nDescription: Road Maintenance Operations on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Right lane blocked. Starting 11/12/2026 1:41 AM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/12/2026, 1:41:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 30.363243,-90.094169
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Construction Work\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Southbound\n\nDescription: Construction Work on Lake Pontchartrain Cswy Southbound Near N Causeway Blvd. 1 Right lane blocked. Starting 11/5/2026 11:55 AM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/5/2026, 11:55:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.515065,-90.333496
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: COTE BLANCHE BRG\n\nDirection: Both Directions\n\nDescription: Bridge Closure on Cote Blanche Brg Both Directions at LA 1. All lanes closed. Starting 4/16/2025 1:49 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 4/16/2025, 1:49:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 31.122756,-92.063109
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Utility Work\n\nRoad: LA 452\n\nDirection: Both Directions\n\nDescription: Utility Work on LA 452 Both Directions Near Caldwell St. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 6/8/2026 7:00 AM\n\nParish: Avoyelles\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 6/8/2026, 7:00:00 AM\n\nReporting agency: TMC\n\nSource: Shreveport TMC"
-End:
-Object: 30.246835,-92.066766
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Crash on I-10 Westbound Near Ambassador Caffery Pkwy (MM 100). 1 Right lane blocked.\n\nParish: Lafayette\n\nSeverity: Minor\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 4:23:00 PM\n\nReporting agency: DOTD\n\nSource: Statewide TMC"
-End:
-Object: 29.389741,-90.264192
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Maintenance Operations\n\nRoad: E 178TH ST\n\nDirection: Both Directions\n\nDescription: Bridge Maintenance Operations on LA 308 Both Directions At LA 1. All lanes closed. Starting 10/20/2026 9:13 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/20/2026, 9:13:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
 Object: 30.439175,-91.182310
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-110\n\nDirection: Westbound\n\nDescription: Stalled Vehicle on I-10 Westbound Near I-110 Southbound (MM 155). 1 Right lane blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 5:35:00 PM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
@@ -3196,182 +2127,39 @@ Object: 30.127643,-90.135180
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Bridge Maintenance Operations on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Right lane blocked. Starting 11/20/2026 9:18 AM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 9:18:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
-Object: 29.541710,-90.335816
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 308\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 308 Both Directions At Scully Canal. All lanes closed. Starting 8/26/2026 3:00 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/26/2026, 3:00:00 PM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 308"
-29.541425, -90.335646
-29.541995, -90.335986
-End:
-Object: 30.439351,-91.192853
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Stalled Vehicle on I-10 Westbound Near Mississippi River (MM 155). 1 Right lane blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 1:24:00 PM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
-Object: 29.921706,-90.042558
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-910\n\nDirection: Westbound\n\nDescription: Crash on US 90-BR Westbound Near Terry Pkwy. 1 Left lane blocked.\n\nParish: Jefferson\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 1:36:00 PM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
 Object: 30.215445,-90.120138
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Southbound\n\nDescription: Bridge Maintenance Operations on Lake Pontchartrain Cswy Southbound Near Jefferson St Tammany Parish Line. 1 Right lane blocked. Starting 11/19/2026 10:30 AM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/19/2026, 10:30:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.940427,-90.103366
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Utility Work\n\nRoad: US 90\n\nDirection: All Directions\n\nDescription: Utility Work on US 90 All Directions near Napoleon Ave. All lanes closed. Starting 4/9/2026 7:30 AM\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 4/9/2026, 7:30:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 29.574683,-90.728069
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Construction Work\n\nRoad: LA 182\n\nDirection: Westbound\n\nDescription: Construction Work on LA 182 Westbound near Lamar St. Lane Blocked. Starting 6/10/2026 7:18 AM\n\nParish: Terrebonne\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 6/10/2026, 7:18:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 30.103845,-92.079719
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Maintenance Operations\n\nRoad: LA 92\n\nDirection: Both Directions\n\nParish: Lafayette\n\nSeverity: None\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/18/2026, 11:07:00 AM\n\nReporting agency: TMC\n\nSource: Baton Rouge TMC"
-End:
-Object: 29.567675,-90.716676
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: LA 315\n\nDirection: Both Directions\n\nDescription: Emergency Maintenance on LA 315 Bayou Dularge Bridge Both Directions at LA 661 South Van Avenue. All lanes closed. Starting 5/27/2026 1:07 PM\n\nParish: Terrebonne\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/27/2026, 1:07:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.386251,-90.619796
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 56\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 56 Both Directions at Tave St. All lanes closed. Starting 5/1/2026 1:00 PM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/1/2026, 1:00:00 PM\n\nReporting agency: TMC\n\nSource: Houma TMC"
 End:
 Object: 30.022040,-90.153847
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Left lane blocked. Starting 11/20/2026 8:32 PM\n\nParish: Jefferson\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 8:32:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
-Object: 30.205606,-90.121503
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Northbound Near N Causeway Blvd. 1 Left lane blocked. Starting 11/13/2026 7:50 AM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/13/2026, 7:50:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.515041,-90.333581
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: COTE BLANCHE BRG\n\nDirection: Both Directions\n\nDescription: Bridge Closure on Cote Blanche Brg Both Directions At LA 1. All lanes closed. Starting 8/20/2026 8:20 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/20/2026, 8:20:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 29.389568,-90.264335
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Closure\n\nRoad: LA 308\n\nDirection: Both Directions\n\nDescription: Closure on LA 308 Both Directions Near Golden Meadow Lift Bridge. All lanes closed. Starting 11/12/2026 9:00 AM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/12/2026, 9:00:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 30.295109,-90.106139
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: Lake Pontchartrain Cswy\n\nDirection: Southbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Southbound Near Jefferson St Tammany Parish Line. 1 Left lane blocked. Starting 11/12/2026 2:26 PM\n\nParish: St. Tammany\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/12/2026, 2:26:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 30.445849,-91.234840
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Crash on I-10 Eastbound Near Lobdell Ext S (MM 152). 1 Left lane blocked.\n\nParish: West Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 12:42:00 PM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
-Object: 29.976896,-92.023231
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: Broadview Dr\n\nDirection: Both Directions\n\nDescription: Bridge Closure on Broadview Dr Both Directions Near LA 339. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 11/10/2026 7:00 AM\n\nParish: Vermilion\n\nSeverity: Major\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/10/2026, 7:00:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
 Object: 30.123636,-90.135884
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Right lane blocked. Starting 11/17/2026 8:49 PM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/17/2026, 8:49:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.997044,-90.147845
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Bridge Maintenance Operations on I-10 Eastbound Near Bonnabel Blvd (MM 229). 1 Left lane blocked. Starting 10/27/2026 10:47 AM\n\nParish: Jefferson\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 10/27/2026, 10:47:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.973406,-90.143241
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: US 61\n\nDirection: Southbound\n\nDescription: Emergency Maintenance on US 61 Southbound Near Ridgewood Dr. All lanes closed. Starting 9/11/2026 12:45 PM\n\nParish: Jefferson\n\nSeverity: None\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 9/11/2026, 12:45:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
 End:
 Object: 29.938899,-90.056302
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: I-910\n\nDirection: Eastbound\n\nDescription: Bridge Maintenance Operations on US 90-BR Eastbound Near Crescent City Connection (MM 234). 1 Right lane closed. Starting 11/6/2026 7:00 PM and Ending 1/29/2027 6:00 AM.\n\nParish: Jefferson\n\nSeverity: None\n\nLanes closed: 1\n\nLanes open: 3\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/6/2026, 7:00:00 PM\n\nExpected end: 1/29/2027, 6:00:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
 End:
-Object: 30.097009,-90.918240
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Construction Work\n\nRoad: LA 70\n\nDirection: Westbound\n\nDescription: Construction Work on LA 70 Westbound Near Sunshine Rd. 1 Left lane blocked. Starting 11/10/2026 10:22 AM\n\nParish: St. James\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/10/2026, 10:22:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 30.030058,-90.152632
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Southbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Southbound Near Lake Pontchartrain. 1 Right lane blocked. Starting 11/6/2026 11:00 AM\n\nParish: Jefferson\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/6/2026, 11:00:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 30.023174,-90.153650
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: Lake Pontchartrain Cswy\n\nDirection: Northbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Left lane blocked. Starting 11/11/2026 8:53 AM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/11/2026, 8:53:00 AM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.643100,-90.520207
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 308\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 308 Both Directions Near McCloud Rd. All lanes closed. Starting 7/17/2026 12:15 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 7/17/2026, 12:15:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Color: 220 35 45
-Line: 4, 0, "LA 308"
-29.642255, -90.519036
-29.642785, -90.519766
-29.642965, -90.520006
-29.643255, -90.520406
-29.643385, -90.520596
-29.643505, -90.520786
-29.643545, -90.520856
-End:
-Object: 30.980970,-90.509794
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Closure\n\nRoad: I-55\n\nDirection: Southbound\n\nDescription: Closure on I-55 Southbound At Kentwood Rest Area . All lanes closed. Starting 8/24/2026 7:50 AM\n\nParish: Tangipahoa\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/24/2026, 7:50:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 29.980756,-90.021929
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Construction Work\n\nRoad: FLORIDA AVE\n\nDirection: Both Directions\n\nDescription: Construction Work on Florida Ave Both Directions near Inner Harbor Navigation Canal. All lanes closed. Starting 4/21/2026 2:02 PM\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 4/21/2026, 2:02:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 29.598024,-90.720762
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Utility Work\n\nRoad: ROUSSELL ST\n\nDirection: Northbound\n\nDescription: Utility Work on Roussell St Northbound at LA 24 Eastbound. All lanes closed. Starting 3/27/2026 9:00 AM\n\nParish: Terrebonne\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/27/2026, 9:00:00 AM\n\nReporting agency: TMC\n\nSource: Houma TMC"
-End:
-Object: 29.939812,-90.069249
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-910\n\nDirection: Westbound\n\nDescription: Stalled Vehicle on US 90-BR Westbound Near Baronne St (MM 234). 1 Left lane blocked.\n\nParish: Orleans\n\nSeverity: Minor\n\nLanes closed: 2\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/21/2026, 12:09:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
 Object: 30.022794,-90.153715
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Right lane blocked. Starting 11/17/2026 2:18 PM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/17/2026, 2:18:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 30.434931,-91.187626
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Utility Work\n\nRoad: OKLAHOMA ST\n\nDirection: Both Directions\n\nDescription: Utility Work on Oklahoma St Both Directions near Gila St. All lanes closed. Starting 5/29/2024 2:10 PM\n\nParish: East Baton Rouge\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 5/29/2024, 2:10:00 PM\n\nReporting agency: TMC\n\nSource: Baton Rouge TMC"
-End:
-Object: 30.363616,-90.094106
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Road Construction\n\nRoad: Lake Pontchartrain Cswy\n\nDirection: Southbound\n\nDescription: Road Construction on Lake Pontchartrain Cswy Southbound Near N Causeway Blvd. 1 Left lane blocked. Starting 11/11/2026 2:13 PM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/11/2026, 2:13:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 29.965896,-92.023026
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 339\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 339 Both Directions near Hildalgo Dr. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 6/23/2026 7:00 AM\n\nParish: Vermilion\n\nSeverity: Major\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 6/23/2026, 7:00:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
-Object: 29.963849,-90.027484
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 46\n\nDirection: Both Directions\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 3/5/2026, 11:20:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 30.439171,-91.189814
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Stalled Vehicle on I-10 Westbound Near Mississippi River (MM 155). 1 Lane Blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 4:10:00 PM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
 End:
 Object: 30.026423,-90.153050
 Threshold: 999
 Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LAKE PONTCHARTRAIN CSWY\n\nDirection: Northbound\n\nDescription: Bridge Maintenance Operations on Lake Pontchartrain Cswy Northbound Near Jefferson St Tammany Parish Line. 1 Right lane blocked. Starting 11/17/2026 1:34 PM\n\nParish: Jefferson\n\nSeverity: Moderate\n\nLanes closed: 1\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/17/2026, 1:34:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
-Object: 29.969115,-90.025793
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Maintenance Operations\n\nRoad: LA 39\n\nDirection: Both Directions\n\nDescription: Bridge Maintenance Operations on LA 39 Both Directions Near Judge Seeber Bridge. All lanes closed. Starting 11/7/2026 9:55 AM\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/7/2026, 9:55:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
-Object: 30.045876,-89.961525
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Construction Work\n\nRoad: I-10\n\nDirection: Eastbound\n\nDescription: Construction Work on I-10 Eastbound Near Bullard Ave (MM 245). All lanes blocked. Starting 8/18/2026 10:21 PM\n\nParish: Orleans\n\nSeverity: Moderate\n\nLanes closed: 5\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/18/2026, 10:21:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
-End:
-Object: 30.234561,-91.874407
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Construction\n\nRoad: LA 321\n\nDirection: Both Directions\n\nDescription: Bridge Construction on LA 321 Both Directions near Parish Road 435. All lanes closed. Starting 8/5/2024 7:00 AM\n\nParish: St. Martin\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/5/2024, 7:00:00 AM\n\nReporting agency: TMC\n\nSource: Statewide TMC"
-End:
 Object: 30.484220,-90.096590
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: N COLUMBIA ST\n\nDirection: Northbound\n\nDescription: Emergency Maintenance on LA 437 Northbound Near N Florida St. All lanes blocked. Starting 11/17/2026 3:34 PM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/17/2026, 3:34:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
-; Current events displayed: 162
-; Closures: 85
-; Construction / roadwork: 50
-; Incidents: 25
+; Current events displayed: 54
+; Closures: 17
+; Construction / roadwork: 29
+; Incidents: 7
 ; Construction with workers present: 0
 ; Weather reports: 1
 ; Waze reports: 0
-; Special events: 1
+; Special events: 0
