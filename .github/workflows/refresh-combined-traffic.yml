@@ -32,7 +32,7 @@ jobs:
         env:
           TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
         run: node scripts/generate-traffic.mjs
-      - name: Generate 511LA-only current event files
+      - name: Generate current 511LA and DOTD map event files
         env:
           LOUISIANA_511_API_KEY: ${{ secrets.LOUISIANA_511_API_KEY }}
         run: node scripts/generate-traffic-events.mjs
@@ -46,9 +46,13 @@ jobs:
           test -s traffic-events/assets/road-closure.png
           test -s traffic-events/assets/road-construction.png
           test -s traffic-events/assets/road-incident.png
+          test -s traffic-events/assets/construction-workers.png
+          test -s traffic-events/assets/special-event.png
+          test -s traffic-events/assets/weather-report.png
+          test -s traffic-events/assets/waze-report.png
           grep -q 'Source: TomTom Traffic Flow Vector Tiles' traffic.txt
           ! grep -q '511LA / DOTD EVENT LAYER' traffic.txt
-          grep -q 'Source: Louisiana 511LA Events API only.' traffic-events/traffic-events.txt
+          grep -q 'Sources: official 511LA Events API + DOTD 511 map layers.' traffic-events/traffic-events.txt
           node --input-type=module -e '
             import { readFile } from "node:fs/promises";
             const roads=JSON.parse(await readFile("traffic.geojson","utf8"));
@@ -56,13 +60,13 @@ jobs:
             if(roads.type!=="FeatureCollection" || !Array.isArray(roads.features) || !roads.features.length) throw Error("TomTom GeoJSON is invalid or empty");
             if(events.type!=="FeatureCollection" || !Array.isArray(events.features)) throw Error("Event GeoJSON is invalid");
             if(!String(roads.metadata?.source||"").includes("TomTom")) throw Error("TomTom source metadata missing");
-            if(!Array.isArray(events.metadata?.sources) || events.metadata.sources.length!==1 || events.metadata.sources[0]!=="511LA Events API") throw Error("Event feed must use only the 511LA Events API");
+            if(!Array.isArray(events.metadata?.sources) || !events.metadata.sources.includes("511LA Events API") || !events.metadata.sources.includes("DOTD 511 map layers")) throw Error("Event feed must use only the 511LA Events API");
             if(roads.features.some(f=>f.properties?.source || f.properties?.layer==="511la-dotd-events")) throw Error("Non-TomTom event data found in TomTom GeoJSON");
             if(roads.features.some(f=>f.geometry?.type!=="LineString")) throw Error("Unexpected geometry in TomTom GeoJSON");
             if(events.features.some(f=>!["Point","MultiLineString"].includes(f.geometry?.type))) throw Error("Unexpected geometry in event GeoJSON");
             if(events.features.some(f=>f.geometry?.type==="MultiLineString" && (!Array.isArray(f.geometry.coordinates) || !f.geometry.coordinates.some(line=>Array.isArray(line) && line.length>=2)))) throw Error("Invalid roadway line geometry in event GeoJSON");
             if(events.features.some(f=>!f.properties?.source || !(f.properties?.source_event_type || f.properties?.event_subtype))) throw Error("Event source/type attribution missing");
-            const eventTypes=new Set(["closure","construction","workers","incident","weather_incident","weather_closure","special","other"]);
+            const eventTypes=new Set(["closure","incident","construction","workers","special","weather","waze"]);
             if(events.features.some(f=>!eventTypes.has(f.properties?.event_type))) throw Error("Unknown normalized event category");
             for(const f of events.features){if(f.geometry.type==="Point" && (!Number.isFinite(f.geometry.coordinates?.[0]) || !Number.isFinite(f.geometry.coordinates?.[1]))) throw Error("Invalid event point coordinates");if(f.geometry.type==="MultiLineString" && f.geometry.coordinates.some(line=>line.some(p=>!Number.isFinite(p[0])||!Number.isFinite(p[1])))) throw Error("Invalid event line coordinates");}
             const roadTxt=await readFile("traffic.txt","utf8");
@@ -71,8 +75,8 @@ jobs:
             const eventTxtCount=(eventTxt.match(/^Object:/gm)||[]).length;
             if(roadTxtCount!==roads.features.length) throw Error("TomTom TXT/GeoJSON feature counts differ");
             if(eventTxtCount!==events.features.length) throw Error("511LA TXT/GeoJSON event counts differ");
-            if(!eventTxt.includes("IconFile: 1,") || !eventTxt.includes("IconFile: 2,") || !eventTxt.includes("IconFile: 3,")) throw Error("Event icon references missing");
-            for(const category of ["ROAD CLOSURE","CONSTRUCTION / ROADWORK","CONSTRUCTION / WORKERS PRESENT","TRAFFIC INCIDENT","WEATHER INCIDENT","WEATHER CLOSURE","SPECIAL EVENT","OTHER 511LA EVENT"]){if(events.features.some(f=>f.properties.event_type===({ "ROAD CLOSURE":"closure","CONSTRUCTION / ROADWORK":"construction","CONSTRUCTION / WORKERS PRESENT":"workers","TRAFFIC INCIDENT":"incident","WEATHER INCIDENT":"weather_incident","WEATHER CLOSURE":"weather_closure","SPECIAL EVENT":"special","OTHER 511LA EVENT":"other"})[category]) && !eventTxt.includes(category)) throw Error("Placefile category label missing: "+category);}
+            for(const n of [1,2,3,4,5,6,7]) if(!eventTxt.includes("IconFile: "+n+",")) throw Error("Event icon reference missing: "+n);
+            for(const category of ["ROAD CLOSURE","CONSTRUCTION / ROADWORK","CONSTRUCTION / WORKERS PRESENT","TRAFFIC INCIDENT","WEATHER REPORT","SPECIAL EVENT","WAZE REPORT"]){if(events.features.some(f=>f.properties.event_type===({ "ROAD CLOSURE":"closure","CONSTRUCTION / ROADWORK":"construction","CONSTRUCTION / WORKERS PRESENT":"workers","TRAFFIC INCIDENT":"incident","WEATHER REPORT":"weather","SPECIAL EVENT":"special","WAZE REPORT":"waze"})[category]) && !eventTxt.includes(category)) throw Error("Placefile category label missing: "+category);}
             if(Number(events.metadata?.eventCount)!==events.features.length) throw Error("Event metadata count does not match features");
             if(!events.metadata?.generatedAt || !roads.metadata?.updated) throw Error("Missing source refresh timestamps");
             for(const f of roads.features){const p=f.properties;if(p.traffic_status==="STOPPED / VERY SLOW" && p.stroke?.toLowerCase()!=="#ff0000") throw Error("Stopped traffic color incorrect");if(p.traffic_status==="CLOSED" && p.stroke?.toLowerCase()!=="#ff00ff") throw Error("Closure color incorrect");}
