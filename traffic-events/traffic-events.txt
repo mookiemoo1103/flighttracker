@@ -3,7 +3,7 @@
 ; Only events returned by 511LA are considered; future-start and expired events are excluded.
 ; Icons are assigned from the official EventType and EventSubType fields.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-22T03:17:52.792Z
+; Updated: 2026-11-22T11:34:30.245Z
 Title: LOUISIANA ROAD EVENTS - 511LA
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
@@ -2266,51 +2266,6 @@ Line: 3, 0, "US-90"
 30.050740, -91.928820
 30.050830, -91.928860
 End:
-Object: 30.474914,-90.695836
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / ROADWORK\n\nEvent type: roadconstruction\n\nRoad: I-12\n\nDirection: Eastbound\n\nDescription: Road Construction on I-12 Eastbound from 1.5 Mi East of Livingston (MM 24) to 2.5 Mi West of Holden (MM 28) . Lanes Alternating. Starting 10/12/2026 8:00 PM and Ending 11/24/2026 5:00 AM.\n\nDetails: These lane closures are to allow crews to sawcut the asphalt, build crane access by placing and compacting stone, excavation, set barriers, receive materials on the project and do pipe work. At least one lane will be open in each direction at all times. • Route Name: I-12 Eastbound,I-12 Westbound Start Date: Monday, October 12, 2026 at 8:00 PM End Date: Sunday, November 24, 2026 at 5:00 AM (Weather Permitting) Closure Type: Roadwork Lanes Affected: Partial Closure/ Left Lane Special Notes: This is an Alternating lane closure. Start Cross Street: 1.5 MILES EAST OF LIVINGSTON End Cross Street: 2.5 MILES WEST OF HOLDEN Recurrence: These closures will take place nightly from 8:00 PM to 5:00 AM. Detour/Alternate Route: Westbound motorists I-12 motorists may take I-12 West to LA 441 North to US 190 West to LA 63 South back to I-12 West. Eastbound motorists I-12 motorists may take I-12 East to LA 63 North to US 190 East to LA 441 South back to I-12 East. Safety Reminder DOTD appreciates your patience and reminds you to please drive with caution through the work zone and be on the lookout for work crews and their equipment. Project: H.012622\n\nSeverity: None\n\nLane impact: Lanes Alternating\n\nReported/start: 10/12/2026, 8:00:00 PM\n\nExpected end: 11/24/2026, 5:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>12:00 AM - 5:00 AM<br/>8:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 245 145 35
-Line: 3, 0, "I-12"
-30.474250, -90.735280
-30.474280, -90.732420
-30.474300, -90.731030
-30.474320, -90.729990
-30.474390, -90.728860
-30.474470, -90.727520
-30.474590, -90.725990
-30.474790, -90.723580
-30.475070, -90.720100
-30.475240, -90.717630
-30.475520, -90.714000
-30.475630, -90.712170
-30.475680, -90.710740
-30.475710, -90.709370
-30.475720, -90.707990
-30.475690, -90.705970
-30.475640, -90.704270
-30.475570, -90.701930
-30.475480, -90.698840
-30.475350, -90.695420
-30.475320, -90.693570
-30.475190, -90.689560
-30.475080, -90.685730
-30.474910, -90.680190
-30.474800, -90.676790
-30.474760, -90.675380
-30.474720, -90.674150
-30.474720, -90.674010
-30.474710, -90.673550
-30.474650, -90.671580
-30.474610, -90.670060
-30.474590, -90.669500
-30.474500, -90.666520
-30.474480, -90.664710
-30.474480, -90.664370
-30.474510, -90.660780
-30.474510, -90.660160
-30.474520, -90.658050
-End:
 Object: 29.951313,-92.156412
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: bridgeClosure\n\nRoad: LA-82\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA-82 Both Directions from Bernard Blvd to Vine St . All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 10/12/2026 12:00 AM and Ending 5/31/2027 12:00 AM.\n\nDetails: The rehabilitation work is necessary to address the bridge’s current condition and extend its service life, improve its overall condition and provide a safer, more reliable crossing for motorists. The temporary closure will allow crews to perform the work more efficiently and safely while minimizing risks to motorists and workers in the construction area. Detour Information During the closure, motorists should follow the posted detour route: LA 3267 to LA 14 to US 167 to LA 335 to LA 694\n\nSeverity: None\n\nLanes closed: All\n\nLane impact: All lanes closed\n\nReported/start: 10/12/2026, 12:00:00 AM\n\nExpected end: 5/31/2027, 12:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu, Fri, Sat, Sun:</b><br/>Active all day<br/><br/>\n\nSchedule details: [object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
@@ -3044,7 +2999,7 @@ Line: 3, 0, "US-90"
 End:
 Object: 30.440277,-91.179206
 Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: roadconstruction\n\nRoad: I-10 Eastbound\n\nDirection: Unknown\n\nDescription: Road Construction on ramp from I-10 Eastbound to I-110 Northbound . All Ramps Closed. Starting 11/16/2026 10:00 PM and Ending 11/23/2026 5:00 AM.\n\nDetails: These closures are necessary for the progression of the I-10 Widening Project in East Baton Rouge Parish. Detour: Motorists can take I-10 East to LA-415 (Lobdell) or LA-1 Northbound to US-190 East across the Mississippi River Bridge.\n\nSeverity: Major\n\nLanes closed: All\n\nLane impact: All Ramps Closed\n\nReported/start: 11/16/2026, 10:00:00 PM\n\nExpected end: 11/23/2026, 5:00:00 AM\n\nSchedule: <b>Mon, Tue, Wed, Thu:</b><br/>12:00 AM - 5:00 AM<br/>10:00 PM - 12:00 AM<br/><br/><b>Fri:</b><br/>12:00 AM - 5:00 AM<br/>7:00 PM - 12:00 AM<br/><br/><b>Sat, Sun:</b><br/>12:00 AM - 7:00 AM<br/>7:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object],[object Object],[object Object],[object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
+Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: roadconstruction\n\nRoad: I-10 Eastbound\n\nDirection: Unknown\n\nDescription: Road Construction on ramp from I-10 Eastbound to I-110 Northbound . All Ramps Closed. Starting 11/21/2026 10:00 PM and Ending 11/23/2026 5:00 AM.\n\nDetails: These closures are necessary for the progression of the I-10 Widening Project in East Baton Rouge Parish. Detour: Motorists can take I-10 East to LA-415 (Lobdell) or LA-1 Northbound to US-190 East across the Mississippi River Bridge.\n\nSeverity: Major\n\nLanes closed: All\n\nLane impact: All Ramps Closed\n\nReported/start: 11/21/2026, 10:00:00 PM\n\nExpected end: 11/23/2026, 5:00:00 AM\n\nSchedule: <b>Sat:</b><br/>7:00 PM - 12:00 AM<br/><br/><b>Sun:</b><br/>12:00 AM - 7:00 AM<br/>7:00 PM - 12:00 AM<br/><br/><b>Mon:</b><br/>12:00 AM - 5:00 AM<br/>10:00 PM - 12:00 AM<br/><br/>\n\nSchedule details: [object Object],[object Object],[object Object]\n\nReporting agency: ERS\n\nSource: 511LA"
 End:
 Color: 220 35 45
 Line: 4, 0, "I-10 Eastbound"
@@ -3262,135 +3217,11 @@ Line: 4, 0, "LA-444"
 30.345160, -90.660870
 30.347800, -90.656500
 End:
-Object: 30.349249,-90.844229
-Threshold: 999
-Icon: 0,0,0,2,1,1,"CONSTRUCTION / WORKERS PRESENT\n\nEvent type: roadwork\n\nRoad: LA 16\n\nDirection: Unknown\n\nDescription: Active Construction - Workers Present\n\nSeverity: Unknown\n\nLane impact: No Data\n\nReported/start: 11/21/2026, 9:02:14 PM\n\nExpected end: 11/21/2026, 11:02:14 PM\n\nReporting agency: WZDx\n\nSource: 511LA"
-End:
-Color: 255 175 45
-Line: 3, 0, "LA 16"
-30.347210, -90.844250
-30.347500, -90.844150
-30.347970, -90.843970
-30.348250, -90.843880
-30.348360, -90.843840
-30.348450, -90.843810
-30.348530, -90.843790
-30.348600, -90.843780
-30.348660, -90.843770
-30.348700, -90.843770
-30.348740, -90.843770
-30.348800, -90.843770
-30.348840, -90.843770
-30.348900, -90.843780
-30.348940, -90.843790
-30.349040, -90.843830
-30.349110, -90.843860
-30.349170, -90.843890
-30.349240, -90.843930
-30.349360, -90.844020
-30.349450, -90.844100
-30.349600, -90.844230
-30.350100, -90.844700
-30.350250, -90.844830
-30.350340, -90.844900
-30.350460, -90.844980
-30.350510, -90.845010
-30.350580, -90.845060
-30.350720, -90.845140
-30.350900, -90.845230
-30.351450, -90.845500
-End:
-Object: 30.258160,-92.016461
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: crash\n\nRoad: US-167 Southbound ramp to I-10 Eastbound\n\nDirection: Southbound\n\nDescription: Crash on ramp from US-167 Southbound ramp to I-10 Eastbound to I-10 Eastbound (MM 103) . Ramp Blocked.\n\nSeverity: Moderate\n\nLane impact: Ramp Blocked\n\nReported/start: 11/21/2026, 8:18:00 PM\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 150 75 190
-Line: 3, 0, "US-167 Southbound ramp to I-10 Eastbound"
-30.258910, -92.015640
-30.258750, -92.015640
-30.258640, -92.015640
-30.258560, -92.015640
-30.258470, -92.015640
-30.258370, -92.015650
-30.258310, -92.015660
-30.258230, -92.015680
-30.258160, -92.015700
-30.258060, -92.015740
-30.258010, -92.015770
-30.257960, -92.015800
-30.257910, -92.015830
-30.257870, -92.015860
-30.257810, -92.015910
-30.257780, -92.015940
-30.257740, -92.015990
-30.257710, -92.016030
-30.257680, -92.016080
-30.257660, -92.016120
-30.257630, -92.016190
-30.257610, -92.016250
-30.257600, -92.016290
-30.257590, -92.016350
-30.257580, -92.016450
-30.257580, -92.016540
-30.257590, -92.016630
-30.257610, -92.016710
-30.257630, -92.016770
-30.257660, -92.016840
-30.257700, -92.016910
-30.257750, -92.016980
-30.257810, -92.017050
-30.257880, -92.017110
-30.257940, -92.017150
-30.257980, -92.017170
-30.258050, -92.017200
-30.258120, -92.017220
-30.258190, -92.017230
-30.258270, -92.017230
-30.258350, -92.017220
-30.258420, -92.017200
-30.258470, -92.017180
-30.258540, -92.017140
-30.258600, -92.017100
-30.258650, -92.017060
-30.258710, -92.017000
-30.258770, -92.016930
-30.258830, -92.016860
-30.258860, -92.016820
-30.258900, -92.016760
-30.258930, -92.016710
-30.259020, -92.016550
-30.259250, -92.016120
-End:
-Object: 30.258377,-92.013383
-Threshold: 999
-Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: crash\n\nRoad: US-167 Northbound ramp to I-10 Eastbound\n\nDirection: Northbound\n\nDescription: Crash on ramp from US-167 Northbound ramp to I-10 Eastbound to I-10 Eastbound (MM 104) . Ramp Blocked.\n\nSeverity: Moderate\n\nLane impact: Ramp Blocked\n\nReported/start: 11/21/2026, 8:26:00 PM\n\nReporting agency: ERS\n\nSource: 511LA"
-End:
-Color: 150 75 190
-Line: 3, 0, "US-167 Northbound ramp to I-10 Eastbound"
-30.255260, -92.014540
-30.255690, -92.014560
-30.256030, -92.014570
-30.256330, -92.014540
-30.256530, -92.014500
-30.256720, -92.014450
-30.256920, -92.014370
-30.257260, -92.014200
-30.257660, -92.013990
-30.259010, -92.013280
-30.259400, -92.013070
-30.259780, -92.012860
-30.260140, -92.012620
-30.260480, -92.012310
-30.260620, -92.012150
-30.260800, -92.011930
-30.260950, -92.011690
-30.261210, -92.011260
-End:
-; Current events displayed: 57
+; Current events displayed: 53
 ; Closures: 24
-; Construction / roadwork: 30
-; Incidents: 2
-; Construction with workers present: 1
+; Construction / roadwork: 29
+; Incidents: 0
+; Construction with workers present: 0
 ; Weather incidents: 0
 ; Weather closures: 0
 ; Special events: 0
