@@ -92,8 +92,8 @@ function normalizeDotdFeature(feature) {
   return {...p, ID:p.EventID ?? p.EventUID ?? p.OBJECTID, SourceId:p.EventUID ?? p.EventID ?? p.OBJECTID,
     RoadwayName:p.RoadName || p.EventName || "", DirectionOfTravel:p.TravelDirection || "",
     Latitude:point[1], Longitude:point[0], StartDate:p.EventStartDateUTC ?? p.EventStartDateLocal ?? p.EventStartDateOriginal,
-    PlannedEndDate:p.EventEndDateUTC ?? p.EventEndDateLocal ?? p.EventEndDateOriginal,
-    LastUpdated:p.EventLastUpdatedUTC ?? p.EventLastUpdatedLocal ?? p.EventLastUpdatedOriginal,
+    PlannedEndDate:p.EventEndDateUTC ?? p.EventEndDateLocal ?? p.EventEndDateOriginal ?? p.EventClosureEndDateUTC ?? p.EventClosureEndDateLocal,
+    LastUpdated:p.EventLastUpdatedUTC ?? p.EventLastUpdatedLocal ?? p.EventLastUpdatedOriginal ?? p.service_last_updated,
     IsFullClosure:p.ClosureExists === 1 || p.LaneStatus === 2 || p.LanesClosed === "All",
     Description:p.Description || p.EventName || "", _source:"DOTD 511 map layer", _geometryPaths:paths};
 }
@@ -104,7 +104,7 @@ function normalizeType(a) {
 function classify(a) {
   const type=String(a.EventType??"").toLowerCase().replace(/[^a-z]/g,"");
   const sub=String(a.EventSubType??"").toLowerCase().replace(/[^a-z]/g,"");
-  const source=String(a.EventSource??a._source??a.Organization??"").toLowerCase();
+  const source=[a.EventSource,a.OwnerName,a.ReportAgency,a._source,a.Organization].filter(Boolean).join(" ").toLowerCase();
   const desc=String(a.Description??a.Details??"").toLowerCase();
   const combined=type+sub;
   if(/waze/.test(source+" "+type+" "+sub)) return "waze";
@@ -174,6 +174,7 @@ function isCurrent(a, apiIds = new Set()) {
   if (start && start > now + 60 * 1000) return false;
   if (end && end < now - 60 * 1000) return false;
   if (/cancel|cancelled|canceled|clear(ed)?|resolved|complete(d)?|expired|inactive|deleted|rejected|void|closed/.test(status)) return false;
+  if (apiIds.has(String(a.ID ?? a.Id ?? a.EventID ?? a.SourceId ?? ""))) return true;
   if (/^(active|open|ongoing|in progress|inprogress|current|approved|published|a|1)$/.test(status)) return true;
   if (status === "confirmed") {
     if (end && end >= now) return true;
@@ -181,7 +182,6 @@ function isCurrent(a, apiIds = new Set()) {
     return !!(updated && now - updated <= 30 * 86400000);
   }
   if (status === "reported") return !!(updated && now - updated <= 7 * 86400000);
-  if (apiIds.has(String(a.ID ?? a.Id ?? a.EventID ?? a.SourceId ?? ""))) return true;
   if (!status && end && start && end >= now && updated && now - updated <= 45 * 86400000) return true;
   if (!status && (a.ClosureExists === 1 || a.LaneStatus === 2) && updated && now - updated <= 14 * 86400000) return true;
   return false;
