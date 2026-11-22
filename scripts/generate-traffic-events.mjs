@@ -165,40 +165,36 @@ function isScheduleActive(schedules, now) {
     });
   });
 }
-function isCurrent(a, apiIds = new Set()) {
+function isCurrent(a) {
   const now = Date.now();
   const start = dateMs(a.StartDate || a.EventStartDateUTC || a.Reported);
   const end = dateMs(a.PlannedEndDate || a.EventEndDateUTC || a.EventClosureEndDateUTC);
   const updated = dateMs(a.LastUpdated || a.EventLastUpdatedUTC || a.EventLastUpdatedLocal);
   const status = String(a.EventStatus || a.Status || "").trim().toLowerCase();
+  const kind = classify(a);
+  const age = updated ? now - updated : Infinity;
+
   if (start && start > now + 60 * 1000) return false;
   if (end && end < now - 60 * 1000) return false;
   if (/cancel|cancelled|canceled|clear(ed)?|resolved|complete(d)?|expired|inactive|deleted|rejected|void|closed/.test(status)) return false;
-  const kind = classify(a);
-  const closureFlag = a.ClosureExists === 1 || a.LaneStatus === 2 || a.IsFullClosure === true || a.IsFullClosure === 1;
-  const age = updated ? now - updated : Infinity;
-  if (/^(active|open|ongoing|in progress|inprogress|current|approved|published|a|1)$/.test(status)) return true;
-  const transientFresh = kind === "incident" ? age <= 48*3600000 && (!start || now-start <= 72*3600000) :
-    kind === "weather" ? age <= 48*3600000 :
-    kind === "waze" ? age <= 24*3600000 :
-    kind === "special" || kind === "workers" ? age <= 7*86400000 :
-    kind === "construction" ? age <= 30*86400000 : age <= 7*86400000;
-  if (status === "confirmed") {
-    if (end && end >= now && kind !== "incident") return true;
-    if (kind === "closure" && closureFlag) return true;
-    if (kind === "weather" && closureFlag && /clos|closed|floodgate/.test(String(a.EventSubType||a.Description||"").toLowerCase())) return true;
-    return !!updated && transientFresh;
-  }
-  if (status === "reported") return !!updated && transientFresh;
-  const apiConfirmed = apiIds.has(String(a.ID ?? a.Id ?? a.EventID ?? a.SourceId ?? ""));
-  if (apiConfirmed) {
-    if (kind === "closure" && closureFlag) return true;
-    return !!updated && transientFresh;
-  }
-  if (!status && kind === "closure" && closureFlag) return true;
-  if (!status && end && start && end >= now && updated && age <= 45*86400000 && kind !== "incident") return true;
-  if (!status && updated && transientFresh) return true;
-  return false;
+
+  const schedules = a.RecurrenceSchedules || a.recurrence_schedules;
+  if (Array.isArray(schedules) && schedules.length && !isScheduleActive(schedules, now)) return false;
+
+  if (/^(active|open|ongoing|in progress|inprogress|current|a|1)$/.test(status)) return true;
+  if (end && end >= now && kind !== "incident") return true;
+
+  const freshnessMs = kind === "incident" ? 24*3600000 :
+    kind === "weather" ? 24*3600000 :
+    kind === "waze" ? 12*3600000 :
+    kind === "special" || kind === "workers" ? 72*3600000 :
+    kind === "construction" || kind === "closure" ? 7*86400000 : 48*3600000;
+
+  if (!updated || age < 0 || age > freshnessMs) return false;
+  if (kind === "incident" && start && now - start > 48*3600000) return false;
+  if (start && now - start > 90*86400000 && !end) return false;
+
+  return status === "reported" || status === "confirmed" || !status;
 }
 function decodePolyline(encoded) {
   if (!encoded || typeof encoded !== "string") return [];
@@ -281,9 +277,9 @@ function popup(a, kind) {
   ].filter(Boolean).map(clean);
   return lines.length ? lines[0] + "\\n\\n" + lines.slice(1).join("\\n\\n") : heading;
 }
-function makeRecord(a, source, geometryPaths = [], apiIds = new Set()) {
+function makeRecord(a, source, geometryPaths = []) {
   const kind = classify(a);
-  if (!kind || !isCurrent(a,apiIds)) return null;
+  if (!kind || !isCurrent(a)) return null;
   const encoded = decodePolyline(a.EncodedPolyline || a.MapEncodedPolyline || "");
   const secondary = [Number(a.LatitudeSecondary), Number(a.LongitudeSecondary)];
   const primary = [Number(a.Latitude ?? a.latitude), Number(a.Longitude ?? a.longitude)];
@@ -296,12 +292,6 @@ function makeRecord(a, source, geometryPaths = [], apiIds = new Set()) {
 const [events511, dotdCentroids, dotdPoints, dotdLines] = await Promise.all([
   query511LAEvents(), queryDotdLayer(0), queryDotdLayer(1), queryDotdLayer(2)
 ]);
-const nowMs=Date.now();
-const apiIds = new Set(events511.filter(a=>{
-  const updated=dateMs(a.LastUpdated || a.Reported);
-  const end=dateMs(a.PlannedEndDate || a.EndDate);
-  return (updated && nowMs-updated <= 14*86400000) || (end && end >= nowMs);
-}).map(a=>String(a.ID ?? a.Id ?? a.SourceId ?? "")));
 const lineById = new Map();
 for (const feature of dotdLines) {
   const id=String(feature.properties?.EventID ?? feature.properties?.EventUID ?? "");
@@ -313,7 +303,7 @@ for (const feature of dotdLines) {
 }
 const byId = new Map();
 for (const a of events511) {
-  const record=makeRecord(a,"511LA Events API",[],apiIds);
+  const record=makeRecord(a,"511LA Events API",[]);
   if (record) byId.set(record.key,record);
 }
 const seenDotdIds = new Set();
@@ -324,7 +314,7 @@ for (const feature of [...dotdCentroids,...dotdPoints]) {
   if (id && seenDotdIds.has(id)) continue;
   if (id) seenDotdIds.add(id);
   const paths=lineById.get(id) || a._geometryPaths || [];
-  const record=makeRecord(a,"DOTD 511 map",paths,apiIds);
+  const record=makeRecord(a,"DOTD 511 map",paths);
   if (record) byId.set(record.key,record);
 }
 const events = [...byId.values()];
