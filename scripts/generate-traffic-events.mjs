@@ -174,16 +174,30 @@ function isCurrent(a, apiIds = new Set()) {
   if (start && start > now + 60 * 1000) return false;
   if (end && end < now - 60 * 1000) return false;
   if (/cancel|cancelled|canceled|clear(ed)?|resolved|complete(d)?|expired|inactive|deleted|rejected|void|closed/.test(status)) return false;
-  if (apiIds.has(String(a.ID ?? a.Id ?? a.EventID ?? a.SourceId ?? ""))) return true;
+  const kind = classify(a);
+  const closureFlag = a.ClosureExists === 1 || a.LaneStatus === 2 || a.IsFullClosure === true || a.IsFullClosure === 1;
+  const age = updated ? now - updated : Infinity;
   if (/^(active|open|ongoing|in progress|inprogress|current|approved|published|a|1)$/.test(status)) return true;
+  const transientFresh = kind === "incident" ? age <= 48*3600000 && (!start || now-start <= 72*3600000) :
+    kind === "weather" ? age <= 48*3600000 :
+    kind === "waze" ? age <= 24*3600000 :
+    kind === "special" || kind === "workers" ? age <= 7*86400000 :
+    kind === "construction" ? age <= 30*86400000 : age <= 7*86400000;
   if (status === "confirmed") {
-    if (end && end >= now) return true;
-    if ((a.ClosureExists === 1 || a.LaneStatus === 2) && (!start || start <= now)) return true;
-    return !!(updated && now - updated <= 30 * 86400000);
+    if (end && end >= now && kind !== "incident") return true;
+    if (kind === "closure" && closureFlag) return true;
+    if (kind === "weather" && closureFlag && /clos|closed|floodgate/.test(String(a.EventSubType||a.Description||"").toLowerCase())) return true;
+    return !!updated && transientFresh;
   }
-  if (status === "reported") return !!(updated && now - updated <= 7 * 86400000);
-  if (!status && end && start && end >= now && updated && now - updated <= 45 * 86400000) return true;
-  if (!status && (a.ClosureExists === 1 || a.LaneStatus === 2) && updated && now - updated <= 14 * 86400000) return true;
+  if (status === "reported") return !!updated && transientFresh;
+  const apiConfirmed = apiIds.has(String(a.ID ?? a.Id ?? a.EventID ?? a.SourceId ?? ""));
+  if (apiConfirmed) {
+    if (kind === "closure" && closureFlag) return true;
+    return !!updated && transientFresh;
+  }
+  if (!status && kind === "closure" && closureFlag) return true;
+  if (!status && end && start && end >= now && updated && age <= 45*86400000 && kind !== "incident") return true;
+  if (!status && updated && transientFresh) return true;
   return false;
 }
 function decodePolyline(encoded) {
