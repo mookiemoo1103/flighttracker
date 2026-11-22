@@ -4,7 +4,7 @@
 ; Interstates: 5px; other included roads: 3px. Single-color lines only; no generated black casing. Interstate offset 45m and highway offset 50m.
 ; Coverage: Baton Rouge/Livingston, Northshore, Pearl River, Slidell, New Orleans and Mississippi Gulf Coast
 ; Traffic data © TomTom
-; Updated: 2026-11-22T16:22:59.684Z
+; Updated: 2026-11-22T16:23:21.573Z
 Title: SOUTHEAST LOUISIANA LIVE TRAFFIC
 Refresh: 5
 Color: 0 220 0
