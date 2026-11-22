@@ -3,7 +3,7 @@
 ; Current source records only; future-start, expired, cancelled, cleared and stale status-less events are excluded.
 ; Event icons are assigned from DOTD source, event type, subtype and active dates/status.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-22T16:31:28.705Z
+; Updated: 2026-11-22T16:32:18.775Z
 Title: LOUISIANA ROAD EVENTS - 511LA
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
@@ -2113,10 +2113,6 @@ Line: 3, 0, "DOWNMAN RD"
 30.033125, -90.027006
 30.032785, -90.026926
 End:
-Object: 29.854106,-90.061117
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Pothole\n\nRoad: LA 3017\n\nDirection: Both Directions\n\nDescription: Pothole on LA 3017 Both Directions Near Lapalco Blvd. All lanes closed.\n\nParish: Jefferson\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 7/2/2026, 12:00:00 AM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
 Object: 29.672634,-90.621692
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Bridge Closure\n\nRoad: LA 653\n\nDirection: Both Directions\n\nDescription: Bridge Closure on LA 653 Both Directions Near Du Mar Bayou. All lanes closed. Starting 1/8/2026 3:00 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 1/8/2026, 3:00:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
@@ -2756,10 +2752,6 @@ Line: 4, 0, "LA 10"
 30.692776, -91.767396
 30.692786, -91.766986
 End:
-Object: 29.732446,-90.802906
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Downed Power Lines\n\nRoad: LA 24\n\nDirection: Eastbound\n\nDescription: Downed Power Lines on LA 24 Eastbound Near Hunter St. All lanes blocked.\n\nParish: Terrebonne\n\nSeverity: Moderate\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/30/2026, 1:59:00 AM\n\nReporting agency: DOTD\n\nSource: New Orleans TMC"
-End:
 Object: 29.389524,-90.264393
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Closure\n\nRoad: LA 308\n\nDirection: Both Directions\n\nDescription: Closure on LA 308 Both Directions near LA 1. All lanes closed. Starting 11/3/2022 4:00 PM\n\nParish: Lafourche\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/3/2022, 4:00:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
@@ -3188,10 +3180,6 @@ Object: 31.122756,-92.063109
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Utility Work\n\nRoad: LA 452\n\nDirection: Both Directions\n\nDescription: Utility Work on LA 452 Both Directions Near Caldwell St. All lanes closed. Additional Restrictions: Vehicle Restriction No Access For Emergency Starting 6/8/2026 7:00 AM\n\nParish: Avoyelles\n\nSeverity: None\n\nLanes closed: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 6/8/2026, 7:00:00 AM\n\nReporting agency: TMC\n\nSource: Shreveport TMC"
 End:
-Object: 29.917459,-90.008317
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Other\n\nRoad: GENERAL DE GAULLE DR\n\nDirection: Westbound\n\nDescription: Other on Gen de Gaulle Dr Westbound Near Kabel Dr. All lanes closed.\n\nParish: Orleans\n\nSeverity: None\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 8/3/2026, 2:14:00 PM\n\nReporting agency: TMC\n\nSource: New Orleans TMC"
-End:
 Object: 30.246835,-92.066766
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Crash\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Crash on I-10 Westbound Near Ambassador Caffery Pkwy (MM 100). 1 Right lane blocked.\n\nParish: Lafayette\n\nSeverity: Minor\n\nLanes closed: 2\n\nLanes open: 1\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 4:23:00 PM\n\nReporting agency: DOTD\n\nSource: Statewide TMC"
@@ -3220,10 +3208,6 @@ End:
 Object: 30.439351,-91.192853
 Threshold: 999
 Icon: 0,0,0,3,1,1,"TRAFFIC INCIDENT\n\nEvent type: Stalled Vehicle\n\nRoad: I-10\n\nDirection: Westbound\n\nDescription: Stalled Vehicle on I-10 Westbound Near Mississippi River (MM 155). 1 Right lane blocked.\n\nParish: East Baton Rouge\n\nSeverity: Minor\n\nLanes closed: 1\n\nLanes open: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/20/2026, 1:24:00 PM\n\nReporting agency: DOTD\n\nSource: Baton Rouge TMC"
-End:
-Object: 29.543393,-90.717956
-Threshold: 999
-Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Downed Power Lines\n\nRoad: LA 315\n\nDirection: Southbound\n\nDescription: Downed Power Lines on LA 315 Southbound near Crozier Dr. Lane Blocked.\n\nParish: Terrebonne\n\nSeverity: Moderate\n\nLanes closed: 2\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 6/18/2026, 6:35:00 AM\n\nReporting agency: DOTD\n\nSource: Houma TMC"
 End:
 Object: 29.921706,-90.042558
 Threshold: 999
@@ -3383,8 +3367,8 @@ Object: 30.484220,-90.096590
 Threshold: 999
 Icon: 0,0,0,1,1,1,"ROAD CLOSURE\n\nEvent type: Emergency Maintenance\n\nRoad: N COLUMBIA ST\n\nDirection: Northbound\n\nDescription: Emergency Maintenance on LA 437 Northbound Near N Florida St. All lanes blocked. Starting 11/17/2026 3:34 PM\n\nParish: St. Tammany\n\nSeverity: Moderate\n\nLanes closed: 4\n\nLane impact: 1\n\nStatus: Confirmed\n\nReported/start: 11/17/2026, 3:34:00 PM\n\nReporting agency: DOTD\n\nSource: Other - External"
 End:
-; Current events displayed: 166
-; Closures: 89
+; Current events displayed: 162
+; Closures: 85
 ; Construction / roadwork: 50
 ; Incidents: 25
 ; Construction with workers present: 0
