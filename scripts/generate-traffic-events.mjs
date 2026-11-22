@@ -301,21 +301,30 @@ for (const feature of dotdLines) {
     g?.type==="LineString" ? [g.coordinates.map(([lon,lat])=>[lat,lon]).filter(validPoint)].filter(line=>line.length>=2) : [];
   if (paths.length) lineById.set(id,paths);
 }
+// The 511LA Events API is the authoritative event inventory. Its documentation
+// says it returns all traffic events; apply the source dates/schedules here,
+// but never add DOTD-only records to the displayed event list. DOTD's
+// FeatureServer enriches geometry only for an event ID already in the 511LA API.
 const byId = new Map();
+const apiRecordById = new Map();
 for (const a of events511) {
   const record=makeRecord(a,"511LA Events API",[]);
-  if (record) byId.set(record.key,record);
+  if (!record) continue;
+  byId.set(record.key,record);
+  const id=String(record.id ?? "");
+  if (id) apiRecordById.set(id,record);
 }
 const seenDotdIds = new Set();
 for (const feature of [...dotdCentroids,...dotdPoints]) {
   const a=normalizeDotdFeature(feature);
   if (!a) continue;
   const id=String(a.EventID ?? a.ID ?? a.SourceId ?? "");
-  if (id && seenDotdIds.has(id)) continue;
-  if (id) seenDotdIds.add(id);
+  if (!id || seenDotdIds.has(id)) continue;
+  seenDotdIds.add(id);
+  const record=apiRecordById.get(id);
+  if (!record) continue;
   const paths=lineById.get(id) || a._geometryPaths || [];
-  const record=makeRecord(a,"DOTD 511 map",paths);
-  if (record) byId.set(record.key,record);
+  if (paths.some(path=>path.length>=2)) record.paths=paths;
 }
 const events = [...byId.values()];
 console.log("511LA API records:",events511.length,"DOTD map centroids:",dotdCentroids.length,"DOTD point records:",dotdPoints.length,"DOTD line records:",dotdLines.length);
@@ -327,9 +336,9 @@ console.log("511LA events received:",events511.length,"currently effective and m
 await mkdir(OUT,{recursive:true});
 const out = [
   "; Louisiana 511LA current traffic events - separate additive layer",
-  "; Sources: official 511LA Events API + DOTD 511 map layers.",
-  "; Current source records only; future-start, expired, cancelled, cleared and stale status-less events are excluded.",
-  "; Event icons are assigned from DOTD source, event type, subtype and active dates/status.",
+  "; Source of event inventory: official 511LA Events API. DOTD map layers enrich geometry only for matching 511LA event IDs.",
+  "; Only currently effective 511LA API events are listed; future-start, expired, cancelled, cleared and stale status-less events are excluded.",
+  "; Event icons are assigned from 511LA event type/subtype and active dates/status.",
   "; Generated independently of the TomTom speed traffic placefile.",
   "; Updated: " + generatedAt,
   "Title: LOUISIANA ROAD EVENTS - 511LA",
@@ -404,7 +413,7 @@ out.push("; Special events: "+counts.special);
 const geojson = {
   type:"FeatureCollection",
   name:"Louisiana 511LA Current Traffic Events",
-  metadata:{generatedAt,sources:["511LA Events API","DOTD 511 map layers"],eventCount:geoFeatures.length,counts},
+  metadata:{generatedAt,sources:["511LA Events API","DOTD 511 map geometry (matching IDs only)"],eventCount:geoFeatures.length,counts},
   features:geoFeatures
 };
 if (out.filter(line=>line.startsWith("Object:")).length!==geoFeatures.length) throw new Error("Placefile/GeoJSON event count mismatch.");
