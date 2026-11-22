@@ -105,7 +105,7 @@ function classify(a) {
   const type=String(a.EventType??"").toLowerCase().replace(/[^a-z]/g,"");
   const sub=String(a.EventSubType??"").toLowerCase().replace(/[^a-z]/g,"");
   const source=[a.EventSource,a.OwnerName,a.ReportAgency,a._source,a.Organization].filter(Boolean).join(" ").toLowerCase();
-  const desc=String(a.Description??a.Details??"").toLowerCase();
+  const desc=[a.Description,a.Details,a.EventName,a.EventSubType].filter(Boolean).join(" ").toLowerCase();
   const combined=type+sub;
   if(/waze/.test(source+" "+type+" "+sub)) return "waze";
   if(/weather/.test(combined) || /weather report|weather incident|weather closure|fog|ice|snow|wind|visibility|flooding|water over road/.test(desc)) return "weather";
@@ -282,7 +282,12 @@ function makeRecord(a, source, geometryPaths = [], apiIds = new Set()) {
 const [events511, dotdCentroids, dotdPoints, dotdLines] = await Promise.all([
   query511LAEvents(), queryDotdLayer(0), queryDotdLayer(1), queryDotdLayer(2)
 ]);
-const apiIds = new Set(events511.map(a=>String(a.ID ?? a.Id ?? a.SourceId ?? "")));
+const nowMs=Date.now();
+const apiIds = new Set(events511.filter(a=>{
+  const updated=dateMs(a.LastUpdated || a.Reported);
+  const end=dateMs(a.PlannedEndDate || a.EndDate);
+  return (updated && nowMs-updated <= 14*86400000) || (end && end >= nowMs);
+}).map(a=>String(a.ID ?? a.Id ?? a.SourceId ?? "")));
 const lineById = new Map();
 for (const feature of dotdLines) {
   const id=String(feature.properties?.EventID ?? feature.properties?.EventUID ?? "");
