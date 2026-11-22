@@ -4,7 +4,11 @@ const OUT = "traffic-events";
 const ICONS = {
   closure: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png",
   construction: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-construction.png",
-  incident: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-incident.png"
+  incident: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-incident.png",
+  workers: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/construction-workers.png",
+  special: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/special-event.png",
+  weather: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/weather-report.png",
+  waze: "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/waze-report.png"
 };
 const clean = v => String(v ?? "").replaceAll('"', "'").replaceAll("\\", "/").replace(/[\r\n\t]/g, " ").replace(/\s+/g, " ").trim();
 const validPoint = p => Array.isArray(p) && Number.isFinite(p[0]) && Number.isFinite(p[1]) && Math.abs(p[0]) <= 90 && Math.abs(p[1]) <= 180;
@@ -231,7 +235,7 @@ function eventKey(a, kind, position) {
 function popup(a, kind) {
   const direction = ({N:"Northbound",NB:"Northbound",NORTH:"Northbound",S:"Southbound",SB:"Southbound",SOUTH:"Southbound",E:"Eastbound",EB:"Eastbound",EAST:"Eastbound",W:"Westbound",WB:"Westbound",WEST:"Westbound",B:"Both Directions",BOTH:"Both Directions",ALL:"All Directions"})[String(a.TravelDirection || a.DirectionOfTravel || "").toUpperCase()] || a.TravelDirection || a.DirectionOfTravel || "";
   const rawType = a.EventSubType || a.EventType || "Traffic event";
-  const heading=({closure:"ROAD CLOSURE",construction:"CONSTRUCTION / ROADWORK",workers:"CONSTRUCTION / WORKERS PRESENT",incident:"TRAFFIC INCIDENT",weather_incident:"WEATHER INCIDENT",weather_closure:"WEATHER CLOSURE",special:"SPECIAL EVENT",other:"OTHER 511LA EVENT"})[kind]||"TRAFFIC EVENT";
+  const heading=({closure:"ROAD CLOSURE",construction:"CONSTRUCTION / ROADWORK",workers:"CONSTRUCTION / WORKERS PRESENT",incident:"TRAFFIC INCIDENT",weather:"WEATHER REPORT",special:"SPECIAL EVENT",waze:"WAZE REPORT"})[kind]||"TRAFFIC EVENT";
   const start = dateMs(a.EventStartDateUTC || a.EventClosureStartDateUTC || a.StartDate || a.Reported);
   const end = dateMs(a.EventEndDateUTC || a.EventClosureEndDateUTC || a.PlannedEndDate || a.EndDate);
   const lines = [
@@ -300,14 +304,14 @@ console.log("511LA API records:",events511.length,"DOTD map centroids:",dotdCent
 console.log("DOTD EventStatus values:",JSON.stringify(Object.fromEntries([...dotdCentroids.reduce((m,f)=>{const k=String(f.properties?.EventStatus??"(blank)");m.set(k,(m.get(k)||0)+1);return m;},new Map())])));
 
 const generatedAt = new Date().toISOString();
-const counts=Object.fromEntries(["closure","construction","workers","incident","weather_incident","weather_closure","special","other"].map(kind=>[kind,events.filter(e=>e.kind===kind).length]));
+const counts=Object.fromEntries(["closure","incident","construction","workers","special","weather","waze"].map(kind=>[kind,events.filter(e=>e.kind===kind).length]));
 console.log("511LA events received:",events511.length,"currently effective and mapped:",events.length);
 await mkdir(OUT,{recursive:true});
 const out = [
   "; Louisiana 511LA current traffic events - separate additive layer",
-  "; Source: Louisiana 511LA Events API only.",
-  "; Only events returned by 511LA are considered; future-start and expired events are excluded.",
-  "; Icons are assigned from the official EventType and EventSubType fields.",
+  "; Sources: official 511LA Events API + DOTD 511 map layers.",
+  "; Current source records only; future-start, expired, cancelled, cleared and stale status-less events are excluded.",
+  "; Event icons are assigned from DOTD source, event type, subtype and active dates/status.",
   "; Generated independently of the TomTom speed traffic placefile.",
   "; Updated: " + generatedAt,
   "Title: LOUISIANA ROAD EVENTS - 511LA",
@@ -315,9 +319,13 @@ const out = [
   'IconFile: 1, 32, 32, 16, 16, "' + ICONS.closure + '"',
   'IconFile: 2, 32, 32, 16, 16, "' + ICONS.construction + '"',
   'IconFile: 3, 32, 32, 16, 16, "' + ICONS.incident + '"'
+  'IconFile: 4, 32, 32, 16, 16, "' + ICONS.workers + '"'
+  'IconFile: 5, 32, 32, 16, 16, "' + ICONS.special + '"'
+  'IconFile: 6, 32, 32, 16, 16, "' + ICONS.weather + '"'
+  'IconFile: 7, 32, 32, 16, 16, "' + ICONS.waze + '"'
 ];
-const iconNumber={closure:1,construction:2,workers:2,incident:3,weather_incident:3,weather_closure:1,special:2,other:3};
-const lineColor={closure:"220 35 45",construction:"245 145 35",workers:"255 175 45",incident:"150 75 190",weather_incident:"55 145 210",weather_closure:"40 125 205",special:"220 145 45",other:"125 125 145"};
+const iconNumber={closure:1,construction:2,workers:4,incident:3,special:5,weather:6,waze:7};
+const lineColor={closure:"220 35 45",construction:"245 145 35",workers:"255 175 45",incident:"150 75 190",special:"220 145 45",weather:"55 145 210",waze:"35 175 165"};
 const geoFeatures = [];
 for (const event of events) {
   const [lat,lon] = event.position;
@@ -338,6 +346,7 @@ for (const event of events) {
   const props = {
     event_type: event.kind,
     source: event.source,
+    event_source:event.a.EventSource||event.a._source||null,
     source_event_type:event.a.EventType||event.a.EventSubType||null,
     event_subtype: event.a.EventSubType || null,
     event_id: event.id == null ? null : String(event.id),
@@ -370,14 +379,14 @@ out.push("; Closures: " + counts.closure);
 out.push("; Construction / roadwork: " + counts.construction);
 out.push("; Incidents: "+counts.incident);
 out.push("; Construction with workers present: "+counts.workers);
-out.push("; Weather incidents: "+counts.weather_incident);
-out.push("; Weather closures: "+counts.weather_closure);
+out.push("; Weather reports: "+counts.weather);
+out.push("; Waze reports: "+counts.waze);
 out.push("; Special events: "+counts.special);
-out.push("; Other official event types: "+counts.other);
+
 const geojson = {
   type:"FeatureCollection",
   name:"Louisiana 511LA Current Traffic Events",
-  metadata:{generatedAt,sources:["511LA Events API"],eventCount:geoFeatures.length,counts},
+  metadata:{generatedAt,sources:["511LA Events API","DOTD 511 map layers"],eventCount:geoFeatures.length,counts},
   features:geoFeatures
 };
 if (out.filter(line=>line.startsWith("Object:")).length!==geoFeatures.length) throw new Error("Placefile/GeoJSON event count mismatch.");
