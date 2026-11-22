@@ -111,7 +111,7 @@ function classify(a) {
   if(/weather/.test(combined) || /weather report|weather incident|weather closure|fog|ice|snow|wind|visibility|flooding|water over road/.test(desc)) return "weather";
   if(/specialevent|parade|sportingevent|festival/.test(combined) || /parade|festival|special event|sporting event/.test(desc)) return "special";
   if(/workerspresent|workerpresent|workersonsite/.test(sub) || /workers present|workers on site/.test(desc)) return "workers";
-  if(type==="accidentsandincidents" || /crash|collision|accident|stalledvehicle|disabledvehicle|vehiclefire|debris|hazard|overturned|incident/.test(sub) ||
+  if(["accident","accidents","incident","incidents","crash","crashes","accidentsandincidents"].includes(type) || /crash|collision|accident|stalledvehicle|disabledvehicle|vehiclefire|debris|hazard|overturned|incident/.test(sub) ||
      /crash|collision|accident|stalled vehicle|disabled vehicle|vehicle fire|debris|hazard|overturned/.test(desc)) return "incident";
   const fullClosure = a.IsFullClosure === true || a.IsFullClosure === 1 || String(a.IsFullClosure ?? "").toLowerCase() === "true" ||
     a.ClosureExists === 1 || a.LaneStatus === 2;
@@ -175,6 +175,12 @@ function isCurrent(a, apiIds = new Set()) {
   if (end && end < now - 60 * 1000) return false;
   if (/cancel|cancelled|canceled|clear(ed)?|resolved|complete(d)?|expired|inactive|deleted|rejected|void|closed/.test(status)) return false;
   if (/^(active|open|ongoing|in progress|inprogress|current|approved|published|a|1)$/.test(status)) return true;
+  if (status === "confirmed") {
+    if (end && end >= now) return true;
+    if ((a.ClosureExists === 1 || a.LaneStatus === 2) && (!start || start <= now)) return true;
+    return !!(updated && now - updated <= 30 * 86400000);
+  }
+  if (status === "reported") return !!(updated && now - updated <= 7 * 86400000);
   if (apiIds.has(String(a.ID ?? a.Id ?? a.EventID ?? a.SourceId ?? ""))) return true;
   if (!status && end && start && end >= now && updated && now - updated <= 45 * 86400000) return true;
   if (!status && (a.ClosureExists === 1 || a.LaneStatus === 2) && updated && now - updated <= 14 * 86400000) return true;
