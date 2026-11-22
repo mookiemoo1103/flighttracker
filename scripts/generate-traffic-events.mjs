@@ -296,10 +296,15 @@ if (!apiIds.length) throw new Error("511LA API returned no event IDs; refusing t
 // Layer 0 is the actual DOTD/511LA centroid marker layer. Query only IDs in
 // the current API inventory instead of paging through tens of thousands of
 // unrelated/historical GIS records. Layer 2 supplies matching roadway lines.
-const idWhere = "EventID IN (" + apiIds.join(",") + ")";
-const [dotdCentroids, dotdLines] = await Promise.all([
-  queryDotdLayer(0, idWhere), queryDotdLayer(2, idWhere)
+// Keep each ArcGIS where clause short enough for the service/proxy URL limits.
+const idBatches = [];
+for (let i=0;i<apiIds.length;i+=35) idBatches.push(apiIds.slice(i,i+35));
+const [centroidPages,linePages] = await Promise.all([
+  Promise.all(idBatches.map(ids=>queryDotdLayer(0,"EventID IN ("+ids.join(",")+")"))),
+  Promise.all(idBatches.map(ids=>queryDotdLayer(2,"EventID IN ("+ids.join(",")+")")))
 ]);
+const dotdCentroids = centroidPages.flat();
+const dotdLines = linePages.flat();
 const dotdPoints = [];
 const lineById = new Map();
 for (const feature of dotdLines) {
