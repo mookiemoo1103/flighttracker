@@ -273,8 +273,8 @@ function makeRecord(a, source, geometryPaths = [], apiIds = new Set()) {
   const id = a.ID ?? a.Id ?? a.SourceId ?? null;
   return { a, source, kind, id, position, paths, key: eventKey(a,kind,position) };
 }
-const [events511, dotdCentroids, dotdLines] = await Promise.all([
-  query511LAEvents(), queryDotdLayer(0), queryDotdLayer(2)
+const [events511, dotdCentroids, dotdPoints, dotdLines] = await Promise.all([
+  query511LAEvents(), queryDotdLayer(0), queryDotdLayer(1), queryDotdLayer(2)
 ]);
 const apiIds = new Set(events511.map(a=>String(a.ID ?? a.Id ?? a.SourceId ?? "")));
 const lineById = new Map();
@@ -291,16 +291,19 @@ for (const a of events511) {
   const record=makeRecord(a,"511LA Events API",[],apiIds);
   if (record) byId.set(record.key,record);
 }
-for (const feature of dotdCentroids) {
+const seenDotdIds = new Set();
+for (const feature of [...dotdCentroids,...dotdPoints]) {
   const a=normalizeDotdFeature(feature);
   if (!a) continue;
   const id=String(a.EventID ?? a.ID ?? a.SourceId ?? "");
+  if (id && seenDotdIds.has(id)) continue;
+  if (id) seenDotdIds.add(id);
   const paths=lineById.get(id) || a._geometryPaths || [];
   const record=makeRecord(a,"DOTD 511 map",paths,apiIds);
   if (record) byId.set(record.key,record);
 }
 const events = [...byId.values()];
-console.log("511LA API records:",events511.length,"DOTD map centroids:",dotdCentroids.length,"DOTD line records:",dotdLines.length);
+console.log("511LA API records:",events511.length,"DOTD map centroids:",dotdCentroids.length,"DOTD point records:",dotdPoints.length,"DOTD line records:",dotdLines.length);
 console.log("DOTD EventStatus values:",JSON.stringify(Object.fromEntries([...dotdCentroids.reduce((m,f)=>{const k=String(f.properties?.EventStatus??"(blank)");m.set(k,(m.get(k)||0)+1);return m;},new Map())])));
 
 const generatedAt = new Date().toISOString();
@@ -318,10 +321,10 @@ const out = [
   "Refresh: 5",
   'IconFile: 1, 32, 32, 16, 16, "' + ICONS.closure + '"',
   'IconFile: 2, 32, 32, 16, 16, "' + ICONS.construction + '"',
-  'IconFile: 3, 32, 32, 16, 16, "' + ICONS.incident + '"'
-  'IconFile: 4, 32, 32, 16, 16, "' + ICONS.workers + '"'
-  'IconFile: 5, 32, 32, 16, 16, "' + ICONS.special + '"'
-  'IconFile: 6, 32, 32, 16, 16, "' + ICONS.weather + '"'
+  'IconFile: 3, 32, 32, 16, 16, "' + ICONS.incident + '"',
+  'IconFile: 4, 32, 32, 16, 16, "' + ICONS.workers + '"',
+  'IconFile: 5, 32, 32, 16, 16, "' + ICONS.special + '"',
+  'IconFile: 6, 32, 32, 16, 16, "' + ICONS.weather + '"',
   'IconFile: 7, 32, 32, 16, 16, "' + ICONS.waze + '"'
 ];
 const iconNumber={closure:1,construction:2,workers:4,incident:3,special:5,weather:6,waze:7};
