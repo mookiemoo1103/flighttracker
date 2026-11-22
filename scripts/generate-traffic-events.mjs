@@ -267,15 +267,37 @@ function makeRecord(a, source, geometryPaths = [], apiIds = new Set()) {
   const position = centerOf(paths, primary);
   if (!position || !withinCoverage(position)) return null;
   const id = a.ID ?? a.Id ?? a.SourceId ?? null;
-  return { a, source:"511LA", kind, id, position, paths, key: eventKey(a,kind,position) };
+  return { a, source, kind, id, position, paths, key: eventKey(a,kind,position) };
 }
-const events511 = await query511LAEvents();
+const [events511, dotdCentroids, dotdLines] = await Promise.all([
+  query511LAEvents(), queryDotdLayer(0), queryDotdLayer(2)
+]);
+const apiIds = new Set(events511.map(a=>String(a.ID ?? a.Id ?? a.SourceId ?? "")));
+const lineById = new Map();
+for (const feature of dotdLines) {
+  const id=String(feature.properties?.EventID ?? feature.properties?.EventUID ?? "");
+  if (!id) continue;
+  const g=feature.geometry;
+  const paths=g?.type==="MultiLineString" ? g.coordinates.map(line=>line.map(([lon,lat])=>[lat,lon]).filter(validPoint)).filter(line=>line.length>=2) :
+    g?.type==="LineString" ? [g.coordinates.map(([lon,lat])=>[lat,lon]).filter(validPoint)].filter(line=>line.length>=2) : [];
+  if (paths.length) lineById.set(id,paths);
+}
 const byId = new Map();
 for (const a of events511) {
-  const record = makeRecord(a,"511LA");
+  const record=makeRecord(a,"511LA Events API",[],apiIds);
+  if (record) byId.set(record.key,record);
+}
+for (const feature of dotdCentroids) {
+  const a=normalizeDotdFeature(feature);
+  if (!a) continue;
+  const id=String(a.EventID ?? a.ID ?? a.SourceId ?? "");
+  const paths=lineById.get(id) || a._geometryPaths || [];
+  const record=makeRecord(a,"DOTD 511 map",paths,apiIds);
   if (record) byId.set(record.key,record);
 }
 const events = [...byId.values()];
+console.log("511LA API records:",events511.length,"DOTD map centroids:",dotdCentroids.length,"DOTD line records:",dotdLines.length);
+console.log("DOTD EventStatus values:",JSON.stringify(Object.fromEntries([...dotdCentroids.reduce((m,f)=>{const k=String(f.properties?.EventStatus??"(blank)");m.set(k,(m.get(k)||0)+1);return m;},new Map())])));
 
 const generatedAt = new Date().toISOString();
 const counts=Object.fromEntries(["closure","construction","workers","incident","weather_incident","weather_closure","special","other"].map(kind=>[kind,events.filter(e=>e.kind===kind).length]));
