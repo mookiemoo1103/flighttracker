@@ -111,8 +111,8 @@ function classify(a) {
   if(/weather/.test(combined) || /weather report|weather incident|weather closure|fog|ice|snow|wind|visibility|flooding|water over road/.test(desc)) return "weather";
   if(/specialevent|parade|sportingevent|festival/.test(combined) || /parade|festival|special event|sporting event/.test(desc)) return "special";
   if(/workerspresent|workerpresent|workersonsite/.test(sub) || /workers present|workers on site/.test(desc)) return "workers";
-  if(["accident","accidents","incident","incidents","crash","crashes","accidentsandincidents"].includes(type) || /crash|collision|accident|stalledvehicle|disabledvehicle|vehiclefire|debris|hazard|overturned|incident/.test(sub) ||
-     /crash|collision|accident|stalled vehicle|disabled vehicle|vehicle fire|debris|hazard|overturned/.test(desc)) return "incident";
+  if(["accident","accidents","incident","incidents","crash","crashes","accidentsandincidents","obstruction","obstructions"].includes(type) || /crash|collision|accident|stalledvehicle|disabledvehicle|vehiclefire|debris|hazard|overturned|incident|pothole|downedpowerlines|roadobstruction/.test(sub) ||
+     /crash|collision|accident|stalled vehicle|disabled vehicle|vehicle fire|debris|hazard|overturned|pothole|downed power lines|road obstruction/.test(desc)) return "incident";
   const fullClosure = a.IsFullClosure === true || a.IsFullClosure === 1 || String(a.IsFullClosure ?? "").toLowerCase() === "true" ||
     a.ClosureExists === 1 || a.LaneStatus === 2;
   if(type==="closures" || fullClosure || /closure|closed/.test(type+sub) || /road closed|bridge closed|all lanes closed|floodgate closure|road closure:/.test(desc)) return "closure";
