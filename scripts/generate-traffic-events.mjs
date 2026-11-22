@@ -54,6 +54,46 @@ async function query511LAEvents() {
   }));
 }
 
+async function queryDotdLayer(layer) {
+  const base = "https://maps.dotd.la.gov/gdw/rest/services/Road_Closures/511_Road_Closures/FeatureServer/" + layer + "/query";
+  const features = [];
+  const pageSize = 1000;
+  for (let offset = 0; offset < 50000; offset += pageSize) {
+    const url = new URL(base);
+    url.searchParams.set("where", "(EventStartDateUTC IS NULL OR EventStartDateUTC <= CURRENT_TIMESTAMP) AND (EventEndDateUTC IS NULL OR EventEndDateUTC >= CURRENT_TIMESTAMP)");
+    url.searchParams.set("outFields", "*");
+    url.searchParams.set("returnGeometry", "true");
+    url.searchParams.set("outSR", "4326");
+    url.searchParams.set("f", "geojson");
+    url.searchParams.set("resultOffset", String(offset));
+    url.searchParams.set("resultRecordCount", String(pageSize));
+    const res = await fetch(url, {headers:{Accept:"application/geo+json,application/json","Cache-Control":"no-cache"},signal:AbortSignal.timeout(60000)});
+    if (!res.ok) throw new Error("DOTD 511 FeatureServer layer " + layer + " returned HTTP " + res.status);
+    const data = await res.json();
+    if (data.error) throw new Error("DOTD 511 layer " + layer + ": " + JSON.stringify(data.error));
+    const page = Array.isArray(data.features) ? data.features : [];
+    features.push(...page);
+    if (page.length < pageSize || data.exceededTransferLimit === false) break;
+  }
+  return features;
+}
+function normalizeDotdFeature(feature) {
+  const p = feature.properties || {};
+  const g = feature.geometry || {};
+  const coords = g.type === "Point" ? [g.coordinates] : g.type === "MultiLineString" ? g.coordinates.flat() : g.type === "LineString" ? g.coordinates : [];
+  const point = coords.find(c => Array.isArray(c) && Number.isFinite(c[0]) && Number.isFinite(c[1]));
+  if (!point) return null;
+  const paths = g.type === "MultiLineString" ? g.coordinates.map(line=>line.map(([lon,lat])=>[lat,lon]).filter(validPoint)).filter(line=>line.length>=2) :
+    g.type === "LineString" ? [g.coordinates.map(([lon,lat])=>[lat,lon]).filter(validPoint)].filter(line=>line.length>=2) : [];
+  return {...p, ID:p.EventID ?? p.EventUID ?? p.OBJECTID, SourceId:p.EventUID ?? p.EventID ?? p.OBJECTID,
+    RoadwayName:p.RoadName || p.EventName || "", DirectionOfTravel:p.TravelDirection || "",
+    Latitude:point[1], Longitude:point[0], StartDate:p.EventStartDateUTC ?? p.EventStartDateLocal ?? p.EventStartDateOriginal,
+    PlannedEndDate:p.EventEndDateUTC ?? p.EventEndDateLocal ?? p.EventEndDateOriginal,
+    LastUpdated:p.EventLastUpdatedUTC ?? p.EventLastUpdatedLocal ?? p.EventLastUpdatedOriginal,
+    IsFullClosure:p.ClosureExists === 1 || p.LaneStatus === 2 || p.LanesClosed === "All",
+    Description:p.Description || p.EventName || "", _source:"DOTD 511 map layer", _geometryPaths:paths};
+}
+
 function normalizeType(a) {
   return String(a.EventType ?? "").toLowerCase().replace(/[^a-z]/g, "");
 }
