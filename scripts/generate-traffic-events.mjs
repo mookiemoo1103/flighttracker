@@ -98,40 +98,22 @@ function normalizeType(a) {
   return String(a.EventType ?? "").toLowerCase().replace(/[^a-z]/g, "");
 }
 function classify(a) {
-  const type=normalizeType(a);
+  const type=String(a.EventType??"").toLowerCase().replace(/[^a-z]/g,"");
   const sub=String(a.EventSubType??"").toLowerCase().replace(/[^a-z]/g,"");
+  const source=String(a.EventSource??a._source??a.Organization??"").toLowerCase();
   const desc=String(a.Description??a.Details??"").toLowerCase();
   const combined=type+sub;
-  const fullClosure = a.IsFullClosure === true || a.IsFullClosure === 1 ||
-    String(a.IsFullClosure ?? "").toLowerCase() === "true";
-
-  // The API's event type/subtype describe the event itself. Never infer a
-  // road closure solely from IsFullClosure: crashes can block all lanes too.
-  if(type==="accidentsandincidents" ||
-     /crash|collision|accident|stalledvehicle|disabledvehicle|vehiclefire|debris|hazard|overturned|incident/.test(sub) ||
+  if(/waze/.test(source+" "+type+" "+sub)) return "waze";
+  if(/weather/.test(combined) || /weather report|weather incident|weather closure|fog|ice|snow|wind|visibility|flooding|water over road/.test(desc)) return "weather";
+  if(/specialevent|parade|sportingevent|festival/.test(combined) || /parade|festival|special event|sporting event/.test(desc)) return "special";
+  if(/workerspresent|workerpresent|workersonsite/.test(sub) || /workers present|workers on site/.test(desc)) return "workers";
+  if(type==="accidentsandincidents" || /crash|collision|accident|stalledvehicle|disabledvehicle|vehiclefire|debris|hazard|overturned|incident/.test(sub) ||
      /crash|collision|accident|stalled vehicle|disabled vehicle|vehicle fire|debris|hazard|overturned/.test(desc)) return "incident";
-
-  if(type==="weatherconditions" || /weather|flood|fog|ice|snow|wind|visibility|water|smoke/.test(combined) ||
-     /flood|fog|ice|snow|wind|weather|water over road|smoke/.test(desc)) {
-    if(fullClosure || /closure|closed/.test(sub) || /road closed|bridge closed|all lanes closed/.test(desc)) return "weather_closure";
-    return "weather_incident";
-  }
-
-  if(/specialevent|parade|sportingevent|festival/.test(combined) ||
-     /parade|festival|special event|sporting event/.test(desc)) return "special";
-
-  if(type==="closures" || fullClosure || /closure|closed/.test(type+sub) ||
-     /road closed|bridge closed|all lanes closed|floodgate closure|road closure:/.test(desc) ||
-     /all lanes closed|road closed|bridge closed/.test(String(a.LanesAffected ?? "").toLowerCase())) return "closure";
-
-  if(/workerspresent|workerpresent|workersonsite/.test(sub) ||
-     /workers present|workers on site/.test(desc)) return "workers";
-
+  const fullClosure = a.IsFullClosure === true || a.IsFullClosure === 1 || String(a.IsFullClosure ?? "").toLowerCase() === "true" ||
+    a.ClosureExists === 1 || a.LaneStatus === 2;
+  if(type==="closures" || fullClosure || /closure|closed/.test(type+sub) || /road closed|bridge closed|all lanes closed|floodgate closure|road closure:/.test(desc)) return "closure";
   if(type==="roadwork" || /roadwork|construction|workzone|maintenance|utilitywork|roadmarking|paving/.test(type+sub) ||
      /construction|road work|work zone|maintenance|utility work|road marking|paving/.test(desc)) return "construction";
-
-  // Do not guess an icon for an event subtype we do not recognize.
-  // Skipping unknown types is safer than showing a misleading symbol.
   return null;
 }
 function localClock(now) {
@@ -179,16 +161,20 @@ function isScheduleActive(schedules, now) {
     });
   });
 }
-function isCurrent(a) {
+function isCurrent(a, apiIds = new Set()) {
   const now = Date.now();
-  const start = dateMs(a.StartDate || a.Reported);
-  const end = dateMs(a.PlannedEndDate);
-  // The 511LA Events API is the sole source of truth. The record must also
-  // be within its actual start/end and recurrence window right now.
+  const start = dateMs(a.StartDate || a.EventStartDateUTC || a.Reported);
+  const end = dateMs(a.PlannedEndDate || a.EventEndDateUTC || a.EventClosureEndDateUTC);
+  const updated = dateMs(a.LastUpdated || a.EventLastUpdatedUTC || a.EventLastUpdatedLocal);
+  const status = String(a.EventStatus || a.Status || "").trim().toLowerCase();
   if (start && start > now + 60 * 1000) return false;
   if (end && end < now - 60 * 1000) return false;
-  if (!isScheduleActive(a.RecurrenceSchedules, now)) return false;
-  return true;
+  if (/cancel|cancelled|canceled|clear(ed)?|resolved|complete(d)?|expired|inactive|deleted|rejected|void|closed/.test(status)) return false;
+  if (/^(active|open|ongoing|in progress|inprogress|current|approved|published|a|1)$/.test(status)) return true;
+  if (apiIds.has(String(a.ID ?? a.Id ?? a.EventID ?? a.SourceId ?? ""))) return true;
+  if (!status && end && start && end >= now && updated && now - updated <= 45 * 86400000) return true;
+  if (!status && (a.ClosureExists === 1 || a.LaneStatus === 2) && updated && now - updated <= 14 * 86400000) return true;
+  return false;
 }
 function decodePolyline(encoded) {
   if (!encoded || typeof encoded !== "string") return [];
@@ -271,13 +257,13 @@ function popup(a, kind) {
   ].filter(Boolean).map(clean);
   return lines.length ? lines[0] + "\\n\\n" + lines.slice(1).join("\\n\\n") : heading;
 }
-function makeRecord(a, source, geometryPaths = []) {
+function makeRecord(a, source, geometryPaths = [], apiIds = new Set()) {
   const kind = classify(a);
-  if (!kind || !isCurrent(a)) return null;
+  if (!kind || !isCurrent(a,apiIds)) return null;
   const encoded = decodePolyline(a.EncodedPolyline || a.MapEncodedPolyline || "");
   const secondary = [Number(a.LatitudeSecondary), Number(a.LongitudeSecondary)];
   const primary = [Number(a.Latitude ?? a.latitude), Number(a.Longitude ?? a.longitude)];
-  const paths = geometryPaths.length ? geometryPaths : encoded.length >= 2 ? [encoded] : validPoint(primary) && validPoint(secondary) && (primary[0] !== secondary[0] || primary[1] !== secondary[1]) ? [[primary, secondary]] : validPoint(primary) ? [[primary]] : validPoint(secondary) ? [[secondary]] : [];
+  const paths = geometryPaths.length ? geometryPaths : (a._geometryPaths?.length ? a._geometryPaths : encoded.length >= 2 ? [encoded] : validPoint(primary) && validPoint(secondary) && (primary[0] !== secondary[0] || primary[1] !== secondary[1]) ? [[primary, secondary]] : validPoint(primary) ? [[primary]]  : validPoint(secondary) ? [[secondary]] : []);
   const position = centerOf(paths, primary);
   if (!position || !withinCoverage(position)) return null;
   const id = a.ID ?? a.Id ?? a.SourceId ?? null;
