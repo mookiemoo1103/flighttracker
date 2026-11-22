@@ -52,7 +52,7 @@ jobs:
           test -s traffic-events/assets/waze-report.png
           grep -q 'Source: TomTom Traffic Flow Vector Tiles' traffic.txt
           ! grep -q '511LA / DOTD EVENT LAYER' traffic.txt
-          grep -q 'Sources: official 511LA Events API + DOTD 511 map layers.' traffic-events/traffic-events.txt
+          grep -q 'Visible markers come only from official DOTD 511LA centroid layer records' traffic-events/traffic-events.txt
           node --input-type=module -e '
             import { readFile } from "node:fs/promises";
             const roads=JSON.parse(await readFile("traffic.geojson","utf8"));
@@ -60,7 +60,7 @@ jobs:
             if(roads.type!=="FeatureCollection" || !Array.isArray(roads.features) || !roads.features.length) throw Error("TomTom GeoJSON is invalid or empty");
             if(events.type!=="FeatureCollection" || !Array.isArray(events.features)) throw Error("Event GeoJSON is invalid");
             if(!String(roads.metadata?.source||"").includes("TomTom")) throw Error("TomTom source metadata missing");
-            if(!Array.isArray(events.metadata?.sources) || !events.metadata.sources.includes("511LA Events API") || !events.metadata.sources.includes("DOTD 511 map layers")) throw Error("Event feed must use only the 511LA Events API");
+            if(!Array.isArray(events.metadata?.sources) || !events.metadata.sources.includes("511LA Events API") || !events.metadata.sources.some(s=>s.includes("DOTD 511LA centroid marker layer"))) throw Error("Event feed must use only the 511LA Events API");
             if(roads.features.some(f=>f.properties?.source || f.properties?.layer==="511la-dotd-events")) throw Error("Non-TomTom event data found in TomTom GeoJSON");
             if(roads.features.some(f=>f.geometry?.type!=="LineString")) throw Error("Unexpected geometry in TomTom GeoJSON");
             if(events.features.some(f=>!["Point","MultiLineString"].includes(f.geometry?.type))) throw Error("Unexpected geometry in event GeoJSON");
