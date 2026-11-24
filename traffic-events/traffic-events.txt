@@ -3,7 +3,7 @@
 ; Only Confirmed or Reported DOTD centroid markers matched to current 511LA API event IDs are listed.
 ; Marker location and category follow the DOTD 511LA centroid layer; API data enriches popup details.
 ; Generated independently of the TomTom speed traffic placefile.
-; Updated: 2026-11-23T14:20:52.126Z
+; Updated: 2026-11-24T01:43:37.921Z
 Title: LOUISIANA ROAD EVENTS - 511LA
 Refresh: 5
 IconFile: 1, 32, 32, 16, 16, "https://raw.githubusercontent.com/mookiemoo1103/flighttracker/main/traffic-events/assets/road-closure.png"
